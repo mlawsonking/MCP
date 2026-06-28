@@ -3,59 +3,98 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent Tools API — deterministic utilities for AI agents</title>
+<title>Agent Tools — 10 deterministic web utilities for AI agents</title>
+<meta name="description" content="10 free, deterministic web-utility APIs for AI agents & developers — read pages as Markdown, unfurl metadata, validate email, scrape with CSS, parse feeds, DNS/RDAP/SSL/HTTP/structured-data. One MCP server.">
 <style>
-  :root{--bg:#0b1220;--card:#121b2e;--fg:#e7edf5;--muted:#9fb0c6;--a:#7c5cff;--b:#2f7df0}
-  *{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#0b1220,#140d2e);color:var(--fg)}
-  .wrap{max-width:900px;margin:0 auto;padding:48px 20px 80px}
-  h1{font-size:2.1rem;margin:0 0 .3em;letter-spacing:-.5px}
-  .tag{display:inline-block;background:rgba(124,92,255,.15);color:var(--a);border:1px solid rgba(124,92,255,.4);padding:.2em .7em;border-radius:999px;font-size:.8rem;font-weight:600}
-  p.lead{color:var(--muted);font-size:1.1rem;line-height:1.5}
-  .tool{background:var(--card);border:1px solid #221a44;border-radius:14px;padding:18px 20px;margin:16px 0}
-  .tool h3{margin:.1em 0 .3em} code{font-family:ui-monospace,Menlo,Consolas,monospace;color:#c9b8ff}
-  pre{background:#0a1120;border:1px solid #221a44;border-radius:10px;padding:12px;overflow:auto;color:#cfe0f5;font-size:.85rem}
-  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
-  input{flex:1;min-width:220px;background:#0a1120;border:1px solid #3a2f6a;color:var(--fg);padding:10px 12px;border-radius:9px}
-  button{background:linear-gradient(135deg,var(--a),var(--b));color:#0a0820;border:0;font-weight:800;padding:10px 16px;border-radius:9px;cursor:pointer}
-  .out{white-space:pre-wrap;max-height:220px;overflow:auto;margin-top:8px;display:none}
-  .muted{color:var(--muted)}
+  :root{--bg:#0a0f1e;--card:#121b2e;--fg:#e7edf5;--muted:#9fb0c6;--a:#7c5cff;--b:#2f7df0;--g:#3ad29f}
+  *{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:radial-gradient(1200px 600px at 70% -10%,#1a1240,#0a0f1e);color:var(--fg)}
+  .wrap{max-width:980px;margin:0 auto;padding:54px 20px 90px}
+  .tag{display:inline-block;background:rgba(58,210,159,.15);color:var(--g);border:1px solid rgba(58,210,159,.35);padding:.2em .7em;border-radius:999px;font-size:.8rem;font-weight:600}
+  h1{font-size:2.5rem;margin:.3em 0 .2em;letter-spacing:-1px}
+  .lead{color:var(--muted);font-size:1.15rem;line-height:1.55;max-width:680px}
+  .cta{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0 8px}
+  .btn{display:inline-flex;align-items:center;gap:.5em;text-decoration:none;font-weight:700;padding:11px 16px;border-radius:10px}
+  .btn.p{background:linear-gradient(135deg,var(--a),var(--b));color:#0a0820}
+  .btn.s{background:#16203a;color:var(--fg);border:1px solid #28365a}
+  code,pre{font-family:ui-monospace,Menlo,Consolas,monospace}
+  pre{background:#0a1120;border:1px solid #22305030;border-radius:10px;padding:12px;overflow:auto;color:#cfe0f5;font-size:.85rem}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:26px 0}
+  @media(max-width:720px){.grid{grid-template-columns:1fr}}
+  .tool{background:var(--card);border:1px solid #1f2c49;border-radius:12px;padding:14px 16px}
+  .tool h3{margin:0 0 .25em;font-size:1.02rem}
+  .tool .ep{color:var(--a);font-size:.82rem}
+  .tool p{margin:.35em 0 0;color:var(--muted);font-size:.9rem;line-height:1.4}
+  .try{margin:30px 0;background:var(--card);border:1px solid #1f2c49;border-radius:12px;padding:18px}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  select,input{background:#0a1120;border:1px solid #2a3a5a;color:var(--fg);padding:11px 12px;border-radius:9px}
+  input{flex:1;min-width:200px}
+  button{background:linear-gradient(135deg,var(--a),var(--b));color:#0a0820;border:0;font-weight:800;padding:11px 16px;border-radius:9px;cursor:pointer}
+  .out{white-space:pre-wrap;max-height:300px;overflow:auto;margin-top:12px;display:none}
+  .muted{color:var(--muted)} a{color:var(--g)}
+  h2{margin-top:40px}
 </style>
 </head>
 <body>
 <div class="wrap">
-  <span class="tag">Engine #2 · live suite</span>
-  <h1>Agent Tools API</h1>
-  <p class="lead">Boring, deterministic web utilities every AI agent and app needs — one reliable call each. No LLM, no keys for the free tier.</p>
+  <span class="tag">live · free tier · one MCP server</span>
+  <h1>Agent Tools</h1>
+  <p class="lead">Ten boring-but-essential web utilities every AI agent and app needs — each one
+  reliable HTTP call, deterministic, no LLM, no keys. Use them directly, or drop the whole set into
+  your agent as a single MCP server.</p>
 
-  <div class="tool">
-    <h3>📧 Email validation <span class="muted">— /api/validate-email</span></h3>
-    <p class="muted">Syntax + live MX/A DNS + disposable / role / free-provider detection. No SMTP probe.</p>
-    <div class="row"><input id="e_in" placeholder="someone@example.com"><button onclick="run('validate-email','email','e_in','e_out')">Validate</button></div>
-    <pre class="out" id="e_out"></pre>
+  <div class="cta">
+    <a class="btn p" href="https://github.com/mlawsonking/MCP">★ GitHub</a>
+    <a class="btn s" href="https://www.npmjs.com/package/web-tools-mcp">npm: web-tools-mcp</a>
+  </div>
+  <pre># add all 10 tools to any MCP client (Claude, Cursor, Claude Code)
+{ "mcpServers": { "agent-tools": { "command": "npx", "args": ["-y", "web-tools-mcp"] } } }</pre>
+
+  <div class="try">
+    <strong>Try it live</strong>
+    <div class="row" style="margin-top:10px">
+      <select id="ep">
+        <option value="read?url=">read — URL → Markdown</option>
+        <option value="meta?url=">meta — URL → metadata</option>
+        <option value="validate-email?email=">validate-email</option>
+        <option value="dns?domain=">dns — records + SPF/DMARC</option>
+        <option value="domain?name=">domain — RDAP age/registrar</option>
+        <option value="ssl?host=">ssl — certificate</option>
+        <option value="http?url=">http — redirects + headers</option>
+        <option value="structured?url=">structured — JSON-LD/schema</option>
+        <option value="feed?url=">feed — RSS/Atom → JSON</option>
+      </select>
+      <input id="val" placeholder="example.com / someone@example.com">
+      <button id="go">Call</button>
+    </div>
+    <pre class="out" id="out"></pre>
   </div>
 
-  <div class="tool">
-    <h3>🧲 Web extract <span class="muted">— /api/extract</span></h3>
-    <p class="muted">URL + CSS selectors → structured JSON. <code>"css"</code> text, <code>"css@attr"</code> attribute, <code>"css[]"</code> all.</p>
-    <pre>GET /api/extract?url=https://news.ycombinator.com&selectors={"titles":".titleline a[]"}</pre>
-    <div class="row"><input id="x_in" placeholder="https://example.com"><button onclick="runExtract()">Extract h1/links</button></div>
-    <pre class="out" id="x_out"></pre>
+  <h2>The 10 tools</h2>
+  <div class="grid">
+    <div class="tool"><h3>URL → Markdown <span class="ep">/api/read</span></h3><p>Main page content as clean Markdown — RAG-ready.</p></div>
+    <div class="tool"><h3>URL → Metadata <span class="ep">/api/meta</span></h3><p>Title, description, image, site, favicon, canonical.</p></div>
+    <div class="tool"><h3>Email validation <span class="ep">/api/validate-email</span></h3><p>Syntax + live MX/DNS + disposable/role/free detection.</p></div>
+    <div class="tool"><h3>Web extract <span class="ep">/api/extract</span></h3><p>Scrape any page with CSS selectors → structured JSON.</p></div>
+    <div class="tool"><h3>RSS/Atom → JSON <span class="ep">/api/feed</span></h3><p>Any feed → clean JSON items for agents/automations.</p></div>
+    <div class="tool"><h3>DNS records <span class="ep">/api/dns</span></h3><p>A/MX/TXT/CAA… plus SPF/DMARC email-auth.</p></div>
+    <div class="tool"><h3>Domain info <span class="ep">/api/domain</span></h3><p>RDAP: domain age, registrar, expiry — a trust signal.</p></div>
+    <div class="tool"><h3>SSL certificate <span class="ep">/api/ssl</span></h3><p>Issuer, validity, days-to-expiry, SANs, trust.</p></div>
+    <div class="tool"><h3>HTTP inspector <span class="ep">/api/http</span></h3><p>Redirect chain + security-header report.</p></div>
+    <div class="tool"><h3>Structured data <span class="ep">/api/structured</span></h3><p>JSON-LD / schema.org / OpenGraph extraction.</p></div>
   </div>
 
-  <div class="tool">
-    <h3>📰 RSS/Atom → JSON <span class="muted">— /api/feed</span></h3>
-    <p class="muted">Any feed URL → clean JSON items. For agents/automations watching sites.</p>
-    <div class="row"><input id="f_in" placeholder="https://news.ycombinator.com/rss"><button onclick="run('feed','url','f_in','f_out')">Parse feed</button></div>
-    <pre class="out" id="f_out"></pre>
-  </div>
-
-  <p class="muted" style="margin-top:28px;font-size:.85rem;">Part of an experiment in autonomous, machine-payable micro-tools. More tools shipping continuously.</p>
+  <p class="muted" style="margin-top:36px;font-size:.85rem">Hardened (SSRF-guarded, timeouts, size caps). Deterministic — same input, same output. <a href="https://github.com/mlawsonking/MCP">Open source (MIT)</a>.</p>
 </div>
 <script>
-  async function show(id, url){ const o=document.getElementById(id); o.style.display='block'; o.textContent='…';
-    try{ const r=await fetch(url); o.textContent=JSON.stringify(await r.json(),null,2);}catch(e){o.textContent='⚠ '+e.message;} }
-  function run(path, param, inId, outId){ const v=document.getElementById(inId).value.trim(); if(!v)return; show(outId, '/api/'+path+'?'+param+'='+encodeURIComponent(v)); }
-  function runExtract(){ const v=document.getElementById('x_in').value.trim()||'https://example.com'; const sel=JSON.stringify({h1:'h1',links:'a[]@href'}); show('x_out','/api/extract?url='+encodeURIComponent(v)+'&selectors='+encodeURIComponent(sel)); }
+  const $=(id)=>document.getElementById(id);
+  async function run(){
+    const ep=$('ep').value, v=$('val').value.trim(); if(!v)return;
+    const o=$('out'); o.style.display='block'; o.textContent='…';
+    try{ const r=await fetch('/api/'+ep+encodeURIComponent(v)); o.textContent=JSON.stringify(await r.json(),null,2).slice(0,6000); }
+    catch(e){ o.textContent='⚠ '+e.message; }
+  }
+  $('go').addEventListener('click',run);
+  $('val').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
 </script>
 </body>
 </html>

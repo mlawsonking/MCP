@@ -1,0 +1,10 @@
+# Smithery config for the web-tools-mcp MCP server (published to npm).
+# Lets Smithery (and compatible registries) install/run the server via npx.
+startCommand:
+  type: stdio
+  configSchema:
+    type: object
+    properties: {}
+    additionalProperties: false
+  commandFunction: |-
+    (config) => ({ command: "npx", args: ["-y", "web-tools-mcp"] })
