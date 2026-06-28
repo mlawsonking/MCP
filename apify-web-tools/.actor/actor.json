@@ -1,0 +1,16 @@
+{
+  "actorSpecification": 1,
+  "name": "web-tools",
+  "title": "Web Tools — 10 deterministic web utilities",
+  "description": "Read URLs as Markdown, unfurl metadata, validate email, scrape with CSS, parse RSS/Atom, and DNS/RDAP/SSL/HTTP/structured-data. One Actor, pick a tool per run.",
+  "version": "0.1",
+  "input": "./input_schema.json",
+  "dockerfile": "../Dockerfile",
+  "storages": {
+    "dataset": {
+      "actorSpecification": 1,
+      "title": "Tool results",
+      "views": {}
+    }
+  }
+}

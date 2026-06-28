@@ -1,0 +1,24 @@
+{
+  "title": "Web Tools input",
+  "type": "object",
+  "schemaVersion": 1,
+  "properties": {
+    "tool": {
+      "title": "Tool",
+      "type": "string",
+      "description": "Which utility to run.",
+      "editor": "select",
+      "enum": ["read", "meta", "validate-email", "extract", "feed", "dns", "domain", "ssl", "http", "structured"],
+      "default": "read"
+    },
+    "url": { "title": "URL", "type": "string", "description": "For read / meta / extract / feed / http / structured.", "editor": "textfield" },
+    "email": { "title": "Email", "type": "string", "description": "For validate-email.", "editor": "textfield" },
+    "domain": { "title": "Domain", "type": "string", "description": "For dns / domain / ssl.", "editor": "textfield" },
+    "host": { "title": "Host", "type": "string", "description": "For ssl (alias of domain).", "editor": "textfield" },
+    "name": { "title": "Name", "type": "string", "description": "For domain (alias).", "editor": "textfield" },
+    "selectors": { "title": "Selectors", "type": "object", "description": "For extract: {\"key\":\"css selector\"} (suffix @attr / []).", "editor": "json" },
+    "limit": { "title": "Limit", "type": "integer", "description": "For feed: max items.", "editor": "number", "default": 25 },
+    "format": { "title": "Format", "type": "string", "description": "For read: json or markdown.", "editor": "select", "enum": ["json", "markdown"], "default": "json" }
+  },
+  "required": ["tool"]
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.json",
+  "name": "io.github.mlawsonking/web-tools-mcp",
+  "description": "10 deterministic web utility tools for AI agents: read URLs as Markdown, unfurl link metadata, validate email, scrape with CSS selectors, parse RSS/Atom feeds, and DNS/RDAP/SSL/HTTP/structured-data.",
+  "repository": {
+    "url": "https://github.com/mlawsonking/MCP",
+    "source": "github"
+  },
+  "version": "1.0.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "web-tools-mcp",
+      "version": "1.0.1",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}

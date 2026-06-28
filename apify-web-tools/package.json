@@ -1,0 +1,9 @@
+{
+  "name": "web-tools-actor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Apify Actor wrapping the 10 Agent Tools web utilities.",
+  "scripts": { "start": "node src/main.js" },
+  "dependencies": { "apify": "^3.2.6" }
+}
