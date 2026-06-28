@@ -14,7 +14,7 @@ Claude Code, …).
 // add to your client's mcpServers config
 {
   "mcpServers": {
-    "agent-tools": { "command": "npx", "args": ["-y", "agent-tools-mcp"] }
+    "agent-tools": { "command": "npx", "args": ["-y", "web-tools-mcp"] }
   }
 }
 ```

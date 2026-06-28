@@ -9,6 +9,8 @@ package-lock.json
 
 # owner-specific ops scripts & business/strategy docs — NOT for the public repo
 **/deploy.ps1
+**/.npmrc
 GETTING-PAID.md
 LAUNCH.md
+RAPIDAPI-LISTING.md
 browser_path.txt

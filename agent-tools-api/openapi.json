@@ -1,0 +1,116 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Agent Tools — Web Utilities & Intelligence",
+    "description": "Ten deterministic web utility endpoints AI agents and developers call constantly: read a page as Markdown, unfurl link metadata, validate emails, scrape with CSS selectors, parse RSS/Atom feeds, and a Website Intelligence cluster (DNS, RDAP domain info, SSL, HTTP/security headers, structured data). No LLM, no API keys for the data — fast and deterministic.",
+    "version": "1.1.0"
+  },
+  "servers": [{ "url": "https://agent-tools-api.vercel.app" }],
+  "paths": {
+    "/api/read": {
+      "get": {
+        "summary": "URL → clean Markdown",
+        "description": "Fetch a web page and return its main readable content as clean Markdown (ideal for RAG).",
+        "operationId": "read",
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "example": "https://en.wikipedia.org/wiki/Model_Context_Protocol" },
+          { "name": "format", "in": "query", "required": false, "schema": { "type": "string", "enum": ["json", "markdown"] } }
+        ],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "url": "https://example.com/", "title": "Example Domain", "words": 17, "chars": 149, "ms": 120, "markdown": "This domain is for use in documentation examples..." } } } } }
+      }
+    },
+    "/api/meta": {
+      "get": {
+        "summary": "URL → metadata (unfurl)",
+        "description": "Return a URL's title, description, preview image, site name, favicon, canonical URL, and language.",
+        "operationId": "meta",
+        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "example": "https://github.com" }],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "url": "https://github.com/", "title": "GitHub", "description": "...", "image": "https://...", "siteName": "GitHub", "favicon": "https://github.com/favicon.ico" } } } } }
+      }
+    },
+    "/api/validate-email": {
+      "get": {
+        "summary": "Validate an email address",
+        "description": "Syntax + live MX/A DNS check + disposable/role/free-provider detection. Returns deliverability and a 0–1 quality score. MX-level (no SMTP probe).",
+        "operationId": "validateEmail",
+        "parameters": [{ "name": "email", "in": "query", "required": true, "schema": { "type": "string" }, "example": "someone@example.com" }],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "email": "test@gmail.com", "valid_syntax": true, "domain": "gmail.com", "has_mx": true, "disposable": false, "role_account": false, "free_provider": true, "deliverable": true, "score": 0.85 } } } } }
+      }
+    },
+    "/api/extract": {
+      "get": {
+        "summary": "Extract data with CSS selectors",
+        "description": "Scrape structured data from a page. selectors is a JSON object {key:\"css\"}. Suffix a selector with @attr for an attribute, or [] for all matches (e.g. \"a.item[]@href\"). href/src resolved to absolute URLs.",
+        "operationId": "extract",
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "example": "https://news.ycombinator.com" },
+          { "name": "selectors", "in": "query", "required": true, "schema": { "type": "string" }, "example": "{\"titles\":\".titleline a[]\"}" }
+        ],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "url": "https://example.com/", "data": { "h1": "Example Domain", "links": ["https://iana.org/domains/example"] }, "ms": 76 } } } } }
+      }
+    },
+    "/api/feed": {
+      "get": {
+        "summary": "RSS/Atom → JSON",
+        "description": "Fetch an RSS or Atom feed and return its items as clean JSON (title, link, date, snippet).",
+        "operationId": "feed",
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "example": "https://news.ycombinator.com/rss" },
+          { "name": "limit", "in": "query", "required": false, "schema": { "type": "integer", "default": 25 } }
+        ],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "title": "Hacker News", "count": 2, "items": [{ "title": "...", "link": "https://...", "isoDate": "2026-06-28T00:00:00Z" }] } } } } }
+      }
+    },
+    "/api/dns": {
+      "get": {
+        "summary": "DNS records + SPF/DMARC",
+        "description": "Look up DNS records (A, AAAA, MX, NS, TXT, CNAME, SOA, CAA) plus email-auth (SPF/DMARC) detection.",
+        "operationId": "dns",
+        "parameters": [
+          { "name": "domain", "in": "query", "required": true, "schema": { "type": "string" }, "example": "github.com" },
+          { "name": "type", "in": "query", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "domain": "github.com", "records": { "A": ["140.82.113.4"] }, "email_auth": { "has_mx": true, "spf": true, "dmarc": true } } } } } }
+      }
+    },
+    "/api/domain": {
+      "get": {
+        "summary": "Domain info (RDAP): age, registrar, expiry",
+        "description": "Registration details via RDAP — creation/expiry dates, domain age in days, registrar, status, nameservers. Domain age is a strong trust/fraud signal.",
+        "operationId": "domain",
+        "parameters": [{ "name": "name", "in": "query", "required": true, "schema": { "type": "string" }, "example": "openai.com" }],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "domain": "openai.com", "registration": "2007-01-19T19:28:24Z", "age_days": 7100, "registrar": "...", "nameservers": ["ns1.example.com"] } } } } }
+      }
+    },
+    "/api/ssl": {
+      "get": {
+        "summary": "SSL/TLS certificate inspector",
+        "description": "Inspect a host's certificate: issuer, subject, validity window, days remaining until expiry, SANs, protocol, trust.",
+        "operationId": "ssl",
+        "parameters": [{ "name": "host", "in": "query", "required": true, "schema": { "type": "string" }, "example": "github.com" }],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "host": "github.com", "protocol": "TLSv1.3", "trusted": true, "issuer": "Sectigo Limited", "days_remaining": 35, "expired": false } } } } }
+      }
+    },
+    "/api/http": {
+      "get": {
+        "summary": "HTTP inspector (redirects + security headers)",
+        "description": "Inspect a URL: final status, full redirect chain, response headers, and a security-header report (HSTS, CSP, X-Frame-Options, etc.).",
+        "operationId": "http",
+        "parameters": [
+          { "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "example": "github.com" },
+          { "name": "method", "in": "query", "required": false, "schema": { "type": "string", "enum": ["GET", "HEAD"] } }
+        ],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "final_url": "https://github.com/", "status": 200, "redirects": 0, "security": { "hsts": true, "csp": false } } } } } }
+      }
+    },
+    "/api/structured": {
+      "get": {
+        "summary": "Structured data (JSON-LD/OG/schema)",
+        "description": "Extract a page's machine-readable structured data: JSON-LD (schema.org), OpenGraph, and Twitter cards.",
+        "operationId": "structured",
+        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" }, "example": "https://www.bbc.com/news" }],
+        "responses": { "200": { "description": "OK", "content": { "application/json": { "example": { "ok": true, "url": "https://www.bbc.com/news", "schema_types": ["WebPage"], "opengraph": { "title": "..." }, "counts": { "jsonld": 1, "opengraph": 8 } } } } } }
+      }
+    }
+  }
+}

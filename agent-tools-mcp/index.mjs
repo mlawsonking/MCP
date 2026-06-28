@@ -9,9 +9,9 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
 
-const READ_API = process.env.READ_API_URL || 'https://url-to-markdown-three.vercel.app/api/read';
-const META_API = process.env.META_API_URL || 'https://url-metadata-three.vercel.app/api/meta';
 const TOOLS_API = process.env.TOOLS_API_URL || 'https://agent-tools-api.vercel.app';
+const READ_API = process.env.READ_API_URL || `${TOOLS_API}/api/read`;
+const META_API = process.env.META_API_URL || `${TOOLS_API}/api/meta`;
 
 async function getJson(base, url) {
   const r = await fetch(`${base}?url=${encodeURIComponent(url)}`, { headers: { Accept: 'application/json' } });
