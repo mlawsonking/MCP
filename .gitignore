@@ -1,0 +1,14 @@
+# dependencies & build artifacts
+node_modules/
+**/node_modules/
+.vercel/
+**/.vercel/
+*.log
+package-lock.json
+**/package-lock.json
+
+# owner-specific ops scripts & business/strategy docs — NOT for the public repo
+**/deploy.ps1
+GETTING-PAID.md
+LAUNCH.md
+browser_path.txt

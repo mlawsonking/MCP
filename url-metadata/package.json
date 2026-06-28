@@ -1,0 +1,9 @@
+{
+  "name": "url-metadata-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "URL -> structured metadata (link unfurl) API for AI agents and developers.",
+  "dependencies": {
+    "cheerio": "^1.0.0"
+  }
+}

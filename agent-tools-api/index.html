@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent Tools API — deterministic utilities for AI agents</title>
+<style>
+  :root{--bg:#0b1220;--card:#121b2e;--fg:#e7edf5;--muted:#9fb0c6;--a:#7c5cff;--b:#2f7df0}
+  *{box-sizing:border-box}body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#0b1220,#140d2e);color:var(--fg)}
+  .wrap{max-width:900px;margin:0 auto;padding:48px 20px 80px}
+  h1{font-size:2.1rem;margin:0 0 .3em;letter-spacing:-.5px}
+  .tag{display:inline-block;background:rgba(124,92,255,.15);color:var(--a);border:1px solid rgba(124,92,255,.4);padding:.2em .7em;border-radius:999px;font-size:.8rem;font-weight:600}
+  p.lead{color:var(--muted);font-size:1.1rem;line-height:1.5}
+  .tool{background:var(--card);border:1px solid #221a44;border-radius:14px;padding:18px 20px;margin:16px 0}
+  .tool h3{margin:.1em 0 .3em} code{font-family:ui-monospace,Menlo,Consolas,monospace;color:#c9b8ff}
+  pre{background:#0a1120;border:1px solid #221a44;border-radius:10px;padding:12px;overflow:auto;color:#cfe0f5;font-size:.85rem}
+  .row{display:flex;gap:10px;flex-wrap:wrap;margin-top:8px}
+  input{flex:1;min-width:220px;background:#0a1120;border:1px solid #3a2f6a;color:var(--fg);padding:10px 12px;border-radius:9px}
+  button{background:linear-gradient(135deg,var(--a),var(--b));color:#0a0820;border:0;font-weight:800;padding:10px 16px;border-radius:9px;cursor:pointer}
+  .out{white-space:pre-wrap;max-height:220px;overflow:auto;margin-top:8px;display:none}
+  .muted{color:var(--muted)}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="tag">Engine #2 · live suite</span>
+  <h1>Agent Tools API</h1>
+  <p class="lead">Boring, deterministic web utilities every AI agent and app needs — one reliable call each. No LLM, no keys for the free tier.</p>
+
+  <div class="tool">
+    <h3>📧 Email validation <span class="muted">— /api/validate-email</span></h3>
+    <p class="muted">Syntax + live MX/A DNS + disposable / role / free-provider detection. No SMTP probe.</p>
+    <div class="row"><input id="e_in" placeholder="someone@example.com"><button onclick="run('validate-email','email','e_in','e_out')">Validate</button></div>
+    <pre class="out" id="e_out"></pre>
+  </div>
+
+  <div class="tool">
+    <h3>🧲 Web extract <span class="muted">— /api/extract</span></h3>
+    <p class="muted">URL + CSS selectors → structured JSON. <code>"css"</code> text, <code>"css@attr"</code> attribute, <code>"css[]"</code> all.</p>
+    <pre>GET /api/extract?url=https://news.ycombinator.com&selectors={"titles":".titleline a[]"}</pre>
+    <div class="row"><input id="x_in" placeholder="https://example.com"><button onclick="runExtract()">Extract h1/links</button></div>
+    <pre class="out" id="x_out"></pre>
+  </div>
+
+  <div class="tool">
+    <h3>📰 RSS/Atom → JSON <span class="muted">— /api/feed</span></h3>
+    <p class="muted">Any feed URL → clean JSON items. For agents/automations watching sites.</p>
+    <div class="row"><input id="f_in" placeholder="https://news.ycombinator.com/rss"><button onclick="run('feed','url','f_in','f_out')">Parse feed</button></div>
+    <pre class="out" id="f_out"></pre>
+  </div>
+
+  <p class="muted" style="margin-top:28px;font-size:.85rem;">Part of an experiment in autonomous, machine-payable micro-tools. More tools shipping continuously.</p>
+</div>
+<script>
+  async function show(id, url){ const o=document.getElementById(id); o.style.display='block'; o.textContent='…';
+    try{ const r=await fetch(url); o.textContent=JSON.stringify(await r.json(),null,2);}catch(e){o.textContent='⚠ '+e.message;} }
+  function run(path, param, inId, outId){ const v=document.getElementById(inId).value.trim(); if(!v)return; show(outId, '/api/'+path+'?'+param+'='+encodeURIComponent(v)); }
+  function runExtract(){ const v=document.getElementById('x_in').value.trim()||'https://example.com'; const sel=JSON.stringify({h1:'h1',links:'a[]@href'}); show('x_out','/api/extract?url='+encodeURIComponent(v)+'&selectors='+encodeURIComponent(sel)); }
+</script>
+</body>
+</html>

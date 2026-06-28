@@ -1,0 +1,10 @@
+{
+  "name": "agent-tools-api",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A suite of deterministic web utility tools for AI agents and developers.",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "rss-parser": "^3.13.0"
+  }
+}

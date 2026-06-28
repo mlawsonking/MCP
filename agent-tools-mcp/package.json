@@ -1,0 +1,12 @@
+{
+  "name": "agent-tools-mcp",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "MCP server exposing web utility tools (read_url, unfurl_url) for AI agents.",
+  "bin": { "agent-tools-mcp": "index.mjs" },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  }
+}

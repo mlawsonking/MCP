@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URL → Metadata — link unfurl API for AI agents</title>
+<style>
+  :root { --bg:#0b1220; --card:#121b2e; --fg:#e7edf5; --muted:#9fb0c6; --accent:#f0a93a; --accent2:#e2452f; }
+  *{box-sizing:border-box} body{margin:0;font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:linear-gradient(160deg,#0b1220,#1a1208);color:var(--fg)}
+  .wrap{max-width:860px;margin:0 auto;padding:48px 20px 80px}
+  h1{font-size:2.1rem;margin:0 0 .3em;letter-spacing:-.5px}
+  .tag{display:inline-block;background:rgba(240,169,58,.15);color:var(--accent);border:1px solid rgba(240,169,58,.35);padding:.2em .7em;border-radius:999px;font-size:.8rem;font-weight:600}
+  p.lead{color:var(--muted);font-size:1.1rem;line-height:1.5}
+  .card{background:var(--card);border:1px solid #2a2516;border-radius:14px;padding:20px;margin:18px 0}
+  pre{background:#0a1120;border:1px solid #2a2516;border-radius:10px;padding:14px;overflow:auto;color:#cfe0f5}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  input[type=url]{flex:1;min-width:240px;background:#0a1120;border:1px solid #4a3a1a;color:var(--fg);padding:12px 14px;border-radius:10px;font-size:1rem}
+  button{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#1a1208;border:0;font-weight:800;padding:12px 18px;border-radius:10px;cursor:pointer;font-size:1rem}
+  .muted{color:var(--muted)} a{color:var(--accent)}
+  .prev{display:flex;gap:14px;margin-top:14px;border:1px solid #2a2516;border-radius:12px;overflow:hidden;background:#0e1830}
+  .prev img{width:160px;height:120px;object-fit:cover;background:#0a1120}
+  .prev .body{padding:12px}
+  .prev .site{font-size:.8rem;color:var(--muted)} .prev .ttl{font-weight:700;margin:.2em 0} .prev .desc{font-size:.9rem;color:#c9d6ea}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="tag">Engine #2 · live</span>
+  <h1>URL → Metadata</h1>
+  <p class="lead">Unfurl any link into structured data — title, description, image, site, favicon, canonical.
+  The data every app needs for link previews, and every agent needs to summarize a URL.</p>
+
+  <div class="card">
+    <div class="row">
+      <input id="u" type="url" placeholder="https://github.com" />
+      <button id="go">Unfurl</button>
+    </div>
+    <p class="muted" id="meta" style="margin:.7em 0 0;font-size:.9rem;"></p>
+    <div class="prev" id="prev" style="display:none;">
+      <img id="pimg" alt="">
+      <div class="body"><div class="site" id="psite"></div><div class="ttl" id="pttl"></div><div class="desc" id="pdesc"></div></div>
+    </div>
+    <pre id="out" style="display:none;margin-top:12px;max-height:280px"></pre>
+  </div>
+
+  <h3>Use it</h3>
+  <pre>GET /api/meta?url=https://example.com</pre>
+  <p class="muted">Returns JSON: <code>{ ok, url, title, description, image, siteName, favicon, canonical, lang, ms }</code>.</p>
+  <p class="muted" style="margin-top:28px;font-size:.85rem;">Part of an experiment in autonomous, machine-payable micro-tools.</p>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  async function run() {
+    const url = $('u').value.trim(); if (!url) return;
+    $('meta').textContent = 'Unfurling…'; $('prev').style.display = 'none'; $('out').style.display = 'none';
+    try {
+      const r = await fetch('/api/meta?url=' + encodeURIComponent(url));
+      const j = await r.json();
+      if (!j.ok) { $('meta').textContent = '⚠ ' + (j.error || 'error'); return; }
+      $('meta').textContent = `${j.ms}ms`;
+      $('psite').textContent = j.siteName || new URL(j.url).hostname;
+      $('pttl').textContent = j.title || '(no title)';
+      $('pdesc').textContent = j.description || '';
+      if (j.image) { $('pimg').src = j.image; $('pimg').style.display = 'block'; } else { $('pimg').style.display = 'none'; }
+      $('prev').style.display = 'flex';
+      $('out').textContent = JSON.stringify(j, null, 2); $('out').style.display = 'block';
+    } catch (e) { $('meta').textContent = '⚠ ' + e.message; }
+  }
+  $('go').addEventListener('click', run);
+  $('u').addEventListener('keydown', (e) => { if (e.key === 'Enter') run(); });
+</script>
+</body>
+</html>

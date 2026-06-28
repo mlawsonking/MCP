@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>URL → Markdown — clean reader API for AI agents</title>
+<style>
+  :root { --bg:#0b1220; --card:#121b2e; --fg:#e7edf5; --muted:#9fb0c6; --accent:#3ad29f; --accent2:#2f7df0; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:-apple-system,Segoe UI,Roboto,Arial,sans-serif; background:linear-gradient(160deg,#0b1220,#0d1730); color:var(--fg); }
+  .wrap { max-width:860px; margin:0 auto; padding:48px 20px 80px; }
+  h1 { font-size:2.1rem; margin:0 0 .3em; letter-spacing:-.5px; }
+  .tag { display:inline-block; background:rgba(58,210,159,.15); color:var(--accent); border:1px solid rgba(58,210,159,.35); padding:.2em .7em; border-radius:999px; font-size:.8rem; font-weight:600; }
+  p.lead { color:var(--muted); font-size:1.1rem; line-height:1.5; }
+  .card { background:var(--card); border:1px solid #1e2c47; border-radius:14px; padding:20px; margin:18px 0; }
+  code, pre { font-family:ui-monospace,Menlo,Consolas,monospace; }
+  pre { background:#0a1120; border:1px solid #1e2c47; border-radius:10px; padding:14px; overflow:auto; color:#cfe0f5; }
+  .row { display:flex; gap:10px; flex-wrap:wrap; }
+  input[type=url] { flex:1; min-width:240px; background:#0a1120; border:1px solid #2a3a5a; color:var(--fg); padding:12px 14px; border-radius:10px; font-size:1rem; }
+  button { background:linear-gradient(135deg,var(--accent),var(--accent2)); color:#04121f; border:0; font-weight:800; padding:12px 18px; border-radius:10px; cursor:pointer; font-size:1rem; }
+  .muted { color:var(--muted); }
+  .grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  @media(max-width:640px){ .grid{ grid-template-columns:1fr; } }
+  .feat { background:#0e1830; border:1px solid #1e2c47; border-radius:10px; padding:12px 14px; font-size:.95rem; }
+  a { color:var(--accent); }
+  .out { white-space:pre-wrap; max-height:340px; overflow:auto; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <span class="tag">Engine #2 · live</span>
+  <h1>URL → Markdown</h1>
+  <p class="lead">Turn any web page into clean, readable Markdown — the format AI agents need for RAG.
+  One call. Deterministic. No LLM, no tracking, no nonsense.</p>
+
+  <div class="card">
+    <div class="row">
+      <input id="u" type="url" placeholder="https://en.wikipedia.org/wiki/Model_Context_Protocol" />
+      <button id="go">Read it</button>
+    </div>
+    <p class="muted" id="meta" style="margin:.7em 0 0;font-size:.9rem;"></p>
+    <pre class="out" id="out" style="display:none;margin-top:12px;"></pre>
+  </div>
+
+  <h3>Use it</h3>
+  <pre>GET /api/read?url=https://example.com
+GET /api/read?url=https://example.com&format=markdown   # raw markdown</pre>
+  <p class="muted">Returns JSON: <code>{ ok, url, title, words, chars, ms, markdown }</code>.
+  Add <code>&format=markdown</code> for the raw text.</p>
+
+  <div class="grid">
+    <div class="feat">⚡ <b>Fast & deterministic</b><br><span class="muted">Readability extraction + Markdown. No model in the loop.</span></div>
+    <div class="feat">🤖 <b>Agent-native</b><br><span class="muted">Clean text for RAG; MCP server &amp; pay-per-call coming.</span></div>
+    <div class="feat">🔒 <b>Safe</b><br><span class="muted">SSRF-guarded, size-capped, http/https only.</span></div>
+    <div class="feat">🧱 <b>Boring on purpose</b><br><span class="muted">The kind of utility every app &amp; agent needs.</span></div>
+  </div>
+
+  <p class="muted" style="margin-top:28px;font-size:.85rem;">Part of an experiment in autonomous, machine-payable micro-tools.</p>
+</div>
+<script>
+  const $ = (id) => document.getElementById(id);
+  async function run() {
+    const url = $('u').value.trim();
+    if (!url) return;
+    $('meta').textContent = 'Reading…';
+    $('out').style.display = 'none';
+    const t = Date.now();
+    try {
+      const r = await fetch('/api/read?url=' + encodeURIComponent(url));
+      const j = await r.json();
+      if (!j.ok) { $('meta').textContent = '⚠ ' + (j.error || 'error'); return; }
+      $('meta').textContent = `“${j.title || 'Untitled'}” — ${j.words} words, ${j.chars} chars, ${j.ms}ms`;
+      $('out').textContent = j.markdown.slice(0, 6000) + (j.markdown.length > 6000 ? '\n\n… (truncated)' : '');
+      $('out').style.display = 'block';
+    } catch (e) {
+      $('meta').textContent = '⚠ ' + e.message;
+    }
+  }
+  $('go').addEventListener('click', run);
+  $('u').addEventListener('keydown', (e) => { if (e.key === 'Enter') run(); });
+</script>
+</body>
+</html>
