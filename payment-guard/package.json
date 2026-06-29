@@ -1,0 +1,10 @@
+{
+  "name": "payment-guard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pre-send risk check for AI agents that move money — screen a crypto address or payment URL for sanctions, scams, and on-chain risk before a transfer. Deterministic, no LLM.",
+  "license": "MIT",
+  "dependencies": {
+    "js-sha3": "^0.9.3"
+  }
+}

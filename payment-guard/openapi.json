@@ -1,0 +1,46 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Payment Guard — pre-send risk check for AI agents that move money",
+    "version": "1.0.0",
+    "description": "Before an AI agent sends funds (x402 / crypto / a payment URL), check the recipient: is the address OFAC-sanctioned, on a scam/abuse blocklist, or suspicious (brand-new/unused, a contract)? Vet the payment URL for lookalikes and new domains. Resolve and screen ENS names. Deterministic, no LLM. Free data: OFAC SDN crypto addresses, ethereum-lists + ScamSniffer blocklists, on-chain reads via public RPC, ENS. EVM chains: Ethereum, Base, Polygon, Arbitrum, Optimism."
+  },
+  "servers": [{ "url": "https://payment-guard.vercel.app" }],
+  "paths": {
+    "/api/screen-address": {
+      "get": {
+        "operationId": "screenAddress",
+        "summary": "The pre-send guard: screen a crypto address (or ENS name) for sanctions/scam/on-chain risk",
+        "parameters": [
+          { "name": "address", "in": "query", "required": true, "schema": { "type": "string" }, "description": "EVM address (0x + 40 hex) or ENS name (e.g. name.eth)." },
+          { "name": "chain", "in": "query", "required": false, "schema": { "type": "string", "enum": ["eth", "base", "polygon", "arbitrum", "optimism"], "default": "eth" } }
+        ],
+        "responses": { "200": { "description": "verdict (safe/caution/block) + sanctioned/scam/on-chain signals + reasons" } }
+      }
+    },
+    "/api/screen-payment": {
+      "get": {
+        "operationId": "screenPayment",
+        "summary": "Risk-check an x402/payment endpoint or merchant URL (lookalikes, new domain, redirects)",
+        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "verdict + flags" } }
+      }
+    },
+    "/api/check-sanctioned": {
+      "get": {
+        "operationId": "checkSanctioned",
+        "summary": "Fast OFAC sanctions check for an address or ENS name (no on-chain)",
+        "parameters": [{ "name": "address", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "sanctioned true/false + verdict" } }
+      }
+    },
+    "/api/resolve-name": {
+      "get": {
+        "operationId": "resolveName",
+        "summary": "Resolve an ENS name to an address and screen it (catch non-resolving names + spoofs)",
+        "parameters": [{ "name": "name", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "resolved address + sanctions/scam screen" } }
+      }
+    }
+  }
+}

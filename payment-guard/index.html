@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Payment Guard — the pre-send risk check for AI agents that move money</title>
+<meta name="description" content="Before your AI agent sends funds (x402/crypto/payment URL), check the recipient: sanctioned, scam, or suspicious? Free, deterministic API + MCP server. OFAC + scam lists + on-chain + ENS." />
+<style>
+  :root { --bg:#0b0e14; --panel:#131822; --ink:#e6edf3; --mut:#8b98a9; --acc:#34d399; --warn:#fbbf24; --bad:#f87171; --line:#222b3a; }
+  * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; }
+  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 80px; }
+  h1 { font-size:2.1rem; margin:0 0 8px; letter-spacing:-.02em; } h2 { margin:40px 0 12px; font-size:1.3rem; }
+  .tag { color:var(--acc); font-weight:700; letter-spacing:.08em; } .mut { color:var(--mut); }
+  .lead { font-size:1.15rem; color:#cdd7e2; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:14px 0; }
+  code, pre { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  pre { background:#0d121b; border:1px solid var(--line); border-radius:10px; padding:14px; overflow:auto; font-size:13.5px; }
+  table { width:100%; border-collapse:collapse; margin-top:8px; } th,td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--mut); font-weight:600; font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; }
+  td code { color:var(--acc); }
+  .try { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+  input,select,button { font:inherit; border-radius:8px; border:1px solid var(--line); background:#0d121b; color:var(--ink); padding:10px 12px; }
+  input { flex:1; min-width:240px; } button { background:var(--acc); color:#04200f; font-weight:700; border:none; cursor:pointer; }
+  .verdict { font-weight:800; } .safe{color:var(--acc)} .caution{color:var(--warn)} .block{color:var(--bad)}
+  a { color:var(--acc); } .pill { display:inline-block; background:#0d121b; border:1px solid var(--line); border-radius:999px; padding:3px 10px; font-size:.8rem; color:var(--mut); margin:2px 4px 2px 0; }
+  footer { margin-top:48px; color:var(--mut); font-size:.9rem; border-top:1px solid var(--line); padding-top:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="tag">PAYMENT GUARD</p>
+  <h1>Before your AI agent sends money, ask one question.</h1>
+  <p class="lead">Agents are already moving real funds — x402 has pushed <strong>$600M+</strong> across
+  <strong>~500k AI wallets</strong> (now a Linux Foundation standard backed by Visa, Stripe, Anthropic,
+  Coinbase). The #1 risk: <em>paying a sanctioned or tainted address unknowingly.</em> Payment Guard is
+  the one call an agent makes <strong>before</strong> a transfer.</p>
+  <p><span class="pill">Free</span><span class="pill">Deterministic — no LLM</span><span class="pill">OFAC + scam lists + on-chain + ENS</span><span class="pill">HTTP + MCP</span></p>
+
+  <h2>Screen a recipient</h2>
+  <div class="card">
+    <div class="try">
+      <input id="addr" placeholder="0x… address  or  name.eth" value="vitalik.eth" />
+      <select id="chain"><option>eth</option><option>base</option><option>polygon</option><option>arbitrum</option><option>optimism</option></select>
+      <button onclick="run()">Screen</button>
+    </div>
+    <pre id="out" class="mut">verdict appears here…</pre>
+    <p class="mut" style="font-size:.85rem">Try a sanctioned/scam address and it returns <span class="block">block</span>.</p>
+  </div>
+
+  <h2>The tools</h2>
+  <table>
+    <tr><th>Endpoint</th><th>What it does</th></tr>
+    <tr><td><code>/api/screen-address</code></td><td><strong>The guard.</strong> Address or ENS name → OFAC-sanctioned? scam/abuse-listed? on-chain risk (brand-new/unused, contract)? → a <code>verdict</code></td></tr>
+    <tr><td><code>/api/screen-payment</code></td><td>Vet an x402/payment endpoint or merchant URL (punycode, lookalikes, new domain, redirects)</td></tr>
+    <tr><td><code>/api/check-sanctioned</code></td><td>Fast OFAC sanctions check for an address / ENS name</td></tr>
+    <tr><td><code>/api/resolve-name</code></td><td>Resolve an ENS name → address and screen it (catch non-resolving names + spoofs)</td></tr>
+  </table>
+
+  <h2>Use it from an agent (MCP)</h2>
+  <pre>{ "mcpServers": { "payment-guard": { "command": "npx", "args": ["-y", "payment-guard-mcp"] } } }</pre>
+
+  <h2>Why it exists</h2>
+  <div class="card mut">
+    Compliance giants screen sanctions for enterprises — but nobody ships a <strong>free, in-loop,
+    agent-native</strong> "should I pay this?" guard for the x402/crypto world. The money is flowing now;
+    the guardrail wasn't built. Data is public and read-only: OFAC SDN, ethereum-lists + ScamSniffer,
+    public RPC, ENS. Same input → same output.
+  </div>
+
+  <footer>
+    MIT · the third in the AI-agent safety suite: <a href="https://github.com/mlawsonking/MCP">Package Guard · Agent Firewall · Payment Guard</a>
+  </footer>
+</div>
+<script>
+async function run(){
+  const out=document.getElementById('out'); out.textContent='screening…'; out.className='mut';
+  const a=encodeURIComponent(document.getElementById('addr').value.trim());
+  const c=encodeURIComponent(document.getElementById('chain').value);
+  try{
+    const r=await fetch(`/api/screen-address?address=${a}&chain=${c}`); const j=await r.json();
+    out.className=''; const v=(j.verdict||'').toLowerCase();
+    out.innerHTML = `verdict: ${j.verdict?`<span class="verdict ${v}">${j.verdict.toUpperCase()}</span>`:'?'}\n\n` + JSON.stringify(j,null,2);
+  }catch(e){ out.className='block'; out.textContent='error: '+e; }
+}
+run();
+</script>
+</body>
+</html>

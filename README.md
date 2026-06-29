@@ -11,8 +11,11 @@ tracking. Same input → same output. Just reliable, boring, useful tools.
 | **Agent Web Tools** | 10 web utilities: URL→Markdown, metadata, email validate, CSS scrape, RSS, DNS/RDAP/SSL/HTTP/structured-data | `npx -y web-tools-mcp` | [agent-tools-api.vercel.app](https://agent-tools-api.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/agent-web-tools) |
 | **Package Guard** | Supply-chain guard for coding agents: verify a package exists (catch slopsquat/hallucinations), vulns/malware (OSV), typosquats, audit deps | `npx -y package-guard-mcp` | [package-guard.vercel.app](https://package-guard.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/package-guard) |
 | **Agent Firewall** | Input/output safety: detect prompt-injection/jailbreak, vet URLs & IPs, pwned-password (HIBP), secret/PII redaction | `npx -y agent-firewall-mcp` | [agent-firewall-seven.vercel.app](https://agent-firewall-seven.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/agent-firewall) |
+| **Payment Guard** | Pre-send risk check for agents that move money: screen a crypto address (or ENS name) / payment URL for OFAC sanctions, scams, and on-chain risk before a transfer | `npx -y payment-guard-mcp` | [payment-guard.vercel.app](https://payment-guard.vercel.app) | _RapidAPI: pending_ |
 
-All three: deterministic, no LLM, free serverless tier; paid plans via RapidAPI for higher volume.
+All four: deterministic, no LLM, free serverless tier; paid plans via RapidAPI for higher volume.
+The last three form the **AI-agent safety suite**: Package Guard (supply chain) · Agent Firewall
+(input/output) · Payment Guard (money).
 
 ## Quick start (MCP)
 Add any or all to your client's `mcpServers` config (Claude Desktop, Cursor, Claude Code, …):
@@ -22,7 +25,8 @@ Add any or all to your client's `mcpServers` config (Claude Desktop, Cursor, Cla
   "mcpServers": {
     "agent-tools":     { "command": "npx", "args": ["-y", "web-tools-mcp"] },
     "package-guard":   { "command": "npx", "args": ["-y", "package-guard-mcp"] },
-    "agent-firewall":  { "command": "npx", "args": ["-y", "agent-firewall-mcp"] }
+    "agent-firewall":  { "command": "npx", "args": ["-y", "agent-firewall-mcp"] },
+    "payment-guard":   { "command": "npx", "args": ["-y", "payment-guard-mcp"] }
   }
 }
 ```
@@ -53,6 +57,12 @@ Data: OSV.dev + npm/PyPI. Base: `https://package-guard.vercel.app`. Code: [`pack
 `scan_content` (prompt-injection/jailbreak/obfuscation), `scan_secrets` (+ PII redaction), `check_url`,
 `check_ip`, `check_password` (HIBP k-anonymity). Data: HIBP, RDAP, Tor, Team Cymru.
 Base: `https://agent-firewall-seven.vercel.app`. Code: [`agent-firewall-mcp/`](agent-firewall-mcp/) + [`agent-firewall/`](agent-firewall/).
+
+### 4) Payment Guard — pre-send risk check for agents that move money  ·  `payment-guard-mcp`
+`screen_address` (address/ENS → OFAC-sanctioned? scam? on-chain risk → verdict), `screen_payment` (x402/
+payment URL risk), `check_sanctioned` (fast OFAC), `resolve_name` (ENS → address, screened). Data: OFAC
+SDN + ethereum-lists + ScamSniffer + public RPC + ENS. Chains: ETH/Base/Polygon/Arbitrum/Optimism.
+Base: `https://payment-guard.vercel.app`. Code: [`payment-guard-mcp/`](payment-guard-mcp/) + [`payment-guard/`](payment-guard/).
 
 ---
 

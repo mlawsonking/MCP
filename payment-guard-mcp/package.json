@@ -1,0 +1,19 @@
+{
+  "name": "payment-guard-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.mlawsonking/payment-guard-mcp",
+  "description": "MCP server: pre-send risk check for AI agents that move money — screen a crypto address (or ENS name) and payment URLs for OFAC sanctions, scam/abuse blocklists, and on-chain risk before a transfer. Deterministic, no LLM.",
+  "type": "module",
+  "bin": { "payment-guard-mcp": "index.mjs" },
+  "files": ["index.mjs", "README.md"],
+  "engines": { "node": ">=18" },
+  "keywords": ["mcp", "model-context-protocol", "ai", "agents", "x402", "agentic-commerce", "payments", "crypto", "sanctions", "ofac", "aml", "fraud", "ens", "security"],
+  "repository": { "type": "git", "url": "git+https://github.com/mlawsonking/MCP.git", "directory": "payment-guard-mcp" },
+  "homepage": "https://github.com/mlawsonking/MCP#readme",
+  "license": "MIT",
+  "author": "mlawsonking",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  }
+}
