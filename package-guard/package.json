@@ -1,0 +1,7 @@
+{
+  "name": "package-guard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Pre-install supply-chain guard for AI coding agents — verify packages exist, check vulnerabilities/malware, detect slopsquat/typosquat, license. Free, deterministic, no LLM.",
+  "license": "MIT"
+}

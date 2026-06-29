@@ -1,0 +1,19 @@
+{
+  "name": "package-guard-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.mlawsonking/package-guard-mcp",
+  "description": "MCP server: the pre-install supply-chain guard for AI coding agents — verify a package exists (catch slopsquat/hallucinations), check vulnerabilities & malware (OSV), detect typosquats, audit a whole dependency list. Deterministic, free, no LLM.",
+  "type": "module",
+  "bin": { "package-guard-mcp": "index.mjs" },
+  "files": ["index.mjs", "README.md"],
+  "engines": { "node": ">=18" },
+  "keywords": ["mcp", "model-context-protocol", "ai", "agents", "coding-agent", "supply-chain", "security", "slopsquat", "typosquat", "npm", "pypi", "osv", "vulnerabilities", "dependencies"],
+  "repository": { "type": "git", "url": "git+https://github.com/mlawsonking/MCP.git", "directory": "package-guard-mcp" },
+  "homepage": "https://github.com/mlawsonking/MCP#readme",
+  "license": "MIT",
+  "author": "mlawsonking",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  }
+}

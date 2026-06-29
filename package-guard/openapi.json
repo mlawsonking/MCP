@@ -1,0 +1,83 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Package Guard — supply-chain guard for AI coding agents",
+    "version": "1.0.0",
+    "description": "Before an agent installs a package, check it's real, safe, and the one it meant. Verify existence (catch slopsquat/hallucinations), known vulnerabilities & malware (OSV.dev), slopsquat/typosquat risk, deprecation, license. Deterministic, no LLM. Free data: OSV.dev + npm/PyPI."
+  },
+  "servers": [{ "url": "https://package-guard.vercel.app" }],
+  "paths": {
+    "/api/verify-package": {
+      "get": {
+        "operationId": "verifyPackage",
+        "summary": "Pre-install guard: verdict on whether a package is safe to install",
+        "description": "Returns exists (if false → likely hallucination/slopsquat + suggestions), vulnerabilities/malware, slopsquat risk, deprecation, license, and an overall verdict (safe/caution/danger).",
+        "parameters": [
+          { "name": "name", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Package name (e.g. express, @scope/pkg, requests)." },
+          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi", "go", "crates", "rubygems", "maven", "nuget"], "default": "npm" } },
+          { "name": "version", "in": "query", "required": false, "schema": { "type": "string" }, "description": "Version to check vulns against (default latest)." }
+        ],
+        "responses": { "200": { "description": "Verdict" } }
+      }
+    },
+    "/api/check-vulns": {
+      "get": {
+        "operationId": "checkVulns",
+        "summary": "Known vulnerabilities & malware advisories (OSV.dev)",
+        "parameters": [
+          { "name": "name", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi", "go", "crates", "rubygems", "maven", "nuget"], "default": "npm" } },
+          { "name": "version", "in": "query", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "Vulnerability list" } }
+      }
+    },
+    "/api/package-info": {
+      "get": {
+        "operationId": "packageInfo",
+        "summary": "Registry metadata: latest, deprecated, license, repo, downloads, age",
+        "parameters": [
+          { "name": "name", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi"], "default": "npm" } }
+        ],
+        "responses": { "200": { "description": "Metadata" } }
+      }
+    },
+    "/api/audit-deps": {
+      "get": {
+        "operationId": "auditDeps",
+        "summary": "Batch-audit a dependency list",
+        "parameters": [
+          { "name": "packages", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Comma-separated package names." },
+          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi", "go", "crates", "rubygems", "maven", "nuget"], "default": "npm" } }
+        ],
+        "responses": { "200": { "description": "Per-package report + summary" } }
+      },
+      "post": {
+        "operationId": "auditDepsPost",
+        "summary": "Batch-audit a package.json or requirements.txt",
+        "requestBody": {
+          "required": true,
+          "content": { "application/json": { "schema": { "type": "object", "properties": {
+            "ecosystem": { "type": "string", "enum": ["npm", "pypi"], "default": "npm" },
+            "dependencies": { "type": "object", "additionalProperties": { "type": "string" } },
+            "packageJson": { "type": "string" },
+            "requirements": { "type": "string" }
+          } } } }
+        },
+        "responses": { "200": { "description": "Per-package report + summary" } }
+      }
+    },
+    "/api/typosquat-scan": {
+      "get": {
+        "operationId": "typosquatScan",
+        "summary": "Generate lookalike names and flag registered/suspicious ones",
+        "parameters": [
+          { "name": "name", "in": "query", "required": true, "schema": { "type": "string" } },
+          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi"], "default": "npm" } }
+        ],
+        "responses": { "200": { "description": "Lookalike scan results" } }
+      }
+    }
+  }
+}

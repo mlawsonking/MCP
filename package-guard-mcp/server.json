@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-09-29/server.json",
+  "name": "io.github.mlawsonking/package-guard-mcp",
+  "description": "Pre-install supply-chain guard for AI coding agents: verify a package exists (catch slopsquat/hallucinations), check known vulnerabilities & malware (OSV.dev), detect typosquats, audit a whole dependency list, and inspect license/maintenance. Deterministic, free, no LLM.",
+  "repository": {
+    "url": "https://github.com/mlawsonking/MCP",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "package-guard-mcp",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}

@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Package Guard — the pre-install supply-chain guard for AI coding agents</title>
+<meta name="description" content="Before your AI agent installs a package, check it's real, safe, and not a slopsquat. Free, deterministic API + MCP server. Backed by OSV.dev + npm/PyPI." />
+<style>
+  :root { --bg:#0b0e14; --panel:#131822; --ink:#e6edf3; --mut:#8b98a9; --acc:#4ade80; --warn:#fbbf24; --bad:#f87171; --line:#222b3a; }
+  * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; }
+  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 80px; }
+  h1 { font-size:2.1rem; margin:0 0 8px; letter-spacing:-.02em; } h2 { margin:40px 0 12px; font-size:1.3rem; }
+  .tag { color:var(--acc); font-weight:600; } .mut { color:var(--mut); }
+  .lead { font-size:1.15rem; color:#cdd7e2; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:14px 0; }
+  code, pre { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  pre { background:#0d121b; border:1px solid var(--line); border-radius:10px; padding:14px; overflow:auto; font-size:13.5px; }
+  table { width:100%; border-collapse:collapse; margin-top:8px; } th,td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--mut); font-weight:600; font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; }
+  td code { color:var(--acc); }
+  .try { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+  input,select,button { font:inherit; border-radius:8px; border:1px solid var(--line); background:#0d121b; color:var(--ink); padding:10px 12px; }
+  input { flex:1; min-width:220px; } button { background:var(--acc); color:#06210f; font-weight:700; border:none; cursor:pointer; }
+  .verdict { font-weight:800; } .safe{color:var(--acc)} .caution{color:var(--warn)} .danger{color:var(--bad)}
+  a { color:var(--acc); } .pill { display:inline-block; background:#0d121b; border:1px solid var(--line); border-radius:999px; padding:3px 10px; font-size:.8rem; color:var(--mut); margin:2px 4px 2px 0; }
+  footer { margin-top:48px; color:var(--mut); font-size:.9rem; border-top:1px solid var(--line); padding-top:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="tag">PACKAGE GUARD</p>
+  <h1>Stop your AI coding agent from installing packages that don't exist.</h1>
+  <p class="lead">In 2026, ~20% of package names LLMs recommend <strong>aren't real</strong> — and attackers
+  register those hallucinated names (<em>"slopsquatting"</em>) to poison agents. Package Guard is the one
+  call an agent makes <strong>before</strong> <code>npm install</code> to check a package is real, safe,
+  and the one it actually meant.</p>
+  <p><span class="pill">Free</span><span class="pill">Deterministic — no LLM</span><span class="pill">OSV.dev + npm/PyPI</span><span class="pill">HTTP + MCP</span></p>
+
+  <h2>Try the guard</h2>
+  <div class="card">
+    <div class="try">
+      <input id="name" placeholder="package name (try: express  OR  expresss-router-helper)" value="express" />
+      <select id="eco"><option>npm</option><option>pypi</option><option>go</option><option>crates</option><option>rubygems</option></select>
+      <button onclick="run()">Verify</button>
+    </div>
+    <pre id="out" class="mut">verdict appears here…</pre>
+  </div>
+
+  <h2>The tools</h2>
+  <table>
+    <tr><th>Endpoint</th><th>What it does</th></tr>
+    <tr><td><code>/api/verify-package</code></td><td><strong>The guard.</strong> Exists? (else hallucination/slopsquat + "did you mean") · vulns &amp; malware · slopsquat-risk · deprecated · license → a <code>verdict</code></td></tr>
+    <tr><td><code>/api/check-vulns</code></td><td>Known vulnerabilities + malware advisories for <code>name@version</code> (OSV)</td></tr>
+    <tr><td><code>/api/package-info</code></td><td>latest · deprecated · license · repo · weekly downloads · age</td></tr>
+    <tr><td><code>/api/audit-deps</code></td><td>Batch-audit a whole dependency list (<code>?packages=…</code> or POST package.json / requirements.txt)</td></tr>
+    <tr><td><code>/api/typosquat-scan</code></td><td>Generate lookalike names + flag which are registered &amp; suspicious</td></tr>
+  </table>
+
+  <h2>Use it from an agent (MCP)</h2>
+  <pre>{ "mcpServers": { "package-guard": { "command": "npx", "args": ["-y", "package-guard-mcp"] } } }</pre>
+  <p class="mut">Or call the HTTP endpoints directly — <code>GET</code>, JSON out, CORS open.</p>
+
+  <h2>Why it exists</h2>
+  <div class="card mut">
+    The Stanford AI Index named automated dependency installation a top-3 new attack surface for
+    autonomous agents in 2026. Incumbent scanners (Snyk, Socket) are paid, heavyweight, human-CI tools —
+    not something an agent calls in-loop, for free, before every install. This is. All data is public
+    and read-only (OSV.dev, npm, PyPI); same input → same output.
+  </div>
+
+  <footer>
+    MIT · part of the <a href="https://github.com/mlawsonking/MCP">Agent Tools</a> family ·
+    data: <a href="https://osv.dev">OSV.dev</a>, npm, PyPI
+  </footer>
+</div>
+<script>
+async function run(){
+  const out=document.getElementById('out'); out.textContent='checking…'; out.className='mut';
+  const n=encodeURIComponent(document.getElementById('name').value.trim());
+  const e=encodeURIComponent(document.getElementById('eco').value);
+  try{
+    const r=await fetch(`/api/verify-package?name=${n}&ecosystem=${e}`); const j=await r.json();
+    out.className=''; const v=(j.verdict||'').toLowerCase();
+    const head=`verdict: ${j.verdict?`<span class="verdict ${v}">${j.verdict.toUpperCase()}</span>`:'?'}`;
+    out.innerHTML = head + "\n\n" + JSON.stringify(j,null,2);
+  }catch(err){ out.className='danger'; out.textContent='error: '+err; }
+}
+run();
+</script>
+</body>
+</html>
