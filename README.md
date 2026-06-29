@@ -1,50 +1,65 @@
-# Agent Tools — free web utilities for AI agents (MCP + APIs)
+# Agent Tools — deterministic tools for AI agents (MCP + APIs)
 
-A small toolbox of **deterministic web utilities** that AI agents and developers call constantly —
-exposed both as plain HTTP APIs and as a single **MCP server**. No LLM in the loop, no API keys for
-the free tier, no tracking. Just reliable, boring, useful tools.
+A family of **deterministic** tools that AI agents and developers call constantly — each exposed both as
+plain HTTP APIs **and** as an **MCP server**. No LLM in the loop, no API keys for the free tier, no
+tracking. Same input → same output. Just reliable, boring, useful tools.
 
-> 10 tools · one MCP server · all live on a free serverless tier.
+## The products
 
-## 🔌 The MCP server
-[`agent-tools-mcp/`](agent-tools-mcp/) exposes all 10 tools to any MCP client (Claude Desktop, Cursor,
-Claude Code, …).
+| Product | What it does | Install (MCP) | Live demo | Marketplace |
+|---|---|---|---|---|
+| **Agent Web Tools** | 10 web utilities: URL→Markdown, metadata, email validate, CSS scrape, RSS, DNS/RDAP/SSL/HTTP/structured-data | `npx -y web-tools-mcp` | [agent-tools-api.vercel.app](https://agent-tools-api.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/agent-web-tools) |
+| **Package Guard** | Supply-chain guard for coding agents: verify a package exists (catch slopsquat/hallucinations), vulns/malware (OSV), typosquats, audit deps | `npx -y package-guard-mcp` | [package-guard.vercel.app](https://package-guard.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/package-guard) |
+| **Agent Firewall** | Input/output safety: detect prompt-injection/jailbreak, vet URLs & IPs, pwned-password (HIBP), secret/PII redaction | `npx -y agent-firewall-mcp` | [agent-firewall-seven.vercel.app](https://agent-firewall-seven.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/agent-firewall) |
+
+All three: deterministic, no LLM, free serverless tier; paid plans via RapidAPI for higher volume.
+
+## Quick start (MCP)
+Add any or all to your client's `mcpServers` config (Claude Desktop, Cursor, Claude Code, …):
 
 ```jsonc
-// add to your client's mcpServers config
 {
   "mcpServers": {
-    "agent-tools": { "command": "npx", "args": ["-y", "web-tools-mcp"] }
+    "agent-tools":     { "command": "npx", "args": ["-y", "web-tools-mcp"] },
+    "package-guard":   { "command": "npx", "args": ["-y", "package-guard-mcp"] },
+    "agent-firewall":  { "command": "npx", "args": ["-y", "agent-firewall-mcp"] }
   }
 }
 ```
-Or run from source: `cd agent-tools-mcp && npm install && node index.mjs`
-(self-test: `node test/client.mjs` — lists and calls all 10 tools).
 
-## 🧰 The tools (live endpoints)
+---
+
+### 1) Agent Web Tools — 10 web utilities  ·  `web-tools-mcp`
 | Tool | Endpoint | Returns |
 |------|----------|---------|
-| `read_url` | `url-to-markdown-three.vercel.app/api/read` | page → clean Markdown (RAG) |
-| `unfurl_url` | `url-metadata-three.vercel.app/api/meta` | title/description/image/favicon |
-| `validate_email` | `agent-tools-api.vercel.app/api/validate-email` | syntax + MX/A DNS + disposable/role |
-| `extract_web` | `agent-tools-api.vercel.app/api/extract` | CSS-selector scrape → JSON |
-| `get_feed` | `agent-tools-api.vercel.app/api/feed` | RSS/Atom → JSON items |
-| `dns_lookup` | `agent-tools-api.vercel.app/api/dns` | DNS records + SPF/DMARC |
-| `domain_info` | `agent-tools-api.vercel.app/api/domain` | RDAP: age, registrar, expiry |
-| `ssl_check` | `agent-tools-api.vercel.app/api/ssl` | TLS cert, days-to-expiry, trust |
-| `http_inspect` | `agent-tools-api.vercel.app/api/http` | redirect chain + security headers |
-| `structured_data` | `agent-tools-api.vercel.app/api/structured` | JSON-LD / schema.org / OpenGraph |
+| `read_url` | `/api/read` | page → clean Markdown (RAG) |
+| `unfurl_url` | `/api/meta` | title/description/image/favicon |
+| `validate_email` | `/api/validate-email` | syntax + MX/A DNS + disposable/role |
+| `extract_web` | `/api/extract` | CSS-selector scrape → JSON |
+| `get_feed` | `/api/feed` | RSS/Atom → JSON items |
+| `dns_lookup` | `/api/dns` | DNS records + SPF/DMARC |
+| `domain_info` | `/api/domain` | RDAP: age, registrar, expiry |
+| `ssl_check` | `/api/ssl` | TLS cert, days-to-expiry, trust |
+| `http_inspect` | `/api/http` | redirect chain + security headers |
+| `structured_data` | `/api/structured` | JSON-LD / schema.org / OpenGraph |
 
-Every endpoint: `GET ?url=` (or `?domain=`/`?email=`), JSON out, CORS open. Try one in a browser.
+Base: `https://agent-tools-api.vercel.app`. Code: [`agent-tools-mcp/`](agent-tools-mcp/) + [`agent-tools-api/`](agent-tools-api/).
+
+### 2) Package Guard — supply-chain guard for coding agents  ·  `package-guard-mcp`
+`verify_package` (the pre-install guard), `check_vulns` (OSV), `package_info`, `audit_deps`, `typosquat_scan`.
+Data: OSV.dev + npm/PyPI. Base: `https://package-guard.vercel.app`. Code: [`package-guard-mcp/`](package-guard-mcp/) + [`package-guard/`](package-guard/).
+
+### 3) Agent Firewall — input/output safety  ·  `agent-firewall-mcp`
+`scan_content` (prompt-injection/jailbreak/obfuscation), `scan_secrets` (+ PII redaction), `check_url`,
+`check_ip`, `check_password` (HIBP k-anonymity). Data: HIBP, RDAP, Tor, Team Cymru.
+Base: `https://agent-firewall-seven.vercel.app`. Code: [`agent-firewall-mcp/`](agent-firewall-mcp/) + [`agent-firewall/`](agent-firewall/).
+
+---
 
 ## 🛡️ Built right
-http/https only · DNS-resolved **SSRF guard** · request timeouts · response size caps ·
-content-type checks. Deterministic — same input, same output. No LLM, no paid data sources.
-
-## Repo layout
-- `agent-tools-mcp/` — the MCP server (wraps all 10 tools)
-- `agent-tools-api/` — the multi-endpoint API (email, extract, feed, dns, domain, ssl, http, structured)
-- `url-to-markdown/`, `url-metadata/` — the two reader APIs
+http/https only · DNS-resolved **SSRF guard** · request timeouts · response size caps · content-type
+checks. Deterministic — same input, same output. No LLM, no paid data sources. Each API is a serverless
+function on a free tier; the MCP servers are thin stdio wrappers that call the same endpoints.
 
 ## License
 MIT — see [LICENSE](LICENSE). Contributions and tool suggestions welcome.
