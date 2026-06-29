@@ -60,9 +60,11 @@ Base: `https://agent-firewall-seven.vercel.app`. Code: [`agent-firewall-mcp/`](a
 
 ### 4) Payment Guard — pre-send risk check for agents that move money  ·  `payment-guard-mcp`
 `screen_address` (address/ENS → OFAC-sanctioned? scam? on-chain risk → verdict), `screen_payment` (x402/
-payment URL risk), `check_sanctioned` (fast OFAC), `resolve_name` (ENS → address, screened). Data: OFAC
-SDN + ethereum-lists + ScamSniffer + public RPC + ENS. Chains: ETH/Base/Polygon/Arbitrum/Optimism.
+payment URL risk), `check_sanctioned` (fast OFAC), `resolve_name` (ENS → address, screened), `screen_token`
+(honeypot/rug/tax risk before a buy/approve, via on-chain simulation). Data: OFAC SDN + ethereum-lists +
+ScamSniffer + honeypot.is + public RPC + ENS. Chains: ETH/Base/Polygon/Arbitrum/Optimism.
 Base: `https://payment-guard.vercel.app`. Code: [`payment-guard-mcp/`](payment-guard-mcp/) + [`payment-guard/`](payment-guard/).
+**x402-ready:** an env-gated USDC micropayment gate is built into every endpoint (dormant until a wallet is set).
 
 ---
 

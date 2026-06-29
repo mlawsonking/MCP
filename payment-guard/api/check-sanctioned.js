@@ -3,9 +3,11 @@
 const { sendJson, handleOptions } = require('../lib/common.js');
 const { isEvmAddress, ofacSanctionedSet } = require('../lib/risk.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
+const { requirePayment } = require('../lib/x402.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  if (await requirePayment(req, res, { resource: '/api/check-sanctioned' })) return;
   const started = Date.now();
   const input = String((req.query && (req.query.address || req.query.addr)) || '').trim();
   let address = input, resolved_from;

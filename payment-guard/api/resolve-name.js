@@ -3,9 +3,11 @@
 const { sendJson, handleOptions } = require('../lib/common.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
 const { ofacSanctionedSet, scamList } = require('../lib/risk.js');
+const { requirePayment } = require('../lib/x402.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  if (await requirePayment(req, res, { resource: '/api/resolve-name' })) return;
   const started = Date.now();
   const name = String((req.query && (req.query.name || req.query.ens)) || '').trim();
   if (!looksLikeEns(name)) return sendJson(res, 400, { ok: false, error: 'Provide an ENS name (e.g. name.eth)' });

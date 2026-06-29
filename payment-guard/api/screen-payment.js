@@ -2,9 +2,11 @@
 // GET /api/screen-payment?url=https://pay.example.com/x402
 const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
 const { analyzeUrl, getDomainAgeDays } = require('../lib/safety.js');
+const { requirePayment } = require('../lib/x402.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  if (await requirePayment(req, res, { resource: '/api/screen-payment' })) return;
   const started = Date.now();
   const url = String((req.query && (req.query.url || req.query.endpoint)) || '').trim();
   if (!url) return sendJson(res, 400, { ok: false, error: 'Missing ?url= (an x402/payment endpoint or merchant URL)' });

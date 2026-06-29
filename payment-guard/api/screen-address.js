@@ -4,9 +4,11 @@
 const { sendJson, handleOptions } = require('../lib/common.js');
 const { CHAINS, isEvmAddress, ofacSanctionedSet, scamList, onchain } = require('../lib/risk.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
+const { requirePayment } = require('../lib/x402.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  if (await requirePayment(req, res, { resource: '/api/screen-address' })) return;
   const started = Date.now();
   const q = req.query || {};
   const input = String(q.address || q.addr || '').trim();

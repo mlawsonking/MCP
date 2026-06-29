@@ -11,7 +11,7 @@ const json = (r) => { try { return JSON.parse(text(r).replace(/^[^{[]*/, '')); }
 
 await client.connect(transport);
 const tools = (await client.listTools()).tools;
-ck('lists 4 tools', tools.length === 4, tools.map((t) => t.name).join(', '));
+ck('lists 5 tools', tools.length === 5, tools.map((t) => t.name).join(', '));
 
 let r = await client.callTool({ name: 'screen_address', arguments: { address: 'vitalik.eth', chain: 'eth' } });
 let j = json(r); ck('screen_address ENS → resolves + verdict', j.ok && j.resolved_from === 'vitalik.eth' && !!j.verdict, `verdict=${j.verdict}`);
@@ -24,6 +24,9 @@ j = json(r); ck('check_sanctioned clean → clear', j.ok && j.verdict === 'clear
 
 r = await client.callTool({ name: 'resolve_name', arguments: { name: 'vitalik.eth' } });
 j = json(r); ck('resolve_name vitalik.eth', j.ok && j.resolved === true && !!j.address, `addr=${(j.address || '').slice(0, 12)}`);
+
+r = await client.callTool({ name: 'screen_token', arguments: { address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', chain: 'eth' } });
+j = json(r); ck('screen_token USDC → safe', j.ok && j.verdict === 'safe' && j.honeypot === false, `token=${j.token && j.token.symbol}`);
 
 console.log(`\n${pass} passed, ${fail} failed`);
 await client.close();

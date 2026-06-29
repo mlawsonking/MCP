@@ -79,4 +79,16 @@ async function onchain(chain, address) {
   return { isContract, txCount, hasBalance: balanceWei > 0n, balanceEth: Number(balanceWei) / 1e18 };
 }
 
-module.exports = { CHAINS, isEvmAddress, fetchWithTimeout, ofacSanctionedSet, scamList, rpc, onchain };
+// ---- Token honeypot / tax / risk (honeypot.is — free, no key; simulates a buy+sell) ----
+const CHAIN_ID = { eth: 1, base: 8453, polygon: 137, arbitrum: 42161, optimism: 10 };
+async function honeypotCheck(chain, address) {
+  const id = CHAIN_ID[chain];
+  if (!id) return null;
+  try {
+    const r = await fetchWithTimeout(`https://api.honeypot.is/v2/IsHoneypot?address=${address}&chainID=${id}`, {}, 9000);
+    if (!r.ok) return null;
+    return await r.json();
+  } catch { return null; }
+}
+
+module.exports = { CHAINS, CHAIN_ID, isEvmAddress, fetchWithTimeout, ofacSanctionedSet, scamList, rpc, onchain, honeypotCheck };

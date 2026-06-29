@@ -49,6 +49,13 @@ server.tool(
   async ({ name }) => { try { const j = await get('/api/resolve-name', { name }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'resolve failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );
 
+server.tool(
+  'screen_token',
+  'Before an agent buys, swaps, or approves a token, check if the token contract is a HONEYPOT (you can buy but not sell), a rug (extreme/high sell tax), or on a scam blocklist. Runs an on-chain buy+sell simulation. Returns token name/symbol, buy/sell/transfer taxes, and a verdict: safe / caution / block.',
+  { address: z.string().describe('Token contract address (0x + 40 hex).'), chain: CHAIN },
+  async ({ address, chain }) => { try { const j = await get('/api/screen-token', { address, chain }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'screen failed'); } catch (e) { return err(String((e && e.message) || e)); } }
+);
+
 const transport = new StdioServerTransport();
 await server.connect(transport);
-console.error('payment-guard-mcp running (4 tools).');
+console.error('payment-guard-mcp running (5 tools).');

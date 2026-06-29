@@ -41,6 +41,17 @@
         "parameters": [{ "name": "name", "in": "query", "required": true, "schema": { "type": "string" } }],
         "responses": { "200": { "description": "resolved address + sanctions/scam screen" } }
       }
+    },
+    "/api/screen-token": {
+      "get": {
+        "operationId": "screenToken",
+        "summary": "Honeypot/rug/tax risk for a token contract before buying or approving it",
+        "parameters": [
+          { "name": "address", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Token contract address (0x + 40 hex)." },
+          { "name": "chain", "in": "query", "required": false, "schema": { "type": "string", "enum": ["eth", "base", "polygon", "arbitrum", "optimism"], "default": "eth" } }
+        ],
+        "responses": { "200": { "description": "honeypot? taxes + verdict (safe/caution/block)" } }
+      }
     }
   }
 }

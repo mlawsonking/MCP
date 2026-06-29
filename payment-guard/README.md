@@ -18,6 +18,7 @@ blocklists + on-chain reads via **public RPC** + **ENS**. EVM: Ethereum, Base, P
 | `GET /api/screen-payment` | Vet an x402/payment endpoint or merchant URL (punycode, lookalikes, shorteners, new domain, redirects) → verdict |
 | `GET /api/check-sanctioned` | Fast OFAC sanctions check for an address/ENS name (no on-chain) |
 | `GET /api/resolve-name` | Resolve an ENS name → address and screen it (catch non-resolving names + spoofs before paying) |
+| `GET /api/screen-token` | Honeypot/rug/tax risk for a token contract before a buy/approve (on-chain buy+sell simulation) |
 
 ## Examples
 ```bash
