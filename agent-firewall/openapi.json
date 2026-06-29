@@ -1,0 +1,57 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Agent Firewall — input/output safety for AI agents",
+    "version": "1.0.0",
+    "description": "Treat every external input as hostile. Detect prompt injection/jailbreak in ingested content, vet URLs and IPs, check pwned passwords (k-anonymity), and scan for leaked secrets/PII before you log or send. Deterministic, no LLM. Free data: HIBP, RDAP, Tor, Team Cymru, DNS + curated rulesets."
+  },
+  "servers": [{ "url": "https://agent-firewall-seven.vercel.app" }],
+  "paths": {
+    "/api/scan-content": {
+      "post": {
+        "operationId": "scanContent",
+        "summary": "Detect prompt-injection / jailbreak / obfuscation in text (or a fetched URL)",
+        "requestBody": { "required": false, "content": { "application/json": { "schema": { "type": "object", "properties": { "text": { "type": "string" }, "url": { "type": "string" } } } } } },
+        "parameters": [
+          { "name": "text", "in": "query", "required": false, "schema": { "type": "string" } },
+          { "name": "url", "in": "query", "required": false, "schema": { "type": "string" } }
+        ],
+        "responses": { "200": { "description": "risk, score, verdict (allow/review/block), findings" } }
+      }
+    },
+    "/api/scan-secrets": {
+      "post": {
+        "operationId": "scanSecrets",
+        "summary": "Detect leaked API keys/tokens/private-keys + PII, return redacted text",
+        "requestBody": { "required": false, "content": { "application/json": { "schema": { "type": "object", "properties": { "text": { "type": "string" } } } } } },
+        "parameters": [{ "name": "text", "in": "query", "required": false, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "findings + redacted copy + verdict" } }
+      }
+    },
+    "/api/check-url": {
+      "get": {
+        "operationId": "checkUrl",
+        "summary": "URL/domain safety: heuristics + domain age + redirect chain → verdict",
+        "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "verdict (safe/suspicious/malicious) + flags" } }
+      }
+    },
+    "/api/check-ip": {
+      "get": {
+        "operationId": "checkIp",
+        "summary": "IP reputation: Tor exit, ASN/org, reverse DNS, datacenter, blocklist → verdict",
+        "parameters": [{ "name": "ip", "in": "query", "required": true, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "verdict (low-risk/caution/high-risk) + signals" } }
+      }
+    },
+    "/api/check-password": {
+      "post": {
+        "operationId": "checkPassword",
+        "summary": "Is this password in a known breach? HIBP Pwned Passwords (k-anonymity)",
+        "requestBody": { "required": false, "content": { "application/json": { "schema": { "type": "object", "properties": { "password": { "type": "string" } } } } } },
+        "parameters": [{ "name": "password", "in": "query", "required": false, "schema": { "type": "string" } }],
+        "responses": { "200": { "description": "pwned, count, verdict" } }
+      }
+    }
+  }
+}

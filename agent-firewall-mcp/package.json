@@ -1,0 +1,19 @@
+{
+  "name": "agent-firewall-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.mlawsonking/agent-firewall-mcp",
+  "description": "MCP server: input/output safety gate for AI agents — detect prompt injection/jailbreak, vet URLs & IPs, check pwned passwords (HIBP k-anonymity), scan for leaked secrets & PII. Deterministic, free, no LLM.",
+  "type": "module",
+  "bin": { "agent-firewall-mcp": "index.mjs" },
+  "files": ["index.mjs", "README.md"],
+  "engines": { "node": ">=18" },
+  "keywords": ["mcp", "model-context-protocol", "ai", "agents", "security", "prompt-injection", "jailbreak", "guardrails", "owasp-llm", "secrets", "pii", "url-safety", "ip-reputation", "hibp"],
+  "repository": { "type": "git", "url": "git+https://github.com/mlawsonking/MCP.git", "directory": "agent-firewall-mcp" },
+  "homepage": "https://github.com/mlawsonking/MCP#readme",
+  "license": "MIT",
+  "author": "mlawsonking",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  }
+}
