@@ -1,0 +1,7 @@
+{
+  "name": "code-guard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Security scanner for AI-generated code — the agent scans its own code/diff before committing. Detects injection, SSRF, hardcoded secrets, weak crypto, unsafe deserialization, TLS-off, XSS. Deterministic, free, no LLM.",
+  "license": "MIT"
+}

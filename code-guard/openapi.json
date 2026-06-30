@@ -1,0 +1,56 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Code Guard — security scan for AI-generated code",
+    "version": "1.0.0",
+    "description": "53% of code is now AI-written and ~25% of it is vulnerable. Code Guard is the in-loop check a coding agent runs on its OWN generated code/diff before committing. Deterministic rule engine (no LLM) for the high-frequency classes: command/code/SQL injection, SSRF, hardcoded secrets, weak crypto, unsafe deserialization, disabled TLS verification, XSS/template-injection. Returns findings (rule, severity, line, fix) + a verdict (pass/review/block). Fast first-line scanner, not a full audit replacement."
+  },
+  "servers": [{ "url": "https://code-guard-api.vercel.app" }],
+  "paths": {
+    "/api/scan-code": {
+      "post": {
+        "operationId": "scanCode",
+        "summary": "Scan a code snippet for security vulnerabilities before committing/running it",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "required": ["code"], "properties": {
+                "code": { "type": "string", "description": "The source code to scan." },
+                "language": { "type": "string", "description": "python | javascript | typescript | … (optional; auto-detected)." }
+              } },
+              "example": { "language": "python", "code": "import os\nos.system('echo ' + user_input)\nobj = pickle.loads(data)" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "verdict (pass/review/block) + findings [{rule id, category, severity, line, code, message, remediation}] + counts." } }
+      }
+    },
+    "/api/scan-diff": {
+      "post": {
+        "operationId": "scanDiff",
+        "summary": "Scan only the ADDED lines of a unified diff (the agent's just-written change)",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "type": "object", "required": ["diff"], "properties": {
+                "diff": { "type": "string", "description": "A unified diff (git diff)." },
+                "language": { "type": "string" }
+              } },
+              "example": { "language": "javascript", "diff": "@@ -1,2 +1,3 @@\n function f(){\n+  return eval(x);\n }" }
+            }
+          }
+        },
+        "responses": { "200": { "description": "verdict + findings on the added lines (with correct new-file line numbers)." } }
+      }
+    },
+    "/api/rules": {
+      "get": {
+        "operationId": "rules",
+        "summary": "The deterministic rule catalog Code Guard checks (coverage transparency)",
+        "responses": { "200": { "description": "All rules grouped by category." } }
+      }
+    }
+  }
+}

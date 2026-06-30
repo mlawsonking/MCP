@@ -1,0 +1,19 @@
+{
+  "name": "code-guard-mcp",
+  "version": "1.0.0",
+  "mcpName": "io.github.mlawsonking/code-guard-mcp",
+  "description": "MCP server: security scanner for AI-generated code — the agent scans its own code/diff before committing. Detects injection, SSRF, hardcoded secrets, weak crypto, unsafe deserialization, TLS-off, XSS. Deterministic, free, no LLM.",
+  "type": "module",
+  "bin": { "code-guard-mcp": "index.mjs" },
+  "files": ["index.mjs", "README.md"],
+  "engines": { "node": ">=18" },
+  "keywords": ["mcp", "model-context-protocol", "ai", "agents", "security", "sast", "code-security", "ai-generated-code", "vulnerability", "injection", "secrets", "guardrails", "coding-agent"],
+  "repository": { "type": "git", "url": "git+https://github.com/mlawsonking/MCP.git", "directory": "code-guard-mcp" },
+  "homepage": "https://github.com/mlawsonking/MCP#readme",
+  "license": "MIT",
+  "author": "mlawsonking",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.12.0",
+    "zod": "^3.23.8"
+  }
+}
