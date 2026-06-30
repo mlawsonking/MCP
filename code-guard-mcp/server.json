@@ -10,7 +10,7 @@
   "packages": [
     {
       "registryType": "npm",
-      "identifier": "code-guard-mcp",
+      "identifier": "@mlawsonking/code-guard-mcp",
       "version": "1.0.0",
       "transport": { "type": "stdio" }
     }

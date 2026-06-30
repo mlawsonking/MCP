@@ -15,7 +15,7 @@ free. Code Guard is that fast first-line scanner (not a full audit replacement).
 
 ## Install
 ```json
-{ "mcpServers": { "code-guard": { "command": "npx", "args": ["-y", "code-guard-mcp"] } } }
+{ "mcpServers": { "code-guard": { "command": "npx", "args": ["-y", "@mlawsonking/code-guard-mcp"] } } }
 ```
 
 Deterministic (same input → same output). API: https://code-guard-api.vercel.app · part of the agent-guardrail
