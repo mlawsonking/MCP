@@ -1,0 +1,18 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.mlawsonking/email-guard-mcp",
+  "description": "Email safety for AI agents: scan inbound for prompt-injection/phishing + outbound for secret leaks.",
+  "repository": {
+    "url": "https://github.com/mlawsonking/MCP",
+    "source": "github"
+  },
+  "version": "1.0.0",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "email-guard-mcp",
+      "version": "1.0.0",
+      "transport": { "type": "stdio" }
+    }
+  ]
+}

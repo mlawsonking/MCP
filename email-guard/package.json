@@ -1,0 +1,7 @@
+{
+  "name": "email-guard",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Email safety gate for AI agents — scan inbound email for prompt-injection / 'AI agent phishing' before the agent acts on it, and scan outbound email for secret/PII leaks + deliverability before it sends. Deterministic, free, no LLM.",
+  "license": "MIT"
+}
