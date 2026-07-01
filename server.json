@@ -4,14 +4,15 @@
   "description": "Deterministic web tools for AI agents: read URLs, metadata, email, scrape, RSS, DNS, SSL, HTTP.",
   "repository": {
     "url": "https://github.com/mlawsonking/MCP",
-    "source": "github"
+    "source": "github",
+    "subfolder": "agent-tools-mcp"
   },
-  "version": "1.0.1",
+  "version": "1.0.2",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "web-tools-mcp",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "transport": { "type": "stdio" }
     }
   ]

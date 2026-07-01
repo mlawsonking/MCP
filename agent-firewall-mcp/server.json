@@ -4,14 +4,15 @@
   "description": "Input/output safety for AI agents: prompt-injection scan, URL/IP check, pwned passwords, PII scan.",
   "repository": {
     "url": "https://github.com/mlawsonking/MCP",
-    "source": "github"
+    "source": "github",
+    "subfolder": "agent-firewall-mcp"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "agent-firewall-mcp",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "transport": { "type": "stdio" }
     }
   ]

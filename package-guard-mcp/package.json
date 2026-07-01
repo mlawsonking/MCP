@@ -1,8 +1,8 @@
 {
   "name": "package-guard-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mcpName": "io.github.mlawsonking/package-guard-mcp",
-  "description": "MCP server: the pre-install supply-chain guard for AI coding agents — verify a package exists (catch slopsquat/hallucinations), check vulnerabilities & malware (OSV), detect typosquats, audit a whole dependency list. Deterministic, free, no LLM.",
+  "description": "MCP server: the pre-install supply-chain guard for AI coding agents: verify a package exists (catch slopsquat/hallucinations), check vulnerabilities & malware (OSV), detect typosquats, audit a whole dependency list. Deterministic, free, no LLM.",
   "type": "module",
   "bin": { "package-guard-mcp": "index.mjs" },
   "files": ["index.mjs", "README.md"],

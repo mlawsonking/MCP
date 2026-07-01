@@ -4,14 +4,15 @@
   "description": "Supply-chain guard for AI coding agents: verify packages, check vulns/malware, detect typosquats.",
   "repository": {
     "url": "https://github.com/mlawsonking/MCP",
-    "source": "github"
+    "source": "github",
+    "subfolder": "package-guard-mcp"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "package-guard-mcp",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "transport": { "type": "stdio" }
     }
   ]

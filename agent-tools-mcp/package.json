@@ -1,8 +1,8 @@
 {
   "name": "web-tools-mcp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "mcpName": "io.github.mlawsonking/web-tools-mcp",
-  "description": "MCP server: 10 deterministic web utility tools for AI agents — read URLs as Markdown, unfurl metadata, validate email, scrape with CSS, parse feeds, DNS/RDAP/SSL/HTTP/structured-data.",
+  "description": "MCP server: 10 deterministic web utility tools for AI agents: read URLs as Markdown, unfurl metadata, validate email, scrape with CSS, parse feeds, DNS/RDAP/SSL/HTTP/structured-data.",
   "type": "module",
   "bin": { "web-tools-mcp": "index.mjs" },
   "files": ["index.mjs", "README.md"],

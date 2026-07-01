@@ -4,14 +4,15 @@
   "description": "Pre-send risk check for AI agents that move money — screen an address or payment URL before sending.",
   "repository": {
     "url": "https://github.com/mlawsonking/MCP",
-    "source": "github"
+    "source": "github",
+    "subfolder": "payment-guard-mcp"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "payment-guard-mcp",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "transport": { "type": "stdio" }
     }
   ]

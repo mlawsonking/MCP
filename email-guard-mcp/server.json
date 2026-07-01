@@ -4,14 +4,15 @@
   "description": "Email safety for AI agents: scan inbound for prompt-injection/phishing + outbound for secret leaks.",
   "repository": {
     "url": "https://github.com/mlawsonking/MCP",
-    "source": "github"
+    "source": "github",
+    "subfolder": "email-guard-mcp"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "email-guard-mcp",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "transport": { "type": "stdio" }
     }
   ]

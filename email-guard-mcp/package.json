@@ -1,8 +1,8 @@
 {
   "name": "email-guard-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mcpName": "io.github.mlawsonking/email-guard-mcp",
-  "description": "MCP server: email safety for AI agents — scan inbound email for 'AI agent phishing' (prompt-injection/spoof) before acting, and outbound email for secret/PII leaks + deliverability before sending. Deterministic, free, no LLM.",
+  "description": "MCP server: email safety for AI agents: scan inbound email for 'AI agent phishing' (prompt-injection/spoof) before acting, and outbound email for secret/PII leaks + deliverability before sending. Deterministic, free, no LLM.",
   "type": "module",
   "bin": { "email-guard-mcp": "index.mjs" },
   "files": ["index.mjs", "README.md"],

@@ -1,8 +1,8 @@
 {
   "name": "agent-firewall-mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "mcpName": "io.github.mlawsonking/agent-firewall-mcp",
-  "description": "MCP server: input/output safety gate for AI agents — detect prompt injection/jailbreak, vet URLs & IPs, check pwned passwords (HIBP k-anonymity), scan for leaked secrets & PII. Deterministic, free, no LLM.",
+  "description": "MCP server: input/output safety gate for AI agents: detect prompt injection/jailbreak, vet URLs & IPs, check pwned passwords (HIBP k-anonymity), scan for leaked secrets & PII. Deterministic, free, no LLM.",
   "type": "module",
   "bin": { "agent-firewall-mcp": "index.mjs" },
   "files": ["index.mjs", "README.md"],

@@ -4,14 +4,15 @@
   "description": "Security scan for AI-generated code: injection, SSRF, secrets, weak crypto, unsafe deserialization.",
   "repository": {
     "url": "https://github.com/mlawsonking/MCP",
-    "source": "github"
+    "source": "github",
+    "subfolder": "code-guard-mcp"
   },
-  "version": "1.0.0",
+  "version": "1.0.1",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "@mlawsonking/code-guard-mcp",
-      "version": "1.0.0",
+      "version": "1.0.1",
       "transport": { "type": "stdio" }
     }
   ]
