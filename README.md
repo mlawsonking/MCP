@@ -1,77 +1,61 @@
-# Agent Tools — deterministic tools for AI agents (MCP + APIs)
+# Deterministic guards and tools for AI agents
 
-A family of **deterministic** tools that AI agents and developers call constantly — each exposed both as
-plain HTTP APIs **and** as an **MCP server**. No LLM in the loop, no API keys for the free tier, no
-tracking. Same input → same output. Just reliable, boring, useful tools.
+Six small tools that AI agents and developers call constantly, each available both as a plain HTTP API and as an MCP server. No LLM in the loop, and no accounts or API keys for the free tier. Same input, same output. Boring and reliable on purpose.
 
-## The products
+Five of them are guards: one check per risky action an agent takes, such as installing a package, reading untrusted text or email, following a link, sending money, or writing code. The sixth is a utility set for reading and parsing the web. All are free to run, with paid tiers on RapidAPI for higher volume.
 
-| Product | What it does | Install (MCP) | Live demo | Marketplace |
+## The tools
+
+| Tool | What it checks | Install (MCP) | API | RapidAPI |
 |---|---|---|---|---|
-| **Agent Web Tools** | 10 web utilities: URL→Markdown, metadata, email validate, CSS scrape, RSS, DNS/RDAP/SSL/HTTP/structured-data | `npx -y web-tools-mcp` | [agent-tools-api.vercel.app](https://agent-tools-api.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/agent-web-tools) |
-| **Package Guard** | Supply-chain guard for coding agents: verify a package exists (catch slopsquat/hallucinations), vulns/malware (OSV), typosquats, audit deps | `npx -y package-guard-mcp` | [package-guard.vercel.app](https://package-guard.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/package-guard) |
-| **Agent Firewall** | Input/output safety: detect prompt-injection/jailbreak, vet URLs & IPs, pwned-password (HIBP), secret/PII redaction | `npx -y agent-firewall-mcp` | [agent-firewall-seven.vercel.app](https://agent-firewall-seven.vercel.app) | [RapidAPI](https://rapidapi.com/mlawsonking/api/agent-firewall) |
-| **Payment Guard** | Pre-send risk check for agents that move money: screen a crypto address (or ENS name) / payment URL for OFAC sanctions, scams, and on-chain risk before a transfer | `npx -y payment-guard-mcp` | [payment-guard.vercel.app](https://payment-guard.vercel.app) | _RapidAPI: pending_ |
-
-All four: deterministic, no LLM, free serverless tier; paid plans via RapidAPI for higher volume.
-The last three form the **AI-agent safety suite**: Package Guard (supply chain) · Agent Firewall
-(input/output) · Payment Guard (money).
+| Package Guard | A package before install: does it exist (slopsquat), vulns, malware, typosquats | `npx -y package-guard-mcp` | [live](https://package-guard.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/package-guard) |
+| Agent Firewall | Untrusted input: prompt injection, leaked secrets/PII, URL and IP reputation | `npx -y agent-firewall-mcp` | [live](https://agent-firewall-seven.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/agent-firewall) |
+| Payment Guard | A payee before sending: OFAC sanctions, scam lists, honeypot tokens, ENS spoofs | `npx -y payment-guard-mcp` | [live](https://payment-guard.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/payment-guard) |
+| Email Guard | Inbound mail for injection/phishing, outbound for secret leaks and deliverability | `npx -y email-guard-mcp` | [live](https://email-guard-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/email-guard) |
+| Code Guard | AI-generated code: injection, SSRF, secrets, weak crypto, unsafe deserialization | `npx -y @mlawsonking/code-guard-mcp` | [live](https://code-guard-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/code-guard) |
+| Agent Web Tools | Web utilities: page to Markdown, metadata, CSS scrape, RSS, DNS, RDAP, SSL, HTTP | `npx -y web-tools-mcp` | [live](https://agent-tools-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/agent-web-tools) |
 
 ## Quick start (MCP)
-Add any or all to your client's `mcpServers` config (Claude Desktop, Cursor, Claude Code, …):
 
-```jsonc
+Add any or all to your client config (Claude Desktop, Cursor, Claude Code, and so on):
+
+```json
 {
   "mcpServers": {
-    "agent-tools":     { "command": "npx", "args": ["-y", "web-tools-mcp"] },
-    "package-guard":   { "command": "npx", "args": ["-y", "package-guard-mcp"] },
-    "agent-firewall":  { "command": "npx", "args": ["-y", "agent-firewall-mcp"] },
-    "payment-guard":   { "command": "npx", "args": ["-y", "payment-guard-mcp"] }
+    "package-guard":  { "command": "npx", "args": ["-y", "package-guard-mcp"] },
+    "agent-firewall": { "command": "npx", "args": ["-y", "agent-firewall-mcp"] },
+    "payment-guard":  { "command": "npx", "args": ["-y", "payment-guard-mcp"] },
+    "email-guard":    { "command": "npx", "args": ["-y", "email-guard-mcp"] },
+    "code-guard":     { "command": "npx", "args": ["-y", "@mlawsonking/code-guard-mcp"] },
+    "web-tools":      { "command": "npx", "args": ["-y", "web-tools-mcp"] }
   }
 }
 ```
 
----
+## Each one
 
-### 1) Agent Web Tools — 10 web utilities  ·  `web-tools-mcp`
-| Tool | Endpoint | Returns |
-|------|----------|---------|
-| `read_url` | `/api/read` | page → clean Markdown (RAG) |
-| `unfurl_url` | `/api/meta` | title/description/image/favicon |
-| `validate_email` | `/api/validate-email` | syntax + MX/A DNS + disposable/role |
-| `extract_web` | `/api/extract` | CSS-selector scrape → JSON |
-| `get_feed` | `/api/feed` | RSS/Atom → JSON items |
-| `dns_lookup` | `/api/dns` | DNS records + SPF/DMARC |
-| `domain_info` | `/api/domain` | RDAP: age, registrar, expiry |
-| `ssl_check` | `/api/ssl` | TLS cert, days-to-expiry, trust |
-| `http_inspect` | `/api/http` | redirect chain + security headers |
-| `structured_data` | `/api/structured` | JSON-LD / schema.org / OpenGraph |
+### Package Guard  (`package-guard-mcp`)
+`verify_package` (does it exist, else likely a hallucination or slopsquat, with suggestions), `check_vulns` (OSV), `package_info`, `audit_deps`, `typosquat_scan`. Ecosystems: npm, PyPI, Go, crates.io, RubyGems, Maven, NuGet. Data: OSV.dev, npm, PyPI. API: https://package-guard.vercel.app. Code: [`package-guard-mcp/`](package-guard-mcp/) and [`package-guard/`](package-guard/).
 
-Base: `https://agent-tools-api.vercel.app`. Code: [`agent-tools-mcp/`](agent-tools-mcp/) + [`agent-tools-api/`](agent-tools-api/).
+### Agent Firewall  (`agent-firewall-mcp`)
+`scan_content` (prompt injection, jailbreak, hidden-text obfuscation), `scan_secrets` (secrets and PII, with a redacted copy), `check_url`, `check_ip`, `check_password` (HIBP, k-anonymity). Data: HIBP, RDAP, Tor, Team Cymru, DNS. API: https://agent-firewall-seven.vercel.app. Code: [`agent-firewall-mcp/`](agent-firewall-mcp/) and [`agent-firewall/`](agent-firewall/).
 
-### 2) Package Guard — supply-chain guard for coding agents  ·  `package-guard-mcp`
-`verify_package` (the pre-install guard), `check_vulns` (OSV), `package_info`, `audit_deps`, `typosquat_scan`.
-Data: OSV.dev + npm/PyPI. Base: `https://package-guard.vercel.app`. Code: [`package-guard-mcp/`](package-guard-mcp/) + [`package-guard/`](package-guard/).
+### Payment Guard  (`payment-guard-mcp`)
+`screen_address` (address or ENS to a safe/caution/block verdict), `screen_payment` (x402 or merchant URL), `check_sanctioned` (fast OFAC), `resolve_name` (ENS, screened), `screen_token` (honeypot, rug, and tax risk via on-chain simulation). Data: OFAC SDN, ethereum-lists, ScamSniffer, honeypot.is, public RPC, ENS. Chains: Ethereum, Base, Polygon, Arbitrum, Optimism. API: https://payment-guard.vercel.app. Code: [`payment-guard-mcp/`](payment-guard-mcp/) and [`payment-guard/`](payment-guard/).
 
-### 3) Agent Firewall — input/output safety  ·  `agent-firewall-mcp`
-`scan_content` (prompt-injection/jailbreak/obfuscation), `scan_secrets` (+ PII redaction), `check_url`,
-`check_ip`, `check_password` (HIBP k-anonymity). Data: HIBP, RDAP, Tor, Team Cymru.
-Base: `https://agent-firewall-seven.vercel.app`. Code: [`agent-firewall-mcp/`](agent-firewall-mcp/) + [`agent-firewall/`](agent-firewall/).
+### Email Guard  (`email-guard-mcp`)
+`scan_inbound` (injection and phishing hidden in a message, before the agent acts), `scan_outbound` (secret and PII leaks, deliverability), `check_domain_auth` (SPF, DMARC, MX, domain age, disposable). Data: DNS, RDAP, disposable-domain lists. API: https://email-guard-api.vercel.app. Code: [`email-guard-mcp/`](email-guard-mcp/) and [`email-guard/`](email-guard/).
 
-### 4) Payment Guard — pre-send risk check for agents that move money  ·  `payment-guard-mcp`
-`screen_address` (address/ENS → OFAC-sanctioned? scam? on-chain risk → verdict), `screen_payment` (x402/
-payment URL risk), `check_sanctioned` (fast OFAC), `resolve_name` (ENS → address, screened), `screen_token`
-(honeypot/rug/tax risk before a buy/approve, via on-chain simulation). Data: OFAC SDN + ethereum-lists +
-ScamSniffer + honeypot.is + public RPC + ENS. Chains: ETH/Base/Polygon/Arbitrum/Optimism.
-Base: `https://payment-guard.vercel.app`. Code: [`payment-guard-mcp/`](payment-guard-mcp/) + [`payment-guard/`](payment-guard/).
-**x402-ready:** an env-gated USDC micropayment gate is built into every endpoint (dormant until a wallet is set).
+### Code Guard  (`@mlawsonking/code-guard-mcp`)
+`scan_code` and `scan_diff` (command, code, and SQL injection, SSRF, hardcoded secrets, weak crypto, unsafe deserialization, disabled TLS, XSS), `list_rules` (the rule catalog). API: https://code-guard-api.vercel.app. Code: [`code-guard-mcp/`](code-guard-mcp/) and [`code-guard/`](code-guard/).
 
----
+### Agent Web Tools  (`web-tools-mcp`)
+`read_url` (page to clean Markdown), `unfurl_url`, `validate_email`, `extract_web` (CSS scrape), `get_feed` (RSS/Atom), `dns_lookup`, `domain_info` (RDAP), `ssl_check`, `http_inspect`, `structured_data`. API: https://agent-tools-api.vercel.app. Code: [`agent-tools-mcp/`](agent-tools-mcp/) and [`agent-tools-api/`](agent-tools-api/).
 
-## 🛡️ Built right
-http/https only · DNS-resolved **SSRF guard** · request timeouts · response size caps · content-type
-checks. Deterministic — same input, same output. No LLM, no paid data sources. Each API is a serverless
-function on a free tier; the MCP servers are thin stdio wrappers that call the same endpoints.
+## How they're built
+
+http and https only, a DNS-resolved SSRF guard, request timeouts, response size caps, and content-type checks. Deterministic, no LLM, no paid data sources. Each API is a serverless function on a free tier, and the MCP servers are thin stdio wrappers that call the same endpoints.
 
 ## License
-MIT — see [LICENSE](LICENSE). Contributions and tool suggestions welcome.
+
+MIT, see [LICENSE](LICENSE). Contributions and tool suggestions welcome.
