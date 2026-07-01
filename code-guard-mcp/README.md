@@ -1,22 +1,21 @@
 # code-guard-mcp
 
-Security scanner for **AI-generated code**, as an MCP server — the check a coding agent runs on its *own* code or
-diff **before it commits**. Deterministic, free, **no LLM**.
+An MCP server that scans code for security bugs. A coding agent calls it on the code or diff it just produced, before committing or running it. Rule-based, no LLM, free.
 
-**Why:** 53% of code is now AI-written and ~25% ships vulnerable, yet nothing scans it *in the agent's loop* for
-free. Code Guard is that fast first-line scanner (not a full audit replacement).
-
-## Tools
-- **`scan_code`** — scan a snippet → findings `{rule, category, severity, line, message, remediation}` + verdict
-  `pass`/`review`/`block`. Detects command/code/SQL injection, SSRF, hardcoded secrets, weak crypto, unsafe
-  deserialization (pickle/yaml), disabled TLS verification, XSS / template injection.
-- **`scan_diff`** — scan only the **added lines** of a unified diff (correct new-file line numbers).
-- **`list_rules`** — the rule catalog (coverage transparency).
+More than half of new code is AI-assisted now, and a fair amount of it ships with the usual problems: injection, hardcoded secrets, disabled TLS checks, unsafe deserialization. This catches the common cases in one call. Treat it as a fast first pass, not a substitute for a real security review.
 
 ## Install
+
+Add it to your MCP client config (Claude Desktop, Cursor, Claude Code, and so on):
+
 ```json
 { "mcpServers": { "code-guard": { "command": "npx", "args": ["-y", "@mlawsonking/code-guard-mcp"] } } }
 ```
 
-Deterministic (same input → same output). API: https://code-guard-api.vercel.app · part of the agent-guardrail
-suite (Package Guard · Agent Firewall · Payment Guard · Email Guard · Code Guard).
+## Tools
+
+- `scan_code`: scan a snippet. Returns a verdict (pass, review, or block) and a list of findings, each with the rule, category, severity, line number, and a suggested fix. Covers command, code, and SQL injection, SSRF, hardcoded secrets and API keys, weak crypto, unsafe deserialization (pickle, yaml), disabled TLS verification, and XSS or template injection.
+- `scan_diff`: the same scan, but only on the added lines of a unified diff, with correct new-file line numbers. Useful inside a commit loop.
+- `list_rules`: the full rule catalog, so you can see what it checks and what it doesn't.
+
+Same input always gives the same output. It calls the API at https://code-guard-api.vercel.app (set `CODE_GUARD_API` to point at your own copy). One of six agent guards in this repo: package-guard, agent-firewall, payment-guard, email-guard, code-guard, and web-tools. MIT.

@@ -1,39 +1,24 @@
-# agent-tools-mcp (Engine #2 — the agent-native wrapper)
+# web-tools-mcp
 
-An MCP server that exposes our live web-utility tools to any AI agent (Claude Desktop, Cursor,
-Claude Code, etc.). This is what plugs the tools into the MCP ecosystem (97M SDK downloads/mo).
+An MCP server with a set of web utilities for AI agents: read a page as Markdown, pull link metadata, scrape with CSS selectors, parse feeds, and run DNS, RDAP, SSL, and HTTP checks. Deterministic, no LLM, and no API keys needed for the free tier.
+
+## Install
+
+```json
+{ "mcpServers": { "web-tools": { "command": "npx", "args": ["-y", "web-tools-mcp"] } } }
+```
 
 ## Tools
-- **`read_url`** — fetch a page and return its main content as clean Markdown (for RAG / reading).
-- **`unfurl_url`** — fetch a URL's structured metadata (title, description, image, favicon, …).
 
-Both call the live, deterministic endpoints (no LLM, no keys needed for the free tier):
-- `https://url-to-markdown-three.vercel.app/api/read`
-- `https://url-metadata-three.vercel.app/api/meta`
+- `read_url`: fetch a page and return the main content as clean Markdown, with the nav and ads stripped out. Good for RAG.
+- `unfurl_url`: get a URL's title, description, preview image, site name, and favicon.
+- `validate_email`: syntax check plus a live MX lookup, with disposable, role, and free-provider detection.
+- `extract_web`: scrape a page with CSS selectors and get back the fields you asked for.
+- `get_feed`: fetch an RSS or Atom feed and return the items as JSON.
+- `dns_lookup`: DNS records (A, AAAA, MX, NS, TXT, and the rest) plus SPF and DMARC detection.
+- `domain_info`: registration details via RDAP, including domain age, registrar, and expiry.
+- `ssl_check`: inspect a host's TLS certificate: issuer, validity window, days until expiry, and SANs.
+- `http_inspect`: final status, the full redirect chain, response headers, and a security-header report.
+- `structured_data`: extract JSON-LD, OpenGraph, and Twitter card data from a page.
 
-## Install (local)
-```
-npm install
-node index.mjs        # runs as an MCP stdio server
-node test/client.mjs  # end-to-end self-test (lists + calls both tools)
-```
-
-## Add to an MCP client
-Claude Desktop / Cursor / Claude Code config (`mcpServers`):
-```json
-{
-  "mcpServers": {
-    "agent-tools": {
-      "command": "node",
-      "args": ["D:/Random exploration of income/engine2/agent-tools-mcp/index.mjs"]
-    }
-  }
-}
-```
-Override the endpoints with env vars `READ_API_URL` / `META_API_URL` if you self-host them.
-
-## Monetization path (next, account-gated)
-1. **Publish to npm** + submit to MCP registries (MCPize, glama, smithery) → discovery.
-2. **Apify Actor** wrappers of the same endpoints → pay-per-result (80% payout).
-3. **RapidAPI** listing of the HTTP endpoints → free + paid tiers (marketplace billing).
-4. **x402 paywall** on the endpoints → agents pay per call in USDC, no signup.
+It calls the API at https://agent-tools-api.vercel.app (set `TOOLS_API_URL` if you self-host). One of six agent tools and guards in this repo: package-guard, agent-firewall, payment-guard, email-guard, code-guard, and web-tools. MIT.
