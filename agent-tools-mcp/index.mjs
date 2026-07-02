@@ -1,8 +1,7 @@
 #!/usr/bin/env node
-// agent-tools-mcp — an MCP server that exposes web utility tools to AI agents.
-// Tools:
-//   read_url   -> fetch a page and return its main content as clean Markdown (for RAG)
-//   unfurl_url -> fetch a page's structured metadata (title, description, image, favicon, ...)
+// agent-tools-mcp — an MCP server that exposes 10 web utility tools to AI agents.
+// Tools: read_url, unfurl_url, validate_email, extract_web, get_feed, dns_lookup, domain_info,
+//   ssl_check, http_inspect, structured_data.
 // Each just calls the live Vercel endpoints, so the agent gets a reliable, deterministic result.
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';

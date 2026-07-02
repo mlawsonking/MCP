@@ -1,0 +1,7 @@
+{
+  "//": "x402 micropayments for Payment Guard. To turn ON: set enabled=true and paste your wallet into payTo. payTo MUST be an EVM address (0x + 40 hex) that receives USDC on the BASE network. A Bitcoin address (starts with 1, 3, or bc1) will NOT work and the gate will refuse to activate. Get a Base 0x address in Coinbase: Receive -> USDC -> choose the Base network -> copy the 0x... address (or use a Coinbase Smart Wallet).",
+  "enabled": false,
+  "payTo": "",
+  "network": "base",
+  "price": "$0.001"
+}

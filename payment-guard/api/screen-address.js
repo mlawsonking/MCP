@@ -1,13 +1,14 @@
 // screen-address — the pre-send guard for AI agents that move money.
 // GET /api/screen-address?address=0x...&chain=eth|base|polygon|arbitrum|optimism
 // Checks: OFAC-sanctioned? on a scam/abuse blocklist? on-chain risk (brand-new/unused, contract) → verdict.
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track, upgradeInfo } = require('../lib/common.js');
 const { CHAINS, isEvmAddress, ofacSanctionedSet, scamList, onchain } = require('../lib/risk.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
 const { requirePayment } = require('../lib/x402.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  track(req, 'guard_call', { product: 'payment-guard', endpoint: 'screen-address' });
   if (await requirePayment(req, res, { resource: '/api/screen-address' })) return;
   const started = Date.now();
   const q = req.query || {};
@@ -62,6 +63,6 @@ module.exports = async (req, res) => {
   return sendJson(res, 200, {
     ok: true, address, resolved_from, chain, verdict,
     sanctioned, scam: scamNote ? { listed: true, note: scamNote } : { listed: false },
-    onchain: onc || undefined, flags, reasons, ms: Date.now() - started,
+    onchain: onc || undefined, flags, reasons, upgrade: upgradeInfo(req, 'payment-guard'), ms: Date.now() - started,
   });
 };

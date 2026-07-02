@@ -1,10 +1,11 @@
 // scan-content — detect prompt-injection / jailbreak / obfuscation in untrusted text (or a fetched URL).
 // POST { "text": "..." }  |  GET ?text=...  |  GET/POST with ?url= (fetches then scans)
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track, upgradeInfo } = require('../lib/common.js');
 const { scanInjection } = require('../lib/safety.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  track(req, 'guard_call', { product: 'agent-firewall', endpoint: 'scan-content' });
   const started = Date.now();
   const body = req.body || {};
   let text = body.text || (req.query && req.query.text) || '';
@@ -17,5 +18,5 @@ module.exports = async (req, res) => {
   }
   if (!text) return sendJson(res, 400, { ok: false, error: 'Provide text (POST {text} or ?text=) or a url to fetch.' });
   const r = scanInjection(text);
-  return sendJson(res, 200, { ok: true, source, length: String(text).length, ...r, ms: Date.now() - started });
+  return sendJson(res, 200, { ok: true, source, length: String(text).length, ...r, upgrade: upgradeInfo(req, 'agent-firewall'), ms: Date.now() - started });
 };

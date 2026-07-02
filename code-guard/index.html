@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Code Guard — security scan for AI-generated code</title>
+<meta name="description" content="The check a coding agent runs on its own code or diff before committing. Deterministic rule engine, no LLM, free. Catches injection, SSRF, secrets, weak crypto, unsafe deserialization." />
+<style>
+  :root { --bg:#0b0e14; --panel:#131822; --ink:#e6edf3; --mut:#8b98a9; --acc:#4ade80; --warn:#fbbf24; --bad:#f87171; --line:#222b3a; }
+  * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; }
+  .wrap { max-width:880px; margin:0 auto; padding:48px 20px 80px; }
+  h1 { font-size:2.1rem; margin:0 0 8px; letter-spacing:-.02em; } h2 { margin:40px 0 12px; font-size:1.3rem; }
+  .tag { color:var(--acc); font-weight:600; } .mut { color:var(--mut); }
+  .lead { font-size:1.15rem; color:#cdd7e2; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px 20px; margin:14px 0; }
+  code, pre { font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+  pre { background:#0d121b; border:1px solid var(--line); border-radius:10px; padding:14px; overflow:auto; font-size:13.5px; }
+  textarea { width:100%; min-height:120px; font:13.5px/1.5 ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; background:#0d121b; color:var(--ink); border:1px solid var(--line); border-radius:10px; padding:12px; resize:vertical; }
+  table { width:100%; border-collapse:collapse; margin-top:8px; } th,td { text-align:left; padding:9px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--mut); font-weight:600; font-size:.85rem; text-transform:uppercase; letter-spacing:.04em; }
+  td code { color:var(--acc); }
+  .try { display:flex; gap:8px; flex-wrap:wrap; margin:10px 0; }
+  select,button { font:inherit; border-radius:8px; border:1px solid var(--line); background:#0d121b; color:var(--ink); padding:10px 12px; }
+  button { background:var(--acc); color:#06210f; font-weight:700; border:none; cursor:pointer; }
+  .verdict { font-weight:800; } .pass{color:var(--acc)} .review{color:var(--warn)} .block{color:var(--bad)}
+  a { color:var(--acc); } .pill { display:inline-block; background:#0d121b; border:1px solid var(--line); border-radius:999px; padding:3px 10px; font-size:.8rem; color:var(--mut); margin:2px 4px 2px 0; }
+  footer { margin-top:48px; color:var(--mut); font-size:.9rem; border-top:1px solid var(--line); padding-top:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <p class="tag">CODE GUARD</p>
+  <h1>Scan AI-generated code before it ships.</h1>
+  <p class="lead">More than half of new code is AI-assisted now, and a meaningful share of it carries the classic
+  security bugs: injection, hardcoded secrets, disabled TLS checks, unsafe deserialization. Code Guard is the check
+  a coding agent runs on its <strong>own</strong> code or diff before committing. A deterministic rule engine, so it
+  can't be talked out of a finding, and it answers in milliseconds.</p>
+  <p><span class="pill">Free</span><span class="pill">Deterministic, no LLM</span><span class="pill">JS/TS + Python + generic rules</span><span class="pill">HTTP + MCP</span></p>
+
+  <h2>Try it</h2>
+  <div class="card">
+    <textarea id="code">import os
+os.system("echo " + user_input)
+obj = pickle.loads(data)</textarea>
+    <div class="try">
+      <select id="lang"><option value="">auto-detect</option><option>python</option><option>javascript</option><option>typescript</option></select>
+      <button onclick="run()">Scan</button>
+    </div>
+    <pre id="out" class="mut">verdict appears here…</pre>
+  </div>
+
+  <h2>The endpoints</h2>
+  <table>
+    <tr><th>Endpoint</th><th>What it does</th></tr>
+    <tr><td><code>POST /api/scan-code</code></td><td><strong>The guard.</strong> Scan a snippet → findings <code>{rule, category, severity, line, remediation}</code> + verdict <code>pass / review / block</code></td></tr>
+    <tr><td><code>POST /api/scan-diff</code></td><td>Scan only the <strong>added lines</strong> of a unified diff, with correct new-file line numbers — for commit loops</td></tr>
+    <tr><td><code>GET /api/rules</code></td><td>The full rule catalog, so you know exactly what it checks (and what it doesn't)</td></tr>
+  </table>
+
+  <h2>Use it from an agent (MCP)</h2>
+  <pre>{ "mcpServers": { "code-guard": { "command": "npx", "args": ["-y", "@mlawsonking/code-guard-mcp"] } } }</pre>
+  <p class="mut">Or call the HTTP endpoints directly — JSON in, JSON out, CORS open. <a href="/openapi.json">OpenAPI spec</a>.</p>
+
+  <h2>What it catches</h2>
+  <div class="card mut">
+    Command, code, and SQL injection · SSRF · hardcoded secrets and API keys · weak crypto (MD5/SHA1, ECB, insecure
+    RNG) · unsafe deserialization (pickle, yaml, marshal) · disabled TLS verification · XSS and template injection ·
+    common misconfigurations. It's a fast first pass built for the agent's inner loop, not a replacement for a full
+    security review — and it tells you so in the response.
+  </div>
+
+  <footer>
+    MIT · part of the <a href="https://github.com/mlawsonking/MCP">agent guards</a> family ·
+    higher volume via <a href="https://rapidapi.com/mlawsonking/api/code-guard">RapidAPI</a> · <a href="/api/pricing">pricing</a> ·
+    anonymous usage counts only, no payloads stored
+  </footer>
+</div>
+<script>
+async function run(){
+  const out=document.getElementById('out'); out.textContent='scanning…'; out.className='mut';
+  const code=document.getElementById('code').value; const language=document.getElementById('lang').value;
+  try{
+    const r=await fetch('/api/scan-code',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({code,language:language||undefined})});
+    const j=await r.json();
+    out.className=''; const v=(j.verdict||'').toLowerCase();
+    const head=`verdict: ${j.verdict?`<span class="verdict ${v}">${j.verdict.toUpperCase()}</span>`:'?'}`;
+    out.innerHTML = head + "\n\n" + JSON.stringify(j,null,2);
+  }catch(err){ out.className='block'; out.textContent='error: '+err; }
+}
+run();
+</script>
+</body>
+</html>

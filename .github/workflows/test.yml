@@ -1,0 +1,30 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: code-guard
+        run: node test/local.cjs
+        working-directory: code-guard
+      - name: email-guard
+        run: node test/local.cjs
+        working-directory: email-guard
+      - name: payment-guard
+        run: npm install --no-audit --no-fund && node test/local.cjs
+        working-directory: payment-guard
+      - name: package-guard
+        run: node test/local-pkg.cjs
+        working-directory: package-guard
+      - name: agent-firewall
+        run: node test/local-firewall.cjs
+        working-directory: agent-firewall

@@ -2,11 +2,12 @@
 // Detects the high-frequency vuln classes in AI-generated code (injection, SSRF, hardcoded secrets, weak crypto,
 // unsafe deserialization, TLS-off, XSS) → findings (rule, severity, line, fix) + verdict. Deterministic, no LLM.
 // POST { "code": "...", "language": "python|javascript|..." }  (language optional — auto-detected)
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track, upgradeInfo } = require('../lib/common.js');
 const { scanCode } = require('../lib/codescan.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  track(req, 'guard_call', { product: 'code-guard', endpoint: 'scan-code' });
   const started = Date.now();
   const body = req.body || {};
   const code = body.code || (req.query && req.query.code) || '';
@@ -16,5 +17,5 @@ module.exports = async (req, res) => {
   const advice = r.verdict === 'block'
     ? 'Do NOT commit/run as-is — fix the critical/high findings first.'
     : r.verdict === 'review' ? 'Review the findings before committing.' : 'No high-signal issues found (fast first-line scan — not a full audit).';
-  return sendJson(res, 200, { ok: true, ...r, advice, ms: Date.now() - started });
+  return sendJson(res, 200, { ok: true, ...r, advice, upgrade: upgradeInfo(req, 'code-guard'), ms: Date.now() - started });
 };

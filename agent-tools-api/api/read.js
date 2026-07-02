@@ -3,10 +3,11 @@
 const { JSDOM } = require('jsdom');
 const { Readability } = require('@mozilla/readability');
 const TurndownService = require('turndown');
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track, upgradeInfo } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  track(req, 'guard_call', { product: 'agent-tools', endpoint: 'read' });
   const started = Date.now();
   const q = req.query || {};
   const target = q.url || (req.body && req.body.url);
@@ -48,6 +49,6 @@ module.exports = async (req, res) => {
   return sendJson(res, 200, {
     ok: true, url: f.finalUrl, title, byline: byline || undefined, excerpt: excerpt || undefined,
     words: markdown ? markdown.split(/\s+/).filter(Boolean).length : 0, chars: markdown.length,
-    ms: Date.now() - started, markdown,
+    upgrade: upgradeInfo(req, 'agent-web-tools'), ms: Date.now() - started, markdown,
   });
 };

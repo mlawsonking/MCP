@@ -5,10 +5,11 @@
 // Free data: OSV.dev + npm/PyPI registries. Deterministic, no LLM.
 
 const { eco, validName, meta, vulns, npmSearch, levenshtein } = require('../lib/pkg.js');
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track, upgradeInfo } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
+  track(req, 'guard_call', { product: 'package-guard', endpoint: 'verify-package' });
   const started = Date.now();
   const q = req.query || {};
   const name = String(q.name || q.package || '').trim();
@@ -78,6 +79,6 @@ module.exports = async (req, res) => {
     license: m.license, repository: m.repository,
     slopsquat: { risk: slopsquat_risk, signals: slopSignals, confusable_with: confusable || undefined },
     vulnerabilities: { count: vlist.length, malicious, list: vlist.slice(0, 5) },
-    reasons, ms: Date.now() - started,
+    reasons, upgrade: upgradeInfo(req, 'package-guard'), ms: Date.now() - started,
   });
 };

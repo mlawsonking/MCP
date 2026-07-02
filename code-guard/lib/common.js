@@ -66,4 +66,39 @@ async function safeFetch(target, opts = {}) {
   } finally { clearTimeout(timer); }
 }
 
-module.exports = { isPrivateIp, sendJson, handleOptions, safeFetch };
+// --- WAU beacon → PostHog. Fail-safe, dependency-free, no-op without POSTHOG_KEY. Never blocks/affects the response.
+function track(req, event, properties) {
+  try {
+    const key = process.env.POSTHOG_KEY;
+    if (!key) return;
+    const h = (req && req.headers) || {};
+    const raw = h['x-rapidapi-user'] || h['authorization'] || h['x-forwarded-for'] || 'anon';
+    const distinct_id = 'u_' + require('crypto').createHash('sha256').update(String(raw)).digest('hex').slice(0, 16);
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), 1500);
+    if (timer.unref) timer.unref();
+    fetch('https://us.i.posthog.com/capture/', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ api_key: key, event, distinct_id, properties: properties || {} }),
+      signal: ctrl.signal,
+    }).then(() => clearTimeout(timer)).catch(() => clearTimeout(timer));
+  } catch { /* analytics must never affect the API */ }
+}
+
+
+// Upgrade hint for DIRECT (non-RapidAPI) traffic: a non-breaking extra field so
+// heavy free users can discover the paid path. RapidAPI callers never see it —
+// the marketplace already handles their plans.
+function upgradeInfo(req, slug) {
+  try {
+    const h = (req && req.headers) || {};
+    if (h['x-rapidapi-proxy-secret'] || h['x-rapidapi-user']) return undefined;
+    return {
+      note: 'Free public endpoint (rate-limited). Higher volume, hard SLAs: https://rapidapi.com/mlawsonking/api/' + slug,
+      pricing: '/api/pricing',
+    };
+  } catch { return undefined; }
+}
+
+module.exports = { isPrivateIp, sendJson, handleOptions, safeFetch, track, upgradeInfo };

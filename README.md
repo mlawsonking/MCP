@@ -1,5 +1,7 @@
 # Deterministic guards and tools for AI agents
 
+![tests](https://github.com/mlawsonking/MCP/actions/workflows/test.yml/badge.svg)
+
 Six small tools that AI agents and developers call constantly, each available both as a plain HTTP API and as an MCP server. No LLM in the loop, and no accounts or API keys for the free tier. Same input, same output. Boring and reliable on purpose.
 
 Five of them are guards: one check per risky action an agent takes, such as installing a package, reading untrusted text or email, following a link, sending money, or writing code. The sixth is a utility set for reading and parsing the web. All are free to run, with paid tiers on RapidAPI for higher volume.
