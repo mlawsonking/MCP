@@ -6,6 +6,8 @@ Six small tools that AI agents and developers call constantly, each available bo
 
 Five of them are guards: one check per risky action an agent takes, such as installing a package, reading untrusted text or email, following a link, sending money, or writing code. The sixth is a utility set for reading and parsing the web. All are free to run, with paid tiers on RapidAPI for higher volume.
 
+Guide: [Why your AI agent needs deterministic guardrails](https://dev.to/mlawsonking/why-your-ai-agent-needs-deterministic-guardrails-and-how-to-add-one-in-a-few-lines-2l6j).
+
 ## The tools
 
 | Tool | What it checks | Install (MCP) | API | RapidAPI |
