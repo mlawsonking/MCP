@@ -74,13 +74,22 @@ function track(req, event, properties) {
     const h = (req && req.headers) || {};
     const raw = h['x-rapidapi-user'] || h['authorization'] || h['x-forwarded-for'] || 'anon';
     const distinct_id = 'u_' + require('crypto').createHash('sha256').update(String(raw)).digest('hex').slice(0, 16);
+    const ua = String(h['user-agent'] || '').slice(0, 180);
+    const referer = String(h['referer'] || '').slice(0, 200);
+    const props = Object.assign({}, properties || {}, {
+      ua,
+      origin: String(h['origin'] || '').slice(0, 120),
+      referer,
+      client: /mozilla/i.test(ua) ? 'browser' : 'api',
+      demo: referer.indexOf('vercel.app') !== -1,
+    });
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 1500);
     if (timer.unref) timer.unref();
     fetch('https://us.i.posthog.com/capture/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ api_key: key, event, distinct_id, properties: properties || {} }),
+      body: JSON.stringify({ api_key: key, event, distinct_id, properties: props }),
       signal: ctrl.signal,
     }).then(() => clearTimeout(timer)).catch(() => clearTimeout(timer));
   } catch { /* analytics must never affect the API */ }
