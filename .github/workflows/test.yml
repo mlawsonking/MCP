@@ -33,6 +33,7 @@ jobs:
       # test/local-intel.cjs is deliberately not run here: it asserts against live third-party SSL,
       # RDAP and HTTP endpoints and fails intermittently through no fault of ours. A suite that goes
       # red at random teaches everyone to ignore red. Run it by hand when touching those endpoints.
+      # Needs npm install for cheerio (api/extract.js), same as payment-guard needs js-sha3.
       - name: agent-tools-api
-        run: node test/local.cjs && node test/local-read.cjs
+        run: npm install --no-audit --no-fund && node test/local.cjs && node test/local-read.cjs
         working-directory: agent-tools-api
