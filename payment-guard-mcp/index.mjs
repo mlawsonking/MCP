@@ -23,7 +23,7 @@ const server = new McpServer({ name: 'payment-guard', version: '1.0.0' });
 
 server.tool(
   'screen_address',
-  'THE PRE-SEND GUARD. Before an agent sends funds to a crypto address (x402/transfer), call this. Accepts an EVM address OR an ENS name. Returns a verdict (safe/caution/block): whether the address is OFAC-sanctioned (do not pay), on a scam/abuse blocklist, or suspicious on-chain (brand-new/unused — common for scam drop addresses — or a contract). Use on every payment recipient.',
+  'THE PRE-SEND GUARD. Before an agent sends funds to a crypto address (x402/transfer), call this. Accepts an EVM address OR an ENS name. Returns a verdict (safe/caution/block): whether the address is OFAC-sanctioned (do not pay), on a scam/abuse blocklist, or suspicious on-chain (brand-new/unused — common for scam drop addresses — or a contract). Use on every payment recipient. Sanctions matching covers every EVM-format OFAC SDN list and applies to all EVM chains; non-EVM sanctioned addresses are not checked. If the sanctions list cannot be loaded the verdict is downgraded to caution with a sanctions-check-unavailable flag rather than reported as safe. Read sanctions_coverage in the response for exactly what was checked.',
   { address: z.string().describe('EVM address (0x + 40 hex) or ENS name (e.g. name.eth).'), chain: CHAIN },
   async ({ address, chain }) => { try { const j = await get('/api/screen-address', { address, chain }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'screen failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );
@@ -37,7 +37,7 @@ server.tool(
 
 server.tool(
   'check_sanctioned',
-  'Fast OFAC sanctions check for a crypto address or ENS name (no on-chain lookup). Returns whether it is on the OFAC SDN sanctioned-digital-currency list. Use as a quick compliance gate.',
+  'Fast OFAC sanctions check for a crypto address or ENS name (no on-chain lookup). Matches against the union of every EVM-format OFAC SDN list (ETH, ARB, BSC, ETC, USDC, USDT), which applies to all EVM chains because OFAC lists addresses by currency rather than by chain. Only EVM (0x) addresses are accepted, so Bitcoin, Tron, Solana and Monero sanctioned addresses are NOT checked. A false result means the address is absent from those EVM lists and nothing more; read the coverage object in the response. If the list cannot be loaded, sanctioned is null and verdict is "unknown" — treat that as unscreened, not as clean.',
   { address: z.string().describe('EVM address or ENS name.') },
   async ({ address }) => { try { const j = await get('/api/check-sanctioned', { address }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'check failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );

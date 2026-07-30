@@ -3,7 +3,7 @@
   "info": {
     "title": "Payment Guard — pre-send risk check for AI agents that move money",
     "version": "1.0.0",
-    "description": "Before an AI agent sends funds (x402 / crypto / a payment URL), check the recipient: is the address OFAC-sanctioned, on a scam/abuse blocklist, or suspicious (brand-new/unused, a contract)? Vet the payment URL for lookalikes and new domains. Resolve and screen ENS names. Deterministic, no LLM. Free data: OFAC SDN crypto addresses, ethereum-lists + ScamSniffer blocklists, on-chain reads via public RPC, ENS. EVM chains: Ethereum, Base, Polygon, Arbitrum, Optimism."
+    "description": "Before an AI agent sends funds (x402 / crypto / a payment URL), check the recipient: is the address OFAC-sanctioned, on a scam/abuse blocklist, or suspicious (brand-new/unused, a contract)? Vet the payment URL for lookalikes and new domains. Resolve and screen ENS names. Deterministic, no LLM. Free data: OFAC SDN crypto addresses, ethereum-lists + ScamSniffer blocklists, on-chain reads via public RPC, ENS. On-chain checks run on Ethereum, Base, Polygon, Arbitrum and Optimism. Sanctions coverage: OFAC lists addresses by currency rather than chain, so this API ingests every EVM-format list (ETH, ARB, BSC, ETC, USDC, USDT) and matches the union, which applies to all EVM chains. Non-EVM sanctioned addresses (Bitcoin, Tron, Solana, Monero and others) are not checked because only EVM addresses are accepted. Every sanctions response carries a coverage object stating this."
   },
   "servers": [{ "url": "https://payment-guard.vercel.app" }],
   "paths": {
@@ -29,9 +29,9 @@
     "/api/check-sanctioned": {
       "get": {
         "operationId": "checkSanctioned",
-        "summary": "Fast OFAC sanctions check for an address or ENS name (no on-chain)",
+        "summary": "Fast OFAC sanctions check for an address or ENS name (no on-chain). EVM addresses only; the response states its own coverage",
         "parameters": [{ "name": "address", "in": "query", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "sanctioned true/false + verdict" } }
+        "responses": { "200": { "description": "sanctioned true/false + verdict + a coverage object naming the lists consulted and the chains not covered. sanctioned is null and verdict is 'unknown' when the list could not be loaded" } }
       }
     },
     "/api/resolve-name": {

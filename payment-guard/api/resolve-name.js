@@ -2,7 +2,7 @@
 // GET /api/resolve-name?name=vitalik.eth
 const { sendJson, handleOptions } = require('../lib/common.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
-const { ofacSanctionedSet, scamList } = require('../lib/risk.js');
+const { ofacSanctions, ofacCoverage, scamList } = require('../lib/risk.js');
 const { requirePayment } = require('../lib/x402.js');
 
 module.exports = async (req, res) => {
@@ -15,14 +15,22 @@ module.exports = async (req, res) => {
   const address = await ensResolve(name);
   if (!address) return sendJson(res, 200, { ok: true, name, resolved: false, address: null, verdict: 'caution', note: 'Name does not resolve to an address — do not pay a name that doesn\'t resolve.', ms: Date.now() - started });
 
-  const [ofac, scam] = await Promise.all([ofacSanctionedSet(), scamList()]);
+  const [ofacRes, scam] = await Promise.all([ofacSanctions(), scamList()]);
+  const ofac = ofacRes.set;
   const sanctioned = ofac ? ofac.has(address.toLowerCase()) : null;
   const scamNote = scam ? scam.get(address.toLowerCase()) : undefined;
   const flagged = !!sanctioned || !!scamNote;
+  // A sanctions list we could not load is an unanswered question, not a clean result.
+  const unscreened = sanctioned === null;
   return sendJson(res, 200, {
     ok: true, name, resolved: true, address, sanctioned, scam: scamNote ? { listed: true, note: scamNote } : { listed: false },
-    verdict: flagged ? 'block' : 'safe',
-    note: flagged ? 'Resolved address is sanctioned/scam — do NOT pay.' : 'Resolved cleanly. For full risk (on-chain freshness, etc.) call /api/screen-address with this address.',
+    verdict: flagged ? 'block' : unscreened ? 'caution' : 'safe',
+    note: flagged
+      ? 'Resolved address is sanctioned/scam — do NOT pay.'
+      : unscreened
+        ? 'Resolved, but the OFAC sanctions list could not be loaded, so the address was NOT screened against it. Treat as unscreened, not clean.'
+        : 'Resolved cleanly. For full risk (on-chain freshness, etc.) call /api/screen-address with this address.',
+    sanctions_coverage: ofacCoverage(ofacRes.lists),
     ms: Date.now() - started,
   });
 };

@@ -30,10 +30,9 @@
 <div class="wrap">
   <p class="tag">PAYMENT GUARD</p>
   <h1>Before your AI agent sends money, ask one question.</h1>
-  <p class="lead">Agents are already moving real funds — x402 has pushed <strong>$600M+</strong> across
-  <strong>~500k AI wallets</strong> (now a Linux Foundation standard backed by Visa, Stripe, Anthropic,
-  Coinbase). The #1 risk: <em>paying a sanctioned or tainted address unknowingly.</em> Payment Guard is
-  the one call an agent makes <strong>before</strong> a transfer.</p>
+  <p class="lead">Agents are starting to move real funds over x402 endpoints and crypto rails. The obvious
+  way that goes wrong is <em>paying a sanctioned or scam address by mistake</em>, and on-chain that is
+  irreversible. Payment Guard is the one call an agent makes <strong>before</strong> a transfer.</p>
   <p><span class="pill">Free</span><span class="pill">Deterministic — no LLM</span><span class="pill">OFAC + scam lists + on-chain + ENS</span><span class="pill">HTTP + MCP</span></p>
 
   <h2>Screen a recipient</h2>
@@ -52,9 +51,25 @@
     <tr><th>Endpoint</th><th>What it does</th></tr>
     <tr><td><code>/api/screen-address</code></td><td><strong>The guard.</strong> Address or ENS name → OFAC-sanctioned? scam/abuse-listed? on-chain risk (brand-new/unused, contract)? → a <code>verdict</code></td></tr>
     <tr><td><code>/api/screen-payment</code></td><td>Vet an x402/payment endpoint or merchant URL (punycode, lookalikes, new domain, redirects)</td></tr>
-    <tr><td><code>/api/check-sanctioned</code></td><td>Fast OFAC sanctions check for an address / ENS name</td></tr>
+    <tr><td><code>/api/check-sanctioned</code></td><td>Fast OFAC sanctions check for an address / ENS name. The response states its own coverage</td></tr>
     <tr><td><code>/api/resolve-name</code></td><td>Resolve an ENS name → address and screen it (catch non-resolving names + spoofs)</td></tr>
   </table>
+
+  <h2>What the sanctions check covers</h2>
+  <div class="card mut">
+    <p>OFAC publishes sanctioned addresses by currency, not by chain. I ingest every upstream list that is
+    in EVM (<code>0x</code>) format — ETH, ARB, BSC, ETC, USDC, USDT — and match against the union, so one
+    result applies to every EVM chain.</p>
+    <p><strong>Not checked:</strong> Bitcoin, Tron, Solana, Monero and the other non-EVM sanctioned
+    addresses. This API only accepts EVM addresses, so it could never match them. A <code>sanctioned:
+    false</code> means the address is absent from the EVM lists above and nothing more. Every response
+    carries a <code>coverage</code> object that says this in machine-readable form.</p>
+    <p>If the list fails to load, you get <code>verdict: "unknown"</code> and a
+    <code>sanctions-check-unavailable</code> flag. Never <code>safe</code>. An unanswered question is not
+    a clean result.</p>
+    <p>An earlier version read only the ETH list. That missed 4 addresses OFAC publishes under ARB, BSC,
+    USDC and USDT, and called them <code>clear</code>. The test suite now pins those four.</p>
+  </div>
 
   <h2>Use it from an agent (MCP)</h2>
   <pre>{ "mcpServers": { "payment-guard": { "command": "npx", "args": ["-y", "payment-guard-mcp"] } } }</pre>

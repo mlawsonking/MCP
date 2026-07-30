@@ -18,4 +18,8 @@ Agents are starting to move real money on their own, over crypto rails, x402 end
 - `resolve_name`: resolve an ENS name to its address and screen it, which catches names that don't resolve and spoofed lookalikes.
 - `screen_token`: before buying, swapping, or approving a token, check the contract for honeypot behavior (you can buy but not sell), extreme sell taxes, and blocklist hits.
 
-Chains: Ethereum, Base, Polygon, Arbitrum, Optimism. Data comes from the OFAC SDN list, community scam lists (ethereum-lists, ScamSniffer), public RPC nodes, and ENS. It calls https://payment-guard.vercel.app (set `PAYMENT_GUARD_API` to override). One of six agent guards in this repo. MIT.
+On-chain checks run on Ethereum, Base, Polygon, Arbitrum and Optimism. Data comes from the OFAC SDN list, community scam lists (ethereum-lists, ScamSniffer), public RPC nodes, and ENS.
+
+Sanctions coverage, stated plainly: OFAC publishes sanctioned addresses by currency, not by chain, so this checks the union of every EVM-format list (ETH, ARB, BSC, ETC, USDC, USDT) and that result applies to any EVM chain. Bitcoin, Tron, Solana, Monero and other non-EVM sanctioned addresses are not checked, because only EVM addresses are accepted. Every response carries a coverage object saying so. If the list cannot be loaded the result is `unknown`, never `clear`.
+
+It calls https://payment-guard.vercel.app (set `PAYMENT_GUARD_API` to override). One of six agent guards in this repo. MIT.

@@ -2,7 +2,7 @@
 // GET /api/screen-address?address=0x...&chain=eth|base|polygon|arbitrum|optimism
 // Checks: OFAC-sanctioned? on a scam/abuse blocklist? on-chain risk (brand-new/unused, contract) → verdict.
 const { sendJson, handleOptions, track, upgradeInfo } = require('../lib/common.js');
-const { CHAINS, isEvmAddress, ofacSanctionedSet, scamList, onchain } = require('../lib/risk.js');
+const { CHAINS, isEvmAddress, ofacSanctions, ofacCoverage, scamList, onchain } = require('../lib/risk.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
 const { requirePayment } = require('../lib/x402.js');
 
@@ -29,7 +29,8 @@ module.exports = async (req, res) => {
   }
 
   const low = address.toLowerCase();
-  const [ofac, scam] = await Promise.all([ofacSanctionedSet(), scamList()]);
+  const [ofacRes, scam] = await Promise.all([ofacSanctions(), scamList()]);
+  const ofac = ofacRes.set;
   const sanctioned = ofac ? ofac.has(low) : null;
   const scamNote = scam ? scam.get(low) : undefined;
 
@@ -57,12 +58,19 @@ module.exports = async (req, res) => {
       reasons.push('Recipient is a smart contract — confirm it is the intended one (e.g., a known payment processor), not a lookalike.');
     }
   }
-  if (sanctioned === null && !scamNote) reasons.push('Note: sanctions/scam list temporarily unavailable; verdict is based on on-chain signals only.');
-  if (verdict === 'safe') reasons.push(`Not sanctioned, not on scam lists${onc ? ', and has on-chain history' : ''}.`);
+  // If the sanctions list did not load we do NOT know the address is clean. Never report "safe" on
+  // an unanswered question — downgrade to caution and say which check did not run.
+  if (sanctioned === null) {
+    if (verdict === 'safe') verdict = 'caution';
+    flags.push('sanctions-check-unavailable');
+    reasons.push('The OFAC sanctions list could not be loaded, so this address was NOT screened against it. Treat this as unscreened, not as clean.');
+  }
+  if (verdict === 'safe') reasons.push(`Not on the OFAC EVM sanctions lists, not on the scam lists${onc ? ', and has on-chain history' : ''}.`);
 
   return sendJson(res, 200, {
     ok: true, address, resolved_from, chain, verdict,
     sanctioned, scam: scamNote ? { listed: true, note: scamNote } : { listed: false },
+    sanctions_coverage: ofacCoverage(ofacRes.lists),
     onchain: onc || undefined, flags, reasons, upgrade: upgradeInfo(req, 'payment-guard'), ms: Date.now() - started,
   });
 };

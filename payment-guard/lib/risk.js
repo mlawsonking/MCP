@@ -18,18 +18,54 @@ async function fetchWithTimeout(url, opts = {}, ms = 8000) {
 }
 
 // ---- OFAC-sanctioned crypto addresses (public-domain SDN data; community mirror, auto-updated) ----
-let _ofac = { set: null, at: 0 };
-async function ofacSanctionedSet() {
-  if (_ofac.set && Date.now() - _ofac.at < 6 * 3600_000) return _ofac.set;
-  try {
-    const r = await fetchWithTimeout('https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_ETH.txt');
-    if (!r.ok) return _ofac.set;
-    const txt = await r.text();
-    const set = new Set(txt.split(/\r?\n/).map((l) => l.trim().toLowerCase()).filter((l) => /^0x[0-9a-f]{40}$/.test(l)));
-    if (set.size) { _ofac = { set, at: Date.now() }; }
-    return _ofac.set;
-  } catch { return _ofac.set; }
+// OFAC tags SDN crypto addresses by CURRENCY, not by chain. We ingest every upstream list that
+// publishes EVM-format addresses (0x + 40 hex) and union them, because an address on the SDN list
+// is sanctioned whichever EVM chain you send on. Checking only the ETH list missed 4 sanctioned
+// addresses that appear under ARB/BSC/USDC/USDT — see test/local.cjs OFAC_FIXTURES.
+// Lists in non-EVM formats (BTC, TRX, SOL, XMR, ZEC, LTC, ...) are deliberately not ingested:
+// this API only accepts EVM addresses, so they could never match.
+const OFAC_LIST_BASE = 'https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_';
+const OFAC_EVM_LISTS = ['ETH', 'ARB', 'BSC', 'ETC', 'USDC', 'USDT'];
+const OFAC_NOT_CHECKED = ['BTC', 'XBT', 'TRX', 'SOL', 'XMR', 'ZEC', 'LTC', 'DASH', 'XRP', 'BCH', 'BSV', 'BTG', 'XVG'];
+
+// What the sanctions check actually covers. Attached to every response that reports on it, so the
+// caller never has to guess what "not sanctioned" was measured against.
+function ofacCoverage(loadedLists) {
+  return {
+    list: 'OFAC SDN sanctioned digital-currency addresses',
+    source: 'https://github.com/0xB10C/ofac-sanctioned-digital-currency-addresses',
+    address_format: 'evm',
+    lists_ingested: OFAC_EVM_LISTS,
+    lists_loaded: loadedLists || [],
+    chains: 'Every EVM chain. OFAC lists addresses by currency, not by chain, so one EVM address list applies to eth, base, polygon, arbitrum and optimism alike.',
+    not_checked: OFAC_NOT_CHECKED,
+    note: 'Only EVM (0x) addresses are checked. Bitcoin, Tron, Solana, Monero and other non-EVM sanctioned addresses are on the SDN list but this API cannot accept them. A "not sanctioned" result means the address is absent from the EVM lists above, nothing more.',
+  };
 }
+
+let _ofac = { set: null, at: 0, lists: [] };
+async function ofacSanctions() {
+  if (_ofac.set && Date.now() - _ofac.at < 6 * 3600_000) return _ofac;
+  const results = await Promise.all(OFAC_EVM_LISTS.map(async (name) => {
+    try {
+      const r = await fetchWithTimeout(`${OFAC_LIST_BASE}${name}.txt`);
+      if (!r.ok) return null;
+      const txt = await r.text();
+      // Non-EVM entries live in some of these files (USDT carries Tron addresses); the regex drops them.
+      const addrs = txt.split(/\r?\n/).map((l) => l.trim().toLowerCase()).filter((l) => /^0x[0-9a-f]{40}$/.test(l));
+      return { name, addrs };
+    } catch { return null; }
+  }));
+  const ok = results.filter(Boolean);
+  if (!ok.length) return _ofac; // total failure: keep the last good cache (may be empty)
+  const set = new Set();
+  for (const l of ok) for (const a of l.addrs) set.add(a);
+  if (set.size) _ofac = { set, at: Date.now(), lists: ok.map((l) => l.name) };
+  return _ofac;
+}
+
+// Kept for callers that only need membership.
+async function ofacSanctionedSet() { return (await ofacSanctions()).set; }
 
 // ---- Scam / abuse address blocklist (multi-source: ethereum-lists darklist + ScamSniffer) ----
 let _scam = { map: null, at: 0 };
@@ -91,4 +127,4 @@ async function honeypotCheck(chain, address) {
   } catch { return null; }
 }
 
-module.exports = { CHAINS, CHAIN_ID, isEvmAddress, fetchWithTimeout, ofacSanctionedSet, scamList, rpc, onchain, honeypotCheck };
+module.exports = { CHAINS, CHAIN_ID, isEvmAddress, fetchWithTimeout, ofacSanctions, ofacSanctionedSet, ofacCoverage, OFAC_EVM_LISTS, scamList, rpc, onchain, honeypotCheck };
