@@ -43,9 +43,16 @@ function ofacCoverage(loadedLists) {
   };
 }
 
+// A complete load is good for 6 hours. A partial one is cached far more briefly: the union is built
+// from whichever lists answered, so caching a partial result for 6 hours would turn one transient
+// fetch failure into six hours of quietly narrowed sanctions coverage.
+const OFAC_TTL_MS = 6 * 3600_000;
+const OFAC_PARTIAL_TTL_MS = 5 * 60_000;
+
 let _ofac = { set: null, at: 0, lists: [] };
 async function ofacSanctions() {
-  if (_ofac.set && Date.now() - _ofac.at < 6 * 3600_000) return _ofac;
+  const ttl = _ofac.lists.length === OFAC_EVM_LISTS.length ? OFAC_TTL_MS : OFAC_PARTIAL_TTL_MS;
+  if (_ofac.set && Date.now() - _ofac.at < ttl) return _ofac;
   const results = await Promise.all(OFAC_EVM_LISTS.map(async (name) => {
     try {
       const r = await fetchWithTimeout(`${OFAC_LIST_BASE}${name}.txt`);
@@ -116,7 +123,11 @@ async function onchain(chain, address) {
 }
 
 // ---- Token honeypot / tax / risk (honeypot.is — free, no key; simulates a buy+sell) ----
+// honeypot.is answers for Ethereum and Base. It returns 400 "Invalid chain" for Polygon, Arbitrum and
+// Optimism, so the honeypot and tax fields can never be populated there. Callers are told rather than
+// left to infer it from a missing key.
 const CHAIN_ID = { eth: 1, base: 8453, polygon: 137, arbitrum: 42161, optimism: 10 };
+const HONEYPOT_CHAINS = ['eth', 'base'];
 async function honeypotCheck(chain, address) {
   const id = CHAIN_ID[chain];
   if (!id) return null;
@@ -127,4 +138,8 @@ async function honeypotCheck(chain, address) {
   } catch { return null; }
 }
 
-module.exports = { CHAINS, CHAIN_ID, isEvmAddress, fetchWithTimeout, ofacSanctions, ofacSanctionedSet, ofacCoverage, OFAC_EVM_LISTS, scamList, rpc, onchain, honeypotCheck };
+// Test seam: the list caches are module state, so a suite that simulates an outage has to be able to
+// clear them or it just re-reads whatever a previous test warmed up.
+function _resetCachesForTests() { _ofac = { set: null, at: 0, lists: [] }; _scam = { map: null, at: 0 }; }
+
+module.exports = { CHAINS, CHAIN_ID, HONEYPOT_CHAINS, isEvmAddress, fetchWithTimeout, ofacSanctions, ofacSanctionedSet, ofacCoverage, OFAC_EVM_LISTS, scamList, rpc, onchain, honeypotCheck, _resetCachesForTests };

@@ -2,7 +2,7 @@
 // GET /api/screen-address?address=0x...&chain=eth|base|polygon|arbitrum|optimism
 // Checks: OFAC-sanctioned? on a scam/abuse blocklist? on-chain risk (brand-new/unused, contract) → verdict.
 const { sendJson, handleOptions, track, upgradeInfo } = require('../lib/common.js');
-const { CHAINS, isEvmAddress, ofacSanctions, ofacCoverage, scamList, onchain } = require('../lib/risk.js');
+const { CHAINS, isEvmAddress, ofacSanctions, ofacCoverage, OFAC_EVM_LISTS, scamList, onchain } = require('../lib/risk.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
 const { requirePayment } = require('../lib/x402.js');
 
@@ -58,18 +58,33 @@ module.exports = async (req, res) => {
       reasons.push('Recipient is a smart contract — confirm it is the intended one (e.g., a known payment processor), not a lookalike.');
     }
   }
-  // If the sanctions list did not load we do NOT know the address is clean. Never report "safe" on
-  // an unanswered question — downgrade to caution and say which check did not run.
+  // A check that did not run is an unanswered question, never a clean result. Each of these
+  // downgrades 'safe' and names the check that was skipped.
   if (sanctioned === null) {
     if (verdict === 'safe') verdict = 'caution';
     flags.push('sanctions-check-unavailable');
     reasons.push('The OFAC sanctions list could not be loaded, so this address was NOT screened against it. Treat this as unscreened, not as clean.');
+  } else if (ofacRes.lists.length < OFAC_EVM_LISTS.length) {
+    // The union is built from whichever lists answered, so a partial load silently narrows coverage.
+    const missing = OFAC_EVM_LISTS.filter((l) => !ofacRes.lists.includes(l));
+    if (verdict === 'safe') verdict = 'caution';
+    flags.push('sanctions-partial');
+    reasons.push(`Only part of the OFAC data loaded. The ${missing.join(', ')} list(s) failed, so an address sanctioned only under those was not matched.`);
   }
-  if (verdict === 'safe') reasons.push(`Not on the OFAC EVM sanctions lists, not on the scam lists${onc ? ', and has on-chain history' : ''}.`);
+  if (scam === null) {
+    if (verdict === 'safe') verdict = 'caution';
+    flags.push('scam-check-unavailable');
+    reasons.push('The scam/abuse blocklists could not be loaded, so this address was NOT screened against them.');
+  }
+  if (verdict === 'safe') {
+    const ran = ['not on the OFAC EVM sanctions lists', 'not on the scam lists'];
+    if (onc && onc.txCount > 0) ran.push('has on-chain history');
+    reasons.push(`${ran.join(', ')}.`.replace(/^n/, 'N'));
+  }
 
   return sendJson(res, 200, {
     ok: true, address, resolved_from, chain, verdict,
-    sanctioned, scam: scamNote ? { listed: true, note: scamNote } : { listed: false },
+    sanctioned, scam: scamNote ? { listed: true, note: scamNote } : { listed: scam === null ? null : false, checked: scam !== null },
     sanctions_coverage: ofacCoverage(ofacRes.lists),
     onchain: onc || undefined, flags, reasons, upgrade: upgradeInfo(req, 'payment-guard'), ms: Date.now() - started,
   });

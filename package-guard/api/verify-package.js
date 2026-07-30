@@ -44,6 +44,9 @@ module.exports = async (req, res) => {
   const vlist = v.list || [];
   const malicious = vlist.some((x) => x.malicious);
   const hasVuln = vlist.length > 0;
+  // OSV returning an error is not the same as OSV returning nothing. Before this, an unreachable OSV
+  // produced an empty list, which read as "no known vulnerabilities" and shipped verdict "safe".
+  const vulnChecked = !v.error;
 
   const reasons = [];
   const slopSignals = [];
@@ -70,6 +73,10 @@ module.exports = async (req, res) => {
   if (hasVuln && !malicious) { if (verdict === 'safe') verdict = 'caution'; reasons.push(`${vlist.length} known vulnerability(ies) (OSV).`); }
   if (m.deprecated) { if (verdict === 'safe') verdict = 'caution'; reasons.push('Package is deprecated.'); }
   if (slopsquat_risk === 'medium' && verdict === 'safe') { verdict = 'caution'; reasons.push('Some slopsquat signals: ' + slopSignals.join(', ') + '.'); }
+  if (!vulnChecked) {
+    if (verdict === 'safe') verdict = 'caution';
+    reasons.push(`The OSV vulnerability lookup failed (${v.error}), so this package was NOT checked for known vulnerabilities or malware. Treat that as unknown, not as clean.`);
+  }
   if (verdict === 'safe') reasons.push('Exists, no known vulnerabilities, healthy signals.');
 
   return sendJson(res, 200, {
@@ -78,7 +85,7 @@ module.exports = async (req, res) => {
     age_days: m.age_days, weekly_downloads: m.weekly_downloads, deprecated: m.deprecated,
     license: m.license, repository: m.repository,
     slopsquat: { risk: slopsquat_risk, signals: slopSignals, confusable_with: confusable || undefined },
-    vulnerabilities: { count: vlist.length, malicious, list: vlist.slice(0, 5) },
+    vulnerabilities: { checked: vulnChecked, count: vulnChecked ? vlist.length : null, malicious, list: vlist.slice(0, 5), error: v.error || undefined },
     reasons, upgrade: upgradeInfo(req, 'package-guard'), ms: Date.now() - started,
   });
 };

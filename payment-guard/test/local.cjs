@@ -3,7 +3,7 @@ const screenAddress = require('../api/screen-address.js');
 const screenPayment = require('../api/screen-payment.js');
 const checkSanctioned = require('../api/check-sanctioned.js');
 const resolveName = require('../api/resolve-name.js');
-const { ofacSanctions, ofacSanctionedSet, scamList, OFAC_EVM_LISTS } = require('../lib/risk.js');
+const { ofacSanctions, ofacSanctionedSet, scamList, OFAC_EVM_LISTS, _resetCachesForTests } = require('../lib/risk.js');
 
 function mockRes() { return { statusCode: 200, body: '', setHeader() {}, end(b) { this.body = b || ''; } }; }
 async function call(h, query) { const res = mockRes(); await h({ method: 'GET', query }, res); return { code: res.statusCode, json: JSON.parse(res.body) }; }
@@ -40,7 +40,28 @@ async function fetchList(name) {
   ck('screen-address: outage never claims the address is unsanctioned',
     !(r.json.reasons || []).some((x) => /not on the ofac/i.test(x)),
     `reasons=${JSON.stringify(r.json.reasons)}`);
+  // A partial OFAC load narrows coverage silently, because the union is built from whichever lists
+  // answered. Fail just the ARB list and confirm we say so instead of reporting safe.
+  _resetCachesForTests();
+  globalThis.fetch = (url, opts) =>
+    String(url).includes('sanctioned_addresses_ARB') ? Promise.reject(new Error('simulated partial outage')) : realFetch(url, opts);
+  r = await call(screenAddress, { address: VITALIK, chain: 'eth' });
+  ck('screen-address: partial OFAC load → flagged, not safe',
+    r.json.verdict !== 'safe' && (r.json.flags || []).includes('sanctions-partial'),
+    `verdict=${r.json.verdict} flags=${r.json.flags} lists=${(r.json.sanctions_coverage || {}).lists_loaded}`);
+
+  // Scam lists down must not read as "not on the scam lists".
+  _resetCachesForTests();
+  globalThis.fetch = (url, opts) =>
+    (String(url).includes('darklist') || String(url).includes('scam-database'))
+      ? Promise.reject(new Error('simulated scam-list outage')) : realFetch(url, opts);
+  r = await call(screenAddress, { address: VITALIK, chain: 'eth' });
+  ck('screen-address: scam lists down → flagged, not safe',
+    r.json.verdict !== 'safe' && (r.json.flags || []).includes('scam-check-unavailable') && r.json.scam.checked === false,
+    `verdict=${r.json.verdict} scam=${JSON.stringify(r.json.scam)}`);
+
   globalThis.fetch = realFetch;
+  _resetCachesForTests();
 
   const { set: ofac, lists: loaded } = await ofacSanctions();
   const scam = await scamList();

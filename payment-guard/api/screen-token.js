@@ -1,7 +1,7 @@
 // screen-token — is this token contract a honeypot / rug / high-tax / scam? Before an agent buys/approves.
 // GET /api/screen-token?address=0x<token>&chain=eth|base|polygon|arbitrum|optimism
 const { sendJson, handleOptions } = require('../lib/common.js');
-const { isEvmAddress, CHAINS, scamList, honeypotCheck, onchain } = require('../lib/risk.js');
+const { isEvmAddress, CHAINS, HONEYPOT_CHAINS, scamList, honeypotCheck, onchain } = require('../lib/risk.js');
 const { requirePayment } = require('../lib/x402.js');
 
 module.exports = async (req, res) => {
@@ -41,9 +41,22 @@ module.exports = async (req, res) => {
       if (Array.isArray(hp.flags) && hp.flags.length) { for (const f of hp.flags.slice(0, 3)) reasons.push(`Flag: ${(f && (f.description || f.flag)) || f}`); if (verdict === 'safe') verdict = 'caution'; }
     }
   } else {
-    reasons.push('Honeypot simulation unavailable for this chain/token — verdict based on scam-list + on-chain only.');
+    // The simulation is the whole point of this endpoint. If it did not run we know nothing about
+    // whether the token is sellable, so we must not return 'safe'. honeypot.is supports Ethereum and
+    // Base only, and returns 404 for tokens with no liquidity pool, which is exactly the population
+    // most likely to be a rug.
+    if (verdict === 'safe') verdict = 'caution';
+    honeypot = null;
+    flags.push('honeypot-check-unavailable');
+    reasons.push(`No honeypot simulation ran for this token on ${chain}. ${HONEYPOT_CHAINS.includes(chain) ? 'honeypot.is had no result for it, which is common for tokens with no liquidity pool.' : `honeypot.is supports ${HONEYPOT_CHAINS.join(' and ')} only.`} Treat the sell-side risk as unknown, not as clear.`);
   }
-  if (verdict === 'safe') reasons.push('Not a honeypot, not scam-listed, taxes normal.');
+  if (verdict === 'safe' && hp) reasons.push('Not a honeypot, not scam-listed, taxes normal.');
 
-  return sendJson(res, 200, { ok: true, address, chain, verdict, token, honeypot, taxes, scam: scamNote ? { listed: true, note: scamNote } : { listed: false }, flags, reasons, ms: Date.now() - started });
+  return sendJson(res, 200, {
+    ok: true, address, chain, verdict, token, honeypot, taxes,
+    scam: scamNote ? { listed: true, note: scamNote } : { listed: false },
+    honeypot_checked: !!hp,
+    honeypot_coverage: { source: 'api.honeypot.is', chains_supported: HONEYPOT_CHAINS, checked: !!hp },
+    flags, reasons, ms: Date.now() - started,
+  });
 };
