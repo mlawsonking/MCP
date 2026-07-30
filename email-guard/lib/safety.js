@@ -62,24 +62,29 @@ function scanInjection(text) {
 }
 
 // ---------- Secret + PII detection ----------
+// `vg` is the capture group holding the SECRET ITSELF, which is not always group 1. Getting this
+// wrong is not a cosmetic bug: the old code used `m[1] || m[0]`, so `api_key = "hunter2"` redacted
+// the words "api_key" and left the value in the output, and a PEM block redacted the literal "RSA "
+// while every line of the key body survived. Redaction is the whole promise here.
 const SECRET_RULES = [
-  { id: 'aws-access-key', type: 'AWS Access Key ID', re: /\b((AKIA|ASIA|AGPA|AIDA|AROA)[0-9A-Z]{16})\b/g, severity: 'critical' },
-  { id: 'github-pat', type: 'GitHub Token', re: /\b((ghp|gho|ghu|ghs|ghr)_[0-9A-Za-z]{36}|github_pat_[0-9A-Za-z_]{22,})\b/g, severity: 'critical' },
-  { id: 'openai', type: 'OpenAI API Key', re: /\b(sk-(proj-)?[A-Za-z0-9_-]{20,})\b/g, severity: 'critical' },
-  { id: 'anthropic', type: 'Anthropic API Key', re: /\b(sk-ant-[A-Za-z0-9_-]{20,})\b/g, severity: 'critical' },
-  { id: 'google-api', type: 'Google API Key', re: /\b(AIza[0-9A-Za-z_-]{35})\b/g, severity: 'high' },
-  { id: 'slack', type: 'Slack Token', re: /\b(xox[baprs]-[0-9A-Za-z-]{10,})\b/g, severity: 'critical' },
-  { id: 'stripe', type: 'Stripe Secret Key', re: /\b((sk|rk)_live_[0-9A-Za-z]{24,})\b/g, severity: 'critical' },
-  { id: 'twilio', type: 'Twilio Key', re: /\b(SK[0-9a-fA-F]{32})\b/g, severity: 'high' },
-  { id: 'npm', type: 'npm Token', re: /\b(npm_[0-9A-Za-z]{36})\b/g, severity: 'critical' },
-  { id: 'jwt', type: 'JWT', re: /\b(eyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,})\b/g, severity: 'medium' },
-  { id: 'private-key', type: 'Private Key Block', re: /-----BEGIN (RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----/g, severity: 'critical' },
-  { id: 'generic-secret', type: 'Generic Secret Assignment', re: /\b(api[_-]?key|secret|passwd|password|token)\b\s*[:=]\s*['"]([^'"\s]{8,})['"]/gi, severity: 'medium' },
+  { id: 'aws-access-key', type: 'AWS Access Key ID', re: /\b((AKIA|ASIA|AGPA|AIDA|AROA)[0-9A-Z]{16})\b/g, severity: 'critical', vg: 1 },
+  { id: 'github-pat', type: 'GitHub Token', re: /\b((ghp|gho|ghu|ghs|ghr)_[0-9A-Za-z]{36}|github_pat_[0-9A-Za-z_]{22,})\b/g, severity: 'critical', vg: 1 },
+  { id: 'openai', type: 'OpenAI API Key', re: /\b(sk-(proj-)?[A-Za-z0-9_-]{20,})\b/g, severity: 'critical', vg: 1 },
+  { id: 'anthropic', type: 'Anthropic API Key', re: /\b(sk-ant-[A-Za-z0-9_-]{20,})\b/g, severity: 'critical', vg: 1 },
+  { id: 'google-api', type: 'Google API Key', re: /\b(AIza[0-9A-Za-z_-]{35})\b/g, severity: 'high', vg: 1 },
+  { id: 'slack', type: 'Slack Token', re: /\b(xox[baprs]-[0-9A-Za-z-]{10,})\b/g, severity: 'critical', vg: 1 },
+  { id: 'stripe', type: 'Stripe Secret Key', re: /\b((sk|rk)_live_[0-9A-Za-z]{24,})\b/g, severity: 'critical', vg: 1 },
+  { id: 'twilio', type: 'Twilio Key', re: /\b(SK[0-9a-fA-F]{32})\b/g, severity: 'high', vg: 1 },
+  { id: 'npm', type: 'npm Token', re: /\b(npm_[0-9A-Za-z]{36})\b/g, severity: 'critical', vg: 1 },
+  { id: 'jwt', type: 'JWT', re: /\b(eyJ[A-Za-z0-9_-]{8,}\.eyJ[A-Za-z0-9_-]{8,}\.[A-Za-z0-9_-]{8,})\b/g, severity: 'medium', vg: 1 },
+  // Match the whole armoured block, not just the BEGIN line, so the key body is what gets removed.
+  { id: 'private-key', type: 'Private Key Block', re: /-----BEGIN (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----[\s\S]*?-----END (?:RSA |EC |OPENSSH |DSA |PGP )?PRIVATE KEY-----/g, severity: 'critical', vg: 0 },
+  { id: 'generic-secret', type: 'Generic Secret Assignment', re: /\b(api[_-]?key|secret|passwd|password|token)\b\s*[:=]\s*['"]([^'"\s]{8,})['"]/gi, severity: 'medium', vg: 2 },
 ];
 const PII_RULES = [
-  { id: 'email', type: 'Email', re: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g, severity: 'low' },
-  { id: 'ssn', type: 'US SSN', re: /\b\d{3}-\d{2}-\d{4}\b/g, severity: 'high' },
-  { id: 'credit-card', type: 'Credit Card', re: /\b(?:\d[ -]?){13,16}\b/g, severity: 'high', luhn: true },
+  { id: 'email', type: 'Email', re: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g, severity: 'low', vg: 0 },
+  { id: 'ssn', type: 'US SSN', re: /\b\d{3}-\d{2}-\d{4}\b/g, severity: 'high', vg: 0 },
+  { id: 'credit-card', type: 'Credit Card', re: /\b(?:\d[ -]?){13,16}\b/g, severity: 'high', luhn: true, vg: 0 },
 ];
 
 function luhn(num) {
@@ -94,21 +99,47 @@ function maskSecret(s) { s = String(s); if (s.length <= 6) return s[0] + '****';
 function scanSecrets(text) {
   const t = String(text || '');
   const findings = [];
-  let redacted = t;
+  // Collect the exact span of each secret, then splice them out back-to-front. The old code did a
+  // document-wide split/join on the matched text, which replaced every other occurrence of that
+  // string too (redacting "RSA " turned both the BEGIN and END lines into rubble).
+  const spans = [];
   const apply = (rules, kind) => {
     for (const r of rules) {
+      const vg = r.vg || 0;
       r.re.lastIndex = 0; let m;
       while ((m = r.re.exec(t)) !== null) {
-        const val = m[1] || m[0];
-        if (r.luhn && !luhn(val)) continue;
-        findings.push({ id: r.id, kind, type: r.type, severity: r.severity, preview: maskSecret(val), index: m.index });
-        redacted = redacted.split(val).join(`[REDACTED:${r.type}]`);
+        const val = m[vg];
+        // A rule whose value group did not participate cannot be redacted safely; skip rather than
+        // report a finding we would leave in the output.
+        if (val === undefined) { if (!r.re.global) break; continue; }
+        if (r.luhn && !luhn(val)) { if (!r.re.global) break; continue; }
+        const start = vg === 0 ? m.index : m.index + m[0].indexOf(val);
+        spans.push({ start, end: start + val.length, type: r.type });
+        findings.push({ id: r.id, kind, type: r.type, severity: r.severity, preview: maskSecret(val), index: start });
         if (!r.re.global) break;
+        // A zero-length match would spin forever.
+        if (m[0] === '') r.re.lastIndex++;
       }
     }
   };
   apply(SECRET_RULES, 'secret');
   apply(PII_RULES, 'pii');
+
+  // Splice spans out back-to-front so earlier offsets stay valid. Overlaps (a vendor key that is also
+  // the value of a generic assignment) collapse into the widest span so nothing is left behind.
+  let redacted = t;
+  const merged = spans.sort((a, b) => a.start - b.start || b.end - a.end)
+    .reduce((acc, s) => {
+      const last = acc[acc.length - 1];
+      if (last && s.start < last.end) { last.end = Math.max(last.end, s.end); return acc; }
+      acc.push({ ...s });
+      return acc;
+    }, []);
+  for (let i = merged.length - 1; i >= 0; i--) {
+    const s = merged[i];
+    redacted = redacted.slice(0, s.start) + `[REDACTED:${s.type}]` + redacted.slice(s.end);
+  }
+
   const order = { critical: 4, high: 3, medium: 2, low: 1 };
   const worst = findings.reduce((a, f) => Math.max(a, order[f.severity] || 0), 0);
   const verdict = worst >= 3 ? 'block' : worst >= 1 ? 'review' : 'allow';

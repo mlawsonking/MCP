@@ -20,6 +20,27 @@ const ck = (n, c, info) => { c ? pass++ : fail++; console.log(`${c ? 'PASS' : 'F
   r = await call(scanSecrets, { body: { text: 'aws AKIAIOSFODNN7EXAMPLE token ghp_1234567890123456789012345678901234ab card 4111 1111 1111 1111' } });
   ck('scan-secrets → block + redacted', r.json.ok && r.json.verdict === 'block' && r.json.secrets >= 2 && r.json.redacted.includes('[REDACTED'), `secrets=${r.json.secrets} pii=${r.json.pii}`);
 
+  // The redaction tests below check that the SECRET IS GONE, not merely that the word REDACTED
+  // appears. The old assertion only did the latter, which is why a redactor that stripped the label
+  // and left the value passed for months.
+  const PEM_BODY = 'MIIEowIBAAKCAQEAtEXAMPLEKEYBODY0000';
+  const LEAKY = [
+    'api_key = "hunter2sekrit"',
+    `-----BEGIN RSA PRIVATE KEY-----\n${PEM_BODY}\n-----END RSA PRIVATE KEY-----`,
+    'aws AKIAIOSFODNN7EXAMPLE',
+    'contact bob@example.com',
+  ].join('\n');
+  r = await call(scanSecrets, { body: { text: LEAKY } });
+  const red = r.json.redacted || '';
+  const stillThere = ['hunter2sekrit', PEM_BODY, 'AKIAIOSFODNN7EXAMPLE', 'bob@example.com'].filter((s) => red.includes(s));
+  ck('scan-secrets: redacted output contains none of the secrets', stillThere.length === 0,
+    stillThere.length ? `LEAKED: ${stillThere.join(', ')}` : 'all removed');
+  ck('scan-secrets: redacts the value, not the label', red.includes('api_key') && !red.includes('hunter2sekrit'),
+    `line=${(red.split('\n')[0] || '').slice(0, 60)}`);
+  ck('scan-secrets: removes the whole PEM body, not just the header',
+    !red.includes(PEM_BODY) && !red.includes('-----END RSA PRIVATE KEY-----'),
+    `pem_remnant=${red.includes('-----END') ? 'END line survived' : 'clean'}`);
+
   r = await call(checkUrl, { query: { url: 'http://paypal.com.secure-login.tk/verify' } });
   ck('check-url lookalike → suspicious/malicious', r.json.ok && (r.json.verdict === 'suspicious' || r.json.verdict === 'malicious'), `verdict=${r.json.verdict} score=${r.json.score} flags=${r.json.flags.map(f => f.id)}`);
 

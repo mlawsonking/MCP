@@ -19,13 +19,26 @@ report what was actually loaded instead:
 
 ## shared 2026.07.30
 
-First versioned release. No rule behaviour changed; this records what was already there.
+First versioned release.
 
 - 11 prompt-injection and jailbreak patterns, each with a stable ID.
 - 5 obfuscation signals: `zero-width-chars`, `bidi-override`, `unicode-tag-smuggling`, `hidden-html`,
   `html-comment-instruction`.
 - 12 secret patterns and 3 PII patterns, each with a stable ID.
 - `scanInjection`, `scanSecrets` and `analyzeUrl` now return `rules_version`.
+
+**Redaction fix (behaviour change).** `scanSecrets` was redacting the wrong half of a match. It took
+`m[1] || m[0]`, so `api_key = "hunter2"` removed the words `api_key` and left the value in the
+`redacted` output, and a PEM block removed the literal `RSA ` while every line of the key body
+survived. It also did a document-wide `split/join` on the matched text, so redacting `RSA ` corrupted
+unrelated text elsewhere in the document.
+
+Each rule now declares which capture group holds the secret, the private-key rule matches the whole
+armoured block, and redaction splices exact character spans back-to-front with overlapping spans
+merged. The `redacted` string and `preview` values change. Findings, verdicts and response shape do
+not.
+
+Anyone who relied on `redacted` being safe to log or forward should re-run anything they kept.
 
 ## code 2026.07.30
 
