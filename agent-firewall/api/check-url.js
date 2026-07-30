@@ -1,4 +1,5 @@
-// check-url — URL/domain safety: structural heuristics + domain age (RDAP) + redirect chain → verdict.
+// check-url — URL/domain safety: structural heuristics + domain age (RDAP) + the final URL after
+// redirects (only the final hop is re-analyzed, and only scored when it is a different host) → verdict.
 // GET /api/check-url?url=https://...
 const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
 const { analyzeUrl, getDomainAgeDays } = require('../lib/safety.js');

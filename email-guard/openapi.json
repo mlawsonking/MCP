@@ -3,7 +3,7 @@
   "info": {
     "title": "Email Guard — inbound/outbound email safety for AI agents",
     "version": "1.0.0",
-    "description": "Before an AI agent ACTS on an email, scan it for 'AI agent phishing' (prompt-injection / hijack instructions hidden in the body, spoofed senders, risky links). Before an agent SENDS one, scan it for secret/PII leaks and deliverability problems that burn the sender domain. Deterministic, no LLM. Free public data: DNS (SPF/DMARC/MX), RDAP domain age, disposable-domain lists, injection + secret rulesets. Authentication: SPF, DKIM and DMARC results are READ from the Authentication-Results header added by the receiving mail server; no signature is verified here, and DKIM DNS records are not looked up because the selector cannot be derived from a domain name. That header can be forged in a raw .eml from an untrusted source, so trust it only for mail your own server received. Every response states this."
+    "description": "Before an AI agent ACTS on an email, scan it for 'AI agent phishing' (known prompt-injection / hijack patterns in the body, sender header comparisons, link reputation). Before an agent SENDS one, run 12 secret patterns and 3 PII patterns over the subject/body/HTML and check for deliverability problems that burn the sender domain. Deterministic, no LLM. Pattern matching, not a classifier: phrasings nobody wrote a rule for, brands off the 24-name list, and credential formats outside the 12 patterns are not detected. Free public data: DNS (SPF/DMARC/MX), RDAP domain age, disposable-domain lists, injection + secret rulesets. Authentication: SPF, DKIM and DMARC results are READ from the Authentication-Results header added by the receiving mail server; no signature is verified here, and DKIM DNS records are not looked up because the selector cannot be derived from a domain name. That header can be forged in a raw .eml from an untrusted source, so trust it only for mail your own server received. Every response states this."
   },
   "servers": [{ "url": "https://email-guard-api.vercel.app" }],
   "paths": {
@@ -31,13 +31,13 @@
             }
           }
         },
-        "responses": { "200": { "description": "Verdict (allow/review/block) + safe structured metadata: injection findings, sender/spoof signals, auth results, risky links, and advice." } }
+        "responses": { "200": { "description": "Verdict (allow/review/block) + fixed-shape metadata: injection findings, sender/spoof signals, auth results, scored links, and advice. The shape is fixed but nothing in it is sanitised: subject, sender.display, sender.from, sender.replyTo, sender.domain, links[].url, links[].host, injection.findings[].match, and the note strings in sender.spoofFlags and reasons are copied verbatim from the email and are still attacker-controlled text. Only the verdict, the scores, the rule ids and the advice string are written by this API." } }
       }
     },
     "/api/scan-outbound": {
       "post": {
         "operationId": "scanOutbound",
-        "summary": "Scan an outbound email for secret/PII leaks + deliverability before the agent sends it",
+        "summary": "Scan an outbound email against 12 secret patterns + 3 PII patterns, plus deliverability, before the agent sends it",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,7 +57,7 @@
             }
           }
         },
-        "responses": { "200": { "description": "Verdict + leaked secrets/PII (redacted), deliverability/spam flags, recipient risk (disposable / no-MX bounce)." } }
+        "responses": { "200": { "description": "Verdict + matches from the 12 secret and 3 PII patterns (with a redacted copy), deliverability/spam flags, recipient risk (disposable / no-MX bounce). The leak patterns run over the subject, plain-text body and HTML body only; other headers and attachments are not scanned." } }
       }
     },
     "/api/check-domain-auth": {

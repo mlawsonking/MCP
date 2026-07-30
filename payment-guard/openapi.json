@@ -3,7 +3,7 @@
   "info": {
     "title": "Payment Guard — pre-send risk check for AI agents that move money",
     "version": "1.0.0",
-    "description": "Before an AI agent sends funds (x402 / crypto / a payment URL), check the recipient: is the address OFAC-sanctioned, on a scam/abuse blocklist, or suspicious (brand-new/unused, a contract)? Vet the payment URL for lookalikes and new domains. Resolve and screen ENS names. Deterministic, no LLM. Free data: OFAC SDN crypto addresses, ethereum-lists + ScamSniffer blocklists, on-chain reads via public RPC, ENS. On-chain checks run on Ethereum, Base, Polygon, Arbitrum and Optimism. Sanctions coverage: OFAC lists addresses by currency rather than chain, so this API ingests every EVM-format list (ETH, ARB, BSC, ETC, USDC, USDT) and matches the union, which applies to all EVM chains. Non-EVM sanctioned addresses (Bitcoin, Tron, Solana, Monero and others) are not checked because only EVM addresses are accepted. Every sanctions response carries a coverage object stating this."
+    "description": "Before an AI agent sends funds (x402 / crypto / a payment URL), check the recipient: is the address OFAC-sanctioned, on a scam/abuse blocklist, or suspicious (brand-new/unused, a contract)? Vet the payment URL for a brand name outside the registrable domain, punycode hosts and new domains. Resolve an ENS name and screen the address it resolves to. Deterministic, no LLM. Free data: OFAC SDN crypto addresses, ethereum-lists + ScamSniffer blocklists, on-chain reads via public RPC, ENS. On-chain checks run on Ethereum, Base, Polygon, Arbitrum and Optimism. Sanctions coverage: OFAC lists addresses by currency rather than chain, so this API ingests every EVM-format list (ETH, ARB, BSC, ETC, USDC, USDT) and matches the union, which applies to all EVM chains. Non-EVM sanctioned addresses (Bitcoin, Tron, Solana, Monero and others) are not checked because only EVM addresses are accepted. Every sanctions response carries a coverage object stating this. ENS coverage: name resolution is namehash -> resolver(node) -> a direct addr(bytes32) call against the mainnet ENS registry, and the resolved address is then screened against the sanctions and scam lists. There is no confusable/homoglyph check and no ENSIP-15 normalization, so lookalike names are NOT detected. There is no ENSIP-10 wildcard resolution and no CCIP-Read, so offchain and L2 names (Basenames, .cb.id, gasless subnames) come back as not resolving here even though a wallet resolves them. URL coverage: the lookalike rule is a substring match on 14 known brand names, flagged when the brand is not the registrable domain (paypal.com.secure-pay.xyz); there is no edit distance or homoglyph mapping, so paypa1.com is not caught by that rule, and only the final URL after redirects is compared. Honeypot coverage: the buy+sell simulation is api.honeypot.is, which supports Ethereum and Base only and returns 400 Invalid chain for Polygon, Arbitrum and Optimism, so the honeypot and tax fields are not populated there and the response says so."
   },
   "servers": [{ "url": "https://payment-guard.vercel.app" }],
   "paths": {
@@ -21,7 +21,7 @@
     "/api/screen-payment": {
       "get": {
         "operationId": "screenPayment",
-        "summary": "Risk-check an x402/payment endpoint or merchant URL (lookalikes, new domain, redirects)",
+        "summary": "Risk-check an x402/payment endpoint or merchant URL (punycode host, a known brand name outside the registrable domain, new domain, the final URL after redirects)",
         "parameters": [{ "name": "url", "in": "query", "required": true, "schema": { "type": "string" } }],
         "responses": { "200": { "description": "verdict + flags" } }
       }
@@ -37,20 +37,20 @@
     "/api/resolve-name": {
       "get": {
         "operationId": "resolveName",
-        "summary": "Resolve an ENS name to an address and screen it (catch non-resolving names + spoofs)",
-        "parameters": [{ "name": "name", "in": "query", "required": true, "schema": { "type": "string" } }],
-        "responses": { "200": { "description": "resolved address + sanctions/scam screen" } }
+        "summary": "Resolve an ENS name to an address and screen that address against the sanctions and scam lists. Catches names that do not resolve. Lookalike/homoglyph names are not detected",
+        "parameters": [{ "name": "name", "in": "query", "required": true, "schema": { "type": "string" }, "description": "ENS name (e.g. name.eth). Resolved via the mainnet ENS registry with a direct addr() call: no ENSIP-10/CCIP-Read, so offchain and L2 names (Basenames, .cb.id, gasless subnames) report as not resolving." }],
+        "responses": { "200": { "description": "resolved address + sanctions/scam screen. resolved:false means the name did not resolve via the mainnet ENS registry, not that it does not exist" } }
       }
     },
     "/api/screen-token": {
       "get": {
         "operationId": "screenToken",
-        "summary": "Honeypot/rug/tax risk for a token contract before buying or approving it",
+        "summary": "Honeypot / extreme-sell-tax / scam-blocklist check on a token contract before buying or approving it. The buy+sell simulation is api.honeypot.is, Ethereum and Base only",
         "parameters": [
           { "name": "address", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Token contract address (0x + 40 hex)." },
-          { "name": "chain", "in": "query", "required": false, "schema": { "type": "string", "enum": ["eth", "base", "polygon", "arbitrum", "optimism"], "default": "eth" } }
+          { "name": "chain", "in": "query", "required": false, "schema": { "type": "string", "enum": ["eth", "base", "polygon", "arbitrum", "optimism"], "default": "eth" }, "description": "EVM chain. The scam-blocklist and on-chain checks run on all five. The honeypot simulation runs on eth and base only: api.honeypot.is returns 400 Invalid chain for polygon, arbitrum and optimism, so the honeypot and tax fields are not populated there." }
         ],
-        "responses": { "200": { "description": "honeypot? taxes + verdict (safe/caution/block)" } }
+        "responses": { "200": { "description": "honeypot? taxes + verdict (safe/caution/block), plus honeypot_checked and a honeypot_coverage object naming the chains the simulation supports. If no simulation ran the verdict is never safe: it is caution, or block if the scam blocklist already hit, with a honeypot-check-unavailable flag" } }
       }
     }
   }

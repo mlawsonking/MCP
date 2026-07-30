@@ -21,7 +21,7 @@ module.exports = async (req, res) => {
   if (!isEvmAddress(address)) {
     if (looksLikeEns(input)) {
       const r = await ensResolve(input);
-      if (!r) return sendJson(res, 200, { ok: true, input, resolved: false, verdict: 'caution', reasons: [`Could not resolve ENS name "${input}" to an address — do not pay a name that doesn't resolve.`], ms: Date.now() - started });
+      if (!r) return sendJson(res, 200, { ok: true, input, resolved: false, verdict: 'caution', reasons: [`"${input}" did not resolve via the mainnet ENS registry (namehash -> resolver -> addr()). Offchain and L2 names (Basenames, .cb.id, gasless subnames) are not supported here, so a wallet may still resolve it. Either way there is no address, so nothing was screened.`], ms: Date.now() - started });
       address = r; resolved_from = input;
     } else {
       return sendJson(res, 400, { ok: false, error: 'Provide a valid EVM address (0x + 40 hex) or an ENS name (e.g. name.eth)' });

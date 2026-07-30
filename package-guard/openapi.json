@@ -3,7 +3,7 @@
   "info": {
     "title": "Package Guard — supply-chain guard for AI coding agents",
     "version": "1.0.0",
-    "description": "Before an agent installs a package, check it's real, safe, and the one it meant. Verify existence (catch slopsquat/hallucinations), known vulnerabilities & malware (OSV.dev), slopsquat/typosquat risk, deprecation, license. Deterministic, no LLM. Free data: OSV.dev + npm/PyPI."
+    "description": "Deterministic pre-install checks for AI coding agents, no LLM. Registry existence (a name npm or PyPI does not have returns likely_hallucination: true, which means only that; private and renamed packages read the same way), known vulnerabilities and malware from OSV.dev, age and weekly-download signals, deprecation, license. Package contents are never fetched or analysed. check-vulns covers all seven OSV ecosystems; the other endpoints resolve names against npm, or PyPI with ecosystem=pypi, so they are npm and PyPI only."
   },
   "servers": [{ "url": "https://package-guard.vercel.app" }],
   "paths": {
@@ -11,10 +11,10 @@
       "get": {
         "operationId": "verifyPackage",
         "summary": "Pre-install guard: verdict on whether a package is safe to install",
-        "description": "Returns exists (if false → likely hallucination/slopsquat + suggestions), vulnerabilities/malware, slopsquat risk, deprecation, license, and an overall verdict (safe/caution/danger).",
+        "description": "npm and PyPI only. Returns exists (false means the registry has no such name: likely_hallucination is set, and on npm a 'did you mean' suggestions list comes with it; PyPI names get an empty list). The flag cannot tell an invented name from a typo, a rename, or a package that only exists in a private registry. Also returns OSV vulnerabilities and malware, slopsquat signals (age, weekly downloads, and on npm a name within 2 edits of a search hit), deprecation, license, and a verdict of safe, caution or danger. vulnerabilities.checked=false with count=null means the OSV lookup failed and the package was NOT checked; the verdict is downgraded to caution. count=0 means OSV answered and had nothing.",
         "parameters": [
           { "name": "name", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Package name (e.g. express, @scope/pkg, requests)." },
-          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi", "go", "crates", "rubygems", "maven", "nuget"], "default": "npm" } },
+          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi"], "default": "npm" }, "description": "npm or pypi. The other OSV ecosystems are accepted by the server but resolve the name against npm, which gives a wrong answer. Use /api/check-vulns for those." },
           { "name": "version", "in": "query", "required": false, "schema": { "type": "string" }, "description": "Version to check vulns against (default latest)." }
         ],
         "responses": { "200": { "description": "Verdict" } }
@@ -24,6 +24,7 @@
       "get": {
         "operationId": "checkVulns",
         "summary": "Known vulnerabilities & malware advisories (OSV.dev)",
+        "description": "The only endpoint that is correct for all seven ecosystems: it is a straight OSV.dev query and touches no package registry. An empty list means OSV had nothing for that name and version, not that the package is safe. A failed OSV request returns 502, never an empty list.",
         "parameters": [
           { "name": "name", "in": "query", "required": true, "schema": { "type": "string" } },
           { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi", "go", "crates", "rubygems", "maven", "nuget"], "default": "npm" } },
@@ -36,6 +37,7 @@
       "get": {
         "operationId": "packageInfo",
         "summary": "Registry metadata: latest, deprecated, license, repo, downloads, age",
+        "description": "Reads the npm registry, or PyPI with ecosystem=pypi. Weekly downloads come from api.npmjs.org and pypistats.org and are omitted when those are unavailable. 404 with exists=false means the registry has no such name.",
         "parameters": [
           { "name": "name", "in": "query", "required": true, "schema": { "type": "string" } },
           { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi"], "default": "npm" } }
@@ -47,15 +49,17 @@
       "get": {
         "operationId": "auditDeps",
         "summary": "Batch-audit a dependency list",
+        "description": "npm and PyPI only. Checks the names you send and nothing else: no lockfile is parsed and no transitive dependency is resolved. First 40 names (truncated=true past that). If the batch OSV call fails, every package reports vulns=0. This endpoint does not yet flag an unchecked lookup the way verify-package does.",
         "parameters": [
           { "name": "packages", "in": "query", "required": true, "schema": { "type": "string" }, "description": "Comma-separated package names." },
-          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi", "go", "crates", "rubygems", "maven", "nuget"], "default": "npm" } }
+          { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi"], "default": "npm" } }
         ],
         "responses": { "200": { "description": "Per-package report + summary" } }
       },
       "post": {
         "operationId": "auditDepsPost",
         "summary": "Batch-audit a package.json or requirements.txt",
+        "description": "Reads the dependencies and devDependencies maps out of package.json text, or name/version lines out of requirements.txt. Manifests only: lockfiles are not parsed and the dependency tree is not resolved. A version range is reduced to the digits inside it, so ^4.17.20 is checked as 4.17.20.",
         "requestBody": {
           "required": true,
           "content": { "application/json": { "schema": { "type": "object", "properties": {
@@ -72,6 +76,7 @@
       "get": {
         "operationId": "typosquatScan",
         "summary": "Generate lookalike names and flag registered/suspicious ones",
+        "description": "npm and PyPI only. Generates up to 20 ASCII variants (deletions, adjacent transpositions, doubled letters, the swaps l/1, o/0, rn/m, -/_, .-, i-l, s-z, and the name with every hyphen or underscore dropped) and reports which are registered. No Unicode homoglyphs. 'suspicious' means the variant is registered and either under a year old or has no creation date in the registry. That is an age signal, not a judgement about the package.",
         "parameters": [
           { "name": "name", "in": "query", "required": true, "schema": { "type": "string" } },
           { "name": "ecosystem", "in": "query", "required": false, "schema": { "type": "string", "enum": ["npm", "pypi"], "default": "npm" } }

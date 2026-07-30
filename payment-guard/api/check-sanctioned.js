@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
   const input = String((req.query && (req.query.address || req.query.addr)) || '').trim();
   let address = input, resolved_from;
   if (!isEvmAddress(address)) {
-    if (looksLikeEns(input)) { const r = await ensResolve(input); if (r) { address = r; resolved_from = input; } else return sendJson(res, 400, { ok: false, error: `Could not resolve ENS name "${input}"` }); }
+    if (looksLikeEns(input)) { const r = await ensResolve(input); if (r) { address = r; resolved_from = input; } else return sendJson(res, 400, { ok: false, error: `"${input}" did not resolve via the mainnet ENS registry (namehash -> resolver -> addr()). Offchain and L2 names (Basenames, .cb.id, gasless subnames) are not supported here, so a wallet may still resolve it. Pass the address directly to screen it.` }); }
     else return sendJson(res, 400, { ok: false, error: 'Provide an EVM address (0x + 40 hex) or ENS name' });
   }
   const { set: ofac, lists } = await ofacSanctions();

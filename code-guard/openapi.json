@@ -3,21 +3,21 @@
   "info": {
     "title": "Code Guard — security scan for AI-generated code",
     "version": "1.0.0",
-    "description": "53% of code is now AI-written and ~25% of it is vulnerable. Code Guard is the in-loop check a coding agent runs on its OWN generated code/diff before committing. Deterministic rule engine (no LLM) for the high-frequency classes: command/code/SQL injection, SSRF, hardcoded secrets, weak crypto, unsafe deserialization, disabled TLS verification, XSS/template-injection. Returns findings (rule, severity, line, fix) + a verdict (pass/review/block). Fast first-line scanner, not a full audit replacement."
+    "description": "Code Guard is the in-loop check a coding agent runs on its OWN generated code/diff before committing. Deterministic rule engine (no LLM) for the high-frequency classes: command/code/SQL injection, SSRF, hardcoded secrets, weak crypto, unsafe deserialization, disabled TLS verification, XSS/template-injection, plus personal data left in source (email, US SSN, card number). Returns findings (rule, severity, line, fix) + a verdict (pass/review/block). LIMITS: 31 regex rules matched one line at a time. No parser, no data flow, no taint tracking, so this is not static analysis in the sense a SAST vendor means it. It produces false positives (the word DES on a line trips weak-cipher, comment or variable name included) and misses anything spelled differently, including a SQL concatenation split across two lines. Languages are JS/TS (11 rules) and Python (14 rules) plus 6 language-agnostic rules; there is no Go, Ruby, PHP, Java or Rust ruleset, and an unrecognised language value is ignored in favour of guessing from the source. A clean result means no rule matched, not that the code is safe."
   },
   "servers": [{ "url": "https://code-guard-api.vercel.app" }],
   "paths": {
     "/api/scan-code": {
       "post": {
         "operationId": "scanCode",
-        "summary": "Scan a code snippet for security vulnerabilities before committing/running it",
+        "summary": "Match 31 regex security rules against a code snippet before committing/running it (JS/TS and Python; regex only, not full static analysis)",
         "requestBody": {
           "required": true,
           "content": {
             "application/json": {
               "schema": { "type": "object", "required": ["code"], "properties": {
                 "code": { "type": "string", "description": "The source code to scan." },
-                "language": { "type": "string", "description": "python | javascript | typescript | … (optional; auto-detected)." }
+                "language": { "type": "string", "description": "python | javascript | typescript (optional; auto-detected). Only JS/TS and Python are understood. Any other value is ignored and the language is guessed from the source." }
               } },
               "example": { "language": "python", "code": "import os\nos.system('echo ' + user_input)\nobj = pickle.loads(data)" }
             }
@@ -49,7 +49,7 @@
       "get": {
         "operationId": "rules",
         "summary": "The deterministic rule catalog Code Guard checks (coverage transparency)",
-        "responses": { "200": { "description": "All rules grouped by category." } }
+        "responses": { "200": { "description": "All 32 catalog entries with id, category, severity and language. 31 are the code rules; the 32nd is a grouped hardcoded-* entry standing in for 12 credential patterns and 3 personal-data patterns." } }
       }
     }
   }

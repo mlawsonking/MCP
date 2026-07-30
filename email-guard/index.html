@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Email Guard — email safety for AI agents</title>
-<meta name="description" content="Scan inbound email for prompt injection and phishing before an agent acts on it, and outbound email for secret leaks and deliverability problems before it sends. Deterministic, no LLM, free." />
+<meta name="description" content="Scan inbound email for known prompt-injection patterns and phishing signals before an agent acts on it, and outbound email for 12 secret patterns, 3 PII patterns and deliverability problems before it sends. Deterministic, no LLM, free." />
 <style>
   :root { --bg:#0b0e14; --panel:#131822; --ink:#e6edf3; --mut:#8b98a9; --acc:#4ade80; --warn:#fbbf24; --bad:#f87171; --line:#222b3a; }
   * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; }
@@ -54,10 +54,25 @@ to https://paypa1-secure.tk/verify within 24 hours.</textarea>
   <h2>The endpoints</h2>
   <table>
     <tr><th>Endpoint</th><th>What it does</th></tr>
-    <tr><td><code>POST /api/scan-inbound</code></td><td><strong>The guard.</strong> Before the agent acts on a message: prompt injection and hijack instructions (including zero-width, bidi, and hidden-HTML payloads), spoofed senders (SPF/DKIM/DMARC failures as reported by the receiving server, reply-to mismatch, disposable or brand-new domains), risky links → verdict <code>allow / review / block</code> plus clean structured metadata</td></tr>
-    <tr><td><code>POST /api/scan-outbound</code></td><td>Before the agent sends: leaked secrets and PII (with a redacted copy), deliverability problems that burn the sender domain, dead recipients (disposable, or no MX = guaranteed bounce)</td></tr>
+    <tr><td><code>POST /api/scan-inbound</code></td><td><strong>The guard.</strong> Before the agent acts on a message: known injection and hijack patterns (including zero-width, bidi, and hidden-HTML payloads), sender header checks (SPF/DKIM/DMARC results as reported by the receiving server, reply-to mismatch, a 24-name brand list against the display name), a DNS and RDAP look at the sender domain (disposable, or registered in the last 30 days), link reputation → verdict <code>allow / review / block</code> plus fixed-shape metadata</td></tr>
+    <tr><td><code>POST /api/scan-outbound</code></td><td>Before the agent sends: 12 secret patterns and 3 PII patterns over the subject, body and HTML (with a redacted copy), deliverability problems that burn the sender domain, dead recipients (disposable, or no MX = guaranteed bounce). Credential formats outside those 12 patterns are not detected, and the email-address rule is noisy: any address in the body puts the message at <code>review</code></td></tr>
     <tr><td><code>GET /api/check-domain-auth</code></td><td>SPF, DMARC, MX, domain age (RDAP), and disposable status for any domain or address → <code>weak / enforced</code></td></tr>
   </table>
+
+  <h2>What the sender check compares</h2>
+  <div class="card mut">
+    <p>Four string comparisons on headers. Reply-To domain against From domain and Return-Path domain against
+    From domain, by exact equality, so a legitimate <code>mail.example.com</code> sending for
+    <code>example.com</code> trips it too. An address written inside the display name that differs from the real
+    From address. And a 24-name brand list (paypal, apple, microsoft, google, amazon, netflix, coinbase, chase,
+    irs, docusign, usps, fedex and the like) matched as a substring of the display name, flagged only when that
+    same string is missing from the From domain.</p>
+    <p>That last one is the <code>brand-impersonation</code> flag, and it is narrow.
+    <code>"PayPal Security" &lt;svc@paypal-secure.tk&gt;</code> is not flagged, because "paypal" is in the domain.
+    <code>"Barclays Bank" &lt;svc@evil.tk&gt;</code> is not flagged, because Barclays is not on the list.
+    <code>"PayPaI Security"</code> with a capital i is not flagged, because the substring stops matching. There
+    is no general impersonation detection here.</p>
+  </div>
 
   <h2>What the authentication check does and does not do</h2>
   <div class="card mut">
@@ -79,12 +94,23 @@ to https://paypa1-secure.tk/verify within 24 hours.</textarea>
   <pre>{ "mcpServers": { "email-guard": { "command": "npx", "args": ["-y", "email-guard-mcp"] } } }</pre>
   <p class="mut">Or call the HTTP endpoints directly — JSON in, JSON out, CORS open. <a href="/openapi.json">OpenAPI spec</a>.</p>
 
-  <h2>Why structured metadata matters</h2>
+  <h2>What the structured output is, and what it isn't</h2>
   <div class="card mut">
-    The dangerous move is letting an agent reason over the raw body of a hostile email — that's exactly where the
-    injection lives. <code>scan-inbound</code> returns the verdict <em>and</em> safe structured facts (sender, auth
-    results, domain age, link analysis), so the agent can decide what to do without re-reading the attack. Data
-    sources are all free and public: DNS, RDAP, disposable-domain lists, curated injection and secret rulesets.
+    <p>The dangerous move is letting an agent reason over the raw body of a hostile email, because that is where
+    the injection lives. <code>scan-inbound</code> gives you a fixed JSON shape instead: verdict, risk, score,
+    sender fields, auth results, domain age, injection findings, link analysis. The agent can decide what to do
+    from that without re-reading the attack.</p>
+    <p>The shape is fixed. Nothing in it is sanitised. Every field holding free text holds the attacker's text,
+    copied verbatim. <code>subject</code> is the first 200 characters of the subject line.
+    <code>sender.display</code>, <code>sender.from</code>, <code>sender.replyTo</code> and
+    <code>sender.domain</code> come straight off the headers. <code>links[].url</code> and
+    <code>links[].host</code> are the URL as written. <code>injection.findings[].match</code> is up to 120
+    characters of the matched body text. The <code>note</code> strings in <code>sender.spoofFlags</code>, and
+    the <code>reasons</code> list, quote those same addresses back at you. The verdict, the scores, the rule ids
+    and the advice string are mine; anything with free text in it came out of the email. Wrapping it in JSON does
+    not make it safe to obey. Treat it as data, the same as the body.</p>
+    <p>Data sources are all free and public: DNS, RDAP, disposable-domain lists, and the injection and secret
+    rulesets. Both scan endpoints return the ruleset version as <code>rules_version</code>.</p>
   </div>
 
   <footer>

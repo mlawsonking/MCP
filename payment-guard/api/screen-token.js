@@ -1,4 +1,4 @@
-// screen-token — is this token contract a honeypot / rug / high-tax / scam? Before an agent buys/approves.
+// screen-token — is this token contract a honeypot / extreme sell tax / scam-listed? Before an agent buys/approves.
 // GET /api/screen-token?address=0x<token>&chain=eth|base|polygon|arbitrum|optimism
 const { sendJson, handleOptions } = require('../lib/common.js');
 const { isEvmAddress, CHAINS, HONEYPOT_CHAINS, scamList, honeypotCheck, onchain } = require('../lib/risk.js');

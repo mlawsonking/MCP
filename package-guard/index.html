@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Package Guard — the pre-install supply-chain guard for AI coding agents</title>
-<meta name="description" content="Before your AI agent installs a package, check it's real, safe, and not a slopsquat. Free, deterministic API + MCP server. Backed by OSV.dev + npm/PyPI." />
+<meta name="description" content="Before your AI agent installs a package, check the name is registered and OSV knows nothing bad about it. Free, deterministic API + MCP server. npm and PyPI registries, OSV.dev vulnerability data." />
 <style>
   :root { --bg:#0b0e14; --panel:#131822; --ink:#e6edf3; --mut:#8b98a9; --acc:#4ade80; --warn:#fbbf24; --bad:#f87171; --line:#222b3a; }
   * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; }
@@ -30,31 +30,71 @@
 <div class="wrap">
   <p class="tag">PACKAGE GUARD</p>
   <h1>Stop your AI coding agent from installing packages that don't exist.</h1>
-  <p class="lead">In 2026, ~20% of package names LLMs recommend <strong>aren't real</strong> — and attackers
-  register those hallucinated names (<em>"slopsquatting"</em>) to poison agents. Package Guard is the one
-  call an agent makes <strong>before</strong> <code>npm install</code> to check a package is real, safe,
-  and the one it actually meant.</p>
+  <p class="lead">LLMs recommend package names that <strong>aren't real</strong>, and attackers register
+  those hallucinated names (<em>"slopsquatting"</em>) so the next agent that suggests one installs
+  theirs. Package Guard is the one
+  call an agent makes <strong>before</strong> <code>npm install</code>: is this name registered, does OSV
+  know anything bad about it, and how new and how downloaded is it.</p>
   <p><span class="pill">Free</span><span class="pill">Deterministic — no LLM</span><span class="pill">OSV.dev + npm/PyPI</span><span class="pill">HTTP + MCP</span></p>
+  <p class="mut">The "hallucinated package" check is a registry lookup. If npm or PyPI has no package
+  by that name you get <code>likely_hallucination: true</code>, which means exactly that and no more —
+  it can't separate an invented name from a typo or a rename, and a package that only exists in your
+  private registry will read as missing here.</p>
 
   <h2>Try the guard</h2>
   <div class="card">
     <div class="try">
       <input id="name" placeholder="package name (try: express  OR  expresss-router-helper)" value="express" />
-      <select id="eco"><option>npm</option><option>pypi</option><option>go</option><option>crates</option><option>rubygems</option></select>
+      <select id="eco"><option>npm</option><option>pypi</option></select>
       <button onclick="run()">Verify</button>
     </div>
     <pre id="out" class="mut">verdict appears here…</pre>
+    <p class="mut">npm and PyPI only — see <a href="#scope">what runs where</a>.</p>
   </div>
 
   <h2>The tools</h2>
   <table>
     <tr><th>Endpoint</th><th>What it does</th></tr>
-    <tr><td><code>/api/verify-package</code></td><td><strong>The guard.</strong> Exists? (else hallucination/slopsquat + "did you mean") · vulns &amp; malware · slopsquat-risk · deprecated · license → a <code>verdict</code></td></tr>
+    <tr><td><code>/api/verify-package</code></td><td><strong>The guard.</strong> Is the name registered (else <code>likely_hallucination</code> + npm "did you mean") · OSV vulns &amp; malware · age and weekly-download signals · deprecated · license → a <code>verdict</code></td></tr>
     <tr><td><code>/api/check-vulns</code></td><td>Known vulnerabilities + malware advisories for <code>name@version</code> (OSV)</td></tr>
     <tr><td><code>/api/package-info</code></td><td>latest · deprecated · license · repo · weekly downloads · age</td></tr>
-    <tr><td><code>/api/audit-deps</code></td><td>Batch-audit a whole dependency list (<code>?packages=…</code> or POST package.json / requirements.txt)</td></tr>
-    <tr><td><code>/api/typosquat-scan</code></td><td>Generate lookalike names + flag which are registered &amp; suspicious</td></tr>
+    <tr><td><code>/api/audit-deps</code></td><td>A list of names, or the <code>dependencies</code> + <code>devDependencies</code> in a package.json, or a requirements.txt. Direct entries only, first 40</td></tr>
+    <tr><td><code>/api/typosquat-scan</code></td><td>Generate ASCII lookalike names + report which are registered</td></tr>
   </table>
+
+  <h2 id="scope">What runs where</h2>
+  <div class="card">
+    <p><code>check-vulns</code> queries OSV.dev, which covers npm, PyPI, Go, crates.io, RubyGems, Maven
+    and NuGet. The vulnerability half of <code>verify-package</code> is the same OSV query.</p>
+    <p>Everything else needs a package registry, and <code>lib/pkg.js</code> speaks two: npm, and PyPI
+    when you pass <code>ecosystem=pypi</code>. That covers existence, downloads, age, deprecation,
+    license and the lookalike check. Suggestions and the <code>confusable_with</code> signal use npm's
+    search API, so they are npm only.</p>
+    <p>So <code>verify-package</code>, <code>package-info</code>, <code>typosquat-scan</code> and
+    <code>audit-deps</code> are npm and PyPI tools. Pass one of the other five and the name is still
+    resolved against npm, which gives you a wrong answer:
+    <code>ecosystem=nuget&amp;name=Newtonsoft.Json</code> returns <code>exists: false</code>. Use
+    <code>check-vulns</code> for those five until I've fixed it.</p>
+  </div>
+
+  <h2>What it doesn't do</h2>
+  <div class="card mut">
+    <p>It never reads package contents. No install scripts, no code, no tarballs. A malicious package
+    with no OSV advisory and healthy download numbers comes back <code>safe</code>.</p>
+    <p><code>vulnerabilities.checked: false</code> (with <code>count: null</code>) means the OSV request
+    failed and nothing was checked; the verdict drops to <code>caution</code> rather than
+    <code>safe</code>. <code>count: 0</code> means OSV answered and had nothing.
+    <code>audit-deps</code> has no such guard yet: if its batch OSV call fails, every package in that
+    report shows <code>vulns: 0</code>.</p>
+    <p><code>audit-deps</code> reads manifests, not lockfiles, and does not resolve the dependency
+    tree — only the entries you send. A range is reduced to the digits in it, so <code>^4.17.20</code>
+    is checked as <code>4.17.20</code>.</p>
+    <p><code>typosquat-scan</code> generates ASCII edits only: deletions, adjacent transpositions,
+    doubled letters, the swaps <code>l</code>/<code>1</code>, <code>o</code>/<code>0</code>,
+    <code>rn</code>/<code>m</code>, <code>-</code>/<code>_</code>, <code>.</code>→<code>-</code>,
+    <code>i</code>→<code>l</code>, <code>s</code>→<code>z</code>, and the name with every hyphen or
+    underscore dropped. Up to 20 variants. No Unicode homoglyphs.</p>
+  </div>
 
   <h2>Use it from an agent (MCP)</h2>
   <pre>{ "mcpServers": { "package-guard": { "command": "npx", "args": ["-y", "package-guard-mcp"] } } }</pre>

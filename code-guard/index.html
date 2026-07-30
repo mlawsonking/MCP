@@ -54,7 +54,7 @@ obj = pickle.loads(data)</textarea>
     <tr><th>Endpoint</th><th>What it does</th></tr>
     <tr><td><code>POST /api/scan-code</code></td><td><strong>The guard.</strong> Scan a snippet → findings <code>{rule, category, severity, line, remediation}</code> + verdict <code>pass / review / block</code></td></tr>
     <tr><td><code>POST /api/scan-diff</code></td><td>Scan only the <strong>added lines</strong> of a unified diff, with correct new-file line numbers — for commit loops</td></tr>
-    <tr><td><code>GET /api/rules</code></td><td>The full rule catalog, so you know exactly what it checks (and what it doesn't)</td></tr>
+    <tr><td><code>GET /api/rules</code></td><td>The full rule catalog: every rule id, category, severity and language, so you can see what it checks and what it doesn't</td></tr>
   </table>
 
   <h2>Use it from an agent (MCP)</h2>
@@ -65,8 +65,23 @@ obj = pickle.loads(data)</textarea>
   <div class="card mut">
     Command, code, and SQL injection · SSRF · hardcoded secrets and API keys · weak crypto (MD5/SHA1, ECB, insecure
     RNG) · unsafe deserialization (pickle, yaml, marshal) · disabled TLS verification · XSS and template injection ·
-    common misconfigurations. It's a fast first pass built for the agent's inner loop, not a replacement for a full
-    security review — and it tells you so in the response.
+    common misconfigurations. Also personal data left in source: email addresses, US SSNs, card numbers.
+  </div>
+
+  <h2>What it doesn't do</h2>
+  <div class="card mut">
+    <p>31 regex rules, matched one line at a time. No parser, no data flow, no taint tracking, so it isn't static
+    analysis in the sense a SAST vendor means it. It reads text. The <code>hardcoded-*</code> patterns are the
+    exception: those run over the whole source, so a multi-line private-key block is still caught.</p>
+    <p>That cuts both ways. <code>db.query("SELECT ... " + id)</code> is caught on one line
+    and missed the moment you split it across two. The word <code>DES</code> on a line trips weak-cipher, comment or
+    variable name included.</p>
+    <p>Languages are JS/TS and Python. 11 rules are JS/TS, 14 are Python, 6 are language-agnostic. There is no Go,
+    Ruby, PHP, Java or Rust ruleset. An unrecognised <code>language</code> is ignored and the language is sniffed
+    from the source instead, which returns JS/TS, Python or unknown depending on which tokens the file contains.
+    Unknown runs all 31 rules against every line.</p>
+    <p>A fast first pass for the agent's inner loop, not a replacement for a security review. A clean result means
+    none of the 31 rules matched, not that the code is safe. The response says so too.</p>
   </div>
 
   <footer>

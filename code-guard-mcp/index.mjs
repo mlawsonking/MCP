@@ -18,21 +18,21 @@ const server = new McpServer({ name: 'code-guard', version: '1.0.0' });
 
 server.tool(
   'scan_code',
-  'Security-scan a snippet of code you (the agent) just generated, BEFORE committing or running it. Deterministic rule engine (no LLM) for the high-frequency vulnerability classes in AI-written code: command/code/SQL injection, SSRF, hardcoded secrets & API keys, weak crypto, unsafe deserialization (pickle/yaml), disabled TLS verification, XSS / template injection. Returns findings (rule id, category, severity, line, message, remediation) and a verdict: pass / review / block. Fast first-line check, not a full audit.',
-  { code: z.string().describe('The source code to scan.'), language: z.string().optional().describe('python | javascript | typescript | … (optional; auto-detected).') },
+  'Security-scan a snippet of code you (the agent) just generated, BEFORE committing or running it. Deterministic rule engine (no LLM) for the high-frequency vulnerability classes in AI-written code: command/code/SQL injection, SSRF, hardcoded secrets & API keys, weak crypto, unsafe deserialization (pickle/yaml), disabled TLS verification, XSS / template injection, plus personal data left in source (email, US SSN, card number). Returns findings (rule id, category, severity, line, message, remediation) and a verdict: pass / review / block. LIMITS, read before you trust a pass: 31 regex rules matched one line at a time, with no parser, no data flow and no taint tracking, so this is not static analysis in the sense a SAST tool means it. It has false positives (the word DES on a line trips weak-cipher, comment or variable name included) and it misses anything spelled differently, including a SQL concatenation split across two lines. Languages are JS/TS (11 rules) and Python (14 rules) plus 6 language-agnostic rules; there is no Go, Ruby, PHP, Java or Rust ruleset. A pass means no rule matched, not that the code is safe.',
+  { code: z.string().describe('The source code to scan.'), language: z.string().optional().describe('python | javascript | typescript (optional; auto-detected). Only JS/TS and Python are understood; any other value is ignored and the language is guessed from the source.') },
   async ({ code, language }) => { try { const j = await post('/api/scan-code', { code, language }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'scan failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );
 
 server.tool(
   'scan_diff',
-  'Scan only the ADDED lines of a unified diff (your just-written change), with correct new-file line numbers. Use in a commit loop to catch vulnerabilities you just introduced. Returns findings + a verdict: pass / review / block.',
+  'Scan only the ADDED lines of a unified diff (your just-written change), with correct new-file line numbers. Use in a commit loop to catch vulnerabilities you just introduced. Returns findings + a verdict: pass / review / block. Same 31 regex rules and the same limits as scan_code: line-by-line matching, no parser, JS/TS and Python only. Because it only reads added lines, a pattern that spans an added line and an untouched one is not seen at all.',
   { diff: z.string().describe('A unified diff (git diff).'), language: z.string().optional() },
   async ({ diff, language }) => { try { const j = await post('/api/scan-diff', { diff, language }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'scan failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );
 
 server.tool(
   'list_rules',
-  'List the deterministic rule catalog Code Guard checks (rule id, category, severity, language), so you know its coverage.',
+  'List the deterministic rule catalog Code Guard checks (rule id, category, severity, language), so you know its coverage. 32 entries: the 31 code rules, plus one grouped hardcoded-* entry standing in for 12 credential patterns and 3 personal-data patterns.',
   {},
   async () => { try { const j = await get('/api/rules'); return j.ok ? ok(JSON.stringify(j, null, 2)) : err('failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );

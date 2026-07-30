@@ -1,6 +1,10 @@
-// Code Guard — deterministic SAST ruleset for AI-generated code. No LLM. Heuristic/regex, fast first-line.
+// Code Guard — deterministic regex ruleset for AI-generated code. No LLM, no parser, no data flow, no taint
+// tracking. Each of the 31 rules below is a regex tested against one line at a time, so this is not static
+// analysis in the usual sense: it finds the spellings it knows and misses the rest. The one exception is the
+// hardcoded-secret pass (secretFindings), which runs the shared scanner over the whole source, so a PEM block
+// spanning several lines is still matched.
 // Positioning: catches the high-frequency vuln classes in AI-written code (injection, SSRF, hardcoded secrets,
-// weak crypto, unsafe deserialization, TLS-off, XSS) IN THE AGENT'S LOOP — not a full audit replacement.
+// weak crypto, unsafe deserialization, TLS-off, XSS) IN THE AGENT'S LOOP, not a full audit replacement.
 // Reuses scanSecrets (agent-firewall engine) for hardcoded credentials.
 const { scanSecrets } = require('./safety.js');
 
@@ -47,6 +51,11 @@ const RULES = [
   { id: 'py-assert-auth', cat: 'logic', sev: 'low', lang: 'py', re: /\bassert\b[^\n=]*\b(auth|admin|permission|is_authenticated|is_admin|token|password)\b/i, msg: 'assert used for a security check — stripped with python -O.', fix: 'Use explicit if/raise.' },
 ];
 
+// There are exactly three outcomes: 'js', 'py', 'unknown'. A hint like "go", "ruby", "php" or "java" is not
+// recognised and falls through to sniffing the source, and what comes back depends entirely on which tokens
+// the file happens to contain: `import java.util.List;` returns 'py', a Go file with a `const` line returns
+// 'js', a Go file with only `func` and `import "fmt"` returns 'unknown'. There is no fourth answer because
+// js and py are the only two rulesets that exist.
 function normalizeLang(hint, src) {
   const h = String(hint || '').toLowerCase();
   if (/\b(js|javascript|jsx|ts|typescript|tsx|node)\b/.test(h)) return 'js';
@@ -65,6 +74,8 @@ function applyRules(lines, lang, lineOffset) {
     const lineNo = raw.lineNo !== undefined ? raw.lineNo : i + 1 + (lineOffset || 0);
     if (!String(line).trim()) continue;
     for (const r of RULES) {
+      // lang 'unknown' skips the filter entirely: all 31 rules run against every line. That catches more
+      // and flags more things that are not bugs.
       if (r.lang !== 'any' && lang !== 'unknown' && r.lang !== lang) continue;
       r.re.lastIndex = 0;
       if (r.re.test(line)) findings.push({ id: r.id, category: r.cat, severity: r.sev, line: lineNo, code: String(line).trim().slice(0, 160), message: r.msg, remediation: r.fix });
@@ -73,11 +84,25 @@ function applyRules(lines, lang, lineOffset) {
   return findings;
 }
 
+// The shared scanner returns both credentials (kind 'secret') and personal data (kind 'pii'). They need
+// different advice: you rotate a leaked API key, you cannot rotate someone's SSN. The id and the category
+// stay the same for both because callers key off them.
 function secretFindings(src, lineOf) {
   const out = [];
   const sec = scanSecrets(src);
   sec.findings.forEach((f) => {
-    out.push({ id: 'hardcoded-' + f.id, category: 'hardcoded-secret', severity: f.severity, line: lineOf(f.index), code: `(${f.type}: ${f.preview})`, message: `Hardcoded ${f.type} in source.`, remediation: 'Move to env vars / a secrets manager and ROTATE this credential.' });
+    const isPii = f.kind === 'pii';
+    out.push({
+      id: 'hardcoded-' + f.id,
+      category: 'hardcoded-secret',
+      severity: f.severity,
+      line: lineOf(f.index),
+      code: `(${f.type}: ${f.preview})`,
+      message: isPii ? `${f.type} in source. This is personal data, not a credential.` : `Hardcoded ${f.type} in source.`,
+      remediation: isPii
+        ? 'Rotation does not apply. Take it out of the source, use a fake value in tests, and assume it is already in git history.'
+        : 'Move to env vars / a secrets manager and ROTATE this credential.',
+    });
   });
   return out;
 }
@@ -123,7 +148,7 @@ function scanDiff(diff, langHint) {
 
 function listRules() {
   return RULES.map((r) => ({ id: r.id, category: r.cat, severity: r.sev, lang: r.lang, message: r.msg }))
-    .concat([{ id: 'hardcoded-*', category: 'hardcoded-secret', severity: 'critical/high', lang: 'any', message: 'Hardcoded API keys, tokens, private keys, and generic secrets.' }]);
+    .concat([{ id: 'hardcoded-*', category: 'hardcoded-secret', severity: 'critical/high', lang: 'any', message: 'Hardcoded API keys, tokens, private keys and generic secrets (12 patterns), plus personal data left in source: email, US SSN, credit card (3 patterns). All 15 report under hardcoded-* ids.' }]);
 }
 
 // Bump when a rule is added or removed or a pattern/severity changes, and record it in

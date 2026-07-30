@@ -30,7 +30,7 @@ server.tool(
 
 server.tool(
   'screen_payment',
-  'Vet an x402/payment endpoint or merchant URL before paying it: punycode/homograph, brand lookalikes, URL shorteners, abuse-prone TLDs, raw-IP host, very-new domain (RDAP), and the redirect chain. Returns a verdict: safe / caution / block.',
+  'Vet an x402/payment endpoint or merchant URL before paying it: punycode host, URL shorteners, abuse-prone TLDs, raw-IP host, credentials in the URL, very-new domain (RDAP), and the final URL after redirects (the intermediate hops are not analysed). The lookalike rule is a substring match on 14 known brand names, flagged when the brand is not the registrable domain, so paypal.com.secure-pay.xyz is caught; there is no edit distance or homoglyph mapping, so an ASCII typo like paypa1.com is not caught by that rule. Returns a verdict: safe / caution / block.',
   { url: z.string().describe('The x402/payment endpoint or merchant URL.') },
   async ({ url }) => { try { const j = await get('/api/screen-payment', { url }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'screen failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );
@@ -44,14 +44,14 @@ server.tool(
 
 server.tool(
   'resolve_name',
-  'Resolve an ENS name to an address and screen it. Catches names that do not resolve (do not pay them) and surfaces if the resolved address is sanctioned/scam — useful to defend against ENS lookalike/spoof attacks before paying a human-readable name.',
+  'Resolve an ENS name to an address and screen that address against the OFAC EVM sanctions lists and the scam/abuse blocklists. Catches names that do not resolve. It does NOT detect lookalike or homoglyph names: there is no confusable check and no ENSIP-15 normalization, so a spoofed name that resolves to a clean address comes back clean. Resolution is namehash -> mainnet ENS registry resolver -> a direct addr() call, with no ENSIP-10/CCIP-Read, so offchain and L2 names (Basenames, .cb.id, gasless subnames) report resolved:false here even though a wallet resolves them. Read ens_coverage in the response.',
   { name: z.string().describe('ENS name, e.g. vitalik.eth.') },
   async ({ name }) => { try { const j = await get('/api/resolve-name', { name }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'resolve failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );
 
 server.tool(
   'screen_token',
-  'Before an agent buys, swaps, or approves a token, check if the token contract is a HONEYPOT (you can buy but not sell), a rug (extreme/high sell tax), or on a scam blocklist. Runs an on-chain buy+sell simulation. Returns token name/symbol, buy/sell/transfer taxes, and a verdict: safe / caution / block.',
+  'Before an agent buys, swaps, or approves a token, check if the token contract is a HONEYPOT (you can buy but not sell), has an extreme sell tax, or is on a scam blocklist. The buy+sell simulation comes from api.honeypot.is, which supports Ethereum and Base only: it returns 400 "Invalid chain" for polygon, arbitrum and optimism, so the honeypot and tax fields are not populated there and the response says so via honeypot_checked and honeypot_coverage. When no simulation ran the verdict is never safe — it is caution, or block if the scam blocklist already hit, with a honeypot-check-unavailable flag. Returns token name/symbol, buy/sell/transfer taxes where available, and a verdict: safe / caution / block.',
   { address: z.string().describe('Token contract address (0x + 40 hex).'), chain: CHAIN },
   async ({ address, chain }) => { try { const j = await get('/api/screen-token', { address, chain }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'screen failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );

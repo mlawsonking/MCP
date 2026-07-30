@@ -1,4 +1,6 @@
-// check-ip — IP reputation: Tor exit, ASN/org (Team Cymru), reverse DNS, datacenter, blocklist → verdict.
+// check-ip — IP reputation: Tor exit, ASN/org (Team Cymru), reverse DNS, datacenter, and one DNSBL
+// (Spamhaus ZEN). An inconclusive DNSBL answer is listed:null and scores nothing, same as a clean
+// one, so the verdict cannot tell them apart. The caller has to read blocklist.listed.
 // GET /api/check-ip?ip=1.2.3.4
 const net = require('net');
 const { sendJson, handleOptions, isPrivateIp } = require('../lib/common.js');

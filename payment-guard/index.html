@@ -50,9 +50,10 @@
   <table>
     <tr><th>Endpoint</th><th>What it does</th></tr>
     <tr><td><code>/api/screen-address</code></td><td><strong>The guard.</strong> Address or ENS name → OFAC-sanctioned? scam/abuse-listed? on-chain risk (brand-new/unused, contract)? → a <code>verdict</code></td></tr>
-    <tr><td><code>/api/screen-payment</code></td><td>Vet an x402/payment endpoint or merchant URL (punycode, lookalikes, new domain, redirects)</td></tr>
+    <tr><td><code>/api/screen-payment</code></td><td>Vet an x402/payment endpoint or merchant URL (punycode host, a known brand name outside the registrable domain, new domain, the final URL after redirects)</td></tr>
     <tr><td><code>/api/check-sanctioned</code></td><td>Fast OFAC sanctions check for an address / ENS name. The response states its own coverage</td></tr>
-    <tr><td><code>/api/resolve-name</code></td><td>Resolve an ENS name → address and screen it (catch non-resolving names + spoofs)</td></tr>
+    <tr><td><code>/api/resolve-name</code></td><td>Resolve an ENS name → address, then screen that address against the sanctions and scam lists. Catches names that do not resolve</td></tr>
+    <tr><td><code>/api/screen-token</code></td><td>Honeypot / sell-tax / blocklist check on a token contract. The buy+sell simulation is api.honeypot.is, Ethereum and Base only</td></tr>
   </table>
 
   <h2>What the sanctions check covers</h2>
@@ -71,15 +72,43 @@
     USDC and USDT, and called them <code>clear</code>. The test suite now pins those four.</p>
   </div>
 
+  <h2>What the ENS check covers</h2>
+  <div class="card mut">
+    <p><code>lib/ens.js</code> does one thing: namehash the name, call <code>resolver(node)</code> on the
+    mainnet ENS registry, then call <code>addr(bytes32)</code> on that resolver. Whatever address comes
+    back is screened against the sanctions and scam lists. That is the whole check.</p>
+    <p><strong>It does not detect lookalike or homoglyph names.</strong> There is no confusable check and
+    no ENSIP-15 normalization. A name with a Cyrillic character in it is just another name to me — I
+    resolve it and screen whatever address it points to.</p>
+    <p>Mainnet registry and a direct <code>addr()</code> call only. No ENSIP-10 wildcard resolution, no
+    CCIP-Read, so offchain and L2 names — Basenames, <code>.cb.id</code>, gasless subnames — come back as
+    not resolving here even though a wallet resolves them. Read "did not resolve" as "not via the mainnet
+    registry with a direct <code>addr()</code> call", not as "does not exist".</p>
+  </div>
+
+  <h2>What the honeypot and URL checks cover</h2>
+  <div class="card mut">
+    <p>The buy+sell simulation is <code>api.honeypot.is</code>. It answers for Ethereum and Base, and
+    returns 400 <code>Invalid chain</code> for Polygon, Arbitrum and Optimism, so the <code>honeypot</code>
+    and <code>taxes</code> fields are not populated on those three. When no simulation ran the verdict is
+    never <code>safe</code>: you get <code>caution</code> (or <code>block</code>, if the scam blocklist
+    already hit), a <code>honeypot-check-unavailable</code> flag, and a <code>honeypot_coverage</code>
+    object naming the chains it supports.</p>
+    <p>The URL lookalike rule matches 14 brand names as a substring of the host and flags them when the
+    brand is not the registrable domain, so <code>paypal.com.secure-pay.xyz</code> is caught. There is no
+    edit distance and no homoglyph mapping, so <code>paypa1.com</code> is not caught by that rule. On
+    redirects I compare the final URL only, not each hop.</p>
+  </div>
+
   <h2>Use it from an agent (MCP)</h2>
   <pre>{ "mcpServers": { "payment-guard": { "command": "npx", "args": ["-y", "payment-guard-mcp"] } } }</pre>
 
   <h2>Why it exists</h2>
   <div class="card mut">
-    Compliance giants screen sanctions for enterprises — but nobody ships a <strong>free, in-loop,
-    agent-native</strong> "should I pay this?" guard for the x402/crypto world. The money is flowing now;
-    the guardrail wasn't built. Data is public and read-only: OFAC SDN, ethereum-lists + ScamSniffer,
-    public RPC, ENS. Same input → same output.
+    I wanted a "should I pay this?" check my agent could make as one free HTTP call in its own loop,
+    before the transfer, so I wrote one. Sanctions screening exists for enterprises; this is the small
+    version an agent can call on every recipient. Data is public and
+    read-only: OFAC SDN, ethereum-lists + ScamSniffer, public RPC, ENS. Same input → same output.
   </div>
 
   <footer>
