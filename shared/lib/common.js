@@ -1,6 +1,3 @@
-// GENERATED FILE - do not edit here. Your change will be overwritten.
-// Source of truth: shared/lib/common.js
-// Regenerate: node scripts/sync-shared.js
 // Shared helpers for the agent-tools API functions.
 const dns = require('dns').promises;
 const net = require('net');

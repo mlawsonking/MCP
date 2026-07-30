@@ -1,6 +1,3 @@
-// GENERATED FILE - do not edit here. Your change will be overwritten.
-// Source of truth: shared/lib/safety.js
-// Regenerate: node scripts/sync-shared.js
 // Agent Firewall — detection rulesets + reputation helpers. Deterministic, no LLM.
 const dns = require('dns').promises;
 const net = require('net');

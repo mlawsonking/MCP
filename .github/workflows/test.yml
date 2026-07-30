@@ -13,6 +13,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20
+      - name: shared libs in sync
+        run: node scripts/sync-shared.js --check
       - name: code-guard
         run: node test/local.cjs
         working-directory: code-guard
@@ -28,3 +30,9 @@ jobs:
       - name: agent-firewall
         run: node test/local-firewall.cjs
         working-directory: agent-firewall
+      # test/local-intel.cjs is deliberately not run here: it asserts against live third-party SSL,
+      # RDAP and HTTP endpoints and fails intermittently through no fault of ours. A suite that goes
+      # red at random teaches everyone to ignore red. Run it by hand when touching those endpoints.
+      - name: agent-tools-api
+        run: node test/local.cjs && node test/local-read.cjs
+        working-directory: agent-tools-api
