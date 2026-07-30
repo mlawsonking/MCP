@@ -2,6 +2,6 @@
   "name": "agent-firewall",
   "version": "1.0.0",
   "private": true,
-  "description": "Input/output safety gate for AI agents — detect prompt injection, vet URLs/IPs, check pwned passwords, scan for leaked secrets/PII. Deterministic, free, no LLM.",
+  "description": "Input/output safety gate for AI agents — match known prompt-injection patterns, vet URLs/IPs, check pwned passwords, scan for leaked secrets/PII. Deterministic, free, no LLM.",
   "license": "MIT"
 }

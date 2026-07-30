@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Agent Firewall — input/output safety for AI agents</title>
-<meta name="description" content="Detect prompt injection, vet URLs & IPs, check pwned passwords, scan for leaked secrets. Deterministic, free API + MCP server for AI agents. No LLM." />
+<meta name="description" content="Match known prompt-injection patterns, vet URLs & IPs, check pwned passwords, scan for leaked secrets. Deterministic, free API + MCP server for AI agents. No LLM." />
 <style>
   :root { --bg:#0b0e14; --panel:#131822; --ink:#e6edf3; --mut:#8b98a9; --acc:#60a5fa; --ok:#4ade80; --warn:#fbbf24; --bad:#f87171; --line:#222b3a; }
   * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; }
@@ -29,10 +29,9 @@
 <div class="wrap">
   <p class="tag">AGENT FIREWALL</p>
   <h1>Treat every input your AI agent touches as hostile.</h1>
-  <p class="lead">Prompt injection is OWASP <strong>LLM01</strong> — and Google measured a <strong>+32%
-  surge</strong> in injection payloads hidden in web content over three months of 2026. Agent Firewall
-  is the deterministic gate an agent calls on everything it <em>ingests</em> or <em>emits</em>: injection
-  scanning, URL/IP vetting, pwned-password checks, and secret/PII redaction. No LLM.</p>
+  <p class="lead">Prompt injection is OWASP <strong>LLM01</strong>. Agent Firewall is the deterministic
+  gate an agent calls on everything it <em>ingests</em> or <em>emits</em>: known-pattern injection
+  matching, URL/IP vetting, pwned-password checks, and secret/PII redaction. No LLM.</p>
   <p><span class="pill">Free</span><span class="pill">Deterministic — no LLM</span><span class="pill">HIBP · RDAP · Tor · Team Cymru</span><span class="pill">HTTP + MCP</span></p>
 
   <h2>Try the injection scanner</h2>
@@ -45,7 +44,7 @@
   <h2>The tools</h2>
   <table>
     <tr><th>Endpoint</th><th>What it does</th></tr>
-    <tr><td><code>/api/scan-content</code></td><td>Detect <strong>prompt injection / jailbreak / obfuscation</strong> (zero-width, bidi, hidden HTML) → allow/review/block</td></tr>
+    <tr><td><code>/api/scan-content</code></td><td>Match against <strong>11 known injection/jailbreak patterns + 5 obfuscation signals</strong> (zero-width, bidi, tag block, hidden HTML, comment instructions) → allow/review/block + the rule IDs that fired</td></tr>
     <tr><td><code>/api/scan-secrets</code></td><td>Detect leaked <strong>API keys, tokens, private keys + PII</strong> → findings + <strong>redacted</strong> copy</td></tr>
     <tr><td><code>/api/check-url</code></td><td>URL/domain safety: punycode, shorteners, suspicious TLDs, brand lookalikes, <strong>domain age</strong>, redirects</td></tr>
     <tr><td><code>/api/check-ip</code></td><td>IP reputation: <strong>Tor exit</strong>, ASN/org, reverse DNS, datacenter, blocklist</td></tr>
@@ -54,6 +53,20 @@
 
   <h2>Use it from an agent (MCP)</h2>
   <pre>{ "mcpServers": { "agent-firewall": { "command": "npx", "args": ["-y", "agent-firewall-mcp"] } } }</pre>
+
+  <h2>What the content scan is, and what it is not</h2>
+  <div class="card mut">
+    <p>It is a <strong>pattern matcher, not a classifier.</strong> 11 regex rules for known injection and
+    jailbreak phrasings, plus 5 obfuscation checks: zero-width characters, bidi overrides (Trojan
+    Source), the Unicode tag block, CSS-hidden text, and instructions buried in HTML comments. Every
+    rule has an ID and a weight, and the response tells you which ones fired.</p>
+    <p><strong>It will not catch</strong> an attack phrased in a way I did not anticipate. Rewording
+    beats a regex. There is no understanding of meaning here, so a novel paraphrase, a non-English
+    payload, or an instruction split across sentences can walk straight through.</p>
+    <p>Use it as one layer. Do not use it as the reason it is safe to feed untrusted text to a model.
+    The obfuscation checks are the part I would actually rely on: hidden characters are hard to
+    introduce by accident, so a hit there is a strong signal.</p>
+  </div>
 
   <h2>Why it exists</h2>
   <div class="card mut">

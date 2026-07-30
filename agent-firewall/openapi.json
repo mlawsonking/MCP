@@ -3,7 +3,7 @@
   "info": {
     "title": "Agent Firewall — input/output safety for AI agents",
     "version": "1.0.0",
-    "description": "Treat every external input as hostile. Detect prompt injection/jailbreak in ingested content, vet URLs and IPs, check pwned passwords (k-anonymity), and scan for leaked secrets/PII before you log or send. Deterministic, no LLM. Free data: HIBP, RDAP, Tor, Team Cymru, DNS + curated rulesets."
+    "description": "Treat every external input as hostile. Match ingested content against known prompt-injection and jailbreak patterns, vet URLs and IPs, check pwned passwords (k-anonymity), and scan for leaked secrets/PII before you log or send. Deterministic, no LLM. Free data: HIBP, RDAP, Tor, Team Cymru, DNS + curated rulesets. The content scan is a pattern matcher, not a classifier: 11 regex rules for known injection and jailbreak phrasings plus 5 obfuscation checks (zero-width characters, bidi overrides, the Unicode tag block, CSS-hidden text, HTML-comment instructions). It reports which rule IDs fired. It will not catch a novel phrasing, a paraphrase or a non-English payload, and it is not a reason to consider untrusted text safe to feed to a model."
   },
   "servers": [{ "url": "https://agent-firewall-seven.vercel.app" }],
   "paths": {

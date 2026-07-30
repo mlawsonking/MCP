@@ -4,14 +4,25 @@
 external input the agent touches as hostile.* Agent Firewall is the deterministic gate that does it —
 no LLM, free, callable in-loop.
 
-Between Nov 2025 and Feb 2026, Google measured a **+32% surge in prompt-injection payloads embedded in
-web content.** Any agent that reads a web page, doc, email, or tool output is exposed.
+## What the content scan is, and what it is not
+
+It is a **pattern matcher, not a classifier.** `scan-content` runs 11 regex rules for known
+injection and jailbreak phrasings, plus 5 obfuscation checks: zero-width characters, bidi overrides
+(Trojan Source), the Unicode tag block, CSS-hidden text, and instructions buried in HTML comments.
+Each rule has an ID and a weight; the response tells you exactly which ones fired and why.
+
+**It will not catch** an attack phrased in a way I did not anticipate. Rewording beats a regex.
+It has no understanding of meaning, so a novel paraphrase, a non-English payload, or an instruction
+split across sentences can walk straight through. It is a cheap deterministic filter that catches
+the common and the careless, and a tripwire for obfuscation, which is hard to do by accident.
+
+Use it as one layer. Do not use it as the reason it is safe to feed untrusted text to a model.
 
 ## Tools (HTTP + MCP)
 
 | Endpoint | What it does |
 |---|---|
-| `POST /api/scan-content` | Detect **prompt injection / jailbreak / obfuscation** (zero-width, bidi/Trojan-Source, hidden HTML) in text or a fetched URL → `allow`/`review`/`block` |
+| `POST /api/scan-content` | Match text (or a fetched URL) against 11 known injection/jailbreak patterns + 5 obfuscation signals (zero-width, bidi/Trojan-Source, tag block, hidden HTML) → `allow`/`review`/`block` + the rule IDs that fired |
 | `POST /api/scan-secrets` | Detect leaked **API keys, tokens, private keys + PII** (Luhn-checked cards, SSNs, emails) → findings + **redacted** copy |
 | `GET  /api/check-url` | URL/domain safety: punycode, shorteners, suspicious TLDs, brand lookalikes, **domain age** (RDAP), redirect chain → `safe`/`suspicious`/`malicious` |
 | `GET  /api/check-ip` | IP reputation: **Tor exit**, ASN/org (Team Cymru), reverse DNS, datacenter, blocklist → `low-risk`/`caution`/`high-risk` |
