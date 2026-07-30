@@ -7,13 +7,15 @@
     "source": "github",
     "subfolder": "payment-guard-mcp"
   },
-  "version": "1.0.1",
+  "version": "1.1.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "payment-guard-mcp",
-      "version": "1.0.1",
-      "transport": { "type": "stdio" }
+      "version": "1.1.0",
+      "transport": {
+        "type": "stdio"
+      }
     }
   ]
 }
