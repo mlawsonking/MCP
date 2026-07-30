@@ -42,6 +42,9 @@ OPERATIONS.md
 HANDOFF-STEPS-1-2.md
 code-guard-action/
 MIGRATION-PLAN.md
+LAUNCH-REVIEW.md
+REBUILD-PROMPT.md
+OPUS-BUILD-DIRECTIVE.md
 tools/
 CLAUDE.md
 mcp-publisher.exe
