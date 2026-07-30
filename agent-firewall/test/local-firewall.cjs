@@ -41,6 +41,29 @@ const ck = (n, c, info) => { c ? pass++ : fail++; console.log(`${c ? 'PASS' : 'F
     !red.includes(PEM_BODY) && !red.includes('-----END RSA PRIVATE KEY-----'),
     `pem_remnant=${red.includes('-----END') ? 'END line survived' : 'clean'}`);
 
+  // SSRF: the guard used to check only the first URL and then let fetch follow redirects itself, so
+  // a public host that 302s to 127.0.0.1 or 169.254.169.254 walked right past it. Each hop is now
+  // re-resolved and re-checked. The first hop must look genuinely public or the test proves nothing.
+  {
+    const { safeFetch } = require('../lib/common.js');
+    const dns = require('dns').promises;
+    const realLookup = dns.lookup.bind(dns);
+    const realFetch = globalThis.fetch;
+    dns.lookup = async (h, ...a) => (h === 'public.example' ? { address: '93.184.216.34', family: 4 } : realLookup(h, ...a));
+    globalThis.fetch = async (url) => {
+      if (String(url).startsWith('http://public.example/to-loopback')) return { status: 302, ok: false, headers: { get: (k) => (k.toLowerCase() === 'location' ? 'http://127.0.0.1:9/secret' : null) } };
+      if (String(url).startsWith('http://public.example/to-metadata')) return { status: 302, ok: false, headers: { get: (k) => (k.toLowerCase() === 'location' ? 'http://169.254.169.254/latest/meta-data/' : null) } };
+      throw new Error('unexpected fetch to ' + url);
+    };
+    try {
+      const a = await safeFetch('http://public.example/to-loopback');
+      ck('safeFetch: redirect to loopback is blocked', a.ok === false && /redirect to a private/i.test(a.error || ''), `error=${a.error}`);
+      const b = await safeFetch('http://public.example/to-metadata');
+      ck('safeFetch: redirect to cloud metadata is blocked', b.ok === false && /redirect to a private/i.test(b.error || ''), `error=${b.error}`);
+    } finally { dns.lookup = realLookup; globalThis.fetch = realFetch; }
+  }
+  ck('safeFetch: ::ffff: mapped loopback counts as private', (await require('../lib/common.js').safeFetch('http://[::ffff:127.0.0.1]/x')).ok === false, 'mapped v4-in-v6');
+
   r = await call(checkUrl, { query: { url: 'http://paypal.com.secure-login.tk/verify' } });
   ck('check-url lookalike → suspicious/malicious', r.json.ok && (r.json.verdict === 'suspicious' || r.json.verdict === 'malicious'), `verdict=${r.json.verdict} score=${r.json.score} flags=${r.json.flags.map(f => f.id)}`);
 

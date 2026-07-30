@@ -24,7 +24,10 @@ module.exports = async (req, res) => {
   let redirected = false, finalUrl;
   try {
     const f = await safeFetch(url, {});
-    if (f.ok && f.finalUrl && f.finalUrl !== url) {
+    // Use finalUrl regardless of f.ok. safeFetch reports it on the non-2xx path too, and an x402
+    // endpoint answers 402 by definition, so gating on f.ok disabled the redirect check on exactly
+    // the endpoints this product is named after.
+    if (f.finalUrl && f.finalUrl !== url) {
       finalUrl = f.finalUrl; redirected = true;
       const fa = analyzeUrl(f.finalUrl);
       if (fa.valid && fa.host !== a.host) { score += fa.score; for (const fl of fa.flags) flags.push({ ...fl, note: `${fl.note || fl.id} (after redirect)` }); }
