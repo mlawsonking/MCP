@@ -88,7 +88,7 @@ function summarize(findings, lang) {
   findings.forEach((f) => { counts[f.severity] = (counts[f.severity] || 0) + 1; });
   const verdict = (counts.critical || counts.high) ? 'block' : counts.medium ? 'review' : counts.low ? 'review' : 'pass';
   const categories = [...new Set(findings.map((f) => f.category))];
-  return { lang, verdict, total: findings.length, counts, categories, findings };
+  return { lang, verdict, total: findings.length, counts, categories, findings, rules_version: CODE_RULES_VERSION };
 }
 
 function scanCode(code, langHint) {
@@ -126,4 +126,20 @@ function listRules() {
     .concat([{ id: 'hardcoded-*', category: 'hardcoded-secret', severity: 'critical/high', lang: 'any', message: 'Hardcoded API keys, tokens, private keys, and generic secrets.' }]);
 }
 
-module.exports = { scanCode, scanDiff, listRules, RULES };
+// Bump when a rule is added or removed or a pattern/severity changes, and record it in
+// RULES-CHANGELOG.md. Counts are derived, never hand-written, so a doc claim can be tested.
+//
+// Two counts exist and they are both honest, which is why the docs have to name which one they mean:
+// RULES holds the code patterns, while listRules() also emits one grouped "hardcoded-*" catalog entry
+// standing in for the secret ruleset in shared/lib/safety.js. So /api/rules shows one more entry and
+// one more category than there are code rules.
+const CODE_RULES_VERSION = '2026.07.30';
+const CODE_RULESET_INFO = {
+  version: CODE_RULES_VERSION,
+  rules: RULES.length,
+  categories: [...new Set(RULES.map((r) => r.cat))].sort(),
+  languages: [...new Set(RULES.map((r) => r.lang))].sort(),
+  catalog_entries: RULES.length + 1,
+};
+
+module.exports = { scanCode, scanDiff, listRules, RULES, CODE_RULES_VERSION, CODE_RULESET_INFO };

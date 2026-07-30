@@ -2,6 +2,12 @@
 const dns = require('dns').promises;
 const net = require('net');
 
+// ---- Ruleset version ----
+// Bump whenever a rule is added or removed, or an existing pattern, weight or severity changes, and
+// add the entry to RULES-CHANGELOG.md at the repo root. Callers pin behaviour to this string, so it
+// has to move whenever behaviour moves.
+const RULES_VERSION = '2026.07.30';
+
 // ---------- Prompt-injection / jailbreak detection ----------
 // Each rule: weight contributes to a 0..~100 risk score. Curated; defense-in-depth, not a guarantee.
 const INJECTION_RULES = [
@@ -24,6 +30,10 @@ const TAG_CHARS = /[\u{E0000}-\u{E007F}]/gu;             // unicode "tag" block 
 const HIDDEN_HTML = /(display\s*:\s*none|visibility\s*:\s*hidden|font-size\s*:\s*0|color\s*:\s*#?(fff(fff)?|white)\b|opacity\s*:\s*0)/i;
 const HTML_COMMENT_INSTR = /<!--[^>]*\b(ignore|instruction|system|assistant|you\s+are)\b/i;
 
+// The five obfuscation signals scanInjection can emit, in the order it checks them. Listed here so
+// the published rule count is derived from one place rather than counted by hand in a doc.
+const OBFUSCATION_SIGNAL_IDS = ['zero-width-chars', 'bidi-override', 'unicode-tag-smuggling', 'hidden-html', 'html-comment-instruction'];
+
 function scanInjection(text) {
   const t = String(text || '');
   const findings = [];
@@ -45,7 +55,7 @@ function scanInjection(text) {
   score = Math.min(100, score);
   const risk = score >= 60 ? 'critical' : score >= 35 ? 'high' : score >= 15 ? 'medium' : findings.length ? 'low' : 'none';
   const verdict = score >= 35 ? 'block' : score >= 15 ? 'review' : 'allow';
-  return { risk, score, verdict, findings, categories: [...new Set(findings.map((f) => f.category))] };
+  return { risk, score, verdict, findings, categories: [...new Set(findings.map((f) => f.category))], rules_version: RULES_VERSION };
 }
 
 // ---------- Secret + PII detection ----------
@@ -99,7 +109,7 @@ function scanSecrets(text) {
   const order = { critical: 4, high: 3, medium: 2, low: 1 };
   const worst = findings.reduce((a, f) => Math.max(a, order[f.severity] || 0), 0);
   const verdict = worst >= 3 ? 'block' : worst >= 1 ? 'review' : 'allow';
-  return { found: findings.length, secrets: findings.filter((f) => f.kind === 'secret').length, pii: findings.filter((f) => f.kind === 'pii').length, verdict, findings, redacted };
+  return { found: findings.length, secrets: findings.filter((f) => f.kind === 'secret').length, pii: findings.filter((f) => f.kind === 'pii').length, verdict, findings, redacted, rules_version: RULES_VERSION };
 }
 
 // ---------- URL safety ----------
@@ -134,7 +144,7 @@ function analyzeUrl(urlStr) {
   if (/[^\x00-\x7F]/.test(host)) add('non-ascii-host', 'medium', 15, 'non-ASCII characters in host');
 
   score = Math.min(100, score);
-  return { valid: true, host, tld, flags, score };
+  return { valid: true, host, tld, flags, score, rules_version: RULES_VERSION };
 }
 
 // ---------- IP / domain reputation ----------
@@ -194,4 +204,11 @@ async function getDomainAgeDays(domain) {
   } catch { return undefined; }
 }
 
-module.exports = { scanInjection, scanSecrets, analyzeUrl, luhn, maskSecret, torExitSet, asnLookup, reverseDns, dnsblCheck, getDomainAgeDays };
+const RULESET_INFO = {
+  version: RULES_VERSION,
+  injection: { rules: INJECTION_RULES.length, obfuscation_signals: OBFUSCATION_SIGNAL_IDS.length, ids: INJECTION_RULES.map((r) => r.id) },
+  secrets: { rules: SECRET_RULES.length, ids: SECRET_RULES.map((r) => r.id) },
+  pii: { rules: PII_RULES.length, ids: PII_RULES.map((r) => r.id) },
+};
+
+module.exports = { scanInjection, scanSecrets, analyzeUrl, luhn, maskSecret, torExitSet, asnLookup, reverseDns, dnsblCheck, getDomainAgeDays, RULES_VERSION, RULESET_INFO, INJECTION_RULES, SECRET_RULES, PII_RULES, OBFUSCATION_SIGNAL_IDS };

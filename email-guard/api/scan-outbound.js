@@ -54,6 +54,7 @@ module.exports = async (req, res) => {
     recipient: { to: p.to.email || undefined, domain: toDom || undefined, disposable: recipDisposable, hasMx: recipAuth ? recipAuth.mx.length > 0 : undefined, flags: recipFlags },
     links: linkFindings,
     reasons,
+    rules_version: leak.rules_version,
     advice: verdict === 'block'
       ? 'Do NOT send. ' + (leak.verdict === 'block' ? 'It contains secrets/PII — redact and re-check. ' : '') + 'Fix the flagged issues first.'
       : verdict === 'review' ? 'Review before sending — content/deliverability risk could hurt your sender reputation.' : 'Looks safe to send.',

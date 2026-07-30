@@ -67,6 +67,7 @@ module.exports = async (req, res) => {
       note: 'No Authentication-Results header was present, so this is only a DNS check of whether the sender domain PUBLISHES SPF and DMARC records. It does not tell you whether this particular message passed them.',
     } : null),
     injection: { risk: inj.risk, score: inj.score, verdict: inj.verdict, categories: inj.categories, findings: inj.findings },
+    rules_version: inj.rules_version,
     links: linkFindings,
     subject: String(p.subject).slice(0, 200),
     reasons,

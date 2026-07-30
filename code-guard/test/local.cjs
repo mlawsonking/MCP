@@ -56,6 +56,24 @@ const DIFF = ['@@ -1,3 +1,4 @@', ' def f():', '-    return 1', '+    return eval
   r = await call(rules, {}, {});
   ok('rules catalog -> returns rules', r.json.ok && r.json.total > 20, `total=${r.json.total} cats=${r.json.categories.length}`);
 
+  // The README states rule counts. Those are public claims, so make them testable. It used to say
+  // "32 rules across 13 categories", which silently quoted the catalog total (which groups the secret
+  // rules into one entry) as if it were the code-rule count.
+  const { CODE_RULESET_INFO } = require('../lib/codescan.js');
+  const readme = require('fs').readFileSync(require('path').join(__dirname, '..', 'README.md'), 'utf8');
+  const m = readme.match(/(\d+)\s+code rules across\s+(\d+)\s+categories/i);
+  ok('README code-rule count matches the code',
+    !!m && Number(m[1]) === CODE_RULESET_INFO.rules && Number(m[2]) === CODE_RULESET_INFO.categories.length,
+    m ? `README says ${m[1]}/${m[2]}, code has ${CODE_RULESET_INFO.rules}/${CODE_RULESET_INFO.categories.length}` : 'no claim found in README');
+  const c = readme.match(/returns\s+(\d+)\s+entries/i);
+  ok('README catalog count matches /api/rules',
+    !!c && Number(c[1]) === CODE_RULESET_INFO.catalog_entries && Number(c[1]) === r.json.total,
+    c ? `README says ${c[1]}, endpoint returns ${r.json.total}` : 'no catalog claim found');
+
+  // Every scan must say which ruleset produced it, so a caller can pin behaviour.
+  r = await call(scanCode, {}, { code: 'eval(userInput)', lang: 'js' });
+  ok('scan-code reports rules_version', typeof r.json.rules_version === 'string' && r.json.rules_version.length > 0, `rules_version=${r.json.rules_version}`);
+
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
 })();

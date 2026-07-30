@@ -10,7 +10,7 @@ module.exports = async (req, res) => {
   if (!url) return sendJson(res, 400, { ok: false, error: 'Missing ?url=' });
 
   const a = analyzeUrl(url);
-  if (!a.valid) return sendJson(res, 200, { ok: true, url, valid: false, verdict: 'suspicious', score: a.score, flags: a.flags, ms: Date.now() - started });
+  if (!a.valid) return sendJson(res, 200, { ok: true, url, valid: false, verdict: 'suspicious', score: a.score, flags: a.flags, rules_version: a.rules_version, ms: Date.now() - started });
 
   let score = a.score;
   const flags = [...a.flags];
@@ -35,5 +35,5 @@ module.exports = async (req, res) => {
 
   score = Math.min(100, score);
   const verdict = score >= 50 ? 'malicious' : score >= 25 ? 'suspicious' : 'safe';
-  return sendJson(res, 200, { ok: true, url, valid: true, host: a.host, domain_age_days: age, redirected, final_url: finalUrl, score, verdict, flags, ms: Date.now() - started });
+  return sendJson(res, 200, { ok: true, url, valid: true, host: a.host, domain_age_days: age, redirected, final_url: finalUrl, score, verdict, flags, rules_version: a.rules_version, ms: Date.now() - started });
 };

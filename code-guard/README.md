@@ -16,7 +16,13 @@ full audit replacement).
 **Detects:** command / code / SQL injection · SSRF (heuristic) · hardcoded secrets & API keys · weak crypto
 (MD5/SHA1, ECB, DES, insecure RNG) · unsafe deserialization (pickle/yaml/marshal/node-serialize) · disabled TLS
 verification · XSS / server-side template injection · misconfig (Flask debug, JWT alg=none). Languages: JS/TS, Python,
-+ language-agnostic rules. 32 rules across 13 categories.
++ language-agnostic rules. 31 code rules across 12 categories, each with a stable ID, plus hardcoded-secret
+detection covering 12 credential patterns. `GET /api/rules` returns 32 entries because it lists the secret
+rules as one grouped `hardcoded-*` entry. Every scan response carries the `rules_version` that produced it.
+
+These are regex rules, not a compiler. They read text, not program structure, so they find the patterns
+they know and miss anything spelled differently. Treat a clean result as "none of my 31 rules matched",
+not as "this code is safe".
 
 ```bash
 curl -s -X POST https://code-guard-api.vercel.app/api/scan-code -H 'Content-Type: application/json' \
