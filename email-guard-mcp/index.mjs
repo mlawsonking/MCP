@@ -2,7 +2,7 @@
 // email-guard-mcp — MCP server: email safety for AI agents. Deterministic, no LLM.
 //   scan_inbound      -> "AI agent phishing" defense: injection/hijack + spoof + risky links before the agent acts
 //   scan_outbound     -> secret/PII leak + deliverability + recipient-burn check before the agent sends
-//   check_domain_auth -> SPF/DKIM/DMARC/MX/age/disposable posture for a domain
+//   check_domain_auth -> SPF/DMARC/MX/age/disposable posture for a domain (DKIM is not checked)
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
@@ -32,7 +32,7 @@ server.tool(
 
 server.tool(
   'check_domain_auth',
-  'Check the email-auth posture of a domain (or an email address): SPF + DMARC records and policy, MX, domain age (RDAP), and whether it is a disposable/throwaway domain. Use to verify a sender is who they claim, or that a recipient domain can actually receive mail. Returns an authPosture: weak / enforced.',
+  'Check the email-auth posture of a domain (or an email address): SPF + DMARC records and policy, MX, domain age (RDAP), and whether it is a disposable/throwaway domain. Returns an authPosture: weak / enforced. This reports what the domain PUBLISHES in DNS. It is not a verdict on any individual message and it does not prove a sender is who they claim, because the DKIM selector cannot be derived from a domain name, so DKIM is not checked. To judge a specific message, use scan_inbound.',
   { domain: z.string().describe('Domain (example.com) or an email address.') },
   async ({ domain }) => { try { const j = await get('/api/check-domain-auth', { domain }); return j.ok ? ok(JSON.stringify(j, null, 2)) : err(j.error || 'check failed'); } catch (e) { return err(String((e && e.message) || e)); } }
 );

@@ -66,6 +66,35 @@ const CLEAN_IN = [
   r = await call(domainAuth, { method: 'GET', query: { domain: 'garbage' } });
   ok('domain-auth bad input -> 400', r.code === 400, `code=${r.code}`);
 
+  // 9. Auth honesty: we READ Authentication-Results, we never verify DKIM. The response must say so,
+  // because an agent handed a raw .eml could otherwise treat a forged "dkim=pass" as proof.
+  r = await call(domainAuth, { method: 'GET', query: { domain: 'google.com' } });
+  ok('domain-auth: declares DKIM is not checked',
+    r.json.dkim && r.json.dkim.checked === false && typeof r.json.dkim.reason === 'string',
+    `dkim=${JSON.stringify(r.json.dkim)}`);
+  ok('domain-auth: declares its scope is published DNS records', typeof r.json.scope === 'string' && /not a verdict/i.test(r.json.scope), `scope=${r.json.scope}`);
+
+  const FORGED = [
+    'From: "Stripe" <billing@stripe.com>',
+    'Authentication-Results: mx.example.com; spf=pass; dkim=pass; dmarc=pass',
+    '',
+    'Please review the attached invoice.',
+  ].join('\n');
+  r = await call(inbound, { body: { email: FORGED } });
+  ok('scan-inbound: a dkim=pass it read is never reported as verified',
+    r.json.auth && r.json.auth.dkim === 'pass' && r.json.auth.verified_here === false &&
+    r.json.auth.source === 'authentication-results-header',
+    `auth=${JSON.stringify({ dkim: r.json.auth && r.json.auth.dkim, verified_here: r.json.auth && r.json.auth.verified_here })}`);
+  ok('scan-inbound: auth result carries the forgeability caveat',
+    r.json.auth && /forged/i.test(r.json.auth.note || ''), `note=${(r.json.auth && r.json.auth.note || '').slice(0, 60)}`);
+
+  // No Authentication-Results header at all -> the DNS fallback must not imply the message passed.
+  r = await call(inbound, { body: { email: 'From: "Someone" <hi@google.com>\n\nHello there.' } });
+  ok('scan-inbound: DNS fallback does not claim the message passed auth',
+    r.json.auth && r.json.auth.source === 'dns' && r.json.auth.verified_here === false &&
+    /does not tell you whether this particular message passed/i.test(r.json.auth.note || ''),
+    `source=${r.json.auth && r.json.auth.source}`);
+
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail ? 1 : 0);
 })();

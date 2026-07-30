@@ -3,7 +3,7 @@
   "info": {
     "title": "Email Guard — inbound/outbound email safety for AI agents",
     "version": "1.0.0",
-    "description": "Before an AI agent ACTS on an email, scan it for 'AI agent phishing' (prompt-injection / hijack instructions hidden in the body, spoofed senders, risky links). Before an agent SENDS one, scan it for secret/PII leaks and deliverability problems that burn the sender domain. Deterministic, no LLM. Free public data: DNS (SPF/DKIM/DMARC/MX), RDAP domain age, disposable-domain lists, injection + secret rulesets."
+    "description": "Before an AI agent ACTS on an email, scan it for 'AI agent phishing' (prompt-injection / hijack instructions hidden in the body, spoofed senders, risky links). Before an agent SENDS one, scan it for secret/PII leaks and deliverability problems that burn the sender domain. Deterministic, no LLM. Free public data: DNS (SPF/DMARC/MX), RDAP domain age, disposable-domain lists, injection + secret rulesets. Authentication: SPF, DKIM and DMARC results are READ from the Authentication-Results header added by the receiving mail server; no signature is verified here, and DKIM DNS records are not looked up because the selector cannot be derived from a domain name. That header can be forged in a raw .eml from an untrusted source, so trust it only for mail your own server received. Every response states this."
   },
   "servers": [{ "url": "https://email-guard-api.vercel.app" }],
   "paths": {

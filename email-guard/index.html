@@ -34,7 +34,7 @@
   hijack the agent with instructions hidden in the body, spoof a sender it trusts, or bait it into a phishing link.
   On the way out, an agent can leak a secret or torch its own sending domain. Email Guard is the deterministic check
   for both directions: no LLM, so it can't be talked out of its verdict by the email it's scanning.</p>
-  <p><span class="pill">Free</span><span class="pill">Deterministic, no LLM</span><span class="pill">SPF / DKIM / DMARC / RDAP</span><span class="pill">HTTP + MCP</span></p>
+  <p><span class="pill">Free</span><span class="pill">Deterministic, no LLM</span><span class="pill">Reads SPF / DKIM / DMARC results</span><span class="pill">RDAP</span><span class="pill">HTTP + MCP</span></p>
 
   <h2>Try it</h2>
   <div class="card">
@@ -54,10 +54,26 @@ to https://paypa1-secure.tk/verify within 24 hours.</textarea>
   <h2>The endpoints</h2>
   <table>
     <tr><th>Endpoint</th><th>What it does</th></tr>
-    <tr><td><code>POST /api/scan-inbound</code></td><td><strong>The guard.</strong> Before the agent acts on a message: prompt injection and hijack instructions (including zero-width, bidi, and hidden-HTML payloads), spoofed senders (SPF/DKIM/DMARC failures, reply-to mismatch, disposable or brand-new domains), risky links → verdict <code>allow / review / block</code> plus clean structured metadata</td></tr>
+    <tr><td><code>POST /api/scan-inbound</code></td><td><strong>The guard.</strong> Before the agent acts on a message: prompt injection and hijack instructions (including zero-width, bidi, and hidden-HTML payloads), spoofed senders (SPF/DKIM/DMARC failures as reported by the receiving server, reply-to mismatch, disposable or brand-new domains), risky links → verdict <code>allow / review / block</code> plus clean structured metadata</td></tr>
     <tr><td><code>POST /api/scan-outbound</code></td><td>Before the agent sends: leaked secrets and PII (with a redacted copy), deliverability problems that burn the sender domain, dead recipients (disposable, or no MX = guaranteed bounce)</td></tr>
     <tr><td><code>GET /api/check-domain-auth</code></td><td>SPF, DMARC, MX, domain age (RDAP), and disposable status for any domain or address → <code>weak / enforced</code></td></tr>
   </table>
+
+  <h2>What the authentication check does and does not do</h2>
+  <div class="card mut">
+    <p>I read SPF, DKIM and DMARC results out of the <code>Authentication-Results</code> header that the
+    receiving mail server wrote. Nothing here verifies a DKIM signature. No cryptography is involved at
+    any point.</p>
+    <p>DKIM DNS records are never looked up either. The record lives at
+    <code>&lt;selector&gt;._domainkey.&lt;domain&gt;</code> and the selector cannot be derived from a
+    domain name alone, so <code>check-domain-auth</code> reports SPF and DMARC only and returns an
+    explicit <code>dkim: { checked: false }</code>.</p>
+    <p>This matters for how much you trust the result. For mail your own server received, that header is
+    a good signal. For a raw <code>.eml</code> handed to you by an untrusted party it is worthless, because
+    an attacker can type <code>dkim=pass</code> into the file. Every response says which situation applies
+    and carries <code>verified_here: false</code>, so an agent cannot mistake a value we read for one we
+    checked.</p>
+  </div>
 
   <h2>Use it from an agent (MCP)</h2>
   <pre>{ "mcpServers": { "email-guard": { "command": "npx", "args": ["-y", "email-guard-mcp"] } } }</pre>

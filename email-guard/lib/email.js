@@ -50,18 +50,36 @@ function parseEmail(input) {
   return { headers, from, replyTo, returnPath, to, subject, body, html, combined, raw };
 }
 
-// Authentication-Results header (added by the receiving server) is the most reliable inbound signal.
+// We READ the Authentication-Results header; we do not verify SPF, DKIM or DMARC ourselves. No
+// cryptographic signature check happens anywhere in this codebase.
+//
+// That header is written by the receiving mail server, so it is exactly as trustworthy as whoever
+// wrote it. For mail your own server received, it is a good signal. For a raw .eml handed to you by
+// an untrusted party, it is worthless: an attacker can type "dkim=pass" into the file. The response
+// says which of those two situations you are in so an agent can weigh it.
+const AUTH_TRUST_NOTE = 'Read from the Authentication-Results header written by the receiving mail server. No DKIM signature, SPF or DMARC verification is performed here. Trust this only if a mail server you control added the header; in a raw .eml from an untrusted source it can be forged.';
+
 function parseAuthResults(h) {
   if (!h) return null;
   const g = (k) => { const m = String(h).match(new RegExp('\\b' + k + '\\s*=\\s*(pass|fail|softfail|hardfail|neutral|none|temperror|permerror|bestguesspass)', 'i')); return m ? m[1].toLowerCase() : null; };
   const r = { spf: g('spf'), dkim: g('dkim'), dmarc: g('dmarc') };
-  return (r.spf || r.dkim || r.dmarc) ? r : null;
+  return (r.spf || r.dkim || r.dmarc)
+    ? { ...r, source: 'authentication-results-header', verified_here: false, note: AUTH_TRUST_NOTE }
+    : null;
 }
 
 // ---------- domain auth via DNS ----------
+// SPF and DMARC are published at well-known DNS names, so we can look them up. DKIM cannot be
+// enumerated: its record lives at <selector>._domainkey.<domain> and the selector is only known from
+// a signed message. We therefore do not check DKIM here, and say so rather than implying we do.
+const DKIM_NOT_CHECKED = {
+  checked: false,
+  reason: 'DKIM records live at <selector>._domainkey.<domain> and the selector cannot be discovered from a domain name alone. Only a signed message reveals it.',
+};
+
 async function checkDomainAuth(domain) {
   domain = String(domain || '').toLowerCase();
-  const out = { domain, spf: { present: false }, dmarc: { present: false, policy: null }, mx: [] };
+  const out = { domain, spf: { present: false }, dmarc: { present: false, policy: null }, dkim: DKIM_NOT_CHECKED, mx: [] };
   if (!domain) return out;
   try {
     const flat = (await dns.resolveTxt(domain)).map((r) => r.join(''));
@@ -135,4 +153,4 @@ function deliverabilityScan(p) {
   return { flags, score: Math.min(100, score), links };
 }
 
-module.exports = { parseEmail, parseAddress, parseAuthResults, checkDomainAuth, isDisposable, senderRisk, deliverabilityScan, extractLinks };
+module.exports = { parseEmail, parseAddress, parseAuthResults, checkDomainAuth, isDisposable, senderRisk, deliverabilityScan, extractLinks, AUTH_TRUST_NOTE, DKIM_NOT_CHECKED };

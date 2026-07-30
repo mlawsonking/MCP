@@ -57,7 +57,15 @@ module.exports = async (req, res) => {
   return sendJson(res, 200, {
     ok: true, verdict, risk, score,
     sender: { from: p.from.email || undefined, display: p.from.display || undefined, domain: fromDom || undefined, replyTo: p.replyTo.email || undefined, disposable, domainAgeDays: ageDays, spoofFlags: sender.flags },
-    auth: auth || (domainAuth ? { source: 'dns', spf: domainAuth.spf.present, dmarcPolicy: domainAuth.dmarc.policy, mxCount: domainAuth.mx.length } : null),
+    auth: auth || (domainAuth ? {
+      source: 'dns',
+      verified_here: false,
+      spf: domainAuth.spf.present,
+      dmarcPolicy: domainAuth.dmarc.policy,
+      dkim: domainAuth.dkim,
+      mxCount: domainAuth.mx.length,
+      note: 'No Authentication-Results header was present, so this is only a DNS check of whether the sender domain PUBLISHES SPF and DMARC records. It does not tell you whether this particular message passed them.',
+    } : null),
     injection: { risk: inj.risk, score: inj.score, verdict: inj.verdict, categories: inj.categories, findings: inj.findings },
     links: linkFindings,
     subject: String(p.subject).slice(0, 200),
