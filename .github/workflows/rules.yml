@@ -109,6 +109,9 @@ jobs:
           else
             git commit -m "Rules $VERSION"
           fi
+          # The rules files are only ever written by this job, so a rebase onto
+          # whatever landed on main since checkout cannot conflict.
+          git pull --rebase origin main
           git push
 
       - name: summary
