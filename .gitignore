@@ -62,3 +62,4 @@ mcp-publisher.exe
 # It must never reach a commit: a signing key in a public repo lets anyone publish rules to every
 # install.
 rules/feed-private-key.pem
+PHASE3-E2E.md
