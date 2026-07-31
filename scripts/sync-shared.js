@@ -36,6 +36,20 @@ const TARGETS = {
   'safety.js': ['agent-firewall', 'payment-guard', 'email-guard', 'code-guard'],
 };
 
+// The six MCP packages. Each vendors the core and registers only its own product's tools, so a
+// facade cannot drift from the unified server: there is one definition of every tool.
+//
+// They vendor rather than depend on the core for the same reason the API folders do — an npm
+// dependency would have to be published first, and the package name is still the owner's call.
+const FACADES = {
+  'package-guard-mcp': { product: 'package-guard', npm: 'package-guard-mcp' },
+  'agent-firewall-mcp': { product: 'agent-firewall', npm: 'agent-firewall-mcp' },
+  'payment-guard-mcp': { product: 'payment-guard', npm: 'payment-guard-mcp' },
+  'email-guard-mcp': { product: 'email-guard', npm: 'email-guard-mcp' },
+  'code-guard-mcp': { product: 'code-guard', npm: '@mlawsonking/code-guard-mcp' },
+  'agent-tools-mcp': { product: 'agent-tools', npm: 'web-tools-mcp' },
+};
+
 // destination file -> the core module it re-exports
 const SHIMS = {
   'code-guard/lib/codescan.js': './core/engines/code',
@@ -54,17 +68,64 @@ function banner(source) {
   ].join('\n');
 }
 
-// Every .js file under agent-guards/lib and agent-guards/engines, as posix-style relative paths.
-function coreFiles() {
+// Core files as posix-style relative paths. The API folders need the engines; the MCP facades also
+// need the tool declarations and the MCP layer.
+function coreFiles(dirs) {
   const out = [];
-  for (const dir of ['lib', 'engines']) {
+  for (const dir of dirs) {
     const abs = path.join(CORE, dir);
     if (!fs.existsSync(abs)) continue;
     for (const f of fs.readdirSync(abs).sort()) {
-      if (f.endsWith('.js')) out.push(`${dir}/${f}`);
+      if (f.endsWith('.js') || f.endsWith('.mjs')) out.push(`${dir}/${f}`);
     }
   }
   return out;
+}
+
+// A facade package declares "type": "module", which would otherwise make every vendored .js file
+// ESM and break the CommonJS core. The nearest package.json wins, so this marker keeps core/ as
+// CommonJS inside an ESM package. The .mjs files under core/mcp stay ESM regardless of it.
+const CJS_MARKER = '{\n  "type": "commonjs"\n}\n';
+
+function facadeEntry(folder, { product, npm }) {
+  return `#!/usr/bin/env node
+// GENERATED FILE - do not edit here. Your change will be overwritten.
+// Source of truth: scripts/sync-shared.js (facadeEntry) + agent-guards/tools/
+// Regenerate: node scripts/sync-shared.js
+//
+// ${npm} — the ${product} tools, running locally.
+//
+// Every tool this exposes is defined once in the core registry and shared with the unified server,
+// so the tool names, schemas and response shapes here cannot drift from it. Tools that need the
+// network say so in their own descriptions; --offline makes them report what they could not check
+// instead of returning a verdict.
+import { createRequire } from 'module';
+import { serveStdio } from './core/mcp/server.mjs';
+
+const require = createRequire(import.meta.url);
+const registry = require('./core/tools/index.js');
+const pkg = require('./package.json');
+
+const argv = process.argv.slice(2);
+const offline = argv.includes('--offline');
+const disableArg = argv.indexOf('--disable');
+const disabled = new Set(
+  disableArg !== -1 && argv[disableArg + 1] && !argv[disableArg + 1].startsWith('--')
+    ? argv[disableArg + 1].split(',').map((s) => s.trim()).filter(Boolean)
+    : []
+);
+
+const tools = registry.toolsFor('${product}');
+const registered = await serveStdio({
+  tools,
+  name: '${product}',
+  version: pkg.version,
+  ctx: { offline, disabled },
+});
+
+// stdout is the MCP transport. Anything human-readable goes to stderr or it corrupts the session.
+process.stderr.write(\`${npm} \${pkg.version} running (\${registered.length} tools)\${offline ? ' [offline]' : ''}.\\n\`);
+`;
 }
 
 function shimBody(target, mod) {
@@ -88,17 +149,30 @@ function place(destAbs, want, label) {
   console.log(`wrote ${label}`);
 }
 
-// 1. the core
-const CORE_FILES = coreFiles();
-if (!CORE_FILES.length) {
+// 1. the core, into the API folders (engines only) and the MCP facades (engines + tools + mcp)
+const API_CORE = coreFiles(['lib', 'engines']);
+const FACADE_CORE = coreFiles(['lib', 'engines', 'tools', 'mcp']);
+if (!API_CORE.length) {
   console.error('No core files found under agent-guards/lib or agent-guards/engines.');
   process.exit(1);
 }
-for (const rel of CORE_FILES) {
-  const want = banner(`agent-guards/${rel}`) + fs.readFileSync(path.join(CORE, rel), 'utf8');
+const read = (rel) => banner(`agent-guards/${rel}`) + fs.readFileSync(path.join(CORE, rel), 'utf8');
+
+for (const rel of API_CORE) {
+  const want = read(rel);
   for (const product of PRODUCTS) {
     place(path.join(ROOT, product, 'lib', 'core', rel), want, path.posix.join(product, 'lib/core', rel));
   }
+}
+for (const rel of FACADE_CORE) {
+  const want = read(rel);
+  for (const folder of Object.keys(FACADES)) {
+    place(path.join(ROOT, folder, 'core', rel), want, path.posix.join(folder, 'core', rel));
+  }
+}
+for (const folder of Object.keys(FACADES)) {
+  place(path.join(ROOT, folder, 'core', 'package.json'), CJS_MARKER, path.posix.join(folder, 'core/package.json'));
+  place(path.join(ROOT, folder, 'index.mjs'), facadeEntry(folder, FACADES[folder]), path.posix.join(folder, 'index.mjs'));
 }
 
 // 2. the API-facing shared libs
@@ -120,8 +194,14 @@ if (check) {
     console.error('\nEdit the source (agent-guards/ or shared/lib/) and run: node scripts/sync-shared.js');
     process.exit(1);
   }
-  const total = CORE_FILES.length * PRODUCTS.length + Object.values(TARGETS).flat().length + Object.keys(SHIMS).length;
-  console.log(`generated copies in sync (${total} files checked: ${CORE_FILES.length} core x ${PRODUCTS.length} products, ${Object.values(TARGETS).flat().length} lib, ${Object.keys(SHIMS).length} shims)`);
+  const facadeCount = Object.keys(FACADES).length;
+  const total = API_CORE.length * PRODUCTS.length + FACADE_CORE.length * facadeCount + facadeCount * 2 +
+    Object.values(TARGETS).flat().length + Object.keys(SHIMS).length;
+  console.log(
+    `generated copies in sync (${total} files checked: ${API_CORE.length} core x ${PRODUCTS.length} APIs, ` +
+    `${FACADE_CORE.length} core + entry + marker x ${facadeCount} facades, ` +
+    `${Object.values(TARGETS).flat().length} lib, ${Object.keys(SHIMS).length} shims)`
+  );
 } else {
   console.log(written ? `synced ${written} file(s)` : 'already in sync');
 }

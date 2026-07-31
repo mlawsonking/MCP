@@ -36,15 +36,19 @@ LOOP-AUDIT.md
 ROADMAP.md
 SPEC-crawl-guard.md
 TODO-TO-100.md
-launch/
+/launch/
 MISSION-CONTROL.md
 OPERATIONS.md
 HANDOFF-STEPS-1-2.md
-code-guard-action/
+/code-guard-action/
 MIGRATION-PLAN.md
 LAUNCH-REVIEW.md
 REBUILD-PROMPT.md
 OPUS-BUILD-DIRECTIVE.md
-tools/
+OPUS-PHASE1-PROMPT.md
+# Leading slash matters on these three: an unanchored "tools/" matches at ANY depth, so it was also
+# hiding agent-guards/tools/ - the whole MCP tool registry was invisible to git and would have been
+# silently left out of every commit. Only the repo-root folders are meant to be private.
+/tools/
 CLAUDE.md
 mcp-publisher.exe

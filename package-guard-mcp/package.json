@@ -9,6 +9,7 @@
   },
   "files": [
     "index.mjs",
+    "core/",
     "README.md"
   ],
   "engines": {
