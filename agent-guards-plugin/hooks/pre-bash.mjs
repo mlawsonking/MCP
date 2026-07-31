@@ -106,10 +106,16 @@ await run('install', async () => {
   // a GitHub shorthand. Those are real installs that were not checked. Saying so out loud on every
   // `npm install .` would be noise, so it goes in the ledger, where `guard stats` reports it as
   // work that did not happen rather than work that came back clean.
+  //
+  // Only real skips go in `skipped`. This engine never consults a registry or OSV, by design, and
+  // recording that on every clean check made `guard stats` report every install as one that "could
+  // not finish" — which is a different and much worse thing than "finished, within a scope that is
+  // written on the box". What this engine does not do belongs in its description; what did not
+  // happen on THIS run belongs here.
   note(require, {
     event: 'install_check', engine: 'pkgname', verdict: 'safe', action: 'none', source: 'hook', ms,
     subject: checkedNames.join(' ').slice(0, 100),
-    skipped: ['registry-existence', 'osv-advisories', 'package-contents', ...unread.map((u) => `unchecked-argument: ${u}`)],
+    skipped: unread.map((u) => `unchecked-argument: ${u}`),
   });
   silent();
 });
