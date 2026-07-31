@@ -1,0 +1,8 @@
+# scripts/sync-shared.js compares every generated file against its source byte for byte, so a file
+# whose line endings depend on which platform checked it out will fail the drift check on a clean
+# runner even though nobody changed it. That is exactly what happened to the plugin's Windows shim:
+# the generator writes CRLF because it is a batch file, git stored LF, and CI went red.
+#
+# Everything else in the repo is copied from a source file, so the generator and the source agree
+# whatever the checkout did. The shim is generated from a string, so it has to be pinned.
+agent-guards-plugin/bin/guard.cmd text eol=crlf
