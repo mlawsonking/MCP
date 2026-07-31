@@ -1,11 +1,11 @@
 {
  "schema": 1,
- "version": "2026.07.31",
- "generated": "2026-07-31T06:39:10.124Z",
- "bytes": 271963,
- "sha256": "b47d717a589bcf6f64e589934e480d169264c1c8f1ce5d6cef82fd7ff2253991",
+ "version": "2026.07.31.1",
+ "generated": "2026-07-31T10:38:32.780Z",
+ "bytes": 271965,
+ "sha256": "5cec226670825d8b2a228ad277936b4b3065614be3807e557a3fd1ab16a7b81d",
  "url": "https://raw.githubusercontent.com/mlawsonking/MCP/main/rules/bundle.json",
- "signature": "/Vtt52u/f+duuuPh7TphqLni5C3L+BB94QZ67jU3MJ5ZP9e/TjMytO2FcGguKivl44MnbyPChPeis/i2oOxQBw==",
+ "signature": "s275gZf4VMHmxDH5HfG2r+GtHeB04CYU2R6Pk7kbE+Yo8hqJ8K6Cy1K8rRUGY4H93800KEkh/76+JrvkqzcrAw==",
  "notes": "all sources refreshed",
  "counts": {
   "injection": 11,
@@ -14,7 +14,7 @@
   "code": 31,
   "ofac_addresses": 100,
   "scam_addresses": 3182,
-  "malicious_packages": 228339
+  "malicious_packages": 228340
  },
  "sources": [
   {
@@ -60,7 +60,7 @@
  ],
  "packages": {
   "file": "packages.tsv",
-  "bytes": 10010043,
-  "sha256": "23ba253e3cab64a9f69b03d10524fd20ab4f092f2e1b0f85c9b79523f4b0a791"
+  "bytes": 10010080,
+  "sha256": "5c6a7aa7cb2b1e3a51a75a025a12cd29a0ec625b01ce142178cd946beaa1be80"
  }
 }

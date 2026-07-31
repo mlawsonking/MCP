@@ -1,7 +1,7 @@
 {
  "schema": 1,
- "version": "2026.07.31",
- "generated": "2026-07-31T06:39:10.124Z",
+ "version": "2026.07.31.1",
+ "generated": "2026-07-31T10:38:32.780Z",
  "notes": "all sources refreshed",
  "rulesets": {
   "injection": [
@@ -3900,11 +3900,11 @@
    "source": "OSV malicious-package advisories (MAL-) for npm and PyPI, from osv-vulnerabilities.storage.googleapis.com",
    "fetched": "2026-07-31",
    "file": "packages.tsv",
-   "sha256": "23ba253e3cab64a9f69b03d10524fd20ab4f092f2e1b0f85c9b79523f4b0a791",
-   "bytes": 10010043,
+   "sha256": "5c6a7aa7cb2b1e3a51a75a025a12cd29a0ec625b01ce142178cd946beaa1be80",
+   "bytes": 10010080,
    "npm_count": 216777,
-   "pypi_count": 11562,
-   "versioned_count": 24586
+   "pypi_count": 11563,
+   "versioned_count": 24587
   }
  },
  "sources": [
