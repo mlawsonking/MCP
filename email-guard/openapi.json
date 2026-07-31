@@ -3,7 +3,7 @@
   "info": {
     "title": "Email Guard — inbound/outbound email safety for AI agents",
     "version": "1.0.0",
-    "description": "Before an AI agent ACTS on an email, scan it for 'AI agent phishing' (known prompt-injection / hijack patterns in the body, sender header comparisons, link reputation). Before an agent SENDS one, run 12 secret patterns and 3 PII patterns over the subject/body/HTML and check for deliverability problems that burn the sender domain. Deterministic, no LLM. Pattern matching, not a classifier: phrasings nobody wrote a rule for, brands off the 24-name list, and credential formats outside the 12 patterns are not detected. Free public data: DNS (SPF/DMARC/MX), RDAP domain age, disposable-domain lists, injection + secret rulesets. Authentication: SPF, DKIM and DMARC results are READ from the Authentication-Results header added by the receiving mail server; no signature is verified here, and DKIM DNS records are not looked up because the selector cannot be derived from a domain name. That header can be forged in a raw .eml from an untrusted source, so trust it only for mail your own server received. Every response states this."
+    "description": "Before an AI agent ACTS on an email, scan it for 'AI agent phishing' (known prompt-injection / hijack patterns in the body, sender header comparisons, link reputation). Before an agent SENDS one, run 22 secret patterns and 3 PII patterns over the subject/body/HTML and check for deliverability problems that burn the sender domain. Deterministic, no LLM. Pattern matching, not a classifier: phrasings nobody wrote a rule for, brands off the 24-name list, and credential formats outside the 12 patterns are not detected. Free public data: DNS (SPF/DMARC/MX), RDAP domain age, disposable-domain lists, injection + secret rulesets. Authentication: SPF, DKIM and DMARC results are READ from the Authentication-Results header added by the receiving mail server; no signature is verified here, and DKIM DNS records are not looked up because the selector cannot be derived from a domain name. That header can be forged in a raw .eml from an untrusted source, so trust it only for mail your own server received. Every response states this."
   },
   "servers": [{ "url": "https://email-guard-api.vercel.app" }],
   "paths": {
@@ -37,7 +37,7 @@
     "/api/scan-outbound": {
       "post": {
         "operationId": "scanOutbound",
-        "summary": "Scan an outbound email against 12 secret patterns + 3 PII patterns, plus deliverability, before the agent sends it",
+        "summary": "Scan an outbound email against 22 secret patterns + 3 PII patterns, plus deliverability, before the agent sends it",
         "requestBody": {
           "required": true,
           "content": {
@@ -57,7 +57,7 @@
             }
           }
         },
-        "responses": { "200": { "description": "Verdict + matches from the 12 secret and 3 PII patterns (with a redacted copy), deliverability/spam flags, recipient risk (disposable / no-MX bounce). The leak patterns run over the subject, plain-text body and HTML body only; other headers and attachments are not scanned." } }
+        "responses": { "200": { "description": "Verdict + matches from the 22 secret and 3 PII patterns (with a redacted copy), deliverability/spam flags, recipient risk (disposable / no-MX bounce). The leak patterns run over the subject, plain-text body and HTML body only; other headers and attachments are not scanned." } }
       }
     },
     "/api/check-domain-auth": {

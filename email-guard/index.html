@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Email Guard — email safety for AI agents</title>
-<meta name="description" content="Scan inbound email for known prompt-injection patterns and phishing signals before an agent acts on it, and outbound email for 12 secret patterns, 3 PII patterns and deliverability problems before it sends. Deterministic, no LLM, free." />
+<meta name="description" content="Scan inbound email for known prompt-injection patterns and phishing signals before an agent acts on it, and outbound email for 22 secret patterns, 3 PII patterns and deliverability problems before it sends. Deterministic, no LLM, free." />
 <style>
   :root { --bg:#0b0e14; --panel:#131822; --ink:#e6edf3; --mut:#8b98a9; --acc:#4ade80; --warn:#fbbf24; --bad:#f87171; --line:#222b3a; }
   * { box-sizing:border-box; } body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.6 ui-sans-serif,system-ui,Segoe UI,Roboto,Helvetica,Arial; }
@@ -55,7 +55,7 @@ to https://paypa1-secure.tk/verify within 24 hours.</textarea>
   <table>
     <tr><th>Endpoint</th><th>What it does</th></tr>
     <tr><td><code>POST /api/scan-inbound</code></td><td><strong>The guard.</strong> Before the agent acts on a message: known injection and hijack patterns (including zero-width, bidi, and hidden-HTML payloads), sender header checks (SPF/DKIM/DMARC results as reported by the receiving server, reply-to mismatch, a 24-name brand list against the display name), a DNS and RDAP look at the sender domain (disposable, or registered in the last 30 days), link reputation → verdict <code>allow / review / block</code> plus fixed-shape metadata</td></tr>
-    <tr><td><code>POST /api/scan-outbound</code></td><td>Before the agent sends: 12 secret patterns and 3 PII patterns over the subject, body and HTML (with a redacted copy), deliverability problems that burn the sender domain, dead recipients (disposable, or no MX = guaranteed bounce). Credential formats outside those 12 patterns are not detected, and the email-address rule is noisy: any address in the body puts the message at <code>review</code></td></tr>
+    <tr><td><code>POST /api/scan-outbound</code></td><td>Before the agent sends: 22 secret patterns and 3 PII patterns over the subject, body and HTML (with a redacted copy), deliverability problems that burn the sender domain, dead recipients (disposable, or no MX = guaranteed bounce). Credential formats outside those 22 patterns are not detected, and the email-address rule is noisy: any address in the body puts the message at <code>review</code></td></tr>
     <tr><td><code>GET /api/check-domain-auth</code></td><td>SPF, DMARC, MX, domain age (RDAP), and disposable status for any domain or address → <code>weak / enforced</code></td></tr>
   </table>
 

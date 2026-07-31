@@ -49,7 +49,7 @@
       "get": {
         "operationId": "rules",
         "summary": "The deterministic rule catalog Code Guard checks (coverage transparency)",
-        "responses": { "200": { "description": "All 32 catalog entries with id, category, severity and language. 31 are the code rules; the 32nd is a grouped hardcoded-* entry standing in for 12 credential patterns and 3 personal-data patterns." } }
+        "responses": { "200": { "description": "All 32 catalog entries with id, category, severity and language. 31 are the code rules; the 32nd is a grouped hardcoded-* entry standing in for 22 credential patterns and 3 personal-data patterns." } }
       }
     }
   }

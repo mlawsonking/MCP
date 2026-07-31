@@ -11,7 +11,7 @@ module.exports = async (req, res) => {
     ok: true, total: rules.length, categories: Object.keys(byCategory).sort(), rules,
     rules_version: CODE_RULES_VERSION,
     // total counts catalog entries; code_rules counts the actual patterns. hardcoded-* is one entry
-    // standing in for 15 patterns in the shared ruleset: 12 credential, 3 personal-data (email, SSN, card).
+    // standing in for 25 patterns in the shared ruleset: 22 credential, 3 personal-data (email, SSN, card).
     code_rules: CODE_RULESET_INFO.rules,
     note: 'These are regex rules, not a compiler. A clean result means none of them matched, not that the code is safe.',
   });

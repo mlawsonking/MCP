@@ -23,18 +23,24 @@ Use it as one layer. Do not use it as the reason it is safe to feed untrusted te
 | Endpoint | What it does |
 |---|---|
 | `POST /api/scan-content` | Match text (or a fetched URL) against 11 known injection/jailbreak patterns + 5 obfuscation signals (zero-width, bidi/Trojan-Source, tag block, hidden HTML) → `allow`/`review`/`block` + the rule IDs that fired |
-| `POST /api/scan-secrets` | **12 secret patterns + 3 PII patterns** → findings (masked) + a **redacted** copy. See below for the list and the limits |
+| `POST /api/scan-secrets` | **22 secret patterns + 3 PII patterns** → findings (masked) + a **redacted** copy. See below for the list and the limits |
 | `GET  /api/check-url` | URL/domain safety: punycode, 14 known shorteners, 23 abuse-prone TLDs, raw-IP hosts, credentials in the URL, brand lookalikes, **domain age** (RDAP), and the final URL after redirects → `safe`/`suspicious`/`malicious` |
 | `GET  /api/check-ip` | IP reputation: **Tor exit**, ASN/org (Team Cymru), reverse DNS, datacenter guess, one DNSBL lookup (Spamhaus ZEN) → `low-risk`/`caution`/`high-risk` |
 | `POST /api/check-password` | Is a password in a known breach? **HIBP Pwned Passwords** (k-anonymity — plaintext never leaves the server) |
 
 ## What the secret scan covers
 
-12 secret patterns: AWS access key ids, GitHub tokens, OpenAI keys, Anthropic keys, Google API keys,
-Slack tokens, Stripe live secret keys, Twilio keys, npm tokens, JWTs, PEM private-key blocks, and a
-generic `key = "value"` assignment where the key name is `api_key`, `api-key`, `apikey`, `secret`,
-`password`, `passwd` or `token`, the value is quoted, and it is at least 8 characters. 3 PII
-patterns: email, US SSN, and card numbers that pass a Luhn check.
+22 secret patterns: AWS access key ids, GitHub tokens, OpenAI keys, Anthropic keys, Google API keys,
+Slack tokens, Stripe live secret keys, Twilio keys, npm tokens, JWTs, PEM private-key blocks,
+Azure storage account keys, Azure SAS tokens, Azure AD client secrets, GCP service-account key ids,
+Google OAuth refresh tokens, database connection-string passwords (postgres, mysql, mongodb, redis,
+amqp, mssql, ftp), ADO.NET and ODBC `Password=` values, SendGrid keys, GitLab tokens, Hugging Face
+tokens, and a generic `key = "value"` assignment where the key name is `api_key`, `api-key`,
+`apikey`, `secret`, `password`, `passwd` or `token`, the value is quoted, and it is at least 8
+characters. 3 PII patterns: email, US SSN, and card numbers that pass a Luhn check.
+
+The connection-string rules redact only the password, so the host and the user stay readable. That
+is usually what makes the finding worth acting on.
 
 A credential from a vendor I have no pattern for will not be found, unless it happens to be written
 as one of those assignments. The assignment rule is narrow, and here is exactly how narrow — I ran

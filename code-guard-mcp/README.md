@@ -16,7 +16,7 @@ Add it to your MCP client config (Claude Desktop, Cursor, Claude Code, and so on
 
 - `scan_code`: scan a snippet. Returns a verdict (pass, review, or block) and a list of findings, each with the rule, category, severity, line number, and a suggested fix. Covers command, code, and SQL injection, SSRF, hardcoded secrets and API keys, weak crypto, unsafe deserialization (pickle, yaml), disabled TLS verification, XSS or template injection, and personal data left in source (email, US SSN, card number).
 - `scan_diff`: the same scan, but only on the added lines of a unified diff, with correct new-file line numbers. Useful inside a commit loop. It only reads added lines, so a pattern spanning an added line and an untouched one is not seen.
-- `list_rules`: the full rule catalog, so you can see what it checks and what it doesn't. 32 entries: the 31 code rules, plus one grouped `hardcoded-*` entry covering 12 credential patterns and 3 personal-data patterns.
+- `list_rules`: the full rule catalog, so you can see what it checks and what it doesn't. 32 entries: the 31 code rules, plus one grouped `hardcoded-*` entry covering 22 credential patterns and 3 personal-data patterns.
 
 ## Languages
 

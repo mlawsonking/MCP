@@ -10,7 +10,7 @@ the sender domain**. Email Guard checks both.
 | Endpoint | What it does |
 |---|---|
 | `POST /api/scan-inbound` | The "AI agent phishing" check: known injection/hijack patterns (incl. zero-width/bidi/hidden-HTML payloads) + sender header comparisons (SPF/DKIM/DMARC results as reported by the receiving server, Reply-To and Return-Path mismatch, a 24-name brand list against the display name) + link reputation → verdict + fixed-shape metadata |
-| `POST /api/scan-outbound` | 12 secret/API-key patterns + 3 PII patterns over subject/body/HTML (redacted copy) + deliverability/spam risk + recipient risk (disposable / no-MX bounce) → verdict |
+| `POST /api/scan-outbound` | 22 secret/API-key patterns + 3 PII patterns over subject/body/HTML (redacted copy) + deliverability/spam risk + recipient risk (disposable / no-MX bounce) → verdict |
 | `GET /api/check-domain-auth` | SPF/DMARC/MX/domain-age/disposable posture for a domain or email → `weak` / `enforced` |
 
 ### Example
@@ -58,7 +58,7 @@ general impersonation detection here and no model of who is allowed to send as w
 
 ### What the outbound leak scan catches
 
-12 secret patterns and 3 PII patterns, run over the subject, the plain-text body and the HTML body.
+22 secret patterns and 3 PII patterns, run over the subject, the plain-text body and the HTML body.
 The leak scan reads nothing else: not other headers, not attachments, not anything the message links
 to.
 
