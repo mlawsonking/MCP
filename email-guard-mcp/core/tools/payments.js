@@ -201,6 +201,7 @@ module.exports = [
       'the intermediate hops are not analysed. Offline it still returns the structural verdict and reports those two ' +
       'network checks as skipped. Returns safe, caution or block.',
     needs: ['rdap.org', 'the URL being screened (redirect follow)'],
+    cloudWhen: 'the domain age is looked up and redirects are followed. The structural analysis is local and runs offline',
     input: { url: { type: 'string', description: 'The x402/payment endpoint or merchant URL.' } },
     async run(args, ctx) {
       const t0 = Date.now();

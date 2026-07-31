@@ -84,6 +84,7 @@ module.exports = [
       'Assess a URL before fetching or showing it: structure, lookalike brand domains, punycode, embedded credentials, ' +
       'abuse-prone TLDs, plus domain age. The structural half is local; domain age needs RDAP.',
     needs: ['rdap.org'],
+    cloudWhen: 'the domain age is looked up (RDAP). The structural analysis is local and runs offline',
     input: { url: { type: 'string', description: 'The URL to check.' } },
     async run(args, ctx) {
       const t0 = Date.now();

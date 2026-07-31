@@ -1,7 +1,6 @@
 {
   "name": "agent-guards",
   "version": "0.1.0",
-  "private": true,
   "description": "Deterministic local security engines for AI agents: prompt-injection and obfuscation scanning, secret detection and redaction, code scanning, package reputation, email analysis, payment screening, and an SSRF-safe fetch.",
   "main": "index.js",
   "bin": {
