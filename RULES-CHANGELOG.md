@@ -53,6 +53,20 @@ when the scope is one that popular packages publish under, because only the scop
 publish into it; and PyPI names are compared in PEP 503 form, because pip treats `discord.py`,
 `discord-py` and `discord_py` as the same project.
 
+## shared 2026.07.31
+
+Two corrections, both about the ruleset describing itself wrongly rather than about what it detects.
+
+`openai` no longer matches Anthropic keys. The pattern was `sk-(proj-)?…`, which `sk-ant-…` satisfies,
+so an Anthropic key produced two findings and the redacted copy came back labelled `[REDACTED:OpenAI
+API Key]`. It is now `sk-(?!ant-)(proj-)?…`. Nothing that matched before stops matching except an
+Anthropic key, which the `anthropic` rule was already catching correctly.
+
+The `hardcoded-*` catalog entry in the code scanner, which `/api/rules` serves, said "12 patterns"
+and "All 15". The secret ruleset has held 22 patterns and 3 personal-data patterns since
+`shared 2026.07.30.1`. The entry now counts them from the ruleset instead of stating them, so it
+cannot fall behind again.
+
 ## shared 2026.07.30.1
 
 Ten new secret patterns. No existing rule changed, so anything that matched before still matches.

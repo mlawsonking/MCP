@@ -15,7 +15,11 @@ const { RULES_VERSION } = require('../lib/version');
 const SECRET_RULES = [
   { id: 'aws-access-key', type: 'AWS Access Key ID', re: /\b((AKIA|ASIA|AGPA|AIDA|AROA)[0-9A-Z]{16})\b/g, severity: 'critical', vg: 1 },
   { id: 'github-pat', type: 'GitHub Token', re: /\b((ghp|gho|ghu|ghs|ghr)_[0-9A-Za-z]{36}|github_pat_[0-9A-Za-z_]{22,})\b/g, severity: 'critical', vg: 1 },
-  { id: 'openai', type: 'OpenAI API Key', re: /\b(sk-(proj-)?[A-Za-z0-9_-]{20,})\b/g, severity: 'critical', vg: 1 },
+  // The lookahead is not cosmetic. Without it this rule also matched `sk-ant-…`, so an Anthropic key
+  // came back as two findings, one of them naming the wrong vendor, and the redacted copy labelled
+  // it an OpenAI key. A tool that misidentifies the credential it just found sends someone to rotate
+  // the wrong thing.
+  { id: 'openai', type: 'OpenAI API Key', re: /\b(sk-(?!ant-)(proj-)?[A-Za-z0-9_-]{20,})\b/g, severity: 'critical', vg: 1 },
   { id: 'anthropic', type: 'Anthropic API Key', re: /\b(sk-ant-[A-Za-z0-9_-]{20,})\b/g, severity: 'critical', vg: 1 },
   { id: 'google-api', type: 'Google API Key', re: /\b(AIza[0-9A-Za-z_-]{35})\b/g, severity: 'high', vg: 1 },
   { id: 'slack', type: 'Slack Token', re: /\b(xox[baprs]-[0-9A-Za-z-]{10,})\b/g, severity: 'critical', vg: 1 },

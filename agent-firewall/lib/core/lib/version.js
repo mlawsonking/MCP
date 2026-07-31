@@ -8,7 +8,7 @@
 //
 // The format is the release date. A second release on the same date gets a `.N` suffix rather than
 // tomorrow's date, so the string never claims a day the rules did not ship on.
-const RULES_VERSION = '2026.07.30.1';
+const RULES_VERSION = '2026.07.31';
 
 // The code scanner ships its own rules and versions them separately, because it lives in a different
 // place in the pipeline and moves on its own schedule.

@@ -6,7 +6,7 @@
 // Positioning: catches the high-frequency vuln classes in AI-written code (injection, SSRF, hardcoded secrets,
 // weak crypto, unsafe deserialization, TLS-off, XSS) IN THE AGENT'S LOOP, not a full audit replacement.
 // Reuses the secrets engine for hardcoded credentials.
-const { scan: scanSecrets } = require('./secrets');
+const { scan: scanSecrets, SECRET_RULES, PII_RULES } = require('./secrets');
 const { CODE_RULES_VERSION } = require('../lib/version');
 
 // sev: critical|high|medium|low · lang: 'any'|'js'(js/ts)|'py'
@@ -149,7 +149,19 @@ function scanDiff(diff, langHint) {
 
 function listRules() {
   return RULES.map((r) => ({ id: r.id, category: r.cat, severity: r.sev, lang: r.lang, message: r.msg }))
-    .concat([{ id: 'hardcoded-*', category: 'hardcoded-secret', severity: 'critical/high', lang: 'any', message: 'Hardcoded API keys, tokens, private keys and generic secrets (12 patterns), plus personal data left in source: email, US SSN, credit card (3 patterns). All 15 report under hardcoded-* ids.' }]);
+    // Counted from the ruleset rather than written down. This entry said "12 patterns" and "All 15"
+    // for the whole of Phase 1, after the secret rules went from 12 to 22, and it is served by
+    // /api/rules, so production was publishing a number the code did not back. Derived, it cannot
+    // drift again.
+    .concat([{
+      id: 'hardcoded-*',
+      category: 'hardcoded-secret',
+      severity: 'critical/high',
+      lang: 'any',
+      message: `Hardcoded API keys, tokens, private keys and generic secrets (${SECRET_RULES.length} patterns), plus personal data left in source: `
+        + `${PII_RULES.map((r) => r.type).join(', ')} (${PII_RULES.length} patterns). `
+        + `All ${SECRET_RULES.length + PII_RULES.length} report under hardcoded-* ids.`,
+    }]);
 }
 
 // Bump when a rule is added or removed or a pattern/severity changes, and record it in

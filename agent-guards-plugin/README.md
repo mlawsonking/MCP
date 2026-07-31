@@ -90,18 +90,20 @@ Packages on the list itself are never flagged, and most installs are of those.
 
 ## Speed
 
-Measured on Windows 11, Node 22, 20 runs each:
+Measured on Windows 11 and Node 22, two runs of 20 calls each, timed around the whole child process:
 
 | Hook | Time per tool call |
 | --- | --- |
-| Bash, no package manager in the command | 70 ms |
-| Bash, install checked | 82 ms |
-| Edit or Write | 77 ms |
-| WebFetch | 74 ms |
-| a bare `node -e "process.exit(0)"` for comparison | 53 ms |
+| Bash, no package manager in the command | 65 to 70 ms |
+| Bash, install checked | 82 to 86 ms |
+| Bash, install denied | 89 ms |
+| Edit or Write | 77 to 79 ms |
+| WebFetch | 74 to 82 ms |
+| a bare `node -e "process.exit(0)"` for comparison | 50 to 53 ms |
 
-So the checks themselves cost 17 to 29 ms. The rest is Node starting up. A command with no package
-manager and no pipe in it exits before any rule file is loaded.
+So the checks themselves cost 15 to 36 ms and the rest is Node starting up. A command with no package
+manager and no pipe in it exits before any rule file is loaded. Your machine will differ; the number
+worth comparing is the gap between each row and the last one.
 
 ## When the guard itself breaks
 
