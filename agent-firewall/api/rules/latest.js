@@ -85,8 +85,15 @@ module.exports = async (req, res) => {
     return sendJson(res, 503, { ok: false, error: 'The rules feed has no manifest to serve right now. Keep using the rules you have.' });
   }
 
-  track(req, 'guard_call', {
+  // Awaited, unlike everywhere else. This handler is fast enough that the beacon would be lost to
+  // the function freezing after the response, and this particular event is the heartbeat the whole
+  // retention number is read from. A client pulls once a day, so the hundred milliseconds this costs
+  // are worth paying to not be guessing. `track` never rejects.
+  await track(req, 'guard_call', {
     client: 'rules-pull',
+    // The feed is not one of the six products, but every dashboard groups by this field, so leaving
+    // it unset files the heartbeat under "?".
+    product: 'rules-feed',
     endpoint: 'rules/latest',
     surface,
     have,
@@ -112,7 +119,12 @@ module.exports = async (req, res) => {
   // an unchanged pull off the function entirely.
   res.setHeader('Cache-Control', 'public, max-age=300, stale-while-revalidate=3600');
 
-  if (req.headers['if-none-match'] === etag) {
+  // Vercel's edge rewrites the ETag as a weak validator, so what comes back on the next request is
+  // `W/"abc"` and not the `"abc"` this handler issued. Comparing the raw strings would miss every
+  // time and send the whole body again, which is the one thing the ETag exists to avoid. Measured on
+  // the live deployment, not guessed.
+  const unweak = (v) => String(v || '').replace(/^W\//, '');
+  if (unweak(req.headers['if-none-match']) === unweak(etag)) {
     res.statusCode = 304;
     res.setHeader('Access-Control-Allow-Origin', '*');
     return res.end();

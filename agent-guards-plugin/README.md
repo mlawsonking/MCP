@@ -94,16 +94,22 @@ Measured on Windows 11 and Node 22, two runs of 20 calls each, timed around the 
 
 | Hook | Time per tool call |
 | --- | --- |
-| Bash, no package manager in the command | 65 to 70 ms |
-| Bash, install checked | 82 to 86 ms |
-| Bash, install denied | 89 ms |
-| Edit or Write | 77 to 79 ms |
-| WebFetch | 74 to 82 ms |
-| a bare `node -e "process.exit(0)"` for comparison | 50 to 53 ms |
+| Bash, no package manager in the command | 64 ms |
+| Bash, install checked | 82 ms |
+| Bash, install denied | 84 ms |
+| Edit or Write | 96 ms |
+| WebFetch | 91 ms |
+| a bare `node -e "process.exit(0)"` for comparison | 48 ms |
 
-So the checks themselves cost 15 to 36 ms and the rest is Node starting up. A command with no package
+So the checks themselves cost 16 to 48 ms and the rest is Node starting up. A command with no package
 manager and no pipe in it exits before any rule file is loaded. Your machine will differ; the number
 worth comparing is the gap between each row and the last one.
+
+Once the rules feed has applied a bundle, add about 9 ms to the rows that load rules: the hook reads
+the cached bundle and revalidates it before use. Measured the same way, an Edit hook goes from 96 ms
+on the rules compiled into the plugin to 105 ms on a bundle pulled from the feed. The bundle is
+revalidated rather than trusted because it is a file in your home directory that anything on the
+machine could have edited.
 
 ## When the guard itself breaks
 

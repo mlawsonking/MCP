@@ -28,7 +28,35 @@ function handleOptions(req, res) {
   return false;
 }
 
-// --- WAU beacon → PostHog. Fail-safe, dependency-free, no-op without POSTHOG_KEY. Never blocks/affects the response.
+// Keep the runtime alive until a background promise settles.
+//
+// This exists because the beacon was silently not firing. A serverless function is frozen the moment
+// its response is sent, so a fire-and-forget POST started just before `res.end()` never gets to
+// flush. On a slow handler the event loop is still turning and it goes out; on a fast one it does
+// not. That is not a theory: agent-firewall produced ZERO events in 90 days while the other five
+// products reported normally, and the difference is that its hero endpoint is pure local regex and
+// answers in about a millisecond. Confirmed on the live deployment by calling one slow endpoint
+// (check-url, which does RDAP lookups) and one fast one (scan-content) back to back: only the slow
+// one arrived.
+//
+// So the measurement was not "low usage", it was "no measurement", which is the same bug class this
+// project keeps finding in its own checks: an absent answer read as a real one.
+//
+// `waitUntil` is the platform's own answer to this. It is reached through a well-known global rather
+// than a package so nothing new has to be installed, and if it is missing we fall back to the old
+// behaviour, which is no worse than before.
+function keepAlive(promise) {
+  try {
+    const ctx = globalThis[Symbol.for('@vercel/request-context')];
+    const waitUntil = ctx && typeof ctx.get === 'function' && ctx.get() && ctx.get().waitUntil;
+    if (typeof waitUntil === 'function') { waitUntil(promise); return true; }
+  } catch { /* not on a runtime that offers it */ }
+  return false;
+}
+
+// --- WAU beacon → PostHog. Fail-safe, dependency-free, no-op without POSTHOG_KEY. Never blocks the
+// response: it either rides on waitUntil or it is fire-and-forget. Returns the in-flight promise so
+// a caller that must not lose the event can await it.
 function track(req, event, properties) {
   try {
     const key = process.env.POSTHOG_KEY;
@@ -53,13 +81,16 @@ function track(req, event, properties) {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 1500);
     if (timer.unref) timer.unref();
-    fetch('https://us.i.posthog.com/capture/', {
+    const sent = fetch('https://us.i.posthog.com/capture/', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ api_key: key, event, distinct_id, properties: props }),
       signal: ctrl.signal,
     }).then(() => clearTimeout(timer)).catch(() => clearTimeout(timer));
+    keepAlive(sent);
+    return sent;
   } catch { /* analytics must never affect the API */ }
+  return undefined;
 }
 
 // Upgrade hint for DIRECT (non-RapidAPI) traffic: a non-breaking extra field so
