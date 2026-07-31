@@ -10,6 +10,9 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js';
 import { z } from 'zod';
+import { createRequire } from 'module';
+
+const { runTool } = createRequire(import.meta.url)('../tools/index.js');
 
 // Plain declarations -> a zod raw shape. Kept deliberately small: the core stays free of zod, and
 // the only shapes we use are strings, numbers, enums and string arrays.
@@ -73,7 +76,7 @@ export function createServer({ tools, name, version, ctx }) {
     registered.push(tool.name);
     server.tool(tool.name, describe(tool, ctx), zodShape(tool.input), async (args) => {
       try {
-        const result = await tool.run(args || {}, ctx);
+        const result = await runTool(tool, args, ctx);
         // A handler that reports ok:false is a failed check, not a crashed tool. Surface it as an
         // error so an agent does not read the payload as a verdict.
         if (result && result.ok === false && result.error) return errored(result.error + (result.advice ? ' ' + result.advice : ''));
