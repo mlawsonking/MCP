@@ -44,23 +44,26 @@ const ck = (n, c, info) => { c ? pass++ : fail++; console.log(`${c ? 'PASS' : 'F
   // SSRF: the guard used to check only the first URL and then let fetch follow redirects itself, so
   // a public host that 302s to 127.0.0.1 or 169.254.169.254 walked right past it. Each hop is now
   // re-resolved and re-checked. The first hop must look genuinely public or the test proves nothing.
+  //
+  // The resolver and the transport are injected rather than monkey-patched onto globals: safeFetch
+  // now pins the address it validated and connects to that, so there is no second DNS lookup to
+  // stub. The deeper rebinding cases live in agent-guards/test/net.cjs.
   {
     const { safeFetch } = require('../lib/common.js');
-    const dns = require('dns').promises;
-    const realLookup = dns.lookup.bind(dns);
-    const realFetch = globalThis.fetch;
-    dns.lookup = async (h, ...a) => (h === 'public.example' ? { address: '93.184.216.34', family: 4 } : realLookup(h, ...a));
-    globalThis.fetch = async (url) => {
-      if (String(url).startsWith('http://public.example/to-loopback')) return { status: 302, ok: false, headers: { get: (k) => (k.toLowerCase() === 'location' ? 'http://127.0.0.1:9/secret' : null) } };
-      if (String(url).startsWith('http://public.example/to-metadata')) return { status: 302, ok: false, headers: { get: (k) => (k.toLowerCase() === 'location' ? 'http://169.254.169.254/latest/meta-data/' : null) } };
-      throw new Error('unexpected fetch to ' + url);
+    const resolve = async (h) => (h === 'public.example' ? ['93.184.216.34'] : []);
+    const reached = [];
+    const transport = async (url) => {
+      reached.push(url.href);
+      if (url.href.startsWith('http://public.example/to-loopback')) return { status: 302, headers: { location: 'http://127.0.0.1:9/secret' }, text: '' };
+      if (url.href.startsWith('http://public.example/to-metadata')) return { status: 302, headers: { location: 'http://169.254.169.254/latest/meta-data/' }, text: '' };
+      return { status: 200, headers: {}, text: 'unexpected' };
     };
-    try {
-      const a = await safeFetch('http://public.example/to-loopback');
-      ck('safeFetch: redirect to loopback is blocked', a.ok === false && /redirect to a private/i.test(a.error || ''), `error=${a.error}`);
-      const b = await safeFetch('http://public.example/to-metadata');
-      ck('safeFetch: redirect to cloud metadata is blocked', b.ok === false && /redirect to a private/i.test(b.error || ''), `error=${b.error}`);
-    } finally { dns.lookup = realLookup; globalThis.fetch = realFetch; }
+    const a = await safeFetch('http://public.example/to-loopback', { resolve, transport });
+    ck('safeFetch: redirect to loopback is blocked', a.ok === false && /redirect to a private/i.test(a.error || ''), `error=${a.error}`);
+    const b = await safeFetch('http://public.example/to-metadata', { resolve, transport });
+    ck('safeFetch: redirect to cloud metadata is blocked', b.ok === false && /redirect to a private/i.test(b.error || ''), `error=${b.error}`);
+    // Assert the absence: neither private address was ever actually requested.
+    ck('safeFetch: the private hop is never requested', !reached.some((u) => u.includes('127.0.0.1') || u.includes('169.254')), reached.join(' '));
   }
   ck('safeFetch: ::ffff: mapped loopback counts as private', (await require('../lib/common.js').safeFetch('http://[::ffff:127.0.0.1]/x')).ok === false, 'mapped v4-in-v6');
 

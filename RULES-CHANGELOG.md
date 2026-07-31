@@ -17,6 +17,30 @@ report what was actually loaded instead:
   response carries `coverage.lists_loaded` and `list_size`.
 - The disposable-domain list (Email Guard, Agent Web Tools).
 
+## shared 2026.07.30.1
+
+Ten new secret patterns. No existing rule changed, so anything that matched before still matches.
+A second release on the same date gets a `.1` rather than tomorrow's date.
+
+New rules, by family:
+
+- **Azure** — `azure-storage-key` (the `AccountKey=` value in a storage connection string),
+  `azure-sas-token` (the `sig=` parameter), `azure-ad-secret` (Entra client secrets, which carry a
+  distinctive `8Q~`/`7Q~` shape).
+- **Google Cloud** — `gcp-sa-key-id` (the `private_key_id` in a service-account JSON) and
+  `gcp-oauth-refresh` (`1//` refresh tokens). The PEM body inside a service-account file was already
+  covered by `private-key`.
+- **Connection strings** — `db-connection-uri` redacts just the password out of
+  `postgres://user:pass@host` and the same shape for mysql, mongodb, redis, amqp, mssql and ftp, so
+  the host and user stay readable. `connection-string-password` covers the ADO.NET/ODBC
+  `Password=...;` form.
+- **Other formats** — `sendgrid`, `gitlab-pat`, `huggingface`.
+
+Secret rules go from 12 to 22. `RULESET_INFO.secrets.rules` and `/api/rules` counts move with them.
+
+The rules now live in `agent-guards/engines/secrets.js` rather than `shared/lib/safety.js`. Behaviour
+is identical; `shared/lib/safety.js` re-exports the core under the same names.
+
 ## shared 2026.07.30
 
 First versioned release.
