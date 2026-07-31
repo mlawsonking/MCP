@@ -41,7 +41,7 @@ them. It also brings a `guard` command for scanning a file, a diff or a dependen
 pre-commit hooks and CI.
 
 No hook makes a network call, the whole thing needs Node 18 and nothing else, and it is quiet unless
-it has something to say. The measured cost is 70 to 86 ms per tool call, and the measured
+it has something to say. The measured cost is 64 to 96 ms per tool call, and the measured
 false-positive rate is in the [plugin README](agent-guards-plugin/), along with what each check does
 not do.
 
