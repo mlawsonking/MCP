@@ -4,7 +4,7 @@
 // Deterministic, cheerio-based, $0.
 
 const cheerio = require('cheerio');
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -40,6 +40,7 @@ module.exports = async (req, res) => {
     };
     jsonld.forEach(collect);
 
+    track(req, 'guard_call', { product: 'agent-tools', endpoint: 'structured' });
     return sendJson(res, 200, {
       ok: true, url: f.finalUrl,
       schema_types: [...new Set(types)],

@@ -78,6 +78,39 @@ hostname once, refuses the request if anything it resolves to is private or loop
 to that exact address, so there is no second lookup for DNS rebinding to poison. It re-checks every
 redirect hop and never pools sockets, because a pooled connection skips the pin.
 
+## Rule updates
+
+The rules go stale. Addresses get sanctioned, packages get pulled from npm for shipping malware, and
+none of that reaches you if the rules only change when you reinstall. So about once a day the server
+and the CLI ask the rules feed whether there is a newer ruleset, and apply it if there is.
+
+A pull sends two things: which surface asked (`cli`, `plugin`, `mcp` or `facade`) and the rules
+version you already have.
+
+```
+GET /api/rules/latest?surface=mcp&have=2026.07.31
+```
+
+No machine id, no user id, no file names, nothing you scanned. Bundles are signed with Ed25519 and
+verified against a public key compiled into this package, so it does not matter which mirror served
+one. A bundle that fails its signature, its schema, or its ReDoS check is discarded and you keep the
+rules you had. Rules never roll back to an older version on their own.
+
+```bash
+guard update --status     # what is in use, and when it last checked
+guard update              # pull now
+```
+
+Every verdict carries `rules_provenance`, which is either `bundled` or `feed@<version>`, so you can
+always tell which ruleset produced a result.
+
+To turn updates off: `--offline`, `AGENT_GUARDS_NO_FEED=1`, or `{"feed": false}` in
+`~/.agent-guards/config.json`. `AGENT_GUARDS_FEED_URL` points it somewhere else. With updates off
+everything still works on the rules compiled into the package.
+
+The bundle format, the verification steps, and how the malicious-package list is curated are in
+[rules/README.md](../rules/README.md).
+
 ## Tests
 
 ```bash

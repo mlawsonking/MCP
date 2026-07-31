@@ -28,4 +28,17 @@ The structured output from `scan_inbound` has a fixed shape, but nothing in it i
 
 Data comes from DNS (SPF, DMARC, MX), RDAP for domain age, disposable-domain lists, and injection and secret rulesets.
 
+
+## Rule updates
+
+About once a day this server asks the rules feed whether there is a newer ruleset, and applies it if
+there is. The request carries two things: which surface asked, which here is `facade`, and the rules
+version already installed. No machine id, no user id, no file names, nothing you scanned.
+
+Bundles are signed with Ed25519 and verified against a public key compiled into this package, so it
+does not matter which mirror served one. A bundle that fails its signature, its schema, or its ReDoS
+check is discarded and the rules you already had stay in place. `--offline` turns updates off, as
+does `AGENT_GUARDS_NO_FEED=1` or `{"feed": false}` in `~/.agent-guards/config.json`. The bundle
+format and how to verify one yourself: https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+
 On email authentication, plainly: SPF, DKIM and DMARC results are read out of the `Authentication-Results` header that the receiving mail server wrote. Nothing here verifies a DKIM signature, and DKIM DNS records are never looked up, because the selector cannot be derived from a domain name alone. That means the value is only as trustworthy as whoever wrote the header. For mail your own server received it is a good signal; in a raw `.eml` from an untrusted source an attacker can simply type `dkim=pass`. Every response carries a note saying which case applies. Same input always gives the same output. It calls https://email-guard-api.vercel.app (set `EMAIL_GUARD_API` to override). One of six agent guards in this repo. MIT.

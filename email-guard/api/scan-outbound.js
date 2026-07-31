@@ -1,7 +1,7 @@
 // scan-outbound — before an agent SENDS an email, check it won't (a) leak secrets/PII, (b) get the sender
 // domain blacklisted (deliverability), or (c) bounce off a dead/disposable recipient. Protects reputation + data.
 // POST { from, to, subject, body, html }  OR  POST { email: "<raw RFC822>" }
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 const { scanSecrets, analyzeUrl } = require('../lib/safety.js');
 const { parseEmail, checkDomainAuth, isDisposable, deliverabilityScan } = require('../lib/email.js');
 
@@ -47,6 +47,7 @@ module.exports = async (req, res) => {
   if (deliver.flags.length) reasons.push('deliverability: ' + deliver.flags.map((f) => f.id).join(', '));
   recipFlags.forEach((f) => reasons.push(f.id));
 
+  track(req, 'guard_call', { product: 'email-guard', endpoint: 'scan-outbound' });
   return sendJson(res, 200, {
     ok: true, verdict, risk, score,
     leak: { found: leak.found, secrets: leak.secrets, pii: leak.pii, findings: leak.findings, redacted: leak.redacted.length > 2000 ? leak.redacted.slice(0, 2000) + '…' : leak.redacted },

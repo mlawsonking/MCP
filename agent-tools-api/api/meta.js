@@ -1,7 +1,7 @@
 // URL -> structured metadata (link unfurl).
 // GET /api/meta?url=https://example.com
 const cheerio = require('cheerio');
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track } = require('../lib/common.js');
 
 function abs(href, base) { if (!href) return ''; try { return new URL(href, base).href; } catch { return ''; } }
 
@@ -31,6 +31,7 @@ module.exports = async (req, res) => {
     $('link[rel]').each((_, el) => { const rel = ($(el).attr('rel') || '').toLowerCase(); if (!favicon && /(^|\s)(icon|shortcut icon|apple-touch-icon)(\s|$)/.test(rel)) favicon = abs($(el).attr('href'), f.finalUrl); });
     if (!favicon) { try { favicon = new URL('/favicon.ico', f.finalUrl).href; } catch {} }
 
+    track(req, 'guard_call', { product: 'agent-tools', endpoint: 'meta' });
     return sendJson(res, 200, {
       ok: true, url: f.finalUrl, title, description: description || undefined, image: image || undefined,
       siteName: siteName || undefined, type: type || undefined, author: author || undefined,

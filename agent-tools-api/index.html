@@ -95,12 +95,16 @@
   }
   $('go').addEventListener('click',run);
   $('val').addEventListener('keydown',e=>{if(e.key==='Enter')run();});
+
+// One page-view beacon, disclosed in the privacy line above. It carries nothing but the fact that
+// this page loaded.
+fetch('/api/pricing?pv=1').catch(function(){});
 </script>
 <footer style="margin-top:48px;color:#8b98a9;font-size:.9rem;border-top:1px solid #223;padding-top:18px;">
   MIT · part of the <a href="https://github.com/mlawsonking/MCP" style="color:#4ade80">agent guards</a> family ·
   higher volume via <a href="https://rapidapi.com/mlawsonking/api/agent-web-tools" style="color:#4ade80">RapidAPI</a> ·
   <a href="/api/pricing" style="color:#4ade80">pricing</a> ·
-  no request payloads stored; a pseudonymous caller id (hashed API key or IP), user-agent and referer go to PostHog for usage counts
+  no request payloads stored; a pseudonymous caller id (hashed API key or IP), the endpoint name, user-agent, origin and referer go to PostHog for usage counts
 </footer>
 </body>
 </html>

@@ -1,7 +1,7 @@
 // typosquat-scan — generate lookalike names for a package and flag which are registered/suspicious.
 // GET /api/typosquat-scan?name=<pkg>&ecosystem=npm|pypi|...
 const { eco, validName, meta, typosquats } = require('../lib/pkg.js');
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -21,6 +21,7 @@ module.exports = async (req, res) => {
     return { name: vn, age_days: m.age_days, latest: m.latest, suspicious };
   }));
   const found = checked.filter(Boolean);
+  track(req, 'guard_call', { product: 'package-guard', endpoint: 'typosquat-scan' });
   return sendJson(res, 200, {
     ok: true, name, ecosystem: e.kind, variants_checked: variants.length,
     registered: found.length, suspicious: found.filter((f) => f.suspicious).length,

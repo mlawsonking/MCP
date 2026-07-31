@@ -20,6 +20,14 @@ jobs:
       # A 1.1.0 run was already lost to a description being 112 characters against a 100 limit.
       - name: registry records ready to publish
         run: node scripts/check-registry-records.js
+      # The committed rules bundle is signed over its exact bytes, so anything that rewrites those
+      # bytes silently breaks it for everyone: a stray edit, a merge, or git's line-ending conversion
+      # on a Windows checkout. That last one is not hypothetical, it is what git wanted to do to
+      # rules/bundle.json the first time it was staged, and .gitattributes pins it with `-text`.
+      # This step re-verifies the committed bundle against the public key shipped in the package, so
+      # a broken one fails here instead of on a stranger's machine. It needs no private key.
+      - name: the committed rules bundle still verifies
+        run: node scripts/verify-rules-bundle.js
       # The core owns the detection engines and the MCP tool registry, so it runs first: if it is
       # broken, every other suite below is testing generated copies of the same break.
       # Needs npm install for @modelcontextprotocol/sdk, zod and js-sha3. Passing locally proves

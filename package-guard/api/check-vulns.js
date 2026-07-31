@@ -1,7 +1,7 @@
 // check-vulns — known vulnerabilities (and malware advisories) for a package, via OSV.dev.
 // GET /api/check-vulns?name=<pkg>&ecosystem=npm|pypi|go|...&version=<optional>
 const { eco, validName, vulns } = require('../lib/pkg.js');
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
 
   const v = await vulns(e.osv, name, version);
   if (v.error) return sendJson(res, 502, { ok: false, error: 'OSV lookup failed', detail: v.error });
+  track(req, 'guard_call', { product: 'package-guard', endpoint: 'check-vulns' });
   return sendJson(res, 200, {
     ok: true, name, ecosystem: e.kind, version: version || 'all',
     count: v.list.length, malicious: v.list.some((x) => x.malicious),

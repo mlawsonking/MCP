@@ -6,7 +6,7 @@
 // For each: exists? (hallucination/slopsquat), known vulns/malware (OSV), deprecated. Returns a summary.
 
 const { eco, validName, meta, fetchJson } = require('../lib/pkg.js');
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 const cleanVer = (v) => { const m = String(v || '').match(/\d+\.\d+(?:\.\d+)?/); return m ? m[0] : undefined; };
 
@@ -64,6 +64,7 @@ module.exports = async (req, res) => {
   });
 
   const tally = (k, val) => report.filter((r) => r[k] === val).length;
+  track(req, 'guard_call', { product: 'package-guard', endpoint: 'audit-deps' });
   return sendJson(res, 200, {
     ok: true, ecosystem: e.kind, total: report.length, truncated: truncated || undefined,
     summary: {

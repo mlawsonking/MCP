@@ -47,6 +47,7 @@ REBUILD-PROMPT.md
 OPUS-BUILD-DIRECTIVE.md
 OPUS-PHASE1-PROMPT.md
 OPUS-PHASE2-PROMPT.md
+OPUS-PHASE3-PROMPT.md
 PHASE2-E2E.md
 # Leading slash matters on these three: an unanchored "tools/" matches at ANY depth, so it was also
 # hiding agent-guards/tools/ - the whole MCP tool registry was invisible to git and would have been
@@ -54,3 +55,10 @@ PHASE2-E2E.md
 /tools/
 CLAUDE.md
 mcp-publisher.exe
+
+# The rules feed's signing key. The public half is compiled into agent-guards/lib/feed.js and is
+# meant to be read by anyone; the private half signs bundles and lives in a GitHub Actions secret.
+# scripts/gen-feed-key.js writes it here so the owner can paste it into the secret and delete it.
+# It must never reach a commit: a signing key in a public repo lets anyone publish rules to every
+# install.
+rules/feed-private-key.pem

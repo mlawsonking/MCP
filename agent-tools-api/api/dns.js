@@ -3,7 +3,7 @@
 // Deterministic, free (DNS only). Useful for deliverability, security, and agent reconnaissance.
 
 const dns = require('dns').promises;
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 const TYPES = ['A', 'AAAA', 'MX', 'NS', 'TXT', 'CNAME', 'SOA', 'CAA', 'SRV'];
 
@@ -38,6 +38,7 @@ module.exports = async (req, res) => {
   let dmarc = null;
   try { const d = await dns.resolveTxt('_dmarc.' + domain); dmarc = d.map((a) => a.join('')).find((t) => /^v=DMARC1/i.test(t)) || null; } catch {}
 
+  track(req, 'guard_call', { product: 'agent-tools', endpoint: 'dns' });
   return sendJson(res, 200, {
     ok: true, domain, records,
     email_auth: { has_mx: !!records.MX, spf: !!spf, spf_record: spf || undefined, dmarc: !!dmarc, dmarc_record: dmarc || undefined },

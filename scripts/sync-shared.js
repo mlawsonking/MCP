@@ -73,6 +73,11 @@ function pluginBin(version) {
 // guard ${version} — the same CLI as the agent-guards package, bundled with the plugin so it needs
 // no install. This file has no extension on purpose: a plugin's bin/ is added to the Bash tool's
 // PATH, and a bare \`guard\` has to be runnable there.
+//
+// The surface tag is set here rather than in the CLI so a rules pull made through the plugin is
+// counted as a plugin install. The hooks themselves never pull: they are the intercept path and are
+// not allowed to touch the network at all, which agent-guards/test/no-network.cjs enforces.
+if (!process.env.AGENT_GUARDS_SURFACE) process.env.AGENT_GUARDS_SURFACE = 'plugin';
 require('../core/cli/index.js')
   .main(process.argv.slice(2))
   .then((code) => { process.exitCode = code; })
@@ -84,6 +89,11 @@ function pluginBinCmd() {
   return '@echo off\r\nrem GENERATED FILE - do not edit here. Regenerate: node scripts/sync-shared.js\r\n'
     + 'node "%~dp0guard" %*\r\n';
 }
+
+// The rules feed manifest, written by scripts/sign-rules-bundle.js, vendored into the one product
+// that serves the feed.
+const FEED_MANIFEST_SRC = 'rules/manifest.json';
+const FEED_MANIFEST_DEST = 'agent-firewall/rules/manifest.json';
 
 // The GitHub Action is its OWN repository, cloned inside this one and gitignored here. It vendors
 // the core too, so a PR scan runs the same rules as everything else without depending on our Vercel
@@ -168,7 +178,22 @@ const registered = await serveStdio({
 });
 
 // stdout is the MCP transport. Anything human-readable goes to stderr or it corrupts the session.
-process.stderr.write(\`${npm} \${pkg.version} running (\${registered.length} tools)\${offline ? ' [offline]' : ''}.\\n\`);
+const rulesets = require('./core/lib/rulesets.js');
+process.stderr.write(\`${npm} \${pkg.version} running (\${registered.length} tools)\${offline ? ' [offline]' : ''}, rules \${rulesets.provenance()}.\\n\`);
+
+// Rule updates. About once a day this asks the feed whether a newer ruleset exists, carrying the
+// surface tag "facade" and the rules version already installed and nothing else. It runs after the
+// transport is connected and is never awaited, so a slow feed cannot delay a tool call. Turn it off
+// with --offline, AGENT_GUARDS_NO_FEED=1, or {"feed": false} in ~/.agent-guards/config.json.
+// https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+if (!offline) {
+  require('./core/lib/feed.js').update({ surface: 'facade' })
+    .then((r) => {
+      if (r.action === 'applied') process.stderr.write(\`rules updated to \${r.version}\\n\`);
+      else if (r.action === 'refused') process.stderr.write(\`rules update refused: \${r.reason}\\n\`);
+    })
+    .catch(() => { /* the rules already loaded stay in place */ });
+}
 `;
 }
 
@@ -256,6 +281,22 @@ for (const t of OPTIONAL_TARGETS) {
   optionalCount++;
 }
 
+// 1d. the rules feed manifest, vendored into the product that serves it.
+//
+// agent-firewall/api/rules/latest.js revalidates against the copy on GitHub's raw CDN and only
+// falls back to this one when that is unreachable. Vercel will not bundle anything above the
+// project root, so the file has to exist inside the folder rather than be required from rules/.
+// Copied byte for byte: a banner would make the JSON unparseable.
+let feedManifestCount = 0;
+if (fs.existsSync(path.join(ROOT, FEED_MANIFEST_SRC))) {
+  place(
+    path.join(ROOT, FEED_MANIFEST_DEST),
+    fs.readFileSync(path.join(ROOT, FEED_MANIFEST_SRC), 'utf8'),
+    FEED_MANIFEST_DEST
+  );
+  feedManifestCount = 1;
+}
+
 // 2. the API-facing shared libs
 for (const [name, folders] of Object.entries(TARGETS)) {
   const want = banner(`shared/lib/${name}`) + fs.readFileSync(path.join(ROOT, 'shared', 'lib', name), 'utf8');
@@ -278,7 +319,7 @@ if (check) {
   const facadeCount = Object.keys(FACADES).length;
   const pluginFiles = PLUGIN_CORE.length + PLUGIN_DATA.length + 3; // + marker + the two bin shims
   const total = API_CORE.length * PRODUCTS.length + FACADE_CORE.length * facadeCount + facadeCount * 2 +
-    Object.values(TARGETS).flat().length + Object.keys(SHIMS).length + pluginFiles;
+    Object.values(TARGETS).flat().length + Object.keys(SHIMS).length + pluginFiles + feedManifestCount;
   console.log(
     `generated copies in sync (${total} files checked: ${API_CORE.length} core x ${PRODUCTS.length} APIs, ` +
     `${FACADE_CORE.length} core + entry + marker x ${facadeCount} facades, ` +

@@ -1,7 +1,7 @@
 // check-url — URL/domain safety: structural heuristics + domain age (RDAP) + the final URL after
 // redirects (only the final hop is re-analyzed, and only scored when it is a different host) → verdict.
 // GET /api/check-url?url=https://...
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track } = require('../lib/common.js');
 const { analyzeUrl, getDomainAgeDays } = require('../lib/safety.js');
 
 module.exports = async (req, res) => {
@@ -9,6 +9,7 @@ module.exports = async (req, res) => {
   const started = Date.now();
   const url = String((req.query && req.query.url) || '').trim();
   if (!url) return sendJson(res, 400, { ok: false, error: 'Missing ?url=' });
+  track(req, 'guard_call', { product: 'agent-firewall', endpoint: 'check-url' });
 
   const a = analyzeUrl(url);
   if (!a.valid) return sendJson(res, 200, { ok: true, url, valid: false, verdict: 'suspicious', score: a.score, flags: a.flags, rules_version: a.rules_version, ms: Date.now() - started });

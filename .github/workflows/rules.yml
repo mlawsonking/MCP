@@ -1,0 +1,144 @@
+name: rules bundle
+
+# Rebuild the signed rules bundle from its upstream sources and commit it.
+#
+# The point of this workflow is that nobody has to remember. It runs on a schedule, pulls the
+# sanctions and scam lists and the OSV malicious-package advisories, rebuilds the bundle, checks it,
+# signs it, and pushes. Clients pull the result from the raw file on this branch, so a push is the
+# whole deploy: nothing here waits on a human.
+#
+# What it will not do is publish something broken. The full test suite and the ReDoS gate run BEFORE
+# the bundle is written, and the build then verifies its own output through the real client. If any
+# of that fails the job stops and no bundle is committed, which leaves every client on the last good
+# version. That is the correct outcome and it is why the order of these steps matters.
+#
+# Staleness is disclosed rather than hidden. If a source will not answer, the build carries the
+# previous contents forward and records the failure in the bundle's `sources` array with an age in
+# days, which every surface then shows. A sanctions list quietly served as fresh is the single worst
+# thing this project could ship.
+
+on:
+  schedule:
+    # 04:20 UTC daily. Not on the hour: the free runner pool is busiest then, and this job wants a
+    # couple of hundred megabytes of download rather than a queue slot at a popular minute.
+    - cron: '20 4 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Build and check, but do not commit'
+        type: boolean
+        default: false
+
+# Never two at once. Two runs racing would both compute a version for today and one would push a
+# bundle built from the other's half-written files.
+concurrency:
+  group: rules-bundle
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    # At the job level so the steps below can test it in an `if:`. A secret referenced only inside a
+    # step's own env block is not visible to that step's condition.
+    env:
+      RULES_SIGNING_KEY: ${{ secrets.RULES_SIGNING_KEY }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: install core dependencies
+        run: npm install --no-audit --no-fund
+        working-directory: agent-guards
+
+      # Before anything is fetched or built. A rule that breaks the engines must not reach a bundle,
+      # and finding that out after publishing would mean every client applies it.
+      - name: core test suite
+        run: node test/run.cjs
+        working-directory: agent-guards
+
+      - name: build the bundle
+        run: node --max-old-space-size=4096 scripts/build-rules-bundle.js
+
+      # The build already runs the client's validator over its own output. This runs the actual feed
+      # client end to end against the files on disk: signature, hash, schema, ReDoS gate, the lot.
+      # If a bundle would be refused by a client, that is a build failure here rather than a silent
+      # non-update on every machine tomorrow.
+      - name: sign
+        if: ${{ env.RULES_SIGNING_KEY != '' }}
+        run: node scripts/sign-rules-bundle.js
+
+      - name: verify the bundle applies through the real client
+        if: ${{ env.RULES_SIGNING_KEY != '' }}
+        run: node scripts/verify-rules-bundle.js
+
+      # The manifest is vendored into the product that serves the feed, so the drift check has to be
+      # satisfied in the same commit or the next push to main fails CI.
+      - name: sync the vendored manifest
+        if: ${{ env.RULES_SIGNING_KEY != '' }}
+        run: node scripts/sync-shared.js
+
+      - name: no signing key
+        if: ${{ env.RULES_SIGNING_KEY == '' }}
+        run: |
+          echo "RULES_SIGNING_KEY is not set, so the bundle was built and checked but not signed."
+          echo "An unsigned bundle is refused by every client, so there is nothing to commit."
+          echo "Generate a key with scripts/gen-feed-key.js and add its private half as the secret."
+          exit 1
+
+      - name: commit
+        if: ${{ !inputs.dry_run }}
+        run: |
+          if [ -z "$(git status --porcelain rules agent-firewall/rules)" ]; then
+            echo "Nothing changed. No commit."
+            exit 0
+          fi
+          VERSION=$(node -e "process.stdout.write(require('./rules/bundle.json').version)")
+          STALE=$(node -e "const s=require('./rules/bundle.json').sources.filter(x=>!x.ok).map(x=>x.id); process.stdout.write(s.join(', '))")
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add rules/bundle.json rules/bundle.json.sig rules/manifest.json rules/packages.tsv rules/CHANGELOG.md agent-firewall/rules/manifest.json
+          if [ -n "$STALE" ]; then
+            git commit -m "Rules $VERSION (stale upstream: $STALE)"
+          else
+            git commit -m "Rules $VERSION"
+          fi
+          git push
+
+      - name: summary
+        if: always()
+        run: |
+          if [ -f rules/bundle.json ]; then
+            node -e "
+              const b = require('./rules/bundle.json');
+              const stale = b.sources.filter(s => !s.ok);
+              const l = [];
+              l.push('## Rules ' + b.version);
+              l.push('');
+              l.push('Built ' + b.generated + '.');
+              l.push('');
+              l.push('| set | count |');
+              l.push('|---|---|');
+              for (const [k, v] of Object.entries(b.rulesets)) l.push('| ' + k + ' | ' + v.length + ' |');
+              l.push('| OFAC addresses | ' + Object.keys(b.lists.ofac_evm.entries).length + ' |');
+              l.push('| scam addresses | ' + Object.keys(b.lists.scam_addresses.entries).length + ' |');
+              l.push('| malicious packages | ' + (b.lists.malicious_packages.npm_count + b.lists.malicious_packages.pypi_count) + ' |');
+              l.push('');
+              if (stale.length) {
+                l.push('### Stale sources');
+                l.push('');
+                for (const s of stale) l.push('- **' + s.id + '**: ' + s.note);
+              } else {
+                l.push('All sources refreshed.');
+              }
+              require('fs').appendFileSync(process.env.GITHUB_STEP_SUMMARY, l.join('\n') + '\n');
+            "
+          else
+            echo 'No bundle was produced. Nothing was committed and clients stay on the last good version.' >> $GITHUB_STEP_SUMMARY
+          fi

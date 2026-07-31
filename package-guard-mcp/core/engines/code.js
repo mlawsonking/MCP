@@ -11,6 +11,7 @@
 // Reuses the secrets engine for hardcoded credentials.
 const { scan: scanSecrets, SECRET_RULES, PII_RULES } = require('./secrets');
 const { CODE_RULES_VERSION } = require('../lib/version');
+const rulesets = require('../lib/rulesets');
 
 // sev: critical|high|medium|low · lang: 'any'|'js'(js/ts)|'py'
 const RULES = [
@@ -71,13 +72,16 @@ function normalizeLang(hint, src) {
 
 const SEV_ORDER = { critical: 4, high: 3, medium: 2, low: 1 };
 
+// The rules the feed has applied, or the ones compiled in above.
+function activeRules() { return rulesets.rules('code') || RULES; }
+
 function applyRules(lines, lang, lineOffset) {
   const findings = [];
   for (let i = 0; i < lines.length; i++) {
     const raw = lines[i]; const line = raw.lineText !== undefined ? raw.lineText : raw;
     const lineNo = raw.lineNo !== undefined ? raw.lineNo : i + 1 + (lineOffset || 0);
     if (!String(line).trim()) continue;
-    for (const r of RULES) {
+    for (const r of activeRules()) {
       // lang 'unknown' skips the filter entirely: all 31 rules run against every line. That catches more
       // and flags more things that are not bugs.
       if (r.lang !== 'any' && lang !== 'unknown' && r.lang !== lang) continue;
@@ -117,7 +121,11 @@ function summarize(findings, lang) {
   findings.forEach((f) => { counts[f.severity] = (counts[f.severity] || 0) + 1; });
   const verdict = (counts.critical || counts.high) ? 'block' : counts.medium ? 'review' : counts.low ? 'review' : 'pass';
   const categories = [...new Set(findings.map((f) => f.category))];
-  return { lang, verdict, total: findings.length, counts, categories, findings, rules_version: CODE_RULES_VERSION };
+  return {
+    lang, verdict, total: findings.length, counts, categories, findings,
+    rules_version: rulesets.version(CODE_RULES_VERSION),
+    rules_provenance: rulesets.provenance(),
+  };
 }
 
 function scanCode(code, langHint) {
@@ -151,20 +159,27 @@ function scanDiff(diff, langHint) {
 }
 
 function listRules() {
-  return RULES.map((r) => ({ id: r.id, category: r.cat, severity: r.sev, lang: r.lang, message: r.msg }))
+  return activeRules().map((r) => ({ id: r.id, category: r.cat, severity: r.sev, lang: r.lang, message: r.msg }))
     // Counted from the ruleset rather than written down. This entry said "12 patterns" and "All 15"
     // for the whole of Phase 1, after the secret rules went from 12 to 22, and it is served by
     // /api/rules, so production was publishing a number the code did not back. Derived, it cannot
     // drift again.
-    .concat([{
-      id: 'hardcoded-*',
-      category: 'hardcoded-secret',
-      severity: 'critical/high',
-      lang: 'any',
-      message: `Hardcoded API keys, tokens, private keys and generic secrets (${SECRET_RULES.length} patterns), plus personal data left in source: `
-        + `${PII_RULES.map((r) => r.type).join(', ')} (${PII_RULES.length} patterns). `
-        + `All ${SECRET_RULES.length + PII_RULES.length} report under hardcoded-* ids.`,
-    }]);
+    // Counted from whichever secret ruleset is live, not from the compiled-in one. When the feed
+    // has applied a bundle the numbers here have to move with it, or this entry starts publishing
+    // a count the scanner does not back — which is exactly the bug the comment above describes.
+    .concat([(() => {
+      const secrets = rulesets.rules('secrets') || SECRET_RULES;
+      const pii = rulesets.rules('pii') || PII_RULES;
+      return {
+        id: 'hardcoded-*',
+        category: 'hardcoded-secret',
+        severity: 'critical/high',
+        lang: 'any',
+        message: `Hardcoded API keys, tokens, private keys and generic secrets (${secrets.length} patterns), plus personal data left in source: `
+          + `${pii.map((r) => r.type).join(', ')} (${pii.length} patterns). `
+          + `All ${secrets.length + pii.length} report under hardcoded-* ids.`,
+      };
+    })()]);
 }
 
 // Bump when a rule is added or removed or a pattern/severity changes, and record it in

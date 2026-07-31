@@ -33,6 +33,14 @@ if (has('--help') || has('-h')) {
 Local tools work with no network and send nothing off the machine. Cloud tools are marked in their
 descriptions and name the service they call. In --offline mode a cloud tool reports that it could not
 check rather than returning a verdict, because "could not check" is not "nothing found".
+
+Rule updates: about once a day, on startup, this server asks the rules feed whether a newer ruleset
+exists and applies it if so. The request carries the surface tag ("mcp") and the rules version
+already installed, and nothing else — no machine id, no usage data, nothing you scanned. Bundles are
+signed and a bundle that fails verification is discarded with the previous rules left in place.
+--offline turns it off, as does AGENT_GUARDS_NO_FEED=1 or {"feed": false} in
+~/.agent-guards/config.json. AGENT_GUARDS_FEED_URL points it elsewhere.
+https://github.com/mlawsonking/MCP/blob/main/rules/README.md
 `);
   process.exit(0);
 }
@@ -78,8 +86,24 @@ const registered = await serveStdio({
 });
 
 const localCount = tools.filter(isLocal).length + tools.filter(isMostlyLocal).length;
+const rulesets = require('../lib/rulesets.js');
 process.stderr.write(
   `agent-guards ${pkg.version} running — ${registered.length} tools` +
   `${offline ? ` (OFFLINE: ${localCount} still answer, the rest report that they could not check)` : `, ${localCount} run locally and ${tools.length - localCount} use cloud intel`}` +
-  `${disabled.size ? `, ${disabled.size} disabled` : ''}\n`
+  `${disabled.size ? `, ${disabled.size} disabled` : ''}` +
+  `, rules ${rulesets.provenance()}\n`
 );
+
+// The rules check runs after the transport is connected and is never awaited, so a slow or dead
+// feed cannot delay a single tool call. If it applies a bundle, lib/feed.js resets the engines'
+// cached view and the next call uses the new rules without a restart.
+if (!offline) {
+  const feed = require('../lib/feed.js');
+  feed.update({ surface: 'mcp' })
+    .then((r) => {
+      if (r.action === 'applied') process.stderr.write(`rules updated to ${r.version}${r.previous ? ` (was ${r.previous})` : ''}\n`);
+      else if (r.action === 'refused') process.stderr.write(`rules update refused: ${r.reason}\nStill using ${rulesets.provenance()}.\n`);
+      for (const s of r.stale_sources || []) process.stderr.write(`the rules bundle says ${s} could not be refreshed upstream\n`);
+    })
+    .catch(() => { /* an update that fails leaves the rules that are already loaded in place */ });
+}

@@ -4,7 +4,7 @@
 // the standard fast/clean check. Deterministic, free (DNS only), no external paid services.
 
 const dns = require('dns').promises;
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 const disposable = new Set(require('../data/disposable-domains.json').map((d) => d.toLowerCase()));
 const roleLocals = new Set(['admin', 'administrator', 'info', 'support', 'sales', 'contact', 'billing', 'help', 'helpdesk', 'postmaster', 'webmaster', 'hostmaster', 'abuse', 'noreply', 'no-reply', 'donotreply', 'do-not-reply', 'marketing', 'team', 'office', 'hello', 'enquiries', 'inquiries', 'careers', 'jobs', 'hr', 'press', 'media', 'security', 'privacy', 'legal', 'accounts', 'accounting', 'finance', 'service', 'services', 'newsletter', 'notifications', 'notification', 'root']);
@@ -35,6 +35,7 @@ module.exports = async (req, res) => {
   const deliverable = validSyntax && acceptsMail && !isDisposable;
   const score = !validSyntax ? 0 : !acceptsMail ? 0.2 : isDisposable ? 0.25 : isRole ? 0.7 : isFree ? 0.85 : 0.95;
 
+  track(req, 'guard_call', { product: 'agent-tools', endpoint: 'validate-email' });
   return sendJson(res, 200, {
     ok: true, email, valid_syntax: validSyntax, local: local || undefined, domain: domain || undefined,
     has_mx: hasMx, accepts_mail: acceptsMail, mx_records: mx.length ? mx : undefined,

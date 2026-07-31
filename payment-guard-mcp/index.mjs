@@ -34,4 +34,19 @@ const registered = await serveStdio({
 });
 
 // stdout is the MCP transport. Anything human-readable goes to stderr or it corrupts the session.
-process.stderr.write(`payment-guard-mcp ${pkg.version} running (${registered.length} tools)${offline ? ' [offline]' : ''}.\n`);
+const rulesets = require('./core/lib/rulesets.js');
+process.stderr.write(`payment-guard-mcp ${pkg.version} running (${registered.length} tools)${offline ? ' [offline]' : ''}, rules ${rulesets.provenance()}.\n`);
+
+// Rule updates. About once a day this asks the feed whether a newer ruleset exists, carrying the
+// surface tag "facade" and the rules version already installed and nothing else. It runs after the
+// transport is connected and is never awaited, so a slow feed cannot delay a tool call. Turn it off
+// with --offline, AGENT_GUARDS_NO_FEED=1, or {"feed": false} in ~/.agent-guards/config.json.
+// https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+if (!offline) {
+  require('./core/lib/feed.js').update({ surface: 'facade' })
+    .then((r) => {
+      if (r.action === 'applied') process.stderr.write(`rules updated to ${r.version}\n`);
+      else if (r.action === 'refused') process.stderr.write(`rules update refused: ${r.reason}\n`);
+    })
+    .catch(() => { /* the rules already loaded stay in place */ });
+}

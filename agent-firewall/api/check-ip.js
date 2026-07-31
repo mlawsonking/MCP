@@ -3,7 +3,7 @@
 // one, so the verdict cannot tell them apart. The caller has to read blocklist.listed.
 // GET /api/check-ip?ip=1.2.3.4
 const net = require('net');
-const { sendJson, handleOptions, isPrivateIp } = require('../lib/common.js');
+const { sendJson, handleOptions, isPrivateIp, track } = require('../lib/common.js');
 const { torExitSet, asnLookup, reverseDns, dnsblCheck } = require('../lib/safety.js');
 
 const DC = /(amazon|aws|google|microsoft|azure|digitalocean|ovh|hetzner|linode|akamai|fastly|vultr|cloudflare|oracle|alibaba|tencent|leaseweb|contabo|choopa|m247|hosting|datacenter|colo|server)/i;
@@ -29,6 +29,7 @@ module.exports = async (req, res) => {
 
   score = Math.min(100, score);
   const verdict = score >= 40 ? 'high-risk' : score >= 15 ? 'caution' : 'low-risk';
+  track(req, 'guard_call', { product: 'agent-firewall', endpoint: 'check-ip' });
   return sendJson(res, 200, {
     ok: true, ip, private: priv, tor_exit: tor, blocklist: dnsbl,
     asn: asn || undefined, reverse_dns: rdns, datacenter, score, verdict, flags, ms: Date.now() - started,

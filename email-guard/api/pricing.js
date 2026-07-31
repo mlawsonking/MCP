@@ -1,5 +1,5 @@
 // Machine-readable pricing. GET /api/pricing
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 const PRICING = {
   "ok": true,
@@ -49,5 +49,9 @@ const PRICING = {
 
 module.exports = (req, res) => {
   if (handleOptions(req, res)) return;
+  // The landing page fires one request here with ?pv=1 when it loads. Counting it on an
+  // endpoint that already exists beats adding a sixth copy of a new one, and pricing itself is
+  // not worth measuring. Anything else asking for pricing is not a page view and is not counted.
+  if (/[?&]pv=1(&|$)/.test(String(req.url || ''))) track(req, 'page_view', { product: 'email-guard', page: 'landing' });
   sendJson(res, 200, PRICING);
 };

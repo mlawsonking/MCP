@@ -8,6 +8,7 @@
 // that asserts the secret VALUE is absent from `redacted`, not that the marker is present.
 
 const { RULES_VERSION } = require('../lib/version');
+const rulesets = require('../lib/rulesets');
 
 const SECRET_RULES = [
   { id: 'aws-access-key', type: 'AWS Access Key ID', re: /\b((AKIA|ASIA|AGPA|AIDA|AROA)[0-9A-Z]{16})\b/g, severity: 'critical', vg: 1 },
@@ -104,8 +105,8 @@ function scan(text) {
       }
     }
   };
-  apply(SECRET_RULES, 'secret');
-  apply(PII_RULES, 'pii');
+  apply(rulesets.rules('secrets') || SECRET_RULES, 'secret');
+  apply(rulesets.rules('pii') || PII_RULES, 'pii');
 
   // Splice spans out back-to-front so earlier offsets stay valid. Overlaps (a vendor key that is also
   // the value of a generic assignment) collapse into the widest span so nothing is left behind.
@@ -133,7 +134,8 @@ function scan(text) {
     verdict,
     findings,
     redacted,
-    rules_version: RULES_VERSION,
+    rules_version: rulesets.version(RULES_VERSION),
+    rules_provenance: rulesets.provenance(),
   };
 }
 

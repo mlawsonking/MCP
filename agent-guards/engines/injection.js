@@ -9,6 +9,7 @@
 // wherever the output is shown.
 
 const { RULES_VERSION } = require('../lib/version');
+const rulesets = require('../lib/rulesets');
 
 // Each rule: weight contributes to a 0..100 risk score. Curated; defense-in-depth, not a guarantee.
 const INJECTION_RULES = [
@@ -35,11 +36,16 @@ const HTML_COMMENT_INSTR = /<!--[^>]*\b(ignore|instruction|system|assistant|you\
 // published rule count is derived from one place rather than counted by hand in a doc.
 const OBFUSCATION_SIGNAL_IDS = ['zero-width-chars', 'bidi-override', 'unicode-tag-smuggling', 'hidden-html', 'html-comment-instruction'];
 
+// The rules the feed has applied, or the ones compiled in above. The obfuscation signals below are
+// not fed: they are Unicode properties rather than patterns, so there is nothing for a feed to
+// update and pretending otherwise would overstate what an update changes.
+function activeRules() { return rulesets.rules('injection') || INJECTION_RULES; }
+
 function scan(text) {
   const t = String(text || '');
   const findings = [];
   let score = 0;
-  for (const r of INJECTION_RULES) {
+  for (const r of activeRules()) {
     const m = t.match(r.re);
     if (m) { score += r.w; findings.push({ id: r.id, category: r.cat, weight: r.w, match: m[0].slice(0, 120) }); }
   }
@@ -56,7 +62,15 @@ function scan(text) {
   score = Math.min(100, score);
   const risk = score >= 60 ? 'critical' : score >= 35 ? 'high' : score >= 15 ? 'medium' : findings.length ? 'low' : 'none';
   const verdict = score >= 35 ? 'block' : score >= 15 ? 'review' : 'allow';
-  return { risk, score, verdict, findings, categories: [...new Set(findings.map((f) => f.category))], rules_version: RULES_VERSION };
+  return {
+    risk,
+    score,
+    verdict,
+    findings,
+    categories: [...new Set(findings.map((f) => f.category))],
+    rules_version: rulesets.version(RULES_VERSION),
+    rules_provenance: rulesets.provenance(),
+  };
 }
 
 // Strip the invisible characters so a caller can show a human what the text actually says. This is

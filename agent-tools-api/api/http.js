@@ -3,7 +3,7 @@
 // Deterministic, $0. Useful for monitoring, debugging, and agent reconnaissance.
 
 const dns = require('dns').promises;
-const { sendJson, handleOptions, isPrivateIp } = require('../lib/common.js');
+const { sendJson, handleOptions, isPrivateIp, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -54,6 +54,7 @@ module.exports = async (req, res) => {
     permissions_policy: headers['permissions-policy'] || undefined,
   };
 
+  track(req, 'guard_call', { product: 'agent-tools', endpoint: 'http' });
   return sendJson(res, 200, {
     ok: true, url: target, final_url: finalUrl, status: finalStatus, redirects: Math.max(0, chain.length - 1),
     chain, server: headers['server'] || undefined, content_type: headers['content-type'] || undefined,

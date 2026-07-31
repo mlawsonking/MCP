@@ -4,7 +4,7 @@
 // monitoring and trust checks. Deterministic, $0 (direct TLS handshake).
 
 const tls = require('tls');
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -38,6 +38,7 @@ module.exports = async (req, res) => {
   const daysRemaining = validTo ? Math.floor((validTo - Date.now()) / 86400000) : undefined;
   const sans = c.subjectaltname ? c.subjectaltname.split(',').map((s) => s.replace(/^\s*DNS:/, '').trim()) : undefined;
 
+  track(req, 'guard_call', { product: 'agent-tools', endpoint: 'ssl' });
   return sendJson(res, 200, {
     ok: true, host, protocol: result.proto || undefined, trusted: !!result.authorized,
     issuer: c.issuer ? (c.issuer.O || c.issuer.CN) : undefined,

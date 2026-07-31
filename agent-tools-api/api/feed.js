@@ -3,7 +3,7 @@
 // Deterministic, no LLM. Handy for agents/automations that watch sites for new content.
 
 const Parser = require('rss-parser');
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track } = require('../lib/common.js');
 
 const parser = new Parser({ timeout: 8000 });
 
@@ -31,6 +31,7 @@ module.exports = async (req, res) => {
     contentSnippet: it.contentSnippet ? it.contentSnippet.replace(/\s+/g, ' ').trim().slice(0, 500) : undefined,
   }));
 
+  track(req, 'guard_call', { product: 'agent-tools', endpoint: 'feed' });
   return sendJson(res, 200, {
     ok: true, url: f.finalUrl, title: feed.title || undefined, description: feed.description || undefined,
     link: feed.link || undefined, count: items.length, items, ms: Date.now() - started,

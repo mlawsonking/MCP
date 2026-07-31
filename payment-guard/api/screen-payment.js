@@ -1,6 +1,6 @@
 // screen-payment — risk-check an x402/payment endpoint or merchant URL before an agent transacts.
 // GET /api/screen-payment?url=https://pay.example.com/x402
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track } = require('../lib/common.js');
 const { analyzeUrl, getDomainAgeDays } = require('../lib/safety.js');
 const { requirePayment } = require('../lib/x402.js');
 
@@ -10,6 +10,7 @@ module.exports = async (req, res) => {
   const started = Date.now();
   const url = String((req.query && (req.query.url || req.query.endpoint)) || '').trim();
   if (!url) return sendJson(res, 400, { ok: false, error: 'Missing ?url= (an x402/payment endpoint or merchant URL)' });
+  track(req, 'guard_call', { product: 'payment-guard', endpoint: 'screen-payment' });
 
   const a = analyzeUrl(url);
   if (!a.valid) return sendJson(res, 200, { ok: true, url, valid: false, verdict: 'block', score: 100, flags: a.flags, reasons: ['URL is malformed — do not send a payment to it.'], ms: Date.now() - started });

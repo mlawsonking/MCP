@@ -18,4 +18,17 @@ The basic rule for agent security (OWASP's LLM01) is to treat anything the agent
 - `check_ip`: IP reputation, covering Tor exit nodes (Tor Project bulk exit list), ASN and org (via Team Cymru), reverse DNS, whether the org name looks like a datacenter, and one DNSBL lookup: Spamhaus ZEN, IPv4 only. Spamhaus refuses queries from many cloud resolvers, so the lookup can be inconclusive; that comes back as `listed: null` with a note and adds nothing to the score. Only `listed: true` moves the verdict, so an inconclusive lookup ends up with the same verdict as a clean one — read `blocklist.listed` rather than the verdict alone.
 - `check_password`: check a password against HIBP's Pwned Passwords using k-anonymity, so the plaintext never leaves the server.
 
+
+## Rule updates
+
+About once a day this server asks the rules feed whether there is a newer ruleset, and applies it if
+there is. The request carries two things: which surface asked, which here is `facade`, and the rules
+version already installed. No machine id, no user id, no file names, nothing you scanned.
+
+Bundles are signed with Ed25519 and verified against a public key compiled into this package, so it
+does not matter which mirror served one. A bundle that fails its signature, its schema, or its ReDoS
+check is discarded and the rules you already had stay in place. `--offline` turns updates off, as
+does `AGENT_GUARDS_NO_FEED=1` or `{"feed": false}` in `~/.agent-guards/config.json`. The bundle
+format and how to verify one yourself: https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+
 Data comes from HIBP, RDAP, the Tor Project, Team Cymru, DNS, and curated rulesets. It calls https://agent-firewall-seven.vercel.app (set `AGENT_FIREWALL_API` to override). One of six agent guards in this repo. MIT.

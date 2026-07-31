@@ -443,11 +443,62 @@ function cmdStats(argv, flags) {
     out('');
   }
 
+  const rules = require('../lib/rulesets').status();
+  out(DIM(`  rules: ${rules.provenance}${rules.generated ? `, built ${String(rules.generated).slice(0, 10)}` : ''}`));
+  for (const s of rules.stale_sources || []) out(YELLOW(`  stale: ${s.id} — ${s.note}`));
   out(DIM(`  ledger: ${file}`));
   out(DIM(`  ${cache.stats().entries} package verdict(s) cached at ${cache.cachePath()}`));
   if (unreadable) out(DIM(`  ${unreadable} line(s) in the ledger could not be parsed and were skipped`));
   out(DIM('  Local file. Nothing in it is uploaded, and it holds no file contents, secret values or message bodies.'));
   return 0;
+}
+
+// ---------------------------------------------------------------- update
+
+// Which surface the feed is told asked. The plugin bundles this same CLI and sets the variable in
+// its bin shim, so a pull from `/guard` is counted as a plugin install rather than a bare CLI one.
+function surfaceTag() {
+  const s = String(process.env.AGENT_GUARDS_SURFACE || 'cli').trim();
+  return ['cli', 'plugin', 'mcp', 'facade'].includes(s) ? s : 'cli';
+}
+
+async function cmdUpdate(argv, flags) {
+  const feed = require('../lib/feed');
+  const rulesets = require('../lib/rulesets');
+
+  if (flags.status) {
+    const st = rulesets.status();
+    const state = feed.readState();
+    if (flags.json) { out(JSON.stringify({ ...st, last_attempt: state.last_attempt || null, feed_url: feed.manifestUrl(), disabled: feed.disabledReason(flags) }, null, 2)); return 0; }
+    out(BOLD('rules'));
+    out(`  in use        ${st.provenance}`);
+    if (st.generated) out(`  built         ${st.generated}`);
+    if (st.counts) out(`  ${st.counts.injection} injection, ${st.counts.secrets} secret, ${st.counts.pii} PII, ${st.counts.code} code rules`);
+    if (st.counts) out(`  ${st.counts.ofac_addresses} sanctioned addresses, ${st.counts.scam_addresses} scam addresses, ${st.counts.malicious_packages} malicious packages`);
+    for (const s of st.stale_sources || []) out(YELLOW(`  stale: ${s.id} — ${s.note}`));
+    const off = feed.disabledReason(flags);
+    out(DIM(`  feed          ${off ? `off (${off})` : feed.manifestUrl()}`));
+    if (state.last_attempt) out(DIM(`  last checked  ${state.last_attempt}`));
+    return 0;
+  }
+
+  const r = await feed.update({ surface: surfaceTag(), force: true, allowRollback: !!flags['allow-rollback'] });
+  if (flags.json) { out(JSON.stringify({ ...r, bundle: undefined }, null, 2)); return r.ok ? 0 : 1; }
+
+  if (r.action === 'applied') {
+    out(`${GREEN('updated')} rules are now ${r.version}${r.previous ? ` (was ${r.previous})` : ''}`);
+    if (r.packages && r.packages.action === 'updated') out(DIM(`  package list refreshed, ${(r.packages.bytes / 1048576).toFixed(1)} MB`));
+    if (r.packages && r.packages.action === 'skipped') out(YELLOW(`  ${r.packages.reason}`));
+    for (const s of r.stale_sources || []) out(YELLOW(`  the bundle says ${s} could not be refreshed upstream`));
+    return 0;
+  }
+  if (r.action === 'up-to-date') { out(`already current: ${r.reason}`); return 0; }
+  if (r.action === 'skipped') { out(`no check made: ${r.reason}`); return 0; }
+  // Refused and failed both land here, and both leave the previous rules in place.
+  err(`${r.action}: ${r.reason}`);
+  for (const e of (r.errors || []).slice(0, 5)) err(DIM(`  ${e}`));
+  err(DIM(`  still using ${rulesets.provenance()}`));
+  return 1;
 }
 
 // ---------------------------------------------------------------- help
@@ -463,6 +514,7 @@ const HELP = `guard — deterministic security checks, in the path you already u
   guard package <name>            the full online check for one package: registry, OSV, downloads
   guard email <file.eml>          parse and scan an inbound message
   guard stats                     what the guards have caught on this machine (--days N)
+  guard update                    pull the latest rules now (--status to see what is in use)
 
 Options
   --json                          machine-readable output
@@ -471,13 +523,23 @@ Options
   --fail-on <danger|caution|any>  exit 1 at this level or worse (default: danger)
   --no-ledger                     do not record this run
   --ecosystem <npm|pypi>          for guard package
+  --allow-rollback                for guard update: accept rules older than the ones installed
 
 Exit codes: 0 nothing at or above the threshold, 1 something at or above it, 2 could not run.
 
 Every check here is a pattern, a list, or a lookup. There is no model in any detection path, so the
 same input always gives the same verdict, and every verdict names the rule behind it. What that also
 means: novel attacks that no rule describes are not detected. Each command prints what it did not
-check underneath what it did.`;
+check underneath what it did.
+
+Rule updates. About once a day, guard asks the rules feed whether there is a newer ruleset, and
+applies it if there is. The request carries two things: which surface asked (here, "cli") and the
+rules version already installed. It does not carry a machine id, a user id, a file name, or anything
+you scanned. Bundles are signed, and one that fails its signature, its schema or its ReDoS check is
+discarded with the previous rules left in place. Turn it off with AGENT_GUARDS_NO_FEED=1, with
+--offline, or with {"feed": false} in ~/.agent-guards/config.json. Point it somewhere else with
+AGENT_GUARDS_FEED_URL. Run "guard update --status" to see what is in use and when it last checked.
+Format and verification steps: https://github.com/mlawsonking/MCP/blob/main/rules/README.md`;
 
 async function main(argv) {
   const { flags, rest } = parseArgs(argv);
@@ -500,6 +562,7 @@ async function main(argv) {
     if (cmd === 'package' || cmd === 'pkg') return await cmdPackage(args, flags);
     if (cmd === 'email') return await cmdEmail(args, flags);
     if (cmd === 'stats') return cmdStats(args, flags);
+    if (cmd === 'update') return await cmdUpdate(args, flags);
     err(`guard: unknown command "${cmd}"`);
     err('');
     err(HELP);

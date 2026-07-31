@@ -5,7 +5,7 @@
 // href/src attributes are resolved to absolute URLs. Deterministic, cheerio-based, no LLM.
 
 const cheerio = require('cheerio');
-const { sendJson, handleOptions, safeFetch } = require('../lib/common.js');
+const { sendJson, handleOptions, safeFetch, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -49,5 +49,6 @@ module.exports = async (req, res) => {
   } catch (e) {
     return sendJson(res, 500, { ok: false, error: 'Extraction failed', detail: String((e && e.message) || e) });
   }
+  track(req, 'guard_call', { product: 'agent-tools', endpoint: 'extract' });
   return sendJson(res, 200, { ok: true, url: f.finalUrl, data, ms: Date.now() - started });
 };

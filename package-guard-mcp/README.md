@@ -28,4 +28,17 @@ It never fetches or reads package contents. No install scripts, no code, no tarb
 
 `vulnerabilities.checked: false` with `count: null` means the OSV request failed and the package was not checked; `verify_package` downgrades the verdict to `caution` instead of calling it safe. `count: 0` means OSV answered and had nothing. `audit_deps` has no such guard yet: if its batch OSV call fails, every package reports 0 vulns.
 
+
+## Rule updates
+
+About once a day this server asks the rules feed whether there is a newer ruleset, and applies it if
+there is. The request carries two things: which surface asked, which here is `facade`, and the rules
+version already installed. No machine id, no user id, no file names, nothing you scanned.
+
+Bundles are signed with Ed25519 and verified against a public key compiled into this package, so it
+does not matter which mirror served one. A bundle that fails its signature, its schema, or its ReDoS
+check is discarded and the rules you already had stay in place. `--offline` turns updates off, as
+does `AGENT_GUARDS_NO_FEED=1` or `{"feed": false}` in `~/.agent-guards/config.json`. The bundle
+format and how to verify one yourself: https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+
 It calls https://package-guard.vercel.app (set `PACKAGE_GUARD_API` to override). One of six agent guards in this repo. MIT.

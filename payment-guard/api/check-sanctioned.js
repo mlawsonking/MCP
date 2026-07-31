@@ -1,6 +1,6 @@
 // check-sanctioned — fast OFAC sanctions primitive: is this address (or ENS name) sanctioned? No on-chain.
 // GET /api/check-sanctioned?address=0x...  (or ?address=name.eth)
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 const { isEvmAddress, ofacSanctions, ofacCoverage } = require('../lib/risk.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
 const { requirePayment } = require('../lib/x402.js');
@@ -17,6 +17,7 @@ module.exports = async (req, res) => {
   }
   const { set: ofac, lists } = await ofacSanctions();
   const sanctioned = ofac ? ofac.has(address.toLowerCase()) : null;
+  track(req, 'guard_call', { product: 'payment-guard', endpoint: 'check-sanctioned' });
   return sendJson(res, 200, {
     ok: true, address, resolved_from, sanctioned,
     source: 'OFAC SDN (sanctioned digital-currency addresses)', list_size: ofac ? ofac.size : undefined,

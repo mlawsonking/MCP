@@ -234,6 +234,9 @@ async function safeFetch(target, opts = {}) {
     maxRedirects = MAX_REDIRECTS,
     resolve = defaultResolve,
     transport = defaultTransport,
+    // Extra request headers. Added for the rules feed's conditional pulls (If-None-Match); they are
+    // merged after the defaults so a caller cannot rewrite the pinned Host header by accident.
+    headers: extraHeaders = null,
   } = opts;
 
   let current;
@@ -254,7 +257,7 @@ async function safeFetch(target, opts = {}) {
 
     const res = await transport(current, checked.pinned, {
       method: 'GET',
-      headers: { 'User-Agent': ua, Accept: accept, Host: current.host },
+      headers: { ...(extraHeaders || {}), 'User-Agent': ua, Accept: accept, Host: current.host },
       timeoutMs: Math.max(1, remaining),
       maxBytes,
     });
@@ -284,14 +287,22 @@ async function safeFetch(target, opts = {}) {
     }
 
     const contentType = headerOf('content-type') || '';
+    // 304 is a successful conditional request, not an upstream failure. A caller that sent
+    // If-None-Match gets told nothing changed rather than being handed an error for a working
+    // cache. It carries no body by definition, so there is nothing else to return.
+    if (status === 304) {
+      return { ok: true, notModified: true, status, text: '', finalUrl: current.href, contentType, etag: headerOf('etag') || null, hops: trail };
+    }
     if (typeof status === 'number' && (status < 200 || status >= 300)) {
       return { ok: false, code: 502, error: `Upstream returned HTTP ${status}`, status, finalUrl: current.href, hops: trail };
     }
     return {
       ok: true,
+      status,
       text: res.text || '',
       finalUrl: current.href,
       contentType,
+      etag: headerOf('etag') || null,
       connected_ip: res.connectedIp || checked.pinned,
       hops: trail,
       truncated: !!res.truncated,

@@ -48,6 +48,11 @@ function track(req, event, properties) {
       client: /mozilla/i.test(ua) ? 'browser' : 'api',
       demo: referer.indexOf('vercel.app') !== -1,
     });
+    // One caller is allowed to name its own client, and only one: the rules feed, whose pulls are
+    // tagged `rules-pull` so they can be counted as installs rather than lost in the API traffic.
+    // Everything else keeps the browser/api split the WAU numbers are read through, so this is an
+    // explicit override rather than a general-purpose one.
+    if (properties && properties.client === 'rules-pull') props.client = 'rules-pull';
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), 1500);
     if (timer.unref) timer.unref();

@@ -3,7 +3,7 @@
 // Returns creation/expiry dates, domain age, registrar, status, nameservers.
 // Domain age is a strong trust/fraud signal — high value, deterministic, $0.
 
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -38,6 +38,7 @@ module.exports = async (req, res) => {
       if (fn) registrar = fn[3];
     }
 
+    track(req, 'guard_call', { product: 'agent-tools', endpoint: 'domain' });
     return sendJson(res, 200, {
       ok: true, domain: (d.ldhName || name).toLowerCase(), status: d.status || undefined,
       registration: registration || undefined, expiration: expiration || undefined, last_changed: lastChanged || undefined,

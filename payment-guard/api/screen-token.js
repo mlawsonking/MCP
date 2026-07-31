@@ -1,6 +1,6 @@
 // screen-token — is this token contract a honeypot / extreme sell tax / scam-listed? Before an agent buys/approves.
 // GET /api/screen-token?address=0x<token>&chain=eth|base|polygon|arbitrum|optimism
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 const { isEvmAddress, CHAINS, HONEYPOT_CHAINS, scamList, honeypotCheck, onchain } = require('../lib/risk.js');
 const { requirePayment } = require('../lib/x402.js');
 
@@ -52,6 +52,7 @@ module.exports = async (req, res) => {
   }
   if (verdict === 'safe' && hp) reasons.push('Not a honeypot, not scam-listed, taxes normal.');
 
+  track(req, 'guard_call', { product: 'payment-guard', endpoint: 'screen-token' });
   return sendJson(res, 200, {
     ok: true, address, chain, verdict, token, honeypot, taxes,
     scam: scamNote ? { listed: true, note: scamNote } : { listed: false },

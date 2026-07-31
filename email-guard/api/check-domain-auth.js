@@ -2,7 +2,7 @@
 // The deterministic "can this domain send trustworthy mail / is it real" check. GET ?domain=example.com (or an email).
 // This reports what a domain PUBLISHES. It says nothing about whether any particular message passed
 // those checks, and it does not check DKIM (see DKIM_NOT_CHECKED in lib/email.js for why).
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 const { getDomainAgeDays } = require('../lib/safety.js');
 const { checkDomainAuth, isDisposable } = require('../lib/email.js');
 
@@ -24,6 +24,7 @@ module.exports = async (req, res) => {
   if (typeof ageDays === 'number' && ageDays < 30) notes.push(`domain only ${ageDays} days old`);
 
   const authPosture = (!auth.spf.present || !auth.dmarc.present || auth.dmarc.policy === 'none') ? 'weak' : 'enforced';
+  track(req, 'guard_call', { product: 'email-guard', endpoint: 'check-domain-auth' });
   return sendJson(res, 200, {
     ok: true, domain, spf: auth.spf, dmarc: auth.dmarc, dkim: auth.dkim, mx: auth.mx,
     domainAgeDays: ageDays, disposable, authPosture, notes,

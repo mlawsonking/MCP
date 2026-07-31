@@ -6,6 +6,11 @@
 // guard 0.1.0 — the same CLI as the agent-guards package, bundled with the plugin so it needs
 // no install. This file has no extension on purpose: a plugin's bin/ is added to the Bash tool's
 // PATH, and a bare `guard` has to be runnable there.
+//
+// The surface tag is set here rather than in the CLI so a rules pull made through the plugin is
+// counted as a plugin install. The hooks themselves never pull: they are the intercept path and are
+// not allowed to touch the network at all, which agent-guards/test/no-network.cjs enforces.
+if (!process.env.AGENT_GUARDS_SURFACE) process.env.AGENT_GUARDS_SURFACE = 'plugin';
 require('../core/cli/index.js')
   .main(process.argv.slice(2))
   .then((code) => { process.exitCode = code; })

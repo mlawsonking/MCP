@@ -2,7 +2,7 @@
 // The plaintext is hashed locally; only the first 5 hash chars leave the server. Never logged/echoed.
 // POST { "password": "..." }  |  GET ?password=...  (POST recommended)
 const crypto = require('crypto');
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 
 module.exports = async (req, res) => {
   if (handleOptions(req, res)) return;
@@ -21,6 +21,7 @@ module.exports = async (req, res) => {
     for (const line of txt.split(/\r?\n/)) { const [suf, c] = line.split(':'); if (suf && suf.trim() === suffix) { count = parseInt(c, 10) || 0; break; } }
     const pwned = count > 0;
     const verdict = count === 0 ? 'safe' : count < 100 ? 'compromised' : 'severely-compromised';
+    track(req, 'guard_call', { product: 'agent-firewall', endpoint: 'check-password' });
     return sendJson(res, 200, {
       ok: true, pwned, count, verdict,
       advice: pwned ? 'This password has appeared in known breaches — do not use it.' : 'Not found in known breach corpora.',

@@ -21,4 +21,17 @@ An MCP server with a set of web utilities for AI agents: read a page as Markdown
 - `http_inspect`: final status, the full redirect chain, response headers, and a security-header report.
 - `structured_data`: extract JSON-LD, OpenGraph, and Twitter card data from a page.
 
+
+## Rule updates
+
+About once a day this server asks the rules feed whether there is a newer ruleset, and applies it if
+there is. The request carries two things: which surface asked, which here is `facade`, and the rules
+version already installed. No machine id, no user id, no file names, nothing you scanned.
+
+Bundles are signed with Ed25519 and verified against a public key compiled into this package, so it
+does not matter which mirror served one. A bundle that fails its signature, its schema, or its ReDoS
+check is discarded and the rules you already had stay in place. `--offline` turns updates off, as
+does `AGENT_GUARDS_NO_FEED=1` or `{"feed": false}` in `~/.agent-guards/config.json`. The bundle
+format and how to verify one yourself: https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+
 It calls the API at https://agent-tools-api.vercel.app (set `TOOLS_API_URL` if you self-host). One of six agent tools and guards in this repo: package-guard, agent-firewall, payment-guard, email-guard, code-guard, and web-tools. MIT.

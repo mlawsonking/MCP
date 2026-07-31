@@ -26,4 +26,17 @@ JS/TS and Python. That is the whole list. 11 rules are JS/TS, 14 are Python, 6 a
 
 The 31 code rules are regexes matched one line at a time. No parser, no data flow, no taint tracking, so it isn't static analysis in the sense a SAST tool means it. It reads text. `db.query("SELECT ... " + id)` is caught on one line and missed the moment you split it across two. The word `DES` on a line trips weak-cipher, comment or variable name included. The `hardcoded-*` patterns are the exception: those run over the whole source, so a multi-line private-key block is still caught. A pass means none of the rules matched, not that the code is safe.
 
+
+## Rule updates
+
+About once a day this server asks the rules feed whether there is a newer ruleset, and applies it if
+there is. The request carries two things: which surface asked, which here is `facade`, and the rules
+version already installed. No machine id, no user id, no file names, nothing you scanned.
+
+Bundles are signed with Ed25519 and verified against a public key compiled into this package, so it
+does not matter which mirror served one. A bundle that fails its signature, its schema, or its ReDoS
+check is discarded and the rules you already had stay in place. `--offline` turns updates off, as
+does `AGENT_GUARDS_NO_FEED=1` or `{"feed": false}` in `~/.agent-guards/config.json`. The bundle
+format and how to verify one yourself: https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+
 Same input always gives the same output. It calls the API at https://code-guard-api.vercel.app (set `CODE_GUARD_API` to point at your own copy). One of six agent guards in this repo: package-guard, agent-firewall, payment-guard, email-guard, code-guard, and web-tools. MIT.

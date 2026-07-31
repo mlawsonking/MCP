@@ -82,6 +82,88 @@ const ck = (n, c, info) => { c ? pass++ : fail++; console.log(`${c ? 'PASS' : 'F
   r = await call(checkPassword, { body: { password: 'Zx9!q' + Math.random().toString(36).slice(2) + 'Qw7#vL2' } });
   ck('check-password random → safe', r.json.ok && r.json.pwned === false, `count=${r.json.count}`);
 
+  // The rules feed. Offline by construction: every case here stubs global.fetch, so nothing below
+  // this line leaves the machine. The handler keeps the origin copy in module scope for five
+  // minutes, so a case that needs its stub to actually run has to load the handler with an empty
+  // cache — hence loadRules() rather than a single require at the top of the file.
+  {
+    delete process.env.POSTHOG_KEY; // track() must stay a no-op; a live key would push the beacon through the stub
+    const RULES = require.resolve('../api/rules/latest.js');
+    const loadRules = () => { delete require.cache[RULES]; return require(RULES); };
+    const rulesRes = () => ({ statusCode: 200, body: '', headers: {}, setHeader(k, v) { this.headers[k] = v; }, end(b) { this.body = b || ''; } });
+    const callRules = async (h, { query = '', headers = {} } = {}) => {
+      const res = rulesRes();
+      await h({ method: 'GET', url: '/api/rules/latest' + query, headers }, res);
+      return { code: res.statusCode, headers: res.headers, raw: res.body, json: res.body ? JSON.parse(res.body) : null };
+    };
+    // finally, not a trailing assignment: a thrown assertion must not leave the stub installed for
+    // whatever runs after it.
+    const realFetch = global.fetch;
+    const withFetch = async (stub, fn) => { global.fetch = stub; try { return await fn(); } finally { global.fetch = realFetch; } };
+    const serves = (text) => async () => ({ ok: true, text: async () => text });
+    const unreachable = async () => { throw new Error('origin unreachable'); };
+
+    const NEWER = {
+      schema: 1,
+      version: '2026.08.02',
+      generated: new Date(Date.now() - 2 * 86400000).toISOString(),
+      sources: [{ id: 'osv-npm', ok: true, note: '', age_days: 0 }, { id: 'ofac-evm', ok: false, note: 'origin timed out', age_days: 9 }],
+    };
+    const fresh = await withFetch(serves(JSON.stringify(NEWER)), () => callRules(loadRules()));
+    ck('rules/latest: a good origin copy is served as origin',
+      fresh.code === 200 && fresh.json && fresh.json.served_from === 'origin' && fresh.json.version === '2026.08.02' && fresh.json.generated_days_ago === 2,
+      `code=${fresh.code} served_from=${fresh.json && fresh.json.served_from} version=${fresh.json && fresh.json.version}`);
+    ck('rules/latest: stale_sources names only the sources that failed',
+      Array.isArray(fresh.json.stale_sources) && fresh.json.stale_sources.length === 1 && fresh.json.stale_sources[0].id === 'ofac-evm' && fresh.json.stale_sources[0].age_days === 9,
+      `stale=${JSON.stringify(fresh.json.stale_sources)}`);
+    ck('rules/latest: the body carries the privacy line',
+      typeof fresh.json.privacy === 'string' && /AGENT_GUARDS_NO_FEED/.test(fresh.json.privacy),
+      `privacy=${JSON.stringify(fresh.json.privacy || null).slice(0, 60)}`);
+
+    const junk = await withFetch(serves('<!doctype html><html>404: Not Found</html>'), () => callRules(loadRules()));
+    ck('rules/latest: an origin body that is not JSON falls back instead of throwing',
+      junk.code === 200 && junk.json && (junk.json.served_from === 'vendored' || junk.json.served_from === 'origin-cached'),
+      `code=${junk.code} served_from=${junk.json && junk.json.served_from}`);
+
+    const OVERSIZE = JSON.stringify({ schema: 1, version: '2099.01.01', generated: new Date().toISOString(), pad: 'x'.repeat(300 * 1024) });
+    const huge = await withFetch(serves(OVERSIZE), () => callRules(loadRules()));
+    ck('rules/latest: an origin body over 256KB is not served',
+      huge.code === 200 && huge.json && huge.json.served_from === 'vendored' && huge.json.version !== '2099.01.01',
+      `bytes=${OVERSIZE.length} served_from=${huge.json && huge.json.served_from} version=${huge.json && huge.json.version}`);
+
+    // One warm handler for the three cases below, because the 304 has to be revalidated against the
+    // ETag the same isolate just issued.
+    const warm = loadRules();
+    const vend = await withFetch(unreachable, () => callRules(warm));
+    ck('rules/latest: an unreachable origin serves the vendored copy',
+      vend.code === 200 && vend.json && vend.json.ok === true && vend.json.served_from === 'vendored' && /^\d{4}\.\d{2}\.\d{2}(\.\d+)?$/.test(vend.json.version || ''),
+      `code=${vend.code} served_from=${vend.json && vend.json.served_from} version=${vend.json && vend.json.version}`);
+    ck('rules/latest: sets an ETag and a cacheable max-age',
+      /^"[0-9a-f]{32}"$/.test(vend.headers.ETag || '') && /max-age=\d+/.test(vend.headers['Cache-Control'] || ''),
+      `etag=${vend.headers.ETag} cache-control=${vend.headers['Cache-Control']}`);
+
+    const revalidated = await withFetch(unreachable, () => callRules(warm, { headers: { 'if-none-match': vend.headers.ETag } }));
+    ck('rules/latest: a matching if-none-match gets a 304 with no body',
+      revalidated.code === 304 && revalidated.raw === '',
+      `code=${revalidated.code} body=${JSON.stringify(revalidated.raw)}`);
+
+    const marked = await withFetch(unreachable, () => callRules(warm, { query: '?surface=INJECTED_MARKER_A&have=INJECTED_MARKER_B' }));
+    const markedWire = JSON.stringify(marked.json);
+    ck('rules/latest: the surface and have query values are not echoed into the body',
+      marked.code === 200 && !markedWire.includes('INJECTED_MARKER_A') && !markedWire.includes('INJECTED_MARKER_B'),
+      `code=${marked.code} bytes=${markedWire.length}`);
+    // Those two markers are uppercase, so the handler's own sanitiser empties them before anything
+    // could echo them — on their own they would pass even against a handler that did echo `surface`.
+    // These two survive the sanitiser intact, so the check can actually fail.
+    const lived = await withFetch(unreachable, () => callRules(warm, { query: '?surface=injected-marker&have=zzmarkerzz' }));
+    const livedWire = JSON.stringify(lived.json);
+    ck('rules/latest: a surface that survives sanitising is still not echoed',
+      lived.code === 200 && !livedWire.includes('injected-marker') && !livedWire.includes('zzmarkerzz'),
+      `code=${lived.code} bytes=${livedWire.length}`);
+
+    ck('rules/latest: global.fetch is back to the real one', global.fetch === realFetch, `stubbed=${global.fetch !== realFetch}`);
+  }
+
   console.log(`\n${pass} passed, ${fail} failed`);
   process.exit(fail === 0 ? 0 : 1);
 })();

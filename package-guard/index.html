@@ -112,7 +112,7 @@
     MIT · part of the <a href="https://github.com/mlawsonking/MCP">Agent Tools</a> family ·
     data: <a href="https://osv.dev">OSV.dev</a>, npm, PyPI ·
     higher volume via <a href="https://rapidapi.com/mlawsonking/api/package-guard">RapidAPI</a> · <a href="/api/pricing">pricing</a> ·
-    no request payloads stored; a pseudonymous caller id (hashed API key or IP), user-agent and referer go to PostHog for usage counts
+    no request payloads stored; a pseudonymous caller id (hashed API key or IP), the endpoint name, user-agent, origin and referer go to PostHog for usage counts
   </footer>
 </div>
 <script>
@@ -128,6 +128,10 @@ async function run(){
   }catch(err){ out.className='danger'; out.textContent='error: '+err; }
 }
 run();
+
+// One page-view beacon, disclosed in the privacy line above. It carries nothing but the fact that
+// this page loaded.
+fetch('/api/pricing?pv=1').catch(function(){});
 </script>
 </body>
 </html>

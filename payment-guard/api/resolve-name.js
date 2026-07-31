@@ -1,6 +1,6 @@
 // resolve-name — ENS name -> address, and a fast sanctions/scam screen of the result.
 // GET /api/resolve-name?name=vitalik.eth
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 const { ensResolve, looksLikeEns } = require('../lib/ens.js');
 const { ofacSanctions, ofacCoverage, scamList } = require('../lib/risk.js');
 const { requirePayment } = require('../lib/x402.js');
@@ -22,6 +22,7 @@ module.exports = async (req, res) => {
   const started = Date.now();
   const name = String((req.query && (req.query.name || req.query.ens)) || '').trim();
   if (!looksLikeEns(name)) return sendJson(res, 400, { ok: false, error: 'Provide an ENS name (e.g. name.eth)' });
+  track(req, 'guard_call', { product: 'payment-guard', endpoint: 'resolve-name' });
 
   const address = await ensResolve(name);
   if (!address) return sendJson(res, 200, { ok: true, name, resolved: false, address: null, verdict: 'caution', note: 'Did not resolve via the mainnet ENS registry (namehash -> resolver -> addr()). Offchain and L2 names (Basenames, .cb.id, gasless subnames) are not supported here, so a wallet may still resolve this name. There is no address to screen, so nothing was checked.', ens_coverage: ENS_COVERAGE, ms: Date.now() - started });

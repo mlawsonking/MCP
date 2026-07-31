@@ -28,4 +28,17 @@ URL coverage: the lookalike rule is a substring match on 14 brand names, flagged
 
 Sanctions coverage, stated plainly: OFAC publishes sanctioned addresses by currency, not by chain, so this checks the union of every EVM-format list (ETH, ARB, BSC, ETC, USDC, USDT) and that result applies to any EVM chain. Bitcoin, Tron, Solana, Monero and other non-EVM sanctioned addresses are not checked, because only EVM addresses are accepted. Every response carries a coverage object saying so. If the list cannot be loaded the result is `unknown`, never `clear`.
 
+
+## Rule updates
+
+About once a day this server asks the rules feed whether there is a newer ruleset, and applies it if
+there is. The request carries two things: which surface asked, which here is `facade`, and the rules
+version already installed. No machine id, no user id, no file names, nothing you scanned.
+
+Bundles are signed with Ed25519 and verified against a public key compiled into this package, so it
+does not matter which mirror served one. A bundle that fails its signature, its schema, or its ReDoS
+check is discarded and the rules you already had stay in place. `--offline` turns updates off, as
+does `AGENT_GUARDS_NO_FEED=1` or `{"feed": false}` in `~/.agent-guards/config.json`. The bundle
+format and how to verify one yourself: https://github.com/mlawsonking/MCP/blob/main/rules/README.md
+
 It calls https://payment-guard.vercel.app (set `PAYMENT_GUARD_API` to override). One of six agent guards in this repo. MIT.

@@ -153,10 +153,41 @@ The "stopped" and "reported" counts are separate on purpose. Most of these check
 counting an advisory finding as something that was stopped would be this tool claiming credit for
 work it did not do.
 
+## Rule updates
+
+The rules go stale. Sanctioned addresses get added, scam addresses get reported, and packages get
+pulled from npm for shipping malware, and none of that reaches you if the rules only change when you
+reinstall. So `guard` checks for a newer ruleset about once a day and applies it if there is one.
+
+The hooks never do this. They are the intercept path, they run on every tool call, and they are not
+allowed to touch the network at all. That is not a promise in a comment: `agent-guards/test/no-network.cjs`
+replaces `fetch`, `net.connect`, `http.request`, `https.request`, `tls.connect` and the DNS functions
+with throws, every hook test runs behind it, and adding one network call to a hook turns exactly one
+assertion red. The update happens when you run `/guard` or a `guard` command, never in a hook.
+
+A pull sends two things: which surface asked, which here is `plugin`, and the rules version you
+already have.
+
+```
+GET /api/rules/latest?surface=plugin&have=2026.07.31
+```
+
+No machine id, no user id, no file names, nothing you scanned. Bundles are signed with Ed25519 and
+verified against a public key compiled into the package, so it does not matter which mirror served
+one. A bundle that fails its signature, its schema, or its ReDoS check is discarded and you keep the
+rules you had.
+
+`guard update --status` shows what is in use and when it last checked. The format and the steps to
+verify a bundle yourself are in [rules/README.md](../rules/README.md).
+
 ## Turning it off
 
 `AGENT_GUARDS_DISABLE=1` in the environment makes every hook exit without doing anything. The block
 message names that variable, so nobody ends up stuck.
+
+`AGENT_GUARDS_NO_FEED=1` turns off rule updates and leaves everything else working. So does
+`{"feed": false}` in `~/.agent-guards/config.json`. The rules compiled into the plugin are the floor
+and they keep working with no network at all.
 
 ## Where the code is
 

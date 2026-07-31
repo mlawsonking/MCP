@@ -1,7 +1,7 @@
 // scan-diff — scan only the ADDED lines of a unified diff (the agent's just-written change), with the
 // correct new-file line numbers. Use in a coding agent's commit loop. Deterministic, no LLM.
 // POST { "diff": "<unified diff>", "language": "python|javascript|..." }
-const { sendJson, handleOptions } = require('../lib/common.js');
+const { sendJson, handleOptions, track } = require('../lib/common.js');
 const { scanDiff } = require('../lib/codescan.js');
 
 module.exports = async (req, res) => {
@@ -15,5 +15,6 @@ module.exports = async (req, res) => {
   const advice = r.verdict === 'block'
     ? 'Do NOT commit this change as-is — it introduces critical/high issues.'
     : r.verdict === 'review' ? 'Review the flagged added lines before committing.' : 'No high-signal issues in the added lines (first-line scan).';
+  track(req, 'guard_call', { product: 'code-guard', endpoint: 'scan-diff' });
   return sendJson(res, 200, { ok: true, ...r, advice, ms: Date.now() - started });
 };
