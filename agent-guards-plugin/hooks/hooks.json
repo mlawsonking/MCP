@@ -1,0 +1,45 @@
+{
+  "description": "agent-guards: package checks before an install, secret and code checks after an edit, injection checks on fetched content",
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/pre-bash.mjs"],
+            "timeout": 10,
+            "statusMessage": "checking packages"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/post-edit.mjs"],
+            "timeout": 10,
+            "statusMessage": "scanning the change"
+          }
+        ]
+      },
+      {
+        "matcher": "WebFetch",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "node",
+            "args": ["${CLAUDE_PLUGIN_ROOT}/hooks/post-fetch.mjs"],
+            "timeout": 10,
+            "statusMessage": "scanning fetched content"
+          }
+        ]
+      }
+    ]
+  }
+}

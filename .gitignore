@@ -46,6 +46,7 @@ LAUNCH-REVIEW.md
 REBUILD-PROMPT.md
 OPUS-BUILD-DIRECTIVE.md
 OPUS-PHASE1-PROMPT.md
+OPUS-PHASE2-PROMPT.md
 # Leading slash matters on these three: an unanchored "tools/" matches at ANY depth, so it was also
 # hiding agent-guards/tools/ - the whole MCP tool registry was invisible to git and would have been
 # silently left out of every commit. Only the repo-root folders are meant to be private.

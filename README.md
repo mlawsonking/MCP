@@ -23,6 +23,28 @@ Guide: [Why your AI agent needs deterministic guardrails](https://dev.to/mlawson
 | Code Guard | AI-generated code: 31 regex rules across 12 categories (injection, SSRF, weak crypto, unsafe deserialization, XSS), plus the shared secret patterns | `npx -y @mlawsonking/code-guard-mcp` | [live](https://code-guard-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/code-guard) |
 | Agent Web Tools | Web utilities: page to Markdown, metadata, JSON-LD, email MX, CSS scrape, RSS, DNS, RDAP, SSL, HTTP | `npx -y web-tools-mcp` | [live](https://agent-tools-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/agent-web-tools) |
 
+## In Claude Code: the plugin
+
+The checks above are most useful when nobody has to remember to call them. This repository is also a
+Claude Code plugin marketplace, and the plugin puts three of these engines in the path of what the
+agent already does:
+
+```
+/plugin marketplace add mlawsonking/MCP
+/plugin install agent-guards@agent-guards
+```
+
+Before a Bash command runs, the package names in it are checked and a typosquat is stopped. After an
+Edit or a Write, the lines that just changed are scanned for credentials and dangerous code patterns.
+After a WebFetch, the content is scanned for injection phrasings and the Unicode tricks used to hide
+them. It also brings a `guard` command for scanning a file, a diff or a dependency on demand, and for
+pre-commit hooks and CI.
+
+No hook makes a network call, the whole thing needs Node 18 and nothing else, and it is quiet unless
+it has something to say. The measured cost is 70 to 86 ms per tool call, and the measured
+false-positive rate is in the [plugin README](agent-guards-plugin/), along with what each check does
+not do.
+
 ## Quick start (MCP)
 
 Add any or all to your client config (Claude Desktop, Cursor, Claude Code, and so on):

@@ -50,6 +50,50 @@ const FACADES = {
   'agent-tools-mcp': { product: 'agent-tools', npm: 'web-tools-mcp' },
 };
 
+// The Claude Code plugin. It vendors the core for the same reason the facades do, and for one more:
+// a plugin is installed by cloning a marketplace repo, and ${CLAUDE_PLUGIN_ROOT} is only promised to
+// be the plugin's own directory. A hook that reached up into ../agent-guards would work in this
+// checkout and break on someone else's machine, which is the Vercel bundling mistake wearing a
+// different hat. It also needs data/ — the popular-package lists the offline name check compares
+// against — which nothing else copies.
+const PLUGIN = 'agent-guards-plugin';
+const PLUGIN_CORE_DIRS = ['lib', 'engines', 'tools', 'cli'];
+const PLUGIN_DATA_DIRS = ['data'];
+
+// A plain CommonJS entry point, so it works both as `node .../bin/guard` and as a bare `guard` from
+// the Bash tool's PATH, which is where a plugin's bin/ ends up. It cannot be the core's own
+// bin/guard.mjs: an extensionless file is CommonJS to Node no matter what it contains, and that file
+// is an ES module.
+function pluginBin(version) {
+  return `#!/usr/bin/env node
+// GENERATED FILE - do not edit here. Your change will be overwritten.
+// Source of truth: scripts/sync-shared.js (pluginBin) + agent-guards/cli/
+// Regenerate: node scripts/sync-shared.js
+//
+// guard ${version} — the same CLI as the agent-guards package, bundled with the plugin so it needs
+// no install. This file has no extension on purpose: a plugin's bin/ is added to the Bash tool's
+// PATH, and a bare \`guard\` has to be runnable there.
+require('../core/cli/index.js')
+  .main(process.argv.slice(2))
+  .then((code) => { process.exitCode = code; })
+  .catch((e) => { process.stderr.write('guard: ' + ((e && e.stack) || e) + '\\n'); process.exitCode = 2; });
+`;
+}
+
+function pluginBinCmd() {
+  return '@echo off\r\nrem GENERATED FILE - do not edit here. Regenerate: node scripts/sync-shared.js\r\n'
+    + 'node "%~dp0guard" %*\r\n';
+}
+
+// The GitHub Action is its OWN repository, cloned inside this one and gitignored here. It vendors
+// the core too, so a PR scan runs the same rules as everything else without depending on our Vercel
+// apps being up. Because it is not part of this repo, a clean CI runner does not have the folder at
+// all, so this target is optional: present, it is kept in sync and drift-checked; absent, that is
+// reported rather than passing quietly.
+const OPTIONAL_TARGETS = [
+  { dir: 'code-guard-action', subdir: 'core', dirs: ['lib', 'engines'], data: ['data'] },
+];
+
 // destination file -> the core module it re-exports
 const SHIMS = {
   'code-guard/lib/codescan.js': './core/engines/code',
@@ -70,13 +114,13 @@ function banner(source) {
 
 // Core files as posix-style relative paths. The API folders need the engines; the MCP facades also
 // need the tool declarations and the MCP layer.
-function coreFiles(dirs) {
+function coreFiles(dirs, exts = ['.js', '.mjs']) {
   const out = [];
   for (const dir of dirs) {
     const abs = path.join(CORE, dir);
     if (!fs.existsSync(abs)) continue;
     for (const f of fs.readdirSync(abs).sort()) {
-      if (f.endsWith('.js') || f.endsWith('.mjs')) out.push(`${dir}/${f}`);
+      if (exts.some((e) => f.endsWith(e))) out.push(`${dir}/${f}`);
     }
   }
   return out;
@@ -175,6 +219,43 @@ for (const folder of Object.keys(FACADES)) {
   place(path.join(ROOT, folder, 'index.mjs'), facadeEntry(folder, FACADES[folder]), path.posix.join(folder, 'index.mjs'));
 }
 
+// 1b. the plugin's vendored core. Data files are copied byte for byte: they are JSON, so a comment
+// banner would make them unparseable, and the provenance they need is already inside them.
+const PLUGIN_CORE = coreFiles(PLUGIN_CORE_DIRS);
+const PLUGIN_DATA = coreFiles(PLUGIN_DATA_DIRS, ['.json']);
+const pluginVersion = JSON.parse(fs.readFileSync(path.join(CORE, 'package.json'), 'utf8')).version;
+
+for (const rel of PLUGIN_CORE) {
+  place(path.join(ROOT, PLUGIN, 'core', rel), read(rel), path.posix.join(PLUGIN, 'core', rel));
+}
+for (const rel of PLUGIN_DATA) {
+  place(path.join(ROOT, PLUGIN, 'core', rel), fs.readFileSync(path.join(CORE, rel), 'utf8'), path.posix.join(PLUGIN, 'core', rel));
+}
+place(
+  path.join(ROOT, PLUGIN, 'core', 'package.json'),
+  `{\n  "type": "commonjs",\n  "version": "${pluginVersion}"\n}\n`,
+  path.posix.join(PLUGIN, 'core/package.json')
+);
+place(path.join(ROOT, PLUGIN, 'bin', 'guard'), pluginBin(pluginVersion), path.posix.join(PLUGIN, 'bin/guard'));
+place(path.join(ROOT, PLUGIN, 'bin', 'guard.cmd'), pluginBinCmd(), path.posix.join(PLUGIN, 'bin/guard.cmd'));
+
+// 1c. optional targets that live in another repository
+const skippedOptional = [];
+let optionalCount = 0;
+for (const t of OPTIONAL_TARGETS) {
+  if (!fs.existsSync(path.join(ROOT, t.dir))) { skippedOptional.push(t.dir); continue; }
+  for (const rel of coreFiles(t.dirs)) {
+    place(path.join(ROOT, t.dir, t.subdir, rel), read(rel), path.posix.join(t.dir, t.subdir, rel));
+    optionalCount++;
+  }
+  for (const rel of coreFiles(t.data || [], ['.json'])) {
+    place(path.join(ROOT, t.dir, t.subdir, rel), fs.readFileSync(path.join(CORE, rel), 'utf8'), path.posix.join(t.dir, t.subdir, rel));
+    optionalCount++;
+  }
+  place(path.join(ROOT, t.dir, t.subdir, 'package.json'), CJS_MARKER, path.posix.join(t.dir, t.subdir, 'package.json'));
+  optionalCount++;
+}
+
 // 2. the API-facing shared libs
 for (const [name, folders] of Object.entries(TARGETS)) {
   const want = banner(`shared/lib/${name}`) + fs.readFileSync(path.join(ROOT, 'shared', 'lib', name), 'utf8');
@@ -195,13 +276,18 @@ if (check) {
     process.exit(1);
   }
   const facadeCount = Object.keys(FACADES).length;
+  const pluginFiles = PLUGIN_CORE.length + PLUGIN_DATA.length + 3; // + marker + the two bin shims
   const total = API_CORE.length * PRODUCTS.length + FACADE_CORE.length * facadeCount + facadeCount * 2 +
-    Object.values(TARGETS).flat().length + Object.keys(SHIMS).length;
+    Object.values(TARGETS).flat().length + Object.keys(SHIMS).length + pluginFiles;
   console.log(
     `generated copies in sync (${total} files checked: ${API_CORE.length} core x ${PRODUCTS.length} APIs, ` +
     `${FACADE_CORE.length} core + entry + marker x ${facadeCount} facades, ` +
-    `${Object.values(TARGETS).flat().length} lib, ${Object.keys(SHIMS).length} shims)`
+    `${pluginFiles} plugin, ${Object.values(TARGETS).flat().length} lib, ${Object.keys(SHIMS).length} shims)`
   );
+  if (optionalCount) console.log(`plus ${optionalCount} file(s) in optional targets present in this checkout`);
+  if (skippedOptional.length) {
+    console.log(`not checked, not present in this checkout: ${skippedOptional.join(', ')} (its own repository, gitignored here)`);
+  }
 } else {
   console.log(written ? `synced ${written} file(s)` : 'already in sync');
 }

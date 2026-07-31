@@ -10,7 +10,7 @@ const fs = require('fs');
 
 // Offline suites only. Anything that touches a third-party endpoint goes in a suite that is run by
 // hand, for the reason written into CI: a suite that goes red at random teaches everyone to ignore red.
-const SUITES = ['net.cjs', 'engines.cjs', 'mcp.mjs', 'facades.mjs'];
+const SUITES = ['net.cjs', 'engines.cjs', 'guards.cjs', 'mcp.mjs', 'facades.mjs', 'plugin.mjs'];
 
 let failed = 0;
 for (const suite of SUITES) {

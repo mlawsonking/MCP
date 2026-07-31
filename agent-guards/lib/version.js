@@ -11,4 +11,12 @@ const RULES_VERSION = '2026.07.30.1';
 // place in the pipeline and moves on its own schedule.
 const CODE_RULES_VERSION = '2026.07.30';
 
-module.exports = { RULES_VERSION, CODE_RULES_VERSION };
+// The name and command rules that run in the hook path (engines/pkgname.js, engines/shellcmd.js).
+// Separate for the same reason as the code scanner, and for one more: nothing hosted exposes these,
+// so they can move without a deploy. Stamping them with RULES_VERSION would have meant either
+// bumping a shared version that did not change, or shipping new rules under an old version. Both
+// leave a caller unable to tell which ruleset produced a verdict, which is the whole point of the
+// field.
+const NAME_RULES_VERSION = '2026.07.31';
+
+module.exports = { RULES_VERSION, CODE_RULES_VERSION, NAME_RULES_VERSION };

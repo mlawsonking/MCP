@@ -4,11 +4,15 @@ Every detection ruleset carries a version string, and every scan response return
 that produced it. Pin to a version if you need a verdict to stay stable; read this file before you
 upgrade.
 
-Two rulesets are versioned separately because they ship in different places:
+Three rulesets are versioned separately because they ship in different places:
 
-- **shared** (`shared/lib/safety.js`) — prompt-injection patterns, obfuscation signals, secret and PII
-  rules, URL structure analysis. Used by Agent Firewall, Email Guard, Code Guard and Payment Guard.
-- **code** (`code-guard/lib/codescan.js`) — the static code rules. Used by Code Guard.
+- **shared** (`agent-guards/engines/{injection,secrets,url}.js`) — prompt-injection patterns,
+  obfuscation signals, secret and PII rules, URL structure analysis. Used by Agent Firewall, Email
+  Guard, Code Guard and Payment Guard, and by the hosted APIs.
+- **code** (`agent-guards/engines/code.js`) — the static code rules. Used by Code Guard.
+- **name** (`agent-guards/engines/{pkgname,shellcmd}.js`) — package-name and command-shape rules.
+  These run only in the Claude Code plugin's hooks, the `guard` CLI and the GitHub Action, all of
+  which ship from this repository, so this ruleset can move without redeploying anything.
 
 Two data sources are not versioned by us because they are fetched live and change upstream. Responses
 report what was actually loaded instead:
@@ -16,6 +20,38 @@ report what was actually loaded instead:
 - OFAC sanctioned addresses, and the ethereum-lists and ScamSniffer blocklists (Payment Guard). The
   response carries `coverage.lists_loaded` and `list_size`.
 - The disposable-domain list (Email Guard, Agent Web Tools).
+
+## name 2026.07.31
+
+First release. Seven rule IDs across two engines, answering "does this look like a name chosen to be
+mistaken for a real one" and "is this command about to run something it just downloaded". Neither
+engine touches the network, because they run inside a PreToolUse hook that sits in front of every
+shell command an agent issues.
+
+| Rule | Fires on | Severity |
+| --- | --- | --- |
+| `pkg-name-nonascii` | any character outside ASCII in a package name | critical |
+| `pkg-name-separator` | the name matches a popular one once `-`, `_` and `.` are removed | critical |
+| `pkg-name-confusable` | one substitution away from a popular name, and the pair is a visual lookalike | critical |
+| `pkg-name-near` | one or two edits from a popular name, any edit | medium |
+| `pkg-name-affix` | a popular name with `js`, `.js`, `node-` or `python-` attached | medium |
+| `pkg-cached-verdict` | an earlier online check of this exact name returned danger or caution | inherits |
+| `cmd-remote-to-shell` | a download piped straight into a shell | medium |
+
+The comparison list is `agent-guards/data/popular-*.json`: the 3,000 most downloaded packages on npm
+and on PyPI, dated inside the file. It is a snapshot, so a package that became popular after that
+date is not on it.
+
+Known false-positive rate, measured against 1,500 real npm packages sampled from ranks 3,001 to
+12,500: 28 flagged, 2 of which would block (`date-format`, which collides with `dateformat`, and
+`isurl`, which collides with `is-url`). Both are real packages differing from another real package
+only by punctuation, which is the same shape as the `crossenv` attack. No rule that reads only the
+name can separate them.
+
+Two things this ruleset deliberately does not do: npm scopes are exempt from the similarity rules
+when the scope is one that popular packages publish under, because only the scope's owner can
+publish into it; and PyPI names are compared in PEP 503 form, because pip treats `discord.py`,
+`discord-py` and `discord_py` as the same project.
 
 ## shared 2026.07.30.1
 
