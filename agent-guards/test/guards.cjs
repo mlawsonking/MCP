@@ -181,6 +181,19 @@ for (const cmd of ['curl -sL https://x.test/f.json | jq .', 'cat file | grep x',
   ck(`does not flag: ${cmd}`, risky.length === 0, JSON.stringify(risky.map((r) => r.id)));
 }
 
+{
+  // This is the shape that produced noise in a real commit: the Bash hook received the whole
+  // heredoc, split its prose into commands, then treated an install line in the message as real.
+  const cmd = "git commit -F - <<'MSG'\nnpm install match\nMSG";
+  const parsed = shellcmd.parse(cmd);
+  ck('a heredoc body is data, not an install command', parsed.installs.length === 0, JSON.stringify(parsed.installs));
+}
+{
+  const cmd = "node <<-EOF\n\tnpm install crossenv\n\tEOF\nnpm install express";
+  const parsed = shellcmd.parse(cmd);
+  ck('a tab-stripped heredoc ends at its delimiter', parsed.installs.length === 1 && parsed.installs[0].packages[0].name === 'express');
+}
+
 // ---------------------------------------------------------------- ledger
 
 section('ledger — what it records, and what it must never record');

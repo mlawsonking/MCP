@@ -136,6 +136,10 @@ const bash = (command) => hook('pre-bash.mjs', { hook_event_name: 'PreToolUse', 
   const r = bash('npm install express');
   ck('a clean install still leaves a ledger line', existsSync(path.join(HOME, 'ledger.jsonl')));
 }
+{
+  const r = bash("git commit -F - <<'MSG'\nnpm install match\nMSG");
+  ck('a commit-message heredoc does not trigger the install hook', r.stdout === '' && r.status === 0, r.stdout);
+}
 
 section('PreToolUse — failure posture');
 {

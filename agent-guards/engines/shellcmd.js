@@ -26,6 +26,64 @@ const VALUE_FLAGS = new Set([
 
 const SHELLS = new Set(['sh', 'bash', 'zsh', 'ksh', 'dash', 'fish', 'csh', 'tcsh', 'iex', 'invoke-expression', 'python', 'python3', 'perl', 'ruby', 'node']);
 
+// A heredoc is data for the command on the line above it, not another shell command. Claude Code
+// passes the whole Bash input to this parser, including heredoc bodies. Treating those bodies as
+// commands made prose in a commit message look like install arguments. Keep the command lines and
+// remove each body (including its delimiter) before splitting on newlines.
+function heredocsOnLine(line) {
+  const found = [];
+  let quote = null;
+  let escaped = false;
+
+  for (let i = 0; i < line.length; i++) {
+    const ch = line[i];
+    if (escaped) { escaped = false; continue; }
+    if (ch === '\\' && quote !== "'") { escaped = true; continue; }
+    if (quote) { if (ch === quote) quote = null; continue; }
+    if (ch === '"' || ch === "'") { quote = ch; continue; }
+    if (ch === '#' && (i === 0 || /\s/.test(line[i - 1]))) break;
+    if (ch !== '<' || line[i + 1] !== '<' || line[i + 2] === '<') continue;
+
+    i += 2;
+    let stripTabs = false;
+    if (line[i] === '-') { stripTabs = true; i++; }
+    while (/\s/.test(line[i] || '')) i++;
+    if (i >= line.length) continue;
+
+    let delimiter = '';
+    const delimiterQuote = line[i] === '"' || line[i] === "'" ? line[i++] : null;
+    if (!delimiterQuote && line[i] === '\\') i++;
+    while (i < line.length) {
+      const c = line[i];
+      if (delimiterQuote ? c === delimiterQuote : /[\s;|&()<>]/.test(c)) break;
+      delimiter += c;
+      i++;
+    }
+    if (delimiter) found.push({ delimiter, stripTabs });
+  }
+  return found;
+}
+
+function stripHeredocBodies(command) {
+  const lines = String(command || '').split('\n');
+  const kept = [];
+  const pending = [];
+
+  for (const raw of lines) {
+    const line = raw.endsWith('\r') ? raw.slice(0, -1) : raw;
+    if (pending.length) {
+      const current = pending[0];
+      const candidate = current.stripTabs ? line.replace(/^\t+/, '') : line;
+      if (candidate === current.delimiter) pending.shift();
+      kept.push('');
+      continue;
+    }
+    kept.push(raw);
+    pending.push(...heredocsOnLine(line));
+  }
+  return kept.join('\n');
+}
+
 // Tokenize on whitespace while keeping quoted runs together. Quotes are removed; escapes inside
 // double quotes are left alone because nothing downstream cares about the difference.
 function tokenize(s) {
@@ -50,7 +108,7 @@ function tokenize(s) {
 // Split a command line into pipelines, then each pipeline into its stages. Operators inside quotes
 // are left alone; the scan tracks quoting as it goes.
 function split(command) {
-  const text = String(command || '');
+  const text = stripHeredocBodies(command);
   const pipelines = [];
   let cur = '';
   let quote = null;
@@ -230,4 +288,4 @@ function parse(command) {
   return { installs, risky: uniqueRisky, pipelines: pipelines.length, rules_version: NAME_RULES_VERSION };
 }
 
-module.exports = { parse, split, tokenize, parseNpmSpec, parsePipSpec, readStage, notPackage };
+module.exports = { parse, split, tokenize, parseNpmSpec, parsePipSpec, readStage, notPackage, stripHeredocBodies };
