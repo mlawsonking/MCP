@@ -1,11 +1,11 @@
 {
  "schema": 1,
- "version": "2026.07.31.1",
- "generated": "2026-07-31T10:38:32.780Z",
- "bytes": 271965,
- "sha256": "5cec226670825d8b2a228ad277936b4b3065614be3807e557a3fd1ab16a7b81d",
+ "version": "2026.08.01",
+ "generated": "2026-08-01T06:46:31.080Z",
+ "bytes": 271963,
+ "sha256": "67c98118bb44abfea0f533bc3ea9d38fe25e94698526457d4bc5705ba753e2fe",
  "url": "https://raw.githubusercontent.com/mlawsonking/MCP/main/rules/bundle.json",
- "signature": "s275gZf4VMHmxDH5HfG2r+GtHeB04CYU2R6Pk7kbE+Yo8hqJ8K6Cy1K8rRUGY4H93800KEkh/76+JrvkqzcrAw==",
+ "signature": "SOwCY1hVuijw8tJbhwguSbnInMm4oyGYxkgReDY3QfjQV5KJGhE22uwoRheMpvUn00GEqfQBdXwiFELLxkSoBg==",
  "notes": "all sources refreshed",
  "counts": {
   "injection": 11,
@@ -14,14 +14,14 @@
   "code": 31,
   "ofac_addresses": 100,
   "scam_addresses": 3182,
-  "malicious_packages": 228340
+  "malicious_packages": 228351
  },
  "sources": [
   {
    "id": "ethereum-lists-darklist",
    "ok": true,
    "url": "https://raw.githubusercontent.com/MyEtherWallet/ethereum-lists/master/src/addresses/addresses-darklist.json",
-   "fetched": "2026-07-31",
+   "fetched": "2026-08-01",
    "age_days": 0,
    "note": ""
   },
@@ -29,7 +29,7 @@
    "id": "ofac-evm",
    "ok": true,
    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_*.txt",
-   "fetched": "2026-07-31",
+   "fetched": "2026-08-01",
    "age_days": 0,
    "note": ""
   },
@@ -37,7 +37,7 @@
    "id": "osv-npm",
    "ok": true,
    "url": "https://osv-vulnerabilities.storage.googleapis.com/npm/all.zip",
-   "fetched": "2026-07-31",
+   "fetched": "2026-08-01",
    "age_days": 0,
    "note": ""
   },
@@ -45,7 +45,7 @@
    "id": "osv-pypi",
    "ok": true,
    "url": "https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip",
-   "fetched": "2026-07-31",
+   "fetched": "2026-08-01",
    "age_days": 0,
    "note": ""
   },
@@ -53,14 +53,14 @@
    "id": "scamsniffer-blacklist",
    "ok": true,
    "url": "https://raw.githubusercontent.com/scamsniffer/scam-database/main/blacklist/address.json",
-   "fetched": "2026-07-31",
+   "fetched": "2026-08-01",
    "age_days": 0,
    "note": ""
   }
  ],
  "packages": {
   "file": "packages.tsv",
-  "bytes": 10010080,
-  "sha256": "5c6a7aa7cb2b1e3a51a75a025a12cd29a0ec625b01ce142178cd946beaa1be80"
+  "bytes": 10010568,
+  "sha256": "e2ad0e993f2f1295e6241d78f2f5d64aff19de79c4368ec9980faeaf23f3f48a"
  }
 }
