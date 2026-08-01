@@ -47,7 +47,21 @@ not do.
 
 ## Quick start (MCP)
 
-Add any or all to your client config (Claude Desktop, Cursor, Claude Code, and so on):
+The simplest install is one local server with all 31 tools:
+
+```json
+{
+  "mcpServers": {
+    "agent-guards": { "command": "npx", "args": ["-y", "agent-guards"] }
+  }
+}
+```
+
+Copy-paste instructions for [Cursor](recipes/cursor.md), [Cline](recipes/cline.md),
+[Windsurf](recipes/windsurf.md), [LangChain/LangGraph](recipes/langchain-langgraph.md), and a
+[plain MCP host](recipes/mcp.md) are in `recipes/`.
+
+If you only want one product, add any or all of the thin facades instead:
 
 ```json
 {
