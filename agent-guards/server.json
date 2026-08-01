@@ -1,0 +1,21 @@
+{
+  "$schema": "https://static.modelcontextprotocol.io/schemas/2025-12-11/server.schema.json",
+  "name": "io.github.mlawsonking/agent-guards",
+  "description": "All six agent guard suites in one local MCP server, with optional cloud intelligence.",
+  "repository": {
+    "url": "https://github.com/mlawsonking/MCP",
+    "source": "github",
+    "subfolder": "agent-guards"
+  },
+  "version": "0.2.1",
+  "packages": [
+    {
+      "registryType": "npm",
+      "identifier": "agent-guards",
+      "version": "0.2.1",
+      "transport": {
+        "type": "stdio"
+      }
+    }
+  ]
+}

@@ -1,17 +1,20 @@
 {
   "name": "agent-guards",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Deterministic local security engines for AI agents: prompt-injection and obfuscation scanning, secret detection and redaction, code scanning, package reputation, email analysis, payment screening, and an SSRF-safe fetch.",
   "main": "index.js",
   "bin": {
-    "agent-guards": "bin/agent-guards.mjs"
+    "agent-guards": "bin/agent-guards.mjs",
+    "guard": "bin/guard.mjs"
   },
+  "mcpName": "io.github.mlawsonking/agent-guards",
   "files": [
     "index.js",
     "lib/",
     "engines/",
     "tools/",
     "mcp/",
+    "cli/",
     "bin/",
     "README.md"
   ],

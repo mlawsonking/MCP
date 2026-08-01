@@ -3,7 +3,7 @@
 // Source of truth: scripts/sync-shared.js (pluginBin) + agent-guards/cli/
 // Regenerate: node scripts/sync-shared.js
 //
-// guard 0.2.0 — the same CLI as the agent-guards package, bundled with the plugin so it needs
+// guard 0.2.1 — the same CLI as the agent-guards package, bundled with the plugin so it needs
 // no install. This file has no extension on purpose: a plugin's bin/ is added to the Bash tool's
 // PATH, and a bare `guard` has to be runnable there.
 //

@@ -23,6 +23,32 @@ npx agent-guards --list             # what you get, and which tools need the net
 npx agent-guards --disable check_ip,check_password
 ```
 
+The same package installs the `guard` CLI:
+
+```bash
+npx --yes --package agent-guards guard scan src/
+npx --yes --package agent-guards guard diff
+npx --yes --package agent-guards guard stats --json
+```
+
+## pre-commit
+
+This repository publishes a staged-diff hook for the [pre-commit](https://pre-commit.com) framework.
+It needs Node 18 or newer. Add this to `.pre-commit-config.yaml`:
+
+```yaml
+repos:
+  - repo: https://github.com/mlawsonking/MCP
+    rev: main  # pin this to a commit SHA in a shared repository
+    hooks:
+      - id: agent-guards-diff
+```
+
+Then run `pre-commit install`. The hook scans added lines only and uses the rules in that pinned
+checkout. It does not call a model or send file contents anywhere. A second manual hook,
+`agent-guards-scan`, scans the whole working tree when you run
+`pre-commit run agent-guards-scan --hook-stage manual`.
+
 ## Local and cloud, and why the difference matters
 
 Local tools run entirely on your machine. The text you scan never leaves it.

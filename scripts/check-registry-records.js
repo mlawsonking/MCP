@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Validates the six server.json registry records BEFORE a publish, not during one.
+// Validates the seven server.json registry records BEFORE a publish, not during one.
 //
 // Why this exists: publishing to the MCP registry needs the owner to paste a fresh GitHub PAT, and
 // the token expires in about an hour, so a publish run is a scarce, manual, interactive thing. Every
@@ -10,7 +10,7 @@
 // Checked here, all of which have bitten at least once:
 //   - description length (registry rejects over 100 with a 422)
 //   - the three version fields moving in lockstep (package.json, server.json, packages[0].version)
-//   - repository.subfolder present (its absence collapsed all six into one entry on Glama)
+//   - repository.subfolder present (its absence collapsed the facade entries into one on Glama)
 //   - packages[0].identifier matching the real npm name (three of these differ from the folder name)
 //
 //   node scripts/check-registry-records.js
@@ -24,6 +24,7 @@ const MAX_DESCRIPTION = 100;
 // folder -> where its server.json lives. web-tools' record is at the repo root, not in its folder,
 // which is a trap every publish run has to remember.
 const RECORDS = [
+  { folder: 'agent-guards', record: 'agent-guards/server.json' },
   { folder: 'package-guard-mcp', record: 'package-guard-mcp/server.json' },
   { folder: 'agent-firewall-mcp', record: 'agent-firewall-mcp/server.json' },
   { folder: 'payment-guard-mcp', record: 'payment-guard-mcp/server.json' },

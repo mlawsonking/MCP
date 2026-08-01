@@ -1,0 +1,17 @@
+- id: agent-guards-diff
+  name: agent-guards staged diff
+  description: Scan added lines for known secret, code, and injection patterns.
+  entry: node agent-guards/bin/guard.mjs diff
+  language: system
+  pass_filenames: false
+  always_run: true
+  stages: [pre-commit]
+
+- id: agent-guards-scan
+  name: agent-guards repository scan
+  description: Scan the working tree for known secret, code, and injection patterns.
+  entry: node agent-guards/bin/guard.mjs scan .
+  language: system
+  pass_filenames: false
+  always_run: true
+  stages: [manual]
