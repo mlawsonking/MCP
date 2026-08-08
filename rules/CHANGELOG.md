@@ -2,6 +2,15 @@
 
 Newest first. Written by scripts/build-rules-bundle.js.
 
+## 2026.08.08
+
+Generated 2026-08-08T05:12:30.539Z.
+
+- rules: injection 11, secrets 22, pii 3, code 31
+- OFAC EVM addresses: 104
+- scam addresses: 3182
+- malicious packages: 218985 npm, 11606 PyPI (26929 pinned to specific versions, 346 withdrawn advisories excluded)
+
 ## 2026.08.07
 
 Generated 2026-08-07T05:54:44.943Z.
