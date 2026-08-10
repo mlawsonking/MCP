@@ -166,11 +166,23 @@ function classifyBinary(stage, env) {
   const first = toks[0];
   if (!first) return null;
   if (/\$\(|`/.test(first)) return { dynamic: true };
-  const asVar = /^\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?$/.exec(first);
-  if (asVar) {
-    const value = Object.prototype.hasOwnProperty.call(env, asVar[1]) ? env[asVar[1]] : undefined;
-    if (typeof value === 'string' && value) return { names: binaryNames(value), from: asVar[1] };
-    return { unresolved: asVar[1] };
+  // An expansion does not have to be the whole word: `${X}sh`, `b${Z}ash` and `${UNSET:-bash}` all
+  // produce a command name. Only the plain $VAR and ${VAR} spellings can be read from an assignment
+  // in the same command line. Every other form (`${VAR:-default}`, `${VAR#trim}`, `${!indirect}`,
+  // `$((…))`) is computed while the shell runs, so it is reported rather than guessed at.
+  if (first.includes('$')) {
+    let firstUnknown = null;
+    const resolved = first.replace(/\$\{([A-Za-z_][A-Za-z0-9_]*)\}|\$([A-Za-z_][A-Za-z0-9_]*)/g, (m, braced, bare) => {
+      const name = braced || bare;
+      const value = Object.prototype.hasOwnProperty.call(env, name) ? env[name] : undefined;
+      if (typeof value === 'string' && value) return value;
+      if (!firstUnknown) firstUnknown = name;
+      return ' ';
+    });
+    if (resolved.includes(' ') || resolved.includes('$')) {
+      return { unresolved: firstUnknown || first, spelling: first };
+    }
+    return { names: binaryNames(resolved), from: first };
   }
   return { names: binaryNames(first) };
 }
@@ -190,12 +202,35 @@ function collectAssignments(stage, env) {
 
 // Decoding a blob and running the result is the same shape as downloading and running it, and the
 // blob does not have to arrive over the network.
+// A flag of null means the command only ever decompresses, so its presence is enough. Compression is
+// decoding: `zcat payload.gz | bash` hides what runs exactly as well as base64 does, and it does not
+// need the network to get the blob onto the machine.
 const DECODERS = [
   { bin: 'base64', flag: /^--?[A-Za-z]*[dD][A-Za-z]*$|^--decode$/ },
   { bin: 'base32', flag: /^--?[A-Za-z]*[dD][A-Za-z]*$|^--decode$/ },
   { bin: 'xxd', flag: /^-r$/ },
   { bin: 'openssl', flag: /^-d$/ },
   { bin: 'uudecode', flag: null },
+  { bin: 'gzip', flag: /^-[a-z]*d[a-z]*$|^--decompress$|^--uncompress$/ },
+  { bin: 'gunzip', flag: null },
+  { bin: 'zcat', flag: null },
+  { bin: 'xz', flag: /^-[a-z]*d[a-z]*$|^--decompress$/ },
+  { bin: 'unxz', flag: null },
+  { bin: 'xzcat', flag: null },
+  { bin: 'lzcat', flag: null },
+  { bin: 'bzip2', flag: /^-[a-z]*d[a-z]*$|^--decompress$/ },
+  { bin: 'bunzip2', flag: null },
+  { bin: 'bzcat', flag: null },
+  { bin: 'zstd', flag: /^-[a-z]*d[a-z]*$|^--decompress$/ },
+  { bin: 'unzstd', flag: null },
+  { bin: 'zstdcat', flag: null },
+  { bin: 'lz4', flag: /^-[a-z]*d[a-z]*$|^--decompress$/ },
+  { bin: 'brotli', flag: /^-[a-z]*d[a-z]*$|^--decompress$/ },
+  // Extraction only counts when the archive is written to stdout, which is what feeds a pipe.
+  { bin: 'tar', flag: /^-[A-Za-z]*O[A-Za-z]*$|^--to-stdout$/ },
+  { bin: 'unzip', flag: /^-[a-z]*p[a-z]*$/ },
+  { bin: '7z', flag: /^-so$/ },
+  { bin: '7za', flag: /^-so$/ },
 ];
 
 function isDecoder(stage) {
@@ -221,6 +256,14 @@ function split(command) {
     if (ch === '"' || ch === "'") { quote = ch; cur += ch; continue; }
     const two = text.slice(i, i + 2);
     if (two === '&&' || two === '||') { pipelines.push(cur); cur = ''; i++; continue; }
+    // A newline does not always end a command. A trailing backslash escapes it, and a line ending in
+    // `|` leaves the pipeline open. Both are ordinary README formatting, and treating them as
+    // terminators put the fetch and the shell in separate pipelines where nothing compared them.
+    if (ch === '\n') {
+      const trimmed = cur.replace(/[ \t\r]+$/, '');
+      if (trimmed.endsWith('\\')) { cur = `${trimmed.slice(0, -1)} `; continue; }
+      if (trimmed.endsWith('|')) { cur = `${trimmed} `; continue; }
+    }
     if (ch === ';' || ch === '\n') { pipelines.push(cur); cur = ''; continue; }
     cur += ch;
   }
@@ -399,7 +442,7 @@ function riskyPatterns(pipeline, env = Object.create(null)) {
         break;
       }
       if (target.unresolved) {
-        add('cmd-unresolved-exec', `The receiving end of this pipe is \`$${target.unresolved}\`, and its value is not set anywhere in this command, so what runs here is unknown. This check cannot clear it either way.`);
+        add('cmd-unresolved-exec', `The receiving end of this pipe is \`${target.spelling || '$' + target.unresolved}\`, and what it expands to is not knowable from this command, so what runs here is unknown. This check cannot clear it either way.`);
         break;
       }
       // A hook runs this on every Bash call, so an unexpected shape reports nothing rather than
@@ -412,7 +455,7 @@ function riskyPatterns(pipeline, env = Object.create(null)) {
       const inline = inlineProgram(tokenize(stages[j]), shell);
       if (inline !== null && !inlineProgramRunsStdin(inline)) continue;
 
-      const spelling = target.from ? `${shell} (via $${target.from})` : shell;
+      const spelling = target.from ? `${shell} (via ${target.from})` : shell;
       if (fetched) {
         add('cmd-remote-to-shell', `This downloads something and runs it immediately (\`${source.slice(0, 60)} | ${spelling}\`). Whatever that URL returns at the moment it is fetched gets executed, and nothing here has read it.`);
       } else {

