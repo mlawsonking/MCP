@@ -29,6 +29,13 @@ const VALUE_FLAGS = new Set([
 
 const SHELLS = new Set(['sh', 'bash', 'zsh', 'ksh', 'dash', 'fish', 'csh', 'tcsh', 'iex', 'invoke-expression', 'python', 'python3', 'perl', 'ruby', 'node']);
 
+// Interpreters that run what arrives on stdin, including the version-suffixed spellings that a
+// fixed list always misses: python3.12, node20, php8.2.
+const INTERPRETER_PATTERN = /^(sh|bash|zsh|ksh|dash|fish|csh|tcsh|ash|busybox|python|perl|ruby|node|deno|bun|php|lua|tclsh|wish|rscript|osascript|pwsh|powershell|iex|invoke-expression|wsl)[\d.]*$/;
+function isInterpreter(name) {
+  return SHELLS.has(name) || INTERPRETER_PATTERN.test(name);
+}
+
 // A heredoc is data for the command on the line above it, not another shell command. Claude Code
 // passes the whole Bash input to this parser, including heredoc bodies. Treating those bodies as
 // commands made prose in a commit message look like install arguments. Keep the command lines and
@@ -45,6 +52,13 @@ function heredocsOnLine(line) {
     if (quote) { if (ch === quote) quote = null; continue; }
     if (ch === '"' || ch === "'") { quote = ch; continue; }
     if (ch === '#' && (i === 0 || /\s/.test(line[i - 1]))) break;
+    // `$((1<<2))` is arithmetic, not a heredoc. Reading it as one made the delimiter `2))`, which
+    // never appeared again, so every following line was swallowed as a heredoc body.
+    if (ch === '$' && line[i + 1] === '(' && line[i + 2] === '(') {
+      const close = line.indexOf('))', i + 3);
+      i = close === -1 ? line.length : close + 1;
+      continue;
+    }
     if (ch !== '<' || line[i + 1] !== '<' || line[i + 2] === '<') continue;
 
     i += 2;
@@ -53,18 +67,42 @@ function heredocsOnLine(line) {
     while (/\s/.test(line[i] || '')) i++;
     if (i >= line.length) continue;
 
+    // The delimiter can be spelled with quotes or escapes anywhere in it: `<<E"OF"`, `<<EO\F` and
+    // `<<'EOF'` all end at a line reading EOF. Read the whole word, then take the quoting out.
     let delimiter = '';
-    const delimiterQuote = line[i] === '"' || line[i] === "'" ? line[i++] : null;
-    if (!delimiterQuote && line[i] === '\\') i++;
+    let inner = null;
     while (i < line.length) {
       const c = line[i];
-      if (delimiterQuote ? c === delimiterQuote : /[\s;|&()<>]/.test(c)) break;
+      if (inner) { if (c === inner) inner = null; else delimiter += c; i++; continue; }
+      if (c === '"' || c === "'") { inner = c; i++; continue; }
+      if (c === '\\') { if (line[i + 1] !== undefined) delimiter += line[i + 1]; i += 2; continue; }
+      if (/[\s;|&()<>]/.test(c)) break;
       delimiter += c;
       i++;
     }
     if (delimiter) found.push({ delimiter, stripTabs });
   }
   return found;
+}
+
+// A comment runs to the end of its line, and everything in it is prose. This matters more than it
+// sounds: `# don't run this by hand` has an apostrophe in it, and without this the apostrophe opened
+// a quote that swallowed every command after it, including a `curl … | bash` on the next line.
+function stripComments(text) {
+  let out = '';
+  let quote = null;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (quote) { out += ch; if (ch === quote) quote = null; continue; }
+    if (ch === "'" || ch === '"') { quote = ch; out += ch; continue; }
+    if (ch === '#' && (out === '' || /[\s;&|(]$/.test(out))) {
+      while (i < text.length && text[i] !== '\n') i++;
+      out += '\n';
+      continue;
+    }
+    out += ch;
+  }
+  return out;
 }
 
 function stripHeredocBodies(command) {
@@ -196,7 +234,11 @@ function effectiveCommand(stage) {
 // on this list, because it cannot be told apart from running your own script.
 // The boundary has to exclude a hyphen or `ssh-agent` reads as `ssh`, which made
 // `eval "$(ssh-agent -s)"` look like a download.
-const FETCHERS = /^(curl|wget|iwr|invoke-webrequest|fetch|aria2c|httpie|http|ssh)(?![\w-])/i;
+// Names, not a regex over raw text: the fetcher side has to be read exactly the way the target side
+// is, or `"curl" … | bash` and `C=curl; $C … | bash` slip past while `curl … | "bash"` is caught.
+const FETCHER_NAMES = new Set([
+  'curl', 'wget', 'iwr', 'invoke-webrequest', 'fetch', 'aria2c', 'httpie', 'http', 'ssh',
+]);
 
 // Builtins that run whatever their argument turns out to be.
 const EVAL_BUILTINS = new Set(['eval', 'source', '.', 'iex', 'invoke-expression']);
@@ -204,11 +246,23 @@ const EVAL_BUILTINS = new Set(['eval', 'source', '.', 'iex', 'invoke-expression'
 // Bytes can reach an interpreter without a pipe: `bash <(curl …)`, `source <(curl …)`,
 // `bash <<< "$(curl …)"`. The download still runs. Only a fetch or a decode inside the substitution
 // counts, so `diff <(sort a) <(sort b)` and `bash -c "echo $(date)"` stay quiet.
+// `curl … > >(bash)` and `curl … | tee >(bash)` send the download into an interpreter through an
+// output substitution rather than a pipe. Same bytes, same execution.
+function outputSubstitutionInterpreter(stage) {
+  for (const m of String(stage).matchAll(/>\s*\(([^()]*)\)/g)) {
+    const first = tokenize(effectiveCommand(m[1] || ''))[0];
+    if (!first) continue;
+    const name = binaryNames(first).find((n) => isInterpreter(n) || EVAL_BUILTINS.has(n));
+    if (name) return name;
+  }
+  return null;
+}
+
 function embeddedSource(stage) {
   for (const m of String(stage).matchAll(/<\(([^()]*)\)|\$\(([^()]*)\)|`([^`]*)`/g)) {
     const inner = effectiveCommand(m[1] || m[2] || m[3] || '');
     if (!inner) continue;
-    if (FETCHERS.test(inner.replace(/^\S*[\\/]/, ''))) return 'fetch';
+    if (binaryNames(tokenize(inner)[0] || '').some((n) => FETCHER_NAMES.has(n))) return 'fetch';
     if (isDecoder(inner)) return 'decode';
   }
   return null;
@@ -275,6 +329,9 @@ const DECODERS = [
   { bin: 'xxd', flag: /^-r$/ },
   { bin: 'openssl', flag: /^-d$/ },
   { bin: 'uudecode', flag: null },
+  { bin: 'basenc', flag: /^--?[A-Za-z]*[dD][A-Za-z]*$|^--decode$/ },
+  { bin: 'gpg', flag: /^-[a-z]*d[a-z]*$|^--decrypt$/ },
+  { bin: 'gpg2', flag: /^-[a-z]*d[a-z]*$|^--decrypt$/ },
   { bin: 'gzip', flag: /^-[a-z]*d[a-z]*$|^--decompress$|^--uncompress$/ },
   { bin: 'gunzip', flag: null },
   { bin: 'zcat', flag: null },
@@ -310,7 +367,7 @@ function isDecoder(stage) {
 // Split a command line into pipelines, then each pipeline into its stages. Operators inside quotes
 // are left alone; the scan tracks quoting as it goes.
 function split(command) {
-  const text = expandIfs(stripHeredocBodies(command));
+  const text = expandIfs(stripComments(stripHeredocBodies(command)));
   const pipelines = [];
   let cur = '';
   let quote = null;
@@ -320,6 +377,11 @@ function split(command) {
     if (ch === '"' || ch === "'") { quote = ch; cur += ch; continue; }
     const two = text.slice(i, i + 2);
     if (two === '&&' || two === '||') { pipelines.push(cur); cur = ''; i++; continue; }
+    // `|&` pipes stderr as well as stdout, and it is still a pipe.
+    if (two === '|&') { cur += '|'; i++; continue; }
+    // A lone `&` backgrounds what came before it and starts a new command, so `true & curl … | bash`
+    // is two commands, not one long one.
+    if (ch === '&') { pipelines.push(cur); cur = ''; continue; }
     // A newline does not always end a command. A trailing backslash escapes it, and a line ending in
     // `|` leaves the pipeline open. Both are ordinary README formatting, and treating them as
     // terminators put the fetch and the shell in separate pipelines where nothing compared them.
@@ -488,9 +550,28 @@ function inlineProgram(tokens, bare) {
 // Only the combination counts: reading stdin is ordinary, executing what it read is not.
 function inlineProgramRunsStdin(src) {
   if (!src) return false;
-  const readsStdin = /stdin|\/dev\/stdin|readFileSync\s*\(\s*0|\bARGF\b|\bfileinput\b/i.test(src);
+  // `open(0)`, `/dev/fd/0`, `$(cat)` and perl's `<>` are all spellings of "read what was piped in",
+  // and each one showed up in a real attempt to get around the exemption.
+  const readsStdin = /stdin|\/dev\/stdin|\/dev\/fd\/0|readFileSync\s*\(\s*0|open\s*\(\s*0|\bARGF\b|\bfileinput\b|\$\(\s*cat\s*\)|`\s*cat\s*`|<>|\bcat\b|\binput\s*\(/i.test(src);
   if (!readsStdin) return false;
-  return /\b(exec|eval|execfile|compile|Function|system|instance_eval)\b/i.test(src);
+  return /\b(exec|eval|execfile|compile|Function|system|instance_eval|source|subprocess|popen|spawn|do)\b|^\s*\.\s/i.test(src);
+}
+
+// `sh -c 'curl … | bash'` hides a whole command line inside an argument. The text is right there, so
+// it gets read the same way the outer one does. One level only: the point is to look inside a quoted
+// program, not to chase an unbounded chain.
+let nestingDepth = 0;
+function nestedRisk(program) {
+  if (!program || nestingDepth > 0) return false;
+  if (!/[|;&]|<\(|\$\(|`/.test(program)) return false;
+  nestingDepth += 1;
+  try {
+    return parse(program).risky.length > 0;
+  } catch {
+    return false;
+  } finally {
+    nestingDepth -= 1;
+  }
 }
 
 // Command shapes that are worth a word regardless of any package name. Both of these hand control of
@@ -505,8 +586,29 @@ function riskyPatterns(pipeline, env = Object.create(null)) {
   for (const stage of stages) {
     if (out.length) break;
     const target = classifyBinary(stage, env);
-    const name = target && target.names && target.names.find((n) => SHELLS.has(n) || EVAL_BUILTINS.has(n));
+
+    // `curl … > >(bash)` is one stage, and the interpreter is inside the redirect rather than at the
+    // far end of a pipe, so this runs before the check for what the stage itself is.
+    const outTarget = outputSubstitutionInterpreter(stage);
+    if (outTarget) {
+      const producerNames = (target && target.names) || [];
+      const isFetch = producerNames.some((n) => FETCHER_NAMES.has(n));
+      if (isFetch || isDecoder(effectiveCommand(stage))) {
+        add(isFetch ? 'cmd-remote-to-shell' : 'cmd-decode-to-shell', `This sends what it ${isFetch ? 'downloads' : 'decodes'} straight into \`${outTarget}\` through an output substitution (\`${stage.trim().slice(0, 50)}\`), which runs it without a pipe ever appearing.`);
+        continue;
+      }
+    }
+
+    const name = target && target.names && target.names.find((n) => isInterpreter(n) || EVAL_BUILTINS.has(n));
     if (!name) continue;
+
+    // `sh -c 'curl … | bash'` carries a whole command line as an argument. Read it.
+    const carried = inlineProgram(tokenize(stage), name);
+    if (carried && nestedRisk(carried)) {
+      add('cmd-remote-to-shell', `This runs a command line handed to \`${name}\` as an argument (\`${String(carried).slice(0, 50)}\`), and that command line downloads or decodes something and runs it.`);
+      continue;
+    }
+
     const embedded = embeddedSource(stage);
     if (!embedded) continue;
     if (embedded === 'fetch') {
@@ -521,13 +623,35 @@ function riskyPatterns(pipeline, env = Object.create(null)) {
   // direct or has something in between.
   for (let i = 0; i < stages.length - 1 && !out.length; i++) {
     const source = effectiveCommand(stages[i]);
-    const fetched = FETCHERS.test(source.replace(/^\S*[\\/]/, ''));
+    // The producing side goes through the same reading as the receiving side. Anything less makes
+    // the quoting and variable work above apply to only half the pipe.
+    const producer = classifyBinary(stages[i], env);
+    const fetched = !!(producer && (producer.names || []).some((n) => FETCHER_NAMES.has(n)));
     const decoded = isDecoder(source);
-    if (!fetched && !decoded) continue;
+    const producerUnknown = !!(producer && (producer.dynamic || producer.unresolved));
+    if (!fetched && !decoded && !producerUnknown) continue;
+
+    // The interpreter can be on the other side of a `>(…)` instead of downstream of the pipe.
+    const viaOutput = outputSubstitutionInterpreter(stages[i]) || (stages[i + 1] && outputSubstitutionInterpreter(stages[i + 1]));
+    if (viaOutput) {
+      add(fetched ? 'cmd-remote-to-shell' : 'cmd-decode-to-shell', `This sends what it ${fetched ? 'downloads' : 'decodes'} straight into \`${viaOutput}\` through an output substitution (\`${stages[i].trim().slice(0, 50)}\`), which runs it without a pipe ever appearing.`);
+      break;
+    }
 
     for (let j = i + 1; j < stages.length; j++) {
       const target = classifyBinary(stages[j], env);
       if (!target) continue;
+
+      // An unreadable producer only matters when something runs what it produces. `$X | jq .` is
+      // nobody's business; `$X | bash` is.
+      if (producerUnknown) {
+        const runs = (target.names || []).find((n) => isInterpreter(n));
+        if (!runs) continue;
+        const inlineHere = inlineProgram(tokenize(stages[j]), runs);
+        if (inlineHere !== null && !inlineProgramRunsStdin(inlineHere)) continue;
+        add('cmd-unresolved-exec', `What feeds this pipe is \`${stages[i].trim().slice(0, 40)}\`, which is built while the command runs, and \`${runs}\` executes whatever it produces. Neither half can be read beforehand, so this check cannot clear it either way.`);
+        break;
+      }
 
       if (target.dynamic) {
         add('cmd-dynamic-exec', `The command on the receiving end of this pipe is built by another command (\`${stages[j].trim().slice(0, 40)}\`), so what actually runs cannot be read before it runs. This check cannot clear it either way.`);
@@ -539,13 +663,13 @@ function riskyPatterns(pipeline, env = Object.create(null)) {
       }
       // A hook runs this on every Bash call, so an unexpected shape reports nothing rather than
       // throwing and taking the tool call down with it.
-      const shell = (target.names || []).find((n) => SHELLS.has(n));
+      const shell = (target.names || []).find((n) => isInterpreter(n));
       if (!shell) continue;
 
       // `… | python -c '<script>'` runs the script written right there and reads the pipe as data.
       // That is a pipe into a parser, not a download being executed.
       const inline = inlineProgram(tokenize(stages[j]), shell);
-      if (inline !== null && !inlineProgramRunsStdin(inline)) continue;
+      if (inline !== null && !inlineProgramRunsStdin(inline) && !nestedRisk(inline)) continue;
 
       const spelling = target.from ? `${shell} (via ${target.from})` : shell;
       if (fetched) {
