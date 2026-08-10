@@ -15,6 +15,12 @@ jobs:
           node-version: 20
       - name: shared libs in sync
         run: node scripts/sync-shared.js --check
+      # An installed plugin is cached under its version number, so a fix shipped without a version
+      # bump reports "already at the latest version" and reaches nobody who already installed. This
+      # ran green on a rule fix that was live in the repo and still not running on the machine that
+      # reported the bug. Rule freshness is the reason to keep the plugin, so this is not cosmetic.
+      - name: plugin version covers what the plugin ships
+        run: node scripts/check-plugin-version.js
       # Publishing to the MCP registry needs an interactive PAT that expires in about an hour, so a
       # publish run is scarce. Everything that can be checked without one is checked here instead.
       # A 1.1.0 run was already lost to a description being 112 characters against a 100 limit.
