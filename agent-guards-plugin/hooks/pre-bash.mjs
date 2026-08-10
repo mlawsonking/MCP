@@ -29,8 +29,21 @@ await run('install', async () => {
 
   // Cheap prefilter. Everything below this line is skipped for the ordinary `ls`, `git status`,
   // `cd` and `npm run build` that make up most of what an agent runs.
-  if (!/(^|[\s;&|(])(npm|pnpm|yarn|bun|bunx|npx|pip|pip3|pipx|uv|poetry|python3?)([\s;&|)]|$)/.test(command)
-      && !command.includes('|') && !/\biex\b|\binvoke-expression\b/i.test(command)) silent();
+  //
+  // It has to wake on everything the engine can find, or a rule that works in the tests never runs
+  // here. That happened: `bash <(curl …)`, `source <(curl …)` and `eval "$(curl …)"` have no pipe
+  // and no package manager in them, so they were dropped before the parser ever saw them. A check
+  // that did not run is not a check that passed.
+  const WORTH_PARSING = [
+    /(^|[\s;&|(])(npm|pnpm|yarn|bun|bunx|npx|pip|pip3|pipx|uv|poetry|python3?)([\s;&|)]|$)/,
+    /\|/,
+    /\biex\b|\binvoke-expression\b/i,
+    /<\(/,                                   // process substitution: bash <(curl …)
+    /<<</,                                   // here-string: bash <<< "$(curl …)"
+    /(^|[\s;&(])(eval|source|\.)\s/,         // eval "$(curl …)", source <(curl …)
+    /\$\(|`/,                                // any command substitution in an execution position
+  ];
+  if (!WORTH_PARSING.some((re) => re.test(command))) silent();
 
   const { parse } = require('../core/engines/shellcmd.js');
   const parsed = parse(command);

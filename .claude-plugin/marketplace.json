@@ -10,7 +10,7 @@
       "name": "agent-guards",
       "source": "./agent-guards-plugin",
       "description": "Deterministic security checks in Claude Code's path: package names before an install, secrets and code rules on what was just written, injection and Unicode-obfuscation patterns in fetched pages. No network call in any hook, no model in any check.",
-      "version": "1.0.5",
+      "version": "1.0.6",
       "author": {
         "name": "mlawsonking"
       },
