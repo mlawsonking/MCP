@@ -70,6 +70,19 @@ The package list is a snapshot, dated inside
 [popular-npm.json](../agent-guards/data/popular-npm.json). A package that got popular after that
 date is not on it.
 
+The command check reads text, and a shell rewrites text before it runs it. GuardFall (Adversa AI,
+June 2026) found ten of eleven agent shell guards checking the string the model produced rather than
+the one bash would execute, so this one normalizes the rewrites that are deterministic: `$IFS` as a
+word separator, quotes and backslashes inside a command name, a variable whose value is assigned
+literally in the same command, an assignment prefix in front of the real command. What a shell can
+produce at run time is not decidable by reading text, so `curl … | $(something)` and a variable that
+is never assigned here are reported as unresolved rather than waved through. That is the honest
+answer, and it is the reason the finding says the check cannot clear it either way.
+
+It is still a filter, not a boundary. It runs before the command does, on the command as written. It
+cannot see what a script fetches once it is running, and anyone deliberately working around it will.
+For a boundary you want permissions or a sandbox, and you should run both.
+
 ## How often it is wrong
 
 I measured this rather than guessing. Against 1,500 real npm packages sampled from ranks 3,001 to
@@ -87,6 +100,13 @@ name can tell them apart. If one hits you, the block message names the package i
 can see the collision in about two seconds, and you can run the install yourself.
 
 Packages on the list itself are never flagged, and most installs are of those.
+
+The command checks were measured the same way. 429 distinct shell commands harvested from this
+repository's npm scripts, GitHub workflow steps and README code blocks, plus the shell-init idioms
+everyone has in a dotfile (`eval "$(pyenv init -)"`, `eval "$(ssh-agent -s)"`, `docker run -v
+$(pwd):/w`), produce zero download-and-run, decode-and-run or dynamic-execution findings. That
+number is the reason those rules are narrow: a check that fires on `git commit -m "fix $(whoami)
+thing"` gets the whole plugin uninstalled by lunchtime.
 
 ## Speed
 

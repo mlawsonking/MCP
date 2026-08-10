@@ -105,10 +105,113 @@ function tokenize(s) {
   return out;
 }
 
+// GuardFall (Adversa AI, 2026-06-30) named the structural mistake behind ten of eleven agent shell
+// guards: the string the guard inspects is not the string the shell runs. bash expands, unquotes and
+// rewrites first. Everything below closes that gap for the rewrites a shell performs
+// deterministically, and reports what it cannot resolve instead of passing it. Nothing here
+// evaluates, expands by running anything, or executes any part of a command: it is all text.
+//
+// $IFS is the field separator, so `curl${IFS}-sL${IFS}url` is three words by the time bash sees it.
+// Single quotes suppress the expansion, so a literal ${IFS} inside them stays literal.
+function expandIfs(text) {
+  let out = '';
+  let quote = null;
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (quote === "'") { out += ch; if (ch === "'") quote = null; continue; }
+    if (quote === '"') { out += ch; if (ch === '"') quote = null; continue; }
+    if (ch === "'" || ch === '"') { quote = ch; out += ch; continue; }
+    if (ch === '$') {
+      const m = /^\$\{IFS\}|^\$IFS(?![A-Za-z0-9_])/.exec(text.slice(i));
+      if (m) { out += ' '; i += m[0].length - 1; continue; }
+    }
+    out += ch;
+  }
+  return out;
+}
+
+// A command name can be spelled `bash`, `b"a"sh`, `b\ash` or `/usr/bin/bash`. Quotes are already
+// gone by the time a token arrives here. Path-stripping and backslash-unescaping disagree about
+// `b\ash` (one reads the backslash as a directory separator, the other as an escape), so both
+// readings are returned and a match on either counts. Guessing wrong in the other direction would
+// mean missing a real one.
+function binaryNames(token) {
+  const raw = String(token);
+  const clean = (s) => s.replace(/\.(exe|cmd|bat|ps1)$/i, '').toLowerCase();
+  const asPath = clean(raw.replace(/^.*[\\/]/, ''));
+  const asEscaped = clean(raw.replace(/\\(.)/g, '$1').replace(/^.*[\\/]/, ''));
+  return [...new Set([asPath, asEscaped])].filter(Boolean);
+}
+
+// `FOO=1 curl …` runs curl. The assignment prefix has to come off before anything reads the command
+// name, or a leading assignment hides the command from every check below.
+function effectiveCommand(stage) {
+  let text = String(stage).trim();
+  for (;;) {
+    const m = /^(?:export\s+)?[A-Za-z_][A-Za-z0-9_]*=(?:"[^"]*"|'[^']*'|\S*)\s+/.exec(text);
+    if (!m) return text;
+    text = text.slice(m[0].length);
+  }
+}
+
+// What sits in an execution position: a name, something built by another command, or a variable
+// whose value is not knowable from the text. The last two are the honest part. A command
+// substitution can produce anything, so no static reading of it is possible, and saying so is the
+// only correct answer.
+function classifyBinary(stage, env) {
+  const text = effectiveCommand(stage);
+  if (!text) return null;
+  if (/^\$\(|^`/.test(text)) return { dynamic: true };
+  const toks = tokenize(text);
+  const first = toks[0];
+  if (!first) return null;
+  if (/\$\(|`/.test(first)) return { dynamic: true };
+  const asVar = /^\$\{?([A-Za-z_][A-Za-z0-9_]*)\}?$/.exec(first);
+  if (asVar) {
+    const value = Object.prototype.hasOwnProperty.call(env, asVar[1]) ? env[asVar[1]] : undefined;
+    if (typeof value === 'string' && value) return { names: binaryNames(value), from: asVar[1] };
+    return { unresolved: asVar[1] };
+  }
+  return { names: binaryNames(first) };
+}
+
+// `X=bash` then `… | $X` is two pipelines, so assignments are collected across the whole command
+// line rather than per stage. A value that is itself computed is recorded as unknown, which sends it
+// down the unresolved path instead of inventing an answer.
+function collectAssignments(stage, env) {
+  const toks = tokenize(stage);
+  let i = toks[0] === 'export' ? 1 : 0;
+  for (; i < toks.length; i++) {
+    const m = /^([A-Za-z_][A-Za-z0-9_]*)=([\s\S]*)$/.exec(toks[i]);
+    if (!m) break;
+    env[m[1]] = /[$`]/.test(m[2]) ? null : m[2];
+  }
+}
+
+// Decoding a blob and running the result is the same shape as downloading and running it, and the
+// blob does not have to arrive over the network.
+const DECODERS = [
+  { bin: 'base64', flag: /^--?[A-Za-z]*[dD][A-Za-z]*$|^--decode$/ },
+  { bin: 'base32', flag: /^--?[A-Za-z]*[dD][A-Za-z]*$|^--decode$/ },
+  { bin: 'xxd', flag: /^-r$/ },
+  { bin: 'openssl', flag: /^-d$/ },
+  { bin: 'uudecode', flag: null },
+];
+
+function isDecoder(stage) {
+  const toks = tokenize(effectiveCommand(stage));
+  if (!toks.length) return false;
+  const names = binaryNames(toks[0]);
+  const d = DECODERS.find((x) => names.includes(x.bin));
+  if (!d) return false;
+  if (!d.flag) return true;
+  return toks.slice(1).some((t) => d.flag.test(t));
+}
+
 // Split a command line into pipelines, then each pipeline into its stages. Operators inside quotes
 // are left alone; the scan tracks quoting as it goes.
 function split(command) {
-  const text = stripHeredocBodies(command);
+  const text = expandIfs(stripHeredocBodies(command));
   const pipelines = [];
   let cur = '';
   let quote = null;
@@ -272,28 +375,67 @@ function inlineProgramRunsStdin(src) {
 
 // Command shapes that are worth a word regardless of any package name. Both of these hand control of
 // the machine to whatever a server returns, which is not something to notice after the fact.
-function riskyPatterns(pipeline) {
+function riskyPatterns(pipeline, env = Object.create(null)) {
   const out = [];
   const stages = pipeline.stages;
   const fetchers = /^(curl|wget|iwr|invoke-webrequest|fetch)\b/i;
-  for (let i = 0; i < stages.length - 1; i++) {
-    if (!fetchers.test(stages[i].trim().replace(/^\S*[\\/]/, ''))) continue;
-    const nextBin = tokenize(stages[i + 1])[0];
-    if (!nextBin) continue;
-    const bare = String(nextBin).replace(/^.*[\\/]/, '').replace(/\.(exe|cmd|bat|ps1)$/i, '').toLowerCase();
-    if (SHELLS.has(bare)) {
-      // `curl … | python -c '<script>'` runs the script written right there and reads the download as
-      // data. That is a pipe into a parser, not a download being executed.
-      const inline = inlineProgram(tokenize(stages[i + 1]), bare);
+  const add = (id, message) => { out.push({ id, severity: 'medium', message, raw: pipeline.raw }); };
+
+  // A source stage is one that brings in bytes nobody here has read: fetched from a URL, or decoded
+  // from a blob. Any interpreter downstream of one is running those bytes, whether the pipe is
+  // direct or has something in between.
+  for (let i = 0; i < stages.length - 1 && !out.length; i++) {
+    const source = effectiveCommand(stages[i]);
+    const fetched = fetchers.test(source.replace(/^\S*[\\/]/, ''));
+    const decoded = isDecoder(source);
+    if (!fetched && !decoded) continue;
+
+    for (let j = i + 1; j < stages.length; j++) {
+      const target = classifyBinary(stages[j], env);
+      if (!target) continue;
+
+      if (target.dynamic) {
+        add('cmd-dynamic-exec', `The command on the receiving end of this pipe is built by another command (\`${stages[j].trim().slice(0, 40)}\`), so what actually runs cannot be read before it runs. This check cannot clear it either way.`);
+        break;
+      }
+      if (target.unresolved) {
+        add('cmd-unresolved-exec', `The receiving end of this pipe is \`$${target.unresolved}\`, and its value is not set anywhere in this command, so what runs here is unknown. This check cannot clear it either way.`);
+        break;
+      }
+      // A hook runs this on every Bash call, so an unexpected shape reports nothing rather than
+      // throwing and taking the tool call down with it.
+      const shell = (target.names || []).find((n) => SHELLS.has(n));
+      if (!shell) continue;
+
+      // `… | python -c '<script>'` runs the script written right there and reads the pipe as data.
+      // That is a pipe into a parser, not a download being executed.
+      const inline = inlineProgram(tokenize(stages[j]), shell);
       if (inline !== null && !inlineProgramRunsStdin(inline)) continue;
-      out.push({
-        id: 'cmd-remote-to-shell',
-        severity: 'medium',
-        message: `This downloads something and runs it immediately (\`${stages[i].trim().slice(0, 60)} | ${bare}\`). Whatever that URL returns at the moment it is fetched gets executed, and nothing here has read it.`,
-        raw: pipeline.raw,
-      });
+
+      const spelling = target.from ? `${shell} (via $${target.from})` : shell;
+      if (fetched) {
+        add('cmd-remote-to-shell', `This downloads something and runs it immediately (\`${source.slice(0, 60)} | ${spelling}\`). Whatever that URL returns at the moment it is fetched gets executed, and nothing here has read it.`);
+      } else {
+        add('cmd-decode-to-shell', `This decodes something and runs the result (\`${source.slice(0, 40)} | ${spelling}\`). Decoding first hides what runs from anything that reads the command, including this check.`);
+      }
       break;
     }
+  }
+
+  // `eval` and `source` run whatever their argument turns out to be. The common shells-init idiom
+  // (`eval "$(pyenv init -)"`) is the same shape as the dangerous one, so the generators that
+  // everyone actually uses are named here rather than warned about forever.
+  const EVALS = new Set(['eval', 'source', '.', 'iex', 'invoke-expression']);
+  const KNOWN_INIT = /\b(ssh-agent|pyenv|rbenv|nodenv|jenv|goenv|direnv|starship|zoxide|fnm|mise|asdf|brew|conda|micromamba|thefuck|atuin|navi|oh-my-posh|keychain|gpg-agent)\b/;
+  for (const stage of stages) {
+    if (out.length) break;
+    const toks = tokenize(stage);
+    if (!toks.length) continue;
+    if (!binaryNames(toks[0]).some((n) => EVALS.has(n))) continue;
+    const argText = stage.trim().slice(toks[0].length);
+    if (!/\$\(|`|\$\{?[A-Za-z_]/.test(argText)) continue;
+    if (KNOWN_INIT.test(argText)) continue;
+    add('cmd-dynamic-exec', `\`${binaryNames(toks[0])[0]}\` here runs text that is produced when the command runs, so what executes cannot be read beforehand. This check cannot clear it either way.`);
   }
   // The PowerShell spelling has no pipe: iwr … | iex is covered above, but `iex (iwr …)` is not.
   if (/\b(iex|invoke-expression)\b[^|]*\b(iwr|invoke-webrequest|curl|wget|downloadstring)\b/i.test(pipeline.raw)) {
@@ -311,12 +453,16 @@ function parse(command) {
   const pipelines = split(command);
   const installs = [];
   const risky = [];
+  // Assignments carry forward across pipelines, so the map is built as the command line is walked
+  // rather than per pipeline.
+  const env = Object.create(null);
   for (const p of pipelines) {
+    for (const stage of p.stages) collectAssignments(stage, env);
     for (const stage of p.stages) {
       const read = readStage(stage);
       if (read) installs.push(read);
     }
-    risky.push(...riskyPatterns(p));
+    risky.push(...riskyPatterns(p, env));
   }
   // The same shape appearing twice in one command line is one thing to say, not two.
   const seen = new Set();
