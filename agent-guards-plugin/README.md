@@ -79,6 +79,13 @@ produce at run time is not decidable by reading text, so `curl … | $(something
 is never assigned here are reported as unresolved rather than waved through. That is the honest
 answer, and it is the reason the finding says the check cannot clear it either way.
 
+Six agents then attacked that fix and found 95 more candidate spellings; 77 are caught, and the ones
+that are not are written down rather than quietly dropped. What remains is mostly a local file
+reaching an interpreter, which is the same shape as running your own script: `cat deploy.sh | bash`,
+`bash < script.sh`, `tr … < payload | bash`. There is no reading of the text that separates those
+from ordinary work, so they stay quiet on purpose. The other gap is a download written to disk in one
+command and run in a later one.
+
 It is still a filter, not a boundary. It runs before the command does, on the command as written. It
 cannot see what a script fetches once it is running, and anyone deliberately working around it will.
 For a boundary you want permissions or a sandbox, and you should run both.
