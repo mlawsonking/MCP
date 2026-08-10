@@ -241,6 +241,38 @@ function readStage(stage) {
   return { manager, ecosystem, action, packages, skipped, flags, raw: stage.trim() };
 }
 
+// Interpreters that can take their program as an argument instead of reading it from stdin. Keyed by
+// the flag that carries the program.
+const INLINE_PROGRAM_FLAGS = {
+  python: ['-c'], python3: ['-c'], perl: ['-e'], ruby: ['-e'],
+  node: ['-e', '-p', '--eval', '--print'],
+  sh: ['-c'], bash: ['-c'], zsh: ['-c'], ksh: ['-c'], dash: ['-c'], fish: ['-c'], csh: ['-c'], tcsh: ['-c'],
+};
+
+// Returns the program text when the interpreter was handed one on the command line, otherwise null.
+// `python -` and a bare `python` both read the program from stdin, and `bash -s` does too, so those
+// return null and stay on the risky path. -m is deliberately absent: `python -m code` runs whatever
+// arrives on stdin, so a module name is not a promise that stdin is data.
+function inlineProgram(tokens, bare) {
+  const flags = INLINE_PROGRAM_FLAGS[bare];
+  if (!flags) return null;
+  for (let i = 1; i < tokens.length; i++) {
+    const tok = String(tokens[i]);
+    if (tok === '-') return null;
+    if (flags.includes(tok)) return tokens[i + 1] === undefined ? '' : String(tokens[i + 1]);
+  }
+  return null;
+}
+
+// An inline script can still read stdin and execute it, which is the original shape wearing a hat.
+// Only the combination counts: reading stdin is ordinary, executing what it read is not.
+function inlineProgramRunsStdin(src) {
+  if (!src) return false;
+  const readsStdin = /stdin|\/dev\/stdin|readFileSync\s*\(\s*0|\bARGF\b|\bfileinput\b/i.test(src);
+  if (!readsStdin) return false;
+  return /\b(exec|eval|execfile|compile|Function|system|instance_eval)\b/i.test(src);
+}
+
 // Command shapes that are worth a word regardless of any package name. Both of these hand control of
 // the machine to whatever a server returns, which is not something to notice after the fact.
 function riskyPatterns(pipeline) {
@@ -253,6 +285,10 @@ function riskyPatterns(pipeline) {
     if (!nextBin) continue;
     const bare = String(nextBin).replace(/^.*[\\/]/, '').replace(/\.(exe|cmd|bat|ps1)$/i, '').toLowerCase();
     if (SHELLS.has(bare)) {
+      // `curl … | python -c '<script>'` runs the script written right there and reads the download as
+      // data. That is a pipe into a parser, not a download being executed.
+      const inline = inlineProgram(tokenize(stages[i + 1]), bare);
+      if (inline !== null && !inlineProgramRunsStdin(inline)) continue;
       out.push({
         id: 'cmd-remote-to-shell',
         severity: 'medium',
