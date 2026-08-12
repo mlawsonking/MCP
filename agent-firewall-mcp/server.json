@@ -7,12 +7,12 @@
     "source": "github",
     "subfolder": "agent-firewall-mcp"
   },
-  "version": "1.3.0",
+  "version": "1.4.0",
   "packages": [
     {
       "registryType": "npm",
       "identifier": "agent-firewall-mcp",
-      "version": "1.3.0",
+      "version": "1.4.0",
       "transport": {
         "type": "stdio"
       }
