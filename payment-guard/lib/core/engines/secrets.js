@@ -61,6 +61,9 @@ const SECRET_RULES = [
   { id: 'generic-secret', type: 'Generic Secret Assignment', re: /\b(api[_-]?key|secret|passwd|password|token)\b\s*[:=]\s*['"]([^'"\s]{8,})['"]/gi, severity: 'medium', vg: 2 },
 ];
 
+// Addresses that are reserved by RFC and cannot resolve to a real mailbox.
+const RESERVED_DOMAIN = /@(?:[A-Za-z0-9.-]*\.)?(?:test|example|invalid|localhost)$|@(?:[A-Za-z0-9.-]*\.)?example\.(?:com|net|org)$/i;
+
 const PII_RULES = [
   { id: 'email', type: 'Email', re: /\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}\b/g, severity: 'low', vg: 0 },
   { id: 'ssn', type: 'US SSN', re: /\b\d{3}-\d{2}-\d{4}\b/g, severity: 'high', vg: 0 },
@@ -99,6 +102,11 @@ function scan(text) {
         // report a finding we would leave in the output.
         if (val === undefined) { if (!r.re.global) break; continue; }
         if (r.luhn && !luhn(val)) { if (!r.re.global) break; continue; }
+        // RFC 2606 and 6761 set aside .test, .example, .invalid and .localhost (and example.com/net/org)
+        // precisely so documentation and tests have addresses that can never belong to anyone. Calling
+        // those personal data is noise, and noise is what gets a scanner switched off. This engine's
+        // own test fixtures tripped it.
+        if (r.id === 'email' && RESERVED_DOMAIN.test(val)) { if (!r.re.global) break; continue; }
         const start = vg === 0 ? m.index : m.index + m[0].indexOf(val);
         spans.push({ start, end: start + val.length, type: r.type });
         findings.push({ id: r.id, kind, type: r.type, severity: r.severity, preview: maskSecret(val), index: start });

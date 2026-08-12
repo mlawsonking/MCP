@@ -314,11 +314,21 @@ function inspect(name, ecosystem = 'npm', opts = {}) {
   checks.skipped('package-contents', 'nothing here downloads or inspects package contents, in any mode');
 
   const worstSeverity = findings.reduce((a, f) => Math.max(a, f.severity === 'critical' ? 2 : 1), 0);
-  const verdict = worstSeverity === 2 ? 'danger' : worstSeverity === 1 ? 'caution' : 'safe';
+  let verdict = worstSeverity === 2 ? 'danger' : worstSeverity === 1 ? 'caution' : 'safe';
 
-  // `stamp` downgrades a verdict when a check was skipped, and here four are skipped by design, so
-  // pass the checks for reporting but keep the verdict this engine actually reached. The honesty is
-  // carried by `local_only` and by the skipped list itself, both of which the caller must show.
+  // The four network checks above are skipped by design in this engine, so their absence must not
+  // move the verdict: that is what `local_only` and the skipped list are for. The comparison list is
+  // different. It is the ONLY thing this engine checks a name against, it ships inside the package,
+  // and when it fails to load there is no name check at all. Reporting "safe" then is a check that
+  // did not run being read as a pass, which is the worst bug this codebase can ship.
+  //
+  // This is not hypothetical. Published 0.3.0 omitted `data/` from its npm `files` list, so every
+  // install answered `safe` for `crossenv`, a real npm typosquat attack. The `files` entry is fixed
+  // and a tarball test now guards it; this is the second lock, so that a list which cannot load can
+  // never again read as a clean name.
+  const listMissing = !list.available;
+  if (listMissing && verdict === 'safe') verdict = 'unknown';
+
   const out = stamp({
     ok: true,
     name: raw,
@@ -326,9 +336,11 @@ function inspect(name, ecosystem = 'npm', opts = {}) {
     verdict,
     findings,
     local_only: true,
-    summary: verdict === 'safe'
-      ? `Nothing in the name "${raw}" resembles a known popular package closely enough to flag. The registry, OSV and the package contents were not consulted, so this is not a statement that the package is safe.`
-      : findings.map((f) => f.message).join(' '),
+    summary: listMissing
+      ? `The bundled list of popular package names could not be loaded, so the name "${raw}" was not compared against anything. This is not a result: nothing was checked.`
+      : verdict === 'safe'
+        ? `Nothing in the name "${raw}" resembles a known popular package closely enough to flag. The registry, OSV and the package contents were not consulted, so this is not a statement that the package is safe.`
+        : findings.map((f) => f.message).join(' '),
     list_generated: list.available ? list.generated : null,
     list_size: list.available ? list.size : 0,
   }, { checks, rulesVersion: NAME_RULES_VERSION });

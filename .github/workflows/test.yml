@@ -21,6 +21,12 @@ jobs:
       # reported the bug. Rule freshness is the reason to keep the plugin, so this is not cosmetic.
       - name: plugin version covers what the plugin ships
         run: node scripts/check-plugin-version.js
+      # Published 0.3.0 shipped without data/, so every install answered "safe" for crossenv, a real
+      # npm typosquat, while every test in this repo passed because the repo has the file. This packs
+      # the artifact, installs it into an empty directory and runs real checks through it. A source
+      # tree cannot see what npm leaves out.
+      - name: the published artifact still works
+        run: node scripts/test-tarball.js
       # Publishing to the MCP registry needs an interactive PAT that expires in about an hour, so a
       # publish run is scarce. Everything that can be checked without one is checked here instead.
       # A 1.1.0 run was already lost to a description being 112 characters against a 100 limit.

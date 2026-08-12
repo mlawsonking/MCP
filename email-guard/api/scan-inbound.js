@@ -1,6 +1,9 @@
 // scan-inbound — the "AI agent phishing" defense. Before an agent ACTS on an email, check whether the email
 // is trying to hijack it (prompt injection / hidden payloads) or phish it (spoofed sender, risky links).
-// Returns a verdict + SAFE structured metadata (so the agent acts on facts, not the raw injection-laden body).
+// Returns a verdict plus the message reduced to fields. The fields are NOT sanitised: subject,
+// sender, link urls and finding matches hold the email verbatim, so an agent must keep treating them
+// as untrusted data. What this buys is a smaller, labelled surface to act on instead of the whole
+// raw body, not content that has been made safe.
 // POST { "email": "<raw RFC822>" }  OR  POST { from, subject, body, html, headers, replyTo, returnPath }
 const { sendJson, handleOptions, track, upgradeInfo } = require('../lib/common.js');
 const { scanInjection, analyzeUrl, getDomainAgeDays } = require('../lib/safety.js');

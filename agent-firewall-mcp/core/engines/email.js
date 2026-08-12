@@ -26,13 +26,96 @@ function parseAddress(str) {
   return { display, email: /@/.test(email) ? email : '', domain };
 }
 
+// A body is not always the text a reader sees. Mail routinely arrives base64 or quoted-printable
+// encoded, and multipart mail carries several parts with their own encodings. Scanning the raw block
+// meant scanning the encoding, not the message: a base64 `text/plain` body carrying the same
+// injection this engine catches in plain text scored zero, because the scanner was reading
+// "SWdub3JlIGFsbCBwcmV2aW91cyBpbnN0cnVjdGlvbnM=" and no rule matches that. Decoding is not a nicety
+// here; without it the engine does not do the job its name claims.
+function decodeTransfer(text, encoding) {
+  const enc = String(encoding || '').trim().toLowerCase();
+  const src = String(text || '');
+  try {
+    if (enc === 'base64') {
+      const clean = src.replace(/[^A-Za-z0-9+/=]/g, '');
+      if (!clean) return '';
+      return Buffer.from(clean, 'base64').toString('utf8');
+    }
+    if (enc === 'quoted-printable') {
+      return src
+        .replace(/=\r?\n/g, '')
+        .replace(/=([0-9A-Fa-f]{2})/g, (_, h) => String.fromCharCode(parseInt(h, 16)));
+    }
+  } catch { return src; }
+  return src;
+}
+
+// RFC 2047: `Subject: =?utf-8?B?…?=` renders as ordinary text in every mail client, so a brand
+// spoof or an instruction can hide in a header the same way it hides in a body.
+function decodeEncodedWords(text) {
+  return String(text || '').replace(
+    /=\?([^?]+)\?([BbQq])\?([^?]*)\?=/g,
+    (whole, charset, kind, data) => {
+      try {
+        if (/^b$/i.test(kind)) return Buffer.from(data, 'base64').toString('utf8');
+        return data.replace(/_/g, ' ').replace(/=([0-9A-Fa-f]{2})/g, (_, h) => String.fromCharCode(parseInt(h, 16)));
+      } catch { return whole; }
+    },
+  );
+}
+
+function contentTypeOf(headers) {
+  return String(headers['content-type'] || '');
+}
+
+function boundaryOf(headers) {
+  const m = contentTypeOf(headers).match(/boundary\s*=\s*"?([^";\r\n]+)"?/i);
+  return m ? m[1].trim() : null;
+}
+
+// Walk a multipart body into its decoded leaves. Depth-limited because a crafted message can nest
+// parts forever, and this runs inside a hook.
+function walkParts(body, headers, depth, out) {
+  if (depth > 6) return;
+  const boundary = boundaryOf(headers);
+  const ctype = contentTypeOf(headers).toLowerCase();
+
+  if (!boundary || !/^multipart\//.test(ctype.trim())) {
+    const decoded = decodeTransfer(body, headers['content-transfer-encoding']);
+    if (!decoded) return;
+    if (/text\/html/i.test(ctype)) out.html.push(decoded);
+    else out.text.push(decoded);
+    return;
+  }
+
+  const marker = `--${boundary}`;
+  const segments = String(body).split(marker);
+  for (const segment of segments) {
+    const chunk = segment.replace(/^\r?\n/, '');
+    if (!chunk.trim() || chunk.trim() === '--') continue;
+    const split = chunk.search(/\r?\n\r?\n/);
+    const partHeaders = parseHeaders(split >= 0 ? chunk.slice(0, split) : chunk);
+    const partBody = split >= 0 ? chunk.slice(split).replace(/^\r?\n\r?\n/, '') : '';
+    // A part with no headers of its own is the preamble between boundaries, not a part.
+    if (split < 0 && !contentTypeOf(partHeaders)) continue;
+    walkParts(partBody, partHeaders, depth + 1, out);
+  }
+}
+
 function parseEmail(input) {
   let headers = {}, body = '', html = '', raw = '';
   if (typeof input === 'string') {
     raw = input;
     const idx = input.search(/\r?\n\r?\n/);
     headers = parseHeaders(idx >= 0 ? input.slice(0, idx) : input);
-    body = idx >= 0 ? input.slice(idx).trim() : '';
+    const rawBody = idx >= 0 ? input.slice(idx).replace(/^\r?\n\r?\n/, '') : '';
+    const parts = { text: [], html: [] };
+    walkParts(rawBody, headers, 0, parts);
+    body = parts.text.join('\n').trim();
+    html = parts.html.join('\n').trim();
+    // Keep the undecoded block too when nothing decoded to anything, so a malformed message is still
+    // scanned rather than silently becoming empty.
+    if (!body && !html) body = rawBody.trim();
   } else if (input && typeof input === 'object') {
     const hsrc = input.headers || {};
     for (const k in hsrc) headers[k.toLowerCase()] = hsrc[k];
@@ -48,7 +131,7 @@ function parseEmail(input) {
   const replyTo = parseAddress(headers['reply-to']);
   const returnPath = parseAddress(headers['return-path']);
   const to = parseAddress(headers.to);
-  const subject = headers.subject || '';
+  const subject = decodeEncodedWords(headers.subject || '');
   const combined = [subject, body, html].filter(Boolean).join('\n');
   return { headers, from, replyTo, returnPath, to, subject, body, html, combined, raw };
 }
@@ -156,4 +239,4 @@ function deliverabilityScan(p) {
   return { flags, score: Math.min(100, score), links };
 }
 
-module.exports = { parseEmail, parseAddress, parseAuthResults, checkDomainAuth, isDisposable, senderRisk, deliverabilityScan, extractLinks, AUTH_TRUST_NOTE, DKIM_NOT_CHECKED };
+module.exports = { parseEmail, decodeTransfer, decodeEncodedWords, parseAddress, parseAuthResults, checkDomainAuth, isDisposable, senderRisk, deliverabilityScan, extractLinks, AUTH_TRUST_NOTE, DKIM_NOT_CHECKED };

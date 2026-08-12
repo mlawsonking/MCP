@@ -12,6 +12,7 @@
     "index.js",
     "lib/",
     "engines/",
+    "data/",
     "tools/",
     "mcp/",
     "cli/",

@@ -93,15 +93,19 @@ function track(req, event, properties) {
   return undefined;
 }
 
-// Upgrade hint for DIRECT (non-RapidAPI) traffic: a non-breaking extra field so
-// heavy free users can discover the paid path. RapidAPI callers never see it —
-// the marketplace already handles their plans.
+// A note for DIRECT (non-RapidAPI) traffic, as a non-breaking extra field.
+//
+// This used to sell a paid plan and promise "hard SLAs". Both were wrong: the plans bought less
+// throughput than this free endpoint already allows, and nothing backs an SLA on free hosting. The
+// real answer for anyone hitting the limit is to stop calling a shared endpoint and run the same
+// engines locally, where there is no limit and no payload leaves the machine.
 function upgradeInfo(req, slug) {
   try {
     const h = (req && req.headers) || {};
     if (h['x-rapidapi-proxy-secret'] || h['x-rapidapi-user']) return undefined;
     return {
-      note: 'Free public endpoint (rate-limited). Higher volume, hard SLAs: https://rapidapi.com/mlawsonking/api/' + slug,
+      note: 'Free shared endpoint, rate-limited, no SLA. For volume or privacy run the same checks locally: npx -y agent-guards',
+      local: 'npx -y agent-guards',
       pricing: '/api/pricing',
     };
   } catch { return undefined; }

@@ -66,6 +66,14 @@ function scan(text) {
     risk,
     score,
     verdict,
+    // `verdict: allow` says no rule in this set matched. It does not say the text is safe, and the
+    // difference is the whole product: a paraphrase nobody has written a rule for scores zero here.
+    // `matched` states the same fact without a word that reads like a safety judgement. It is added
+    // rather than replacing `verdict`, because callers already branch on that field.
+    matched: findings.length > 0,
+    means: findings.length
+      ? 'One or more known patterns matched. See findings for which rule and why.'
+      : 'No rule in this ruleset matched. That is not a finding of safety: novel or paraphrased wording is not covered by these rules.',
     findings,
     categories: [...new Set(findings.map((f) => f.category))],
     rules_version: rulesets.version(RULES_VERSION),

@@ -28,11 +28,13 @@ const ck = (n, c, info) => { c ? pass++ : fail++; console.log(`${c ? 'PASS' : 'F
     'api_key = "hunter2sekrit"',
     `-----BEGIN RSA PRIVATE KEY-----\n${PEM_BODY}\n-----END RSA PRIVATE KEY-----`,
     'aws AKIAIOSFODNN7EXAMPLE',
-    'contact bob@example.com',
+    // A reserved domain (example.com) is deliberately NOT personal data, so this fixture uses an
+    // address shaped like a real one, which is what the redactor has to remove.
+    'contact bob.jenkins@mailprovider.co',
   ].join('\n');
   r = await call(scanSecrets, { body: { text: LEAKY } });
   const red = r.json.redacted || '';
-  const stillThere = ['hunter2sekrit', PEM_BODY, 'AKIAIOSFODNN7EXAMPLE', 'bob@example.com'].filter((s) => red.includes(s));
+  const stillThere = ['hunter2sekrit', PEM_BODY, 'AKIAIOSFODNN7EXAMPLE', 'bob.jenkins@mailprovider.co'].filter((s) => red.includes(s));
   ck('scan-secrets: redacted output contains none of the secrets', stillThere.length === 0,
     stillThere.length ? `LEAKED: ${stillThere.join(', ')}` : 'all removed');
   ck('scan-secrets: redacts the value, not the label', red.includes('api_key') && !red.includes('hunter2sekrit'),

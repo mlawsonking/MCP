@@ -16,7 +16,9 @@
 
 const { RULES_VERSION } = require('./version');
 
-const ORDER = { allow: 0, clear: 0, ok: 0, caution: 1, review: 1, warn: 1, block: 2, danger: 2 };
+// `safe` and `unknown` are listed explicitly rather than defaulted: `safe` is a pass, and `unknown`
+// means a check could not run, which must sort with caution so it can never be mistaken for one.
+const ORDER = { allow: 0, clear: 0, ok: 0, safe: 0, unknown: 1, caution: 1, review: 1, warn: 1, block: 2, danger: 2 };
 
 // A verdict may only ever move toward caution, never away from it.
 function worst(a, b) {

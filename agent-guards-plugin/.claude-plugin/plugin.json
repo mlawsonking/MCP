@@ -1,7 +1,7 @@
 {
   "name": "agent-guards",
   "displayName": "Agent Guards",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Deterministic security checks in Claude Code's path: package names before an install, secrets and code rules on what was just written, injection and Unicode-obfuscation patterns in fetched pages. No network call in any hook, no model in any check.",
   "author": {
     "name": "mlawsonking",
