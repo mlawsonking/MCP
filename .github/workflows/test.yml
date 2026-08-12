@@ -27,6 +27,11 @@ jobs:
       # tree cannot see what npm leaves out.
       - name: the published artifact still works
         run: node scripts/test-tarball.js
+      # Every claim about what this detects is a case in the corpus, including the misses. This fails
+      # when a case stops behaving the way CORPUS.md records it, in either direction: a detection that
+      # regressed, or an ordinary command that started getting flagged.
+      - name: the corpus still measures what CORPUS.md says
+        run: node scripts/corpus-report.js
       # Publishing to the MCP registry needs an interactive PAT that expires in about an hour, so a
       # publish run is scarce. Everything that can be checked without one is checked here instead.
       # A 1.1.0 run was already lost to a description being 112 characters against a 100 limit.

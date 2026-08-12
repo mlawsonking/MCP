@@ -11,6 +11,12 @@ hide them.
 Nothing is sent anywhere. No hook makes a network call. No model runs inside any check, so the same
 input always gives the same answer and every answer names the rule that produced it.
 
+It is a tripwire, not a blocker. It catches the patterns it has rules for, the rules are public, and
+anyone who reads them can walk past them. The measured rate per category, including the attacks that
+get through, is in [CORPUS.md](../CORPUS.md): 80% across 40 recorded attacks, and 43% on injection
+specifically, because a reworded injection matches nothing. That number is produced by running the
+corpus, not asserted, and it drops whenever someone finds a new miss.
+
 ## Install
 
 ```

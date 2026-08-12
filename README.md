@@ -1,27 +1,49 @@
-# Deterministic guards and tools for AI agents
+# Deterministic checks for AI agents, with the misses written down
 
 ![tests](https://github.com/mlawsonking/MCP/actions/workflows/test.yml/badge.svg)
 
-Six small tools that AI agents and developers call constantly, each available both as a plain HTTP API and as an MCP server. No LLM in the loop, and no accounts or API keys for the free tier. Same input, same output. Boring and reliable on purpose.
+Deterministic detection of known attack patterns against the things an agent does: installing a package, reading untrusted text or email, following a link, sending money, writing code. No LLM anywhere in the detection path. Same input, same verdict, every time, with a rule id and a ruleset version attached to each one. Free, MIT, and the complete product runs locally.
 
-Five of them are guards: one check per risky action an agent takes, such as installing a package, reading untrusted text or email, following a link, sending money, or writing code. The sixth is a utility set for reading and parsing the web. All are free to run, with paid tiers on RapidAPI for higher volume.
+**This is a tripwire, not a blocker.** It detects patterns it has rules for. It does not stop an attacker who reads those rules, and the rules are public. What determinism buys is not protection, it is evidence: a verdict you can reproduce, diff between commits, and put in a check that fails when your agent's exposure changes.
 
-## What they are, and what they aren't
+## How well it works, measured
 
-Every check is a regex against a known pattern, a Unicode or structural test, or a lookup against a public list or public API: OSV, OFAC, HIBP, Spamhaus, DNS, RDAP, an Ethereum RPC node. Nothing here is a classifier and nothing here understands what it is reading. An attack phrased in a way none of the rules cover scores zero and gets through. These are a cheap first filter in front of a model, not a reason to trust untrusted input. Every rule-based response carries the ruleset version it was produced by, and where the coverage is partial the response says what was not checked.
+[CORPUS.md](CORPUS.md) is the answer, produced by running `node scripts/corpus-report.js`. Nothing in it is an estimate and CI fails if a case stops behaving the way it is recorded.
+
+<!-- corpus:start -->
+| category | caught | rate | false positives |
+| --- | --- | --- | --- |
+| injection | 3/7 | 43% | 0/0 |
+| obfuscation | 5/5 | 100% | 0/0 |
+| email-transport | 5/5 | 100% | 0/1 |
+| shell-rewrite | 11/13 | 85% | 0/5 |
+| secrets | 4/4 | 100% | 0/2 |
+| package-name | 4/6 | 67% | 0/3 |
+| **all** | **32/40** | **80%** | **0/11** |
+<!-- corpus:end -->
+
+The injection row is the honest one: 3 of 7. Reword an attack and the rules score it zero, and four such rewordings live in the corpus as recorded misses. The false-positive column is zero across 11 ordinary cases, which matters just as much, because a checker that fires on `git commit -m "fix $(whoami) thing"` gets switched off and then detects nothing at all.
+
+Every claim on this page maps to a case in [the corpus](agent-guards/corpus/index.js). If a sentence here cannot be reproduced by running it, it should not be here.
+
+## What it is, and what it is not
+
+Every check is a regex against a known pattern, a Unicode or structural test, or a lookup against a public list: OSV, OFAC, HIBP, Spamhaus, DNS, RDAP, an Ethereum RPC node. Nothing here is a classifier and nothing here understands what it reads. Where a check could not run, the response says so and never reports a pass in its place. For an actual boundary you want permissions or a sandbox, and you should run both.
 
 Guide: [Why your AI agent needs deterministic guardrails](https://dev.to/mlawsonking/why-your-ai-agent-needs-deterministic-guardrails-and-how-to-add-one-in-a-few-lines-2l6j).
 
 ## The tools
 
-| Tool | What it checks | Install (MCP) | API | RapidAPI |
-|---|---|---|---|---|
-| Package Guard | A package before install: does it exist (slopsquat), OSV vulns and malware advisories, typosquats | `npx -y package-guard-mcp` | [live](https://package-guard.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/package-guard) |
-| Agent Firewall | Untrusted input: 11 injection/jailbreak patterns, 5 hidden-text signals, 22 secret and 3 PII patterns, URL and IP reputation | `npx -y agent-firewall-mcp` | [live](https://agent-firewall-seven.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/agent-firewall) |
-| Payment Guard | A payee before sending: OFAC EVM address lists, scam lists, honeypot simulation, ENS resolved then screened | `npx -y payment-guard-mcp` | [live](https://payment-guard.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/payment-guard) |
-| Email Guard | Inbound mail for the same injection patterns plus phishing signals, outbound for secret leaks and deliverability | `npx -y email-guard-mcp` | [live](https://email-guard-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/email-guard) |
-| Code Guard | AI-generated code: 31 regex rules across 12 categories (injection, SSRF, weak crypto, unsafe deserialization, XSS), plus the shared secret patterns | `npx -y @mlawsonking/code-guard-mcp` | [live](https://code-guard-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/code-guard) |
-| Agent Web Tools | Web utilities: page to Markdown, metadata, JSON-LD, email MX, CSS scrape, RSS, DNS, RDAP, SSL, HTTP | `npx -y web-tools-mcp` | [live](https://agent-tools-api.vercel.app) | [listing](https://rapidapi.com/mlawsonking/api/agent-web-tools) |
+The hosted URLs are a free shared mirror of the same engines, rate-limited and with no SLA. There is no paid tier: if you need volume or privacy, run it locally, where there is no limit and nothing leaves the machine.
+
+| Tool | What it checks | Install (MCP) | Hosted mirror |
+|---|---|---|---|
+| Package Guard | A package before install: does it exist (slopsquat), OSV vulns and malware advisories, typosquats | `npx -y package-guard-mcp` | [live](https://package-guard.vercel.app) |
+| Agent Firewall | Untrusted input: 11 injection/jailbreak patterns, 5 hidden-text signals, 22 secret and 3 PII patterns, URL and IP reputation | `npx -y agent-firewall-mcp` | [live](https://agent-firewall-seven.vercel.app) |
+| Payment Guard | A payee before sending: OFAC EVM address lists, scam lists, honeypot simulation, ENS resolved then screened | `npx -y payment-guard-mcp` | [live](https://payment-guard.vercel.app) |
+| Email Guard | Inbound mail for the same injection patterns plus phishing signals, outbound for secret leaks and deliverability | `npx -y email-guard-mcp` | [live](https://email-guard-api.vercel.app) |
+| Code Guard | AI-generated code: 31 regex rules across 12 categories (injection, SSRF, weak crypto, unsafe deserialization, XSS), plus the shared secret patterns | `npx -y @mlawsonking/code-guard-mcp` | [live](https://code-guard-api.vercel.app) |
+| Agent Web Tools | Web utilities: page to Markdown, metadata, JSON-LD, email MX, CSS scrape, RSS, DNS, RDAP, SSL, HTTP | `npx -y web-tools-mcp` | [live](https://agent-tools-api.vercel.app) |
 
 ## In Claude Code: the plugin
 
