@@ -1,11 +1,11 @@
 {
  "schema": 1,
- "version": "2026.08.18",
- "generated": "2026-08-18T04:56:29.117Z",
+ "version": "2026.08.19",
+ "generated": "2026-08-19T04:56:25.351Z",
  "bytes": 272235,
- "sha256": "82ceb97b87ad3878c3c8070c9c46862fbe40a523a4996ff33694b5d20f04f20a",
+ "sha256": "9cbf9d31e9e6ce490dd9f7a2b87c9b48eb74eca4896714136f286322dd479d67",
  "url": "https://raw.githubusercontent.com/mlawsonking/MCP/main/rules/bundle.json",
- "signature": "o90U6YtXs80torl9btNk8b1PScpIYEqPOfnp+AC0bR66M7rGSGmbgyezxk13Iv1hbtu8rznRq5J9V4i3BEYSAg==",
+ "signature": "2CtsGQ4/Us3al9jJW3tc7f8/B5Nv28H8XI03iVg2uEt0MvxGehU5hTTE3/lme4cpwPz/Hrfy8UYehiJ9Hf0WDw==",
  "notes": "all sources refreshed",
  "counts": {
   "injection": 11,
@@ -14,14 +14,14 @@
   "code": 31,
   "ofac_addresses": 104,
   "scam_addresses": 3182,
-  "malicious_packages": 231043
+  "malicious_packages": 231170
  },
  "sources": [
   {
    "id": "ethereum-lists-darklist",
    "ok": true,
    "url": "https://raw.githubusercontent.com/MyEtherWallet/ethereum-lists/master/src/addresses/addresses-darklist.json",
-   "fetched": "2026-08-18",
+   "fetched": "2026-08-19",
    "age_days": 0,
    "note": ""
   },
@@ -29,7 +29,7 @@
    "id": "ofac-evm",
    "ok": true,
    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_*.txt",
-   "fetched": "2026-08-18",
+   "fetched": "2026-08-19",
    "age_days": 0,
    "note": ""
   },
@@ -37,7 +37,7 @@
    "id": "osv-npm",
    "ok": true,
    "url": "https://osv-vulnerabilities.storage.googleapis.com/npm/all.zip",
-   "fetched": "2026-08-18",
+   "fetched": "2026-08-19",
    "age_days": 0,
    "note": ""
   },
@@ -45,7 +45,7 @@
    "id": "osv-pypi",
    "ok": true,
    "url": "https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip",
-   "fetched": "2026-08-18",
+   "fetched": "2026-08-19",
    "age_days": 0,
    "note": ""
   },
@@ -53,14 +53,14 @@
    "id": "scamsniffer-blacklist",
    "ok": true,
    "url": "https://raw.githubusercontent.com/scamsniffer/scam-database/main/blacklist/address.json",
-   "fetched": "2026-08-18",
+   "fetched": "2026-08-19",
    "age_days": 0,
    "note": ""
   }
  ],
  "packages": {
   "file": "packages.tsv",
-  "bytes": 10176368,
-  "sha256": "ff935a09f807f35380013aeed4e6c61d2d90e26f9eadb8a2cf98d3f97d6e8a96"
+  "bytes": 10183094,
+  "sha256": "852406fb9081f47003847984dc5d793884bfccfe3b4b9222f769d41d8646012c"
  }
 }
