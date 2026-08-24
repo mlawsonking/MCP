@@ -8484,6 +8484,7 @@ npm	@onum-releases/sdk	1.0.1,1.0.2,1.0.3	MAL-2026-6125
 npm	@onum-releases/shared-components	1.0.1,1.0.2,1.0.3	MAL-2026-6126
 npm	@onum-releases/utils	1.0.1,1.0.2	MAL-2026-6127
 npm	@op-microfrontends/config	99.9.0,99.9.1	MAL-2026-2590
+npm	@opap/player-kyc-widget	3.999.999	MAL-2026-14387
 npm	@open-banking/cabinet-providers	999.9.2,999.9.5	MAL-2026-5392
 npm	@openapi-platform/git-util	9.9.9	MAL-2025-5008
 npm	@openclaw-ai/openclawai	*	MAL-2026-1321
@@ -9501,6 +9502,8 @@ npm	@schedaero/yukon	*	MAL-2026-1232
 npm	@sciagent/cli	1.0.68,1.0.69	MAL-2026-10718
 npm	@scoober/foodtracker	*	MAL-2022-577
 npm	@sdc-wob-type-3/group-ui	*	MAL-2022-7444
+npm	@sdgdfgdfhhhfd/chainvista	*	MAL-2026-14382
+npm	@sdgdfgdfhhhfd/multiviewr	*	MAL-2026-14383
 npm	@sdrosdzol_linkedin/husky	0.2.0	MAL-2025-3601
 npm	@seblakkuah/seblakkuah	*	MAL-2025-99027
 npm	@sec-loans-ui/utils	99.9.1	MAL-2026-4432
@@ -48410,7 +48413,7 @@ npm	conventional_tick_z3n	*	MAL-2025-55724
 npm	conventional_walrus_z3n	*	MAL-2025-77436
 npm	convera	9.0.0	MAL-2025-3879
 npm	conversa	*	MAL-2025-17522
-npm	conversa-sdk	1.0.9,2.0.2	MAL-2026-6185
+npm	conversa-sdk	1.0.0,1.0.4,1.0.5,1.0.6,1.0.8,1.0.9,2.0.0,2.0.2,2.0.3,2.0.4	MAL-2026-6185
 npm	conversation-extension-reservation	1.0.0	MAL-2025-3822
 npm	conversation-memory	*	MAL-2025-41377
 npm	conversation-relay	9.9.9	MAL-2026-2749
@@ -75841,6 +75844,8 @@ npm	functional_wolf_z3n	*	MAL-2025-98729
 npm	functions-framework-nodejs	1.0.0	MAL-2026-13951
 npm	functions-workshop	*	MAL-2024-1120
 npm	functionteszt	*	MAL-2022-3245
+npm	fund-list-filter	999.9.12	MAL-2026-14380
+npm	fund-portfolio	999.9.12	MAL-2026-14381
 npm	fundamental-blush-skunk	*	MAL-2025-138743
 npm	fundamental-bronze-bovid	*	MAL-2025-68461
 npm	fundamental-bronze-ostrich	*	MAL-2025-68462
@@ -89269,6 +89274,7 @@ npm	hydra-uninstall-cli-pyxis	*	MAL-2025-143460
 npm	hydra-wasat-venus-ini	*	MAL-2025-143461
 npm	hydra-xanadu-yildun-csrf	*	MAL-2025-143462
 npm	hydradx-ui	1.0.0,1.2.1,1.2.10	MAL-2023-8407
+npm	hydration-dim-kit	*	MAL-2026-14385
 npm	hydrogen-monorepo	*	MAL-2022-3735
 npm	hydrogen-playground	*	MAL-2022-3736
 npm	hydrogen-react	*	MAL-2025-22844
@@ -179823,6 +179829,7 @@ npm	svc-js-cli	*	MAL-2022-6369
 npm	svelte-autocomplete-select	1.1.1	MAL-2025-191016
 npm	svelte-cache-kit	1.0.0	MAL-2026-13676
 npm	svelte-daily-prebuilt	2.0.0	MAL-2024-3067
+npm	svelte-dim-kit	*	MAL-2026-14386
 npm	svelte-goal-streak	1.0.0	MAL-2026-11037
 npm	svelte-goal-vim	1.0.0	MAL-2026-14096
 npm	svelte-hms-world	1.0.0	MAL-2024-9187
@@ -220983,6 +220990,7 @@ pypi	cryptcompare	*	MAL-2023-1710
 pypi	cryptcoompare	*	MAL-2023-1711
 pypi	cryptfeed	*	MAL-2023-1712
 pypi	cryptfoeed	*	MAL-2023-1713
+pypi	cryptgraphy	1.0.0	MAL-2026-14388
 pypi	crypto-bot-utils	1.0.0	MAL-2026-3388
 pypi	crypto-format-checking	1.7.5,1.7.6	MAL-2024-11564
 pypi	crypto-hash-utils	0.189.129	MAL-2026-3703
@@ -221549,6 +221557,7 @@ pypi	enumerate-iam	*	MAL-2023-8360
 pypi	enumerate-iam-aws	*	MAL-2023-8361
 pypi	enumeratiam	0.0.3,0.0.4	MAL-2025-47763
 pypi	env-loader-cli	0.1.0,0.1.1	MAL-2026-4272
+pypi	envprovision	1.2.0,1.3.0,1.4.0	MAL-2026-14389
 pypi	envtoolsx	1.0.0	MAL-2025-192929
 pypi	envvenuma	0.2.0,0.3.0,0.4.0	MAL-2025-1972
 pypi	eoerbisjxqyv	0.3.2	MAL-2024-5111
@@ -224855,6 +224864,7 @@ pypi	mlc-ai-nightly-rocm62	9.9.9	MAL-2025-1982
 pypi	mlc-llm-nightly	99.99.100,99.99.101,99.99.102,99.99.103,99.99.105,99.99.99	MAL-2024-10046
 pypi	mlc-llm-nightly-cu123	9.9.9	MAL-2025-1983
 pypi	mle-py-connector	5.9.1	MAL-2024-1108
+pypi	mlflow-otel-instrumentor	1.1.0	MAL-2026-14384
 pypi	mlflow-ui	2.7.1,2.7.2,2.7.3	MAL-2026-10779
 pypi	mlir-aie	2.2160.0	MAL-2026-5818
 pypi	mlp-data-product-producer	999.9.13,999.9.15,999.9.16,999.9.17,999.9.18,999.9.19,999.9.20	MAL-2024-5371
