@@ -78068,6 +78068,7 @@ npm	gcc-patch	1.0.0,1.0.1	MAL-2024-2412
 npm	gccwrap	*	MAL-2025-21230
 npm	gces-dataset	*	MAL-2025-21231
 npm	gcfront	*	MAL-2025-4353
+npm	gclassroom	*	MAL-2026-15574
 npm	gcmhelper	*	MAL-2025-21232
 npm	gcojb	*	MAL-2022-3298
 npm	gcommon-ui-mobile	1.0.0	MAL-2024-2413
@@ -82410,13 +82411,16 @@ npm	grafana__slate-react	1.0.10	MAL-2024-2434
 npm	grafanaversion	*	MAL-2025-21804
 npm	grafeno-api	1.0.0,1.0.1	MAL-2026-15501
 npm	grafeno-auth	1.0.0	MAL-2026-15502
+npm	grafeno-billing	1.0.0	MAL-2026-15571
 npm	grafeno-client	1.0.0	MAL-2026-15503
 npm	grafeno-config	1.0.0	MAL-2026-15504
 npm	grafeno-core	1.0.0,1.0.1	MAL-2026-15505
 npm	grafeno-logger	1.0.0,1.0.1	MAL-2026-15506
+npm	grafeno-payments	1.0.0	MAL-2026-15572
 npm	grafeno-pix	1.0.0,1.0.1	MAL-2026-15507
 npm	grafeno-sdk	1.0.0,1.0.1	MAL-2026-15508
 npm	grafeno-utils	1.0.0	MAL-2026-15509
+npm	grafeno-webhook	1.0.0	MAL-2026-15573
 npm	graffiti-alley-spray-cans	20.0.1	MAL-2024-2435
 npm	grafield	*	MAL-2025-21805
 npm	grailedapi	*	MAL-2025-21806
@@ -89372,6 +89376,7 @@ npm	htp-https	*	MAL-2024-10701
 npm	htp2	*	MAL-2024-10702
 npm	htproject	*	MAL-2025-22757
 npm	htps-curl	*	MAL-2025-3153
+npm	htps-provider	*	MAL-2026-15567
 npm	htqsoapimkbjnvlk	*	MAL-2022-3697
 npm	htrapit	*	MAL-2025-22758
 npm	hts-open-dex-react-ui	1.0.0	MAL-2025-32
@@ -119338,6 +119343,7 @@ npm	manage-subscription-app	1.0.0	MAL-2026-7317
 npm	manage-this	1.0.0	MAL-2025-4184
 npm	managed-baby-climb	*	MAL-2025-45118
 npm	managed-vip-2-by-kristen-callihan-on-iphone-full-volumes-	*	MAL-2023-580
+npm	manager-thedate	*	MAL-2026-15568
 npm	managerial-amethyst-herring	*	MAL-2025-69282
 npm	managerial-chocolate-damselfly	*	MAL-2025-69283
 npm	managerial-cyan-unicorn	*	MAL-2025-69284
@@ -133952,6 +133958,7 @@ npm	node-multi-downloader	5.0.14-rc.3	MAL-2026-5735
 npm	node-mws-sdk	*	MAL-2025-27634
 npm	node-namshi-mysql	*	MAL-2022-4888
 npm	node-native-bridge	*	MAL-2026-965
+npm	node-net-pool	*	MAL-2026-15570
 npm	node-neurograde	2.4.7	MAL-2026-2379
 npm	node-notifications	*	MAL-2025-47829
 npm	node-novacredit	*	MAL-2025-27635
@@ -138446,6 +138453,7 @@ npm	nuuuuur-zidan-tea	*	MAL-2025-177001
 npm	nuuuuuur-zidan-tea	*	MAL-2025-177002
 npm	nuvei-commercetools	1.5.0	MAL-2024-9029
 npm	nuvoton	*	MAL-2025-27931
+npm	nuvyra-marketplace-sdk	*	MAL-2026-15569
 npm	nuxt-fonts-devtools	99.0.3	MAL-2026-6937
 npm	nuxt-keycloak	0.2.2	MAL-2025-191400
 npm	nuxtjs-achernar-sadr-phoenix	*	MAL-2025-145693
@@ -142897,6 +142905,7 @@ npm	ophiuchus-zenobia-passport-lyra	*	MAL-2025-145855
 npm	opiblog	*	MAL-2025-28357
 npm	opinion-massage-ten	*	MAL-2025-45468
 npm	opium-contracts	*	MAL-2023-656
+npm	opiumbest	*	MAL-2026-15575
 npm	opiumoee	*	MAL-2025-69724
 npm	oppo_web_app	*	MAL-2022-5106
 npm	opportunity-pain-bat	*	MAL-2025-45469
@@ -157311,6 +157320,7 @@ npm	querypilot	*	MAL-2025-5951
 npm	quesadilla-notthedevs	*	MAL-2025-107644
 npm	queshyfrog	*	MAL-2025-5573
 npm	queshymouse	*	MAL-2025-5574
+npm	quesoeducation	*	MAL-2026-15576
 npm	quest-bee-nodejs	*	MAL-2022-5563
 npm	questdb-console	99.99.99	MAL-2024-11869
 npm	queue-consumer-cg	*	MAL-2025-31290
@@ -221187,6 +221197,7 @@ pypi	auohttp	3.13.3	MAL-2026-38
 pypi	aurafarmer	0.3.0	MAL-2026-4741
 pypi	aurm-desktop-client	0.38.10,0.38.11,0.39.10,0.39.9	MAL-2025-1966
 pypi	aurm-python-sdk	0.1.0,0.1.10,0.1.11,1.0.1,1.0.10,1.0.11,1.0.2,1.0.3,1.1.0,1.1.10,1.1.11,1.1.12,1.1.13,1.1.14,1.1.15,1.1.16	MAL-2025-1967
+pypi	auth-app-streamlit	2.1.1	MAL-2026-15577
 pypi	auth0-ai-ms-agent	0.1.0	MAL-2026-2184
 pypi	auth0-open-source-template	20.1.0	MAL-2025-901
 pypi	authanticetor	1.0	MAL-2024-4787
@@ -223800,6 +223811,7 @@ pypi	flashinfer	1.0.0	MAL-2024-12273
 pypi	flashsimplelogger	0.1.0,0.2.0	MAL-2025-191729
 pypi	flask-auth-sys	1.0.5	MAL-2025-191730
 pypi	flask-auth-system	0.0.1,0.0.2	MAL-2025-191731
+pypi	flask-header-guard	1.0.0	MAL-2026-15566
 pypi	flask-hookserver	999.0.0,999.0.1	MAL-2026-505
 pypi	flask-tdg-cyber	0.0.1,0.0.2,0.0.3,0.0.4,0.0.5,0.0.6,0.0.7,0.0.8,1.0.1,3.100.2,3.300.39	MAL-2025-41675
 pypi	flask-tdg-cyberx	1.0.1,3.100.2,3.300.39,3.300.40,3.300.41	MAL-2025-191732
@@ -231722,6 +231734,7 @@ pypi	trongridev	0.0.1	MAL-2026-10768
 pypi	trongridlib	0.0.1	MAL-2025-5140
 pypi	trongridme	0.0.1	MAL-2026-10771
 pypi	trongridmy	0.0.1	MAL-2026-10930
+pypi	trongridor	0.0.1	MAL-2026-15578
 pypi	trongridperm	0.0.1	MAL-2025-41789
 pypi	trongridpy	0.0.1	MAL-2025-1998
 pypi	trongridweb	0.0.1	MAL-2026-10685
