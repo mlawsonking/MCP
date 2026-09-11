@@ -147925,6 +147925,7 @@ npm	pino-virtualreality-cluster-tool	*	MAL-2025-188712
 npm	pino-xanthus-got-transform	*	MAL-2025-146256
 npm	pino-xenon-duplex-chalk	*	MAL-2025-29309
 npm	pino-zod	1.0.121,1.0.122	MAL-2026-6505
+npm	pinochiomathm	2.3.2,2.3.3,2.3.4,2.3.5	MAL-2026-16123
 npm	pinokio-redis	1.0.127	MAL-2026-6938
 npm	pinot-controller-ui	69.0.0	MAL-2025-1493
 npm	pinstatsd	99.0.0	MAL-2026-2654
@@ -178674,6 +178675,7 @@ npm	strapi-plugin-seed	3.6.8	MAL-2026-2482
 npm	strapi-plugin-server	*	MAL-2026-2483
 npm	strapi-plugin-sitemap-gen	3.6.8	MAL-2026-2484
 npm	strapi-plugin-sync	3.6.8	MAL-2026-2485
+npm	strapi-plugin-vinsoc-1109	3.6.8	MAL-2026-16126
 npm	strapi-plugin-workspace-plugin	*	MAL-2026-1492
 npm	strapi-provider-upload-aws-s3-auth	*	MAL-2022-6322
 npm	strapi-upload-aws-s3	*	MAL-2025-34011
@@ -182218,6 +182220,7 @@ npm	tailwindcss-callback-andromeda-umbra	*	MAL-2025-148440
 npm	tailwindcss-charon-callisto-acamar	*	MAL-2025-34389
 npm	tailwindcss-color-icons-lite	*	MAL-2025-47445
 npm	tailwindcss-config-overrides	*	MAL-2025-47983
+npm	tailwindcss-contact-forms	0.5.4,0.5.5,0.5.6,0.5.7,0.5.8,0.5.9,0.6.0	MAL-2026-16124
 npm	tailwindcss-effector	1.7.0	MAL-2026-6472
 npm	tailwindcss-first-line	*	MAL-2025-34390
 npm	tailwindcss-fluid-styles	2.0.7	MAL-2026-15826
@@ -226162,6 +226165,7 @@ pypi	lucifer-example-0	0.0.0,0.1,0.2	MAL-2024-5335
 pypi	lucifer5033	0.2	MAL-2024-5336
 pypi	lucifer9423	0.2	MAL-2024-5337
 pypi	lucifertest2	0.1	MAL-2024-5338
+pypi	lucy-python-script-2030	0.1.1,0.1.2	MAL-2026-16125
 pypi	lukz	2.0.0,2.0.1,3.0.0	MAL-2024-5339
 pypi	lulumortreux	0.1.3,0.1.4	MAL-2024-5340
 pypi	luna-paysure	0.7.1,0.7.2,0.7.3,0.7.4,0.7.5	MAL-2024-11627
@@ -232215,7 +232219,7 @@ pypi	tryconf	0.1	MAL-2024-6169
 pypi	tryhackme-offensive	0.4	MAL-2024-6170
 pypi	ts-wuzzi	4.4.5	MAL-2024-6171
 pypi	tsesyx	10.0.5	MAL-2025-41790
-pypi	tsshare	1.0.19	MAL-2026-16044
+pypi	tsshare	1.0.1,1.0.10,1.0.11,1.0.14,1.0.15,1.0.16,1.0.17,1.0.18,1.0.19,1.0.2,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2026-16044
 pypi	ttam	0.0.1	MAL-2026-2535
 pypi	ttam-ploy	1.4.17,1.8.0	MAL-2026-447
 pypi	ttat-api	1.0.5	MAL-2024-12366
