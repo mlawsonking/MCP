@@ -8729,6 +8729,7 @@ npm	@nexustechpro/baileys	2.2.7	MAL-2026-16104
 npm	@ng-cat/common	9.99.9	MAL-2024-9442
 npm	@ng-seed/universal	*	MAL-2025-9115
 npm	@ngt-frontend/widgets-core	*	MAL-2026-5659
+npm	@nimbusedge/auth	19999.0.1,19999.0.2,19999.0.3,19999.0.4,19999.0.5,19999.0.6,19999.0.7,19999.1337.1,19999.1337.2,19999.1337.4,19999.1337.5,19999.1337.6,19999.1337.7,19999.1337.8,19999.1338.1,19999.1338.2,19999.1338.3,19999.1338.4,19999.1338.5,19999.1338.6,19999.1338.7,19999.1338.8,19999.1339.1,19999.1339.2,19999.1339.3,19999.1339.4,19999.1339.5,19999.1349.5,19999.1359.1,19999.1359.2,19999.1359.3,19999.1359.4,19999.1359.5,19999.1359.6,19999.1360.1,19999.1360.2,19999.1360.3,19999.1360.4,19999.1360.5,221.1.0	MAL-2026-16132
 npm	@ninjaone/webapp	172.0.0	MAL-2025-9116
 npm	@nitaiapiiro/rand_emoji	*	MAL-2026-8
 npm	@nitro2/shared	1.0.0	MAL-2025-3725
@@ -50105,6 +50106,7 @@ npm	cpu-instructions	0.0.14	MAL-2025-190838
 npm	cpufake	*	MAL-2025-17652
 npm	cqbwogthvkuenakr	*	MAL-2022-2224
 npm	cquence	*	MAL-2025-17653
+npm	cr-bot-common	1.0.0	MAL-2026-16137
 npm	cr-static-shared-components	9.9.0,9.9.9	MAL-2026-2223
 npm	cra-docs	7.999.45	MAL-2024-7089
 npm	cra-react-router	*	MAL-2025-5681
@@ -67887,14 +67889,14 @@ npm	ethweb-set	1.0.0	MAL-2025-613
 npm	etltools	*	MAL-2025-19896
 npm	etn_validator_list	*	MAL-2022-2879
 npm	etnhjzgmfwbocvqp	*	MAL-2022-2880
-npm	etoro-aggregator	999.0.0	MAL-2026-16111
-npm	etoro-analytics	999.0.0	MAL-2026-16112
+npm	etoro-aggregator	99.0.0,99.0.2,999.0.0	MAL-2026-16111
+npm	etoro-analytics	99.0.0,99.0.2,999.0.0	MAL-2026-16112
 npm	etoro-api	999.0.0	MAL-2026-16113
-npm	etoro-auth	999.0.0	MAL-2026-16114
+npm	etoro-auth	99.0.0,999.0.0	MAL-2026-16114
 npm	etoro-billing	999.0.0	MAL-2026-16115
 npm	etoro-builders	999.0.0	MAL-2026-16116
-npm	etoro-cashout	999.0.0	MAL-2026-16117
-npm	etoro-charts	999.0.0	MAL-2026-16118
+npm	etoro-cashout	99.0.0,99.0.2,999.0.0	MAL-2026-16117
+npm	etoro-charts	99.0.0,999.0.0	MAL-2026-16118
 npm	etoro-client	999.0.0	MAL-2026-16119
 npm	etoro-cordova-prove-mobileauth	999.999.999	MAL-2025-41559
 npm	etoro-core	999.0.0	MAL-2026-16120
@@ -83026,6 +83028,7 @@ npm	green-giant	1.0.0	MAL-2025-3493
 npm	green-noted-purpose	*	MAL-2025-44469
 npm	greene-teadev	*	MAL-2025-103375
 npm	greenpages-client	*	MAL-2025-21915
+npm	greensaver	1.2.1,1.2.2,1.2.3	MAL-2026-16138
 npm	greensock-js	*	MAL-2022-3453
 npm	greentube-nrgs	*	MAL-2025-21916
 npm	greet-test	*	MAL-2025-49225
@@ -182130,6 +182133,7 @@ npm	tailwind-fa-bridge	*	MAL-2025-49354
 npm	tailwind-font-inter	*	MAL-2026-2111
 npm	tailwind-fonttype-inter	2.3.2	MAL-2026-6886
 npm	tailwind-form	0.5.12	MAL-2026-5487
+npm	tailwind-form-kit	0.6.4	MAL-2026-16139
 npm	tailwind-form-templates	0.7.4	MAL-2026-13923
 npm	tailwind-glass-icon	*	MAL-2025-47503
 npm	tailwind-gutenberg-block-zero	1.0.0	MAL-2026-11044
@@ -182220,7 +182224,7 @@ npm	tailwindcss-callback-andromeda-umbra	*	MAL-2025-148440
 npm	tailwindcss-charon-callisto-acamar	*	MAL-2025-34389
 npm	tailwindcss-color-icons-lite	*	MAL-2025-47445
 npm	tailwindcss-config-overrides	*	MAL-2025-47983
-npm	tailwindcss-contact-forms	0.5.4,0.5.5,0.5.6,0.5.7,0.5.8,0.5.9,0.6.0	MAL-2026-16124
+npm	tailwindcss-contact-forms	0.5.4,0.5.5,0.5.6,0.5.7,0.5.8,0.5.9,0.6.0,0.6.1	MAL-2026-16124
 npm	tailwindcss-effector	1.7.0	MAL-2026-6472
 npm	tailwindcss-first-line	*	MAL-2025-34390
 npm	tailwindcss-fluid-styles	2.0.7	MAL-2026-15826
@@ -193650,6 +193654,7 @@ npm	traceviz-angular-hovercard	10.0.1	MAL-2025-47735
 npm	traceviz-angular-trace	*	MAL-2025-1182
 npm	traceviz-client-core	19.9.9	MAL-2025-1946
 npm	tracing-str	1.0.0,1.0.2,1.0.3,1.0.4,1.0.5,2.0.3	MAL-2026-6894
+npm	tracker-cloudflare	1.0.0	MAL-2026-16140
 npm	tracker-radar	*	MAL-2022-6621
 npm	tracker-radar-collector	*	MAL-2022-6622
 npm	tracker-radar-detector	1.0.1	MAL-2026-12483
@@ -221374,6 +221379,8 @@ pypi	airio	9.9.9	MAL-2026-1984
 pypi	airnitro	1.0	MAL-2024-4759
 pypi	airtime-media-monitor	1.0	MAL-2025-41619
 pypi	aistac-foundation	0.0.1	MAL-2025-6429
+pypi	aitextkit-py	0.1.0,0.1.1	MAL-2026-16130
+pypi	aitextutils-py	0.1.0,0.1.1	MAL-2026-16131
 pypi	aitrade	0.1.2,0.1.3	MAL-2026-1893
 pypi	ajenti-plugin-testing-pyld	0.0.1,0.99.999,1.1.1	MAL-2025-192392
 pypi	akangatu	0.0.0.1,0.20.12a0,0.3	MAL-2025-2933
@@ -224001,6 +224008,7 @@ pypi	esqvmvisapush	*	MAL-2023-3574
 pypi	etehreum	1.0.0	MAL-2024-9972
 pypi	eth-account-api	0.0.1,0.0.2,0.0.3,0.0.4,0.1.0,1.0.0	MAL-2024-9973
 pypi	eth-account-wallet	0.11.2	MAL-2026-13372
+pypi	eth-account-web3	0.14.0	MAL-2026-16127
 pypi	eth-agent	1.0.0,1.0.1	MAL-2026-10195
 pypi	eth-defi	0.28.0,0.28.1	MAL-2025-2958
 pypi	eth-keccak	0.1	MAL-2024-5114
@@ -225188,6 +225196,7 @@ pypi	lanchain-openai	0.0.0,1.1.1	MAL-2025-192699
 pypi	langchain-core-mcp	1.4.2,1.4.3	MAL-2026-5318
 pypi	langer-update	1.0.1	MAL-2025-941
 pypi	langer-updater	1.0.2,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8	MAL-2025-942
+pypi	langgrap	0.2.45	MAL-2026-16133
 pypi	langraph	0.0.0,1.0.0	MAL-2024-12375
 pypi	lanm-neo	95.6	MAL-2024-10729
 pypi	lapnet	99.6	MAL-2024-10825
@@ -226731,6 +226740,7 @@ pypi	oillow	1.0.0	MAL-2024-5433
 pypi	okinalek	0.0.0	MAL-2024-5434
 pypi	okite	0.0.7,0.0.8	MAL-2026-5283
 pypi	olana	*	MAL-2023-1917
+pypi	ollamaa	0.4.2	MAL-2026-16134
 pypi	olorama	*	MAL-2023-1918
 pypi	olympuslib	99.99.0	MAL-2026-15928
 pypi	omgd	92.6	MAL-2024-10596
@@ -226753,6 +226763,7 @@ pypi	openai-mcp	2.41.1,2.41.2	MAL-2026-5320
 pypi	openai-py3	1.35.10	MAL-2024-12319
 pypi	openai-spellchecker	1.0.0	MAL-2026-3429
 pypi	openai-spellcheckers	1.0.0	MAL-2026-3638
+pypi	openaii	1.55.3	MAL-2026-16135
 pypi	openasea	1.0.0	MAL-2024-10063
 pypi	openblox	1.0.0,1.0.1	MAL-2026-6504
 pypi	openclaw-agent	1.0.3	MAL-2026-4183
@@ -227130,6 +227141,7 @@ pypi	pkg-fallback	1.1.0	MAL-2026-6557
 pypi	pkproxy	6.9.2	MAL-2025-41718
 pypi	plasticswampbubble	99.0	MAL-2024-5551
 pypi	platform-harness-ecr-configmap	99.99.99	MAL-2024-11659
+pypi	platform-telemetry-client	1.0.0	MAL-2026-16141
 pypi	platforms	1.0.0,1.0.1,2.0.0,3.0.0,4.0.0,5.0.0,6.0.0	MAL-2026-901
 pypi	playwrgith	1.0.0	MAL-2024-5552
 pypi	playwright-acustomed	0.1.0	MAL-2026-3354
@@ -228572,6 +228584,7 @@ pypi	pyloy	0.0.1	MAL-2024-10119
 pypi	pymaas	99.99.0	MAL-2026-15929
 pypi	pymaniac	0.1,0.2,0.4,0.5,0.6,0.7,0.8,0.9,2.0,3.0,4.0,5.0,6.0,7.0,8.0,9.0,9.1	MAL-2024-5743
 pypi	pymatcha	0.1,0.1.0	MAL-2024-12332
+pypi	pymem-win	1.14.0,1.14.1,1.14.4,1.14.5,1.14.6	MAL-2026-16128
 pypi	pyminor	1.0.0	MAL-2023-8582
 pypi	pymnemonic	1.1.2,1.1.3,1.2.5	MAL-2026-1438
 pypi	pymocks	*	MAL-2022-7426
@@ -232128,6 +232141,7 @@ pypi	trainers-cooks	0.0.1,0.0.2	MAL-2024-6166
 pypi	transaction-analysis	0.1.0,1.0.1,1.0.2	MAL-2025-3010
 pypi	transaction-analyze	1.0.1,1.0.2,1.0.3,1.0.4	MAL-2025-3011
 pypi	transaction-utils	0.1,0.1.1	MAL-2025-191909
+pypi	transfomers	4.44.2	MAL-2026-16136
 pypi	transformars	4.42.3,4.42.3.post1,4.42.3.post2,4.42.3.post4	MAL-2024-12365
 pypi	transitive-req	0.0.0,1.0.0	MAL-2026-250
 pypi	trc20-unlocker	1.0	MAL-2024-6167
@@ -232588,6 +232602,7 @@ pypi	web3-checksums	2.0	MAL-2025-4264
 pypi	web3-connect	1.0.0	MAL-2026-3384
 pypi	web3-essential	1.0.4b0	MAL-2024-6198
 pypi	web3-eth	6.0.0b6	MAL-2025-1006
+pypi	web3-eth-account	0.14.0	MAL-2026-16129
 pypi	web3-helper	1.0.0	MAL-2026-3385
 pypi	web3-helpers	0.110.234	MAL-2026-3706
 pypi	web3-meme-tool	0.1.2	MAL-2026-763
