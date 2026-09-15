@@ -901,6 +901,7 @@ npm	@airtel-web/legos	*	MAL-2026-44
 npm	@airtm/uuid-base32	1.0.2	MAL-2026-2073
 npm	@airvpn/fetlife-assets	*	MAL-2022-67
 npm	@aiscene/aiserver	1.4.1,1.5.8,1.7.0,1.7.4,1.7.5,1.8.0	MAL-2026-3747
+npm	@aiwfm/communitywfm.scripts.api	28.1.28	MAL-2026-16146
 npm	@akrai/core	*	MAL-2026-10946
 npm	@akrai/report	*	MAL-2026-10947
 npm	@akrai/report_new	*	MAL-2026-10948
@@ -1792,6 +1793,14 @@ npm	@bitsoex/react-design-system	14.1.3,14.1.4	MAL-2023-8373
 npm	@bitunix/test	*	MAL-2026-2968
 npm	@bitwarden/cli	2026.4.0	MAL-2026-3020
 npm	@biz-vue/utils	*	MAL-2022-123
+npm	@biz44/id10-client	1.1.11	MAL-2026-16165
+npm	@biz44/id12-client	1.1.13	MAL-2026-16166
+npm	@biz44/id44-client	1.1.44	MAL-2026-16167
+npm	@biz44/id79-client	1.1.80	MAL-2026-16168
+npm	@biz44/id95-client	1.1.96	MAL-2026-16169
+npm	@biz44/id99-client	1.1.100	MAL-2026-16170
+npm	@biz44/process-runtime-utils	1.1.10,1.1.79,1.1.95	MAL-2026-16171
+npm	@biz44/runtime-utils	1.1.100,1.1.11,1.1.13,1.1.81,1.1.96	MAL-2026-16172
 npm	@bizone/prettier-config	2.0.0,2.0.1	MAL-2024-2892
 npm	@bizone/prettier.config	2.0.0	MAL-2024-2893
 npm	@bizone/prettier_config	2.0.0	MAL-2024-2894
@@ -7255,6 +7264,7 @@ npm	@mendeley-internal/api	100.0.0,100.0.1,100.0.2,100.0.3	MAL-2023-41
 npm	@mendeley-internal/react-ui	100.0.0,100.0.1,100.0.2,100.0.3	MAL-2023-1086
 npm	@mentoring-services/sdk	10.20.0,10.20.8	MAL-2024-7802
 npm	@mep-exp/api-tools	0.0.1,2.0.3	MAL-2026-6183
+npm	@merazmz/project-tracker	*	MAL-2026-16157
 npm	@merceas/anchor	0.32.1,0.32.3	MAL-2026-6509
 npm	@merceas/cross-fetch	3.1.12	MAL-2026-6510
 npm	@merge-api/merge-javascript-shared	*	MAL-2025-9101
@@ -12404,6 +12414,7 @@ npm	@years20/n8n-nodes-utils-helper-g	1.0.0	MAL-2026-13916
 npm	@years20/n8n-nodes-utils-helper-h	1.0.0	MAL-2026-13917
 npm	@years20/n8n-nodes-utils-helper-i	1.0.0	MAL-2026-13918
 npm	@years20/n8n-nodes-utils-helper-j	1.0.0	MAL-2026-13919
+npm	@yggbrasil/api	*	MAL-2026-16163
 npm	@yieldstreet/ui-kit	100.0.0,100.1.1	MAL-2024-7085
 npm	@yinc/ui	*	MAL-2025-5860
 npm	@yoannchb/cattract	*	MAL-2026-15964
@@ -20569,6 +20580,7 @@ npm	affirmdev1	*	MAL-2022-885
 npm	affirmv2	*	MAL-2025-3980
 npm	affri-zidan-tea	*	MAL-2025-172726
 npm	afglobal	*	MAL-2025-14138
+npm	afhmxiewpsf	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5	MAL-2026-16158
 npm	afiasahu-sautg-infaru	*	MAL-2025-172727
 npm	afifaljafari112tea	*	MAL-2025-14139
 npm	afifbilal	*	MAL-2025-170681
@@ -26034,6 +26046,7 @@ npm	app-node-layer	2.1.6	MAL-2026-11054
 npm	app-prd	*	MAL-2025-5150
 npm	app-pulse-style	*	MAL-2025-14662
 npm	app-register	*	MAL-2025-2239
+npm	app-rrhh	999.0.0	MAL-2026-16144
 npm	app-seed	*	MAL-2025-14663
 npm	app-settings-template	1.0.0	MAL-2024-12091
 npm	app-shell-startpagina	*	MAL-2025-14664
@@ -48314,6 +48327,7 @@ npm	concerned_thrush_z3n	*	MAL-2025-93706
 npm	concerned_tiglon_z3n	*	MAL-2025-93707
 npm	concerned_walrus_z3n	*	MAL-2025-60145
 npm	concerned_wildfowl_z3n	*	MAL-2025-100814
+npm	concierge-sdk	99.99.100,99.99.101,99.99.99	MAL-2026-16145
 npm	concord-console	*	MAL-2023-204
 npm	concrete-bronze-chinchilla	*	MAL-2025-67391
 npm	concrete-ivory-carp	*	MAL-2025-67392
@@ -56989,6 +57003,7 @@ npm	dijit.form.filteringselect	*	MAL-2025-5154
 npm	dijit.layout.bordercontainer	*	MAL-2025-5155
 npm	dijksta	*	MAL-2025-18453
 npm	dildarae-notthedevs	*	MAL-2025-101574
+npm	dilxztech	*	MAL-2026-16159
 npm	dim-hydration-ui	1.0.0	MAL-2026-14429
 npm	dim-svelte-ui	1.0.0	MAL-2026-14506
 npm	dimaspedia	*	MAL-2024-7441
@@ -57395,7 +57410,7 @@ npm	discord-leveldb-dump	*	MAL-2022-2484
 npm	discord-lofy	*	MAL-2022-2485
 npm	discord-logs-v14	*	MAL-2024-1204
 npm	discord-mfa	3.0.0,3.0.1	MAL-2026-15552
-npm	discord-mfa-solver	1.0.0,1.0.1,1.0.2	MAL-2026-16100
+npm	discord-mfa-solver	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2026-16100
 npm	discord-ms	*	MAL-2026-11278
 npm	discord-oauth2.js	*	MAL-2023-8493
 npm	discord-open-source	1.0.0	MAL-2025-47583
@@ -78872,6 +78887,7 @@ npm	get-new-script-roblox-fishing-simulator-script-x5c6h7	*	MAL-2024-9150
 npm	get-new-script-roblox-murder-mystery-2-h-a-c-k-script-87l2lf	*	MAL-2024-9151
 npm	get-new-script-viking-simulator-script-apo06a	*	MAL-2024-9152
 npm	get-package-lint	0.1.0	MAL-2026-4572
+npm	get-power	1.0.3	MAL-2026-16156
 npm	get-start-synpress	*	MAL-2025-21365
 npm	get-stats-from-planning-file	*	MAL-2025-21366
 npm	get-them-args	1.3.3	MAL-2025-191103
@@ -90907,6 +90923,7 @@ npm	icy_stork_z3n	*	MAL-2025-86499
 npm	id-assert-authz-grant-client	1.0.0	MAL-2024-12095
 npm	id-cookies	*	MAL-2025-22946
 npm	id-docs.telenordigital.com	*	MAL-2022-3764
+npm	id79-client	1.1.79	MAL-2026-16173
 npm	ida-asinan17-sluey	*	MAL-2025-134202
 npm	ida-asinan46-breki	*	MAL-2025-73419
 npm	ida-asinan46-sluey	*	MAL-2025-134203
@@ -116042,6 +116059,7 @@ npm	lpgoffers-api-contract	100.99.99	MAL-2025-4702
 npm	lpiiexam	*	MAL-2025-25623
 npm	lpjywdvkabfnczui	*	MAL-2022-4405
 npm	lpodash-	*	MAL-2022-4406
+npm	lpulogin	*	MAL-2026-16160
 npm	lqaodmfgevutkcks	*	MAL-2025-25624
 npm	lqnzwf-devapptea	*	MAL-2025-105366
 npm	lqoxneptdbwkiysz	*	MAL-2025-25625
@@ -122906,6 +122924,7 @@ npm	mephisto-worker-experience	*	MAL-2022-4557
 npm	mepjow	*	MAL-2022-4558
 npm	meraki-react-router	200.1.2,300.0.0	MAL-2024-9004
 npm	merakigo	*	MAL-2022-4559
+npm	meraz-project-tracker	*	MAL-2026-16161
 npm	mercadolibre-prueba-front	55.3.11,55.3.56	MAL-2025-5292
 npm	mercahnt	*	MAL-2025-26199
 npm	mercer-soluble-pot	*	MAL-2025-105799
@@ -128889,6 +128908,8 @@ npm	n8n-nodes-rce-poc	1.0.0	MAL-2026-10503
 npm	n8n-nodes-security-test-poc	1.0.1,1.0.2,1.0.3,1.0.4,1.0.5	MAL-2026-6071
 npm	n8n-nodes-simple-alert	*	MAL-2025-5601
 npm	n8n-nodes-social-facebook	0.1.96,0.2.0	MAL-2026-10536
+npm	n8n-nodes-sysdiag	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4	MAL-2026-16147
+npm	n8n-nodes-sysdiag2	2.0.0	MAL-2026-16162
 npm	n8n-nodes-task-runner	1.0.0,1.0.1,1.0.10,1.0.11,1.0.12,1.0.13,1.0.14,1.0.15,1.0.16,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2026-10999
 npm	n8n-nodes-text-helpers	0.1.0,0.2.0,0.3.0	MAL-2026-1454
 npm	n8n-nodes-text-utils	*	MAL-2026-1471
@@ -133967,6 +133988,7 @@ npm	noble_tortoise_z3n	*	MAL-2025-88862
 npm	noble_trout_z3n	*	MAL-2025-128939
 npm	noble_wallaby_z3n	*	MAL-2025-95653
 npm	noble_wren_z3n	*	MAL-2025-106363
+npm	noblox-asset.js	7.4.0,7.4.1,7.4.2,7.6.0	MAL-2026-16148
 npm	noblox-core-ts	4.6.6,4.6.7	MAL-2024-7726
 npm	noblox-cores-ts	4.6.7	MAL-2024-7757
 npm	noblox-ts	4.10.5,4.10.6	MAL-2024-7462
@@ -143882,6 +143904,7 @@ npm	os-apps-ui-portal	10.9.9	MAL-2025-5817
 npm	os-apps-ui-traffic-manager	9.9.9,99.0.0	MAL-2025-5757
 npm	os-info-checker-es6	*	MAL-2025-4013
 npm	os-info-es6	*	MAL-2025-5514
+npm	os-info-meeb322k	1.0.0	MAL-2026-16149
 npm	os-ulid-void	3.0.2	MAL-2026-5348
 npm	os-wallet-provider	*	MAL-2022-5126
 npm	os_classification	*	MAL-2025-28505
@@ -147922,6 +147945,7 @@ npm	pino-spica-leda-hyperion	*	MAL-2025-146253
 npm	pino-style-loader-uninstall-hyperion	*	MAL-2025-45562
 npm	pino-tectonophysics-neptunology-reveal-md	*	MAL-2025-45563
 npm	pino-uglify-js-uninstall-cli	*	MAL-2025-146254
+npm	pino-ulid	2.12.3	MAL-2026-16154
 npm	pino-utils	1.3.6,1.4.0	MAL-2026-6863
 npm	pino-venus-markdownlint-express	*	MAL-2025-146255
 npm	pino-virtualreality-cluster-tool	*	MAL-2025-188712
@@ -150491,6 +150515,7 @@ npm	postcsscksnext	*	MAL-2022-5425
 npm	postcssfvlgexugsfixes	*	MAL-2022-5426
 npm	postcssmipot	*	MAL-2022-5427
 npm	postcsssafeparsear	*	MAL-2022-5428
+npm	postgreesqlhelper	1.0.3	MAL-2026-16150
 npm	postgres-asteroid-readable-dione	*	MAL-2025-188787
 npm	postgres-astroinformatics-janus-mocha	*	MAL-2025-29547
 npm	postgres-buffer-prettier-stylelint-lithosphere	*	MAL-2025-188788
@@ -177547,6 +177572,7 @@ npm	sq-table	9999.0.99	MAL-2024-3045
 npm	sq-themes	9999.0.99	MAL-2024-3046
 npm	sqarenet	*	MAL-2025-33834
 npm	sql-action	*	MAL-2022-6272
+npm	sql-limit-enforcer	10.0.0	MAL-2026-16151
 npm	sql-logs-migration-service	*	MAL-2025-33835
 npm	sql-web-console	*	MAL-2025-33836
 npm	sqldbproj	*	MAL-2025-33837
@@ -178673,6 +178699,7 @@ npm	strapi-plugin-nordica-sync	3.6.8	MAL-2026-2478
 npm	strapi-plugin-nordica-tools	3.6.10	MAL-2026-2479
 npm	strapi-plugin-nordica-vhost	3.6.8	MAL-2026-2480
 npm	strapi-plugin-notify	3.6.8	MAL-2026-2481
+npm	strapi-plugin-os-info-meeb322k	3.6.8	MAL-2026-16152
 npm	strapi-plugin-pocvk	0.0.1	MAL-2026-7424
 npm	strapi-plugin-seed	3.6.8	MAL-2026-2482
 npm	strapi-plugin-server	*	MAL-2026-2483
@@ -182133,7 +182160,7 @@ npm	tailwind-fa-bridge	*	MAL-2025-49354
 npm	tailwind-font-inter	*	MAL-2026-2111
 npm	tailwind-fonttype-inter	2.3.2	MAL-2026-6886
 npm	tailwind-form	0.5.12	MAL-2026-5487
-npm	tailwind-form-kit	0.6.4	MAL-2026-16139
+npm	tailwind-form-kit	0.6.2,0.6.4	MAL-2026-16139
 npm	tailwind-form-templates	0.7.4	MAL-2026-13923
 npm	tailwind-glass-icon	*	MAL-2025-47503
 npm	tailwind-gutenberg-block-zero	1.0.0	MAL-2026-11044
@@ -182224,7 +182251,7 @@ npm	tailwindcss-callback-andromeda-umbra	*	MAL-2025-148440
 npm	tailwindcss-charon-callisto-acamar	*	MAL-2025-34389
 npm	tailwindcss-color-icons-lite	*	MAL-2025-47445
 npm	tailwindcss-config-overrides	*	MAL-2025-47983
-npm	tailwindcss-contact-forms	0.5.4,0.5.5,0.5.6,0.5.7,0.5.8,0.5.9,0.6.0,0.6.1	MAL-2026-16124
+npm	tailwindcss-contact-forms	0.5.4,0.5.5,0.5.6,0.5.7,0.5.8,0.5.9,0.6.0,0.6.1,0.6.2	MAL-2026-16124
 npm	tailwindcss-effector	1.7.0	MAL-2026-6472
 npm	tailwindcss-first-line	*	MAL-2025-34390
 npm	tailwindcss-fluid-styles	2.0.7	MAL-2026-15826
@@ -197831,6 +197858,7 @@ npm	ultra-ultra-castor-betelgeuse	*	MAL-2025-148912
 npm	ultra-update-nightwatch-event	*	MAL-2025-148913
 npm	ultra-w58rs-aco8p-orbit-project	*	MAL-2025-37638
 npm	ultra-winston-standard-neutrino	*	MAL-2025-190034
+npm	ultra-ws	1.0.0	MAL-2026-16155
 npm	ultraconvert	*	MAL-2025-5865
 npm	ultraprop	*	MAL-2025-37639
 npm	ultraviolet_ehj38_cszq8_prairie	*	MAL-2025-37640
@@ -208853,6 +208881,7 @@ npm	web-frontend	*	MAL-2022-7069
 npm	web-i18	*	MAL-2025-38972
 npm	web-kore-sdk	*	MAL-2022-7070
 npm	web-live-sdk	10.0.1,10.0.5,400.10.1	MAL-2024-11754
+npm	web-main	22.1.2	MAL-2026-16153
 npm	web-model-bridge	9999.99.99	MAL-2026-5697
 npm	web-nbq6lx	1.0.0	MAL-2025-191601
 npm	web-pairing-kit	*	MAL-2023-960
