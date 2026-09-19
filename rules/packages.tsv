@@ -5451,6 +5451,7 @@ npm	@inheritdoc/n	99.9.9	MAL-2026-7077
 npm	@injectivelabs/sdk-ts	1.20.21	MAL-2026-10165
 npm	@inner-source/ciam-sdk	1.0.0,10.1.0	MAL-2025-4154
 npm	@innocarpe/deepseek-build	1.0.0	MAL-2026-13420
+npm	@insiderintelligence/googleadmanager	9.9.10	MAL-2026-16290
 npm	@instagram/fetlife-assets	*	MAL-2022-359
 npm	@instant-api-hooks/assethub-campaigns	*	MAL-2022-360
 npm	@instant-messengers/vk-teams-bridge	172.1.5	MAL-2025-2810
@@ -10303,7 +10304,10 @@ npm	@shadowmonarchx/eslint_plugin_react	7.29.6	MAL-2025-5758
 npm	@shahwarhello/l2geth	0.5.11	MAL-2024-12084
 npm	@shamim12_12/iniconfig	2.0.0	MAL-2024-2513
 npm	@shanye3501/curvess	*	MAL-2025-2553
+npm	@shared-runtime/modules	9.9.10	MAL-2026-16291
 npm	@shared-ui/global-navigation-header	*	MAL-2022-587
+npm	@shared-web/assets	9.9.10	MAL-2026-16283
+npm	@shared-web/utils	9.9.10	MAL-2026-16292
 npm	@shein-components-test-ump/text-to-speech-tool	*	MAL-2025-2233
 npm	@sheingroup/babetonight	*	MAL-2025-2351
 npm	@sheingroup/justakiss	*	MAL-2025-2352
@@ -41695,6 +41699,7 @@ npm	chai-as-gateway	7.1.5	MAL-2026-14200
 npm	chai-as-hardened	7.0.9	MAL-2026-10621
 npm	chai-as-hashed	2.3.4	MAL-2026-564
 npm	chai-as-ide	*	MAL-2026-2890
+npm	chai-as-indexed	7.2.8	MAL-2026-16293
 npm	chai-as-informed	1.2.0	MAL-2026-7234
 npm	chai-as-init	1.4.5,1.4.6,1.4.7	MAL-2026-2891
 npm	chai-as-inserted	1.2.1	MAL-2026-2892
@@ -95893,6 +95898,7 @@ npm	internallib_v907	1.0.3	MAL-2026-10691
 npm	internallib_v915	*	MAL-2025-47469
 npm	internallib_v921	1.0.1,1.0.2,1.0.3	MAL-2025-3626
 npm	internallib_v944	*	MAL-2022-3912
+npm	internallib_v949	1.0.3	MAL-2026-16294
 npm	internallib_v95	*	MAL-2026-4316
 npm	internallib_v956	*	MAL-2022-3913
 npm	internallib_v962	*	MAL-2026-391
@@ -104900,6 +104906,7 @@ npm	kernelcon-bad-packagexp	*	MAL-2025-3260
 npm	kernellib	*	MAL-2025-24406
 npm	kerocinedeizel	*	MAL-2025-24407
 npm	kerocinefuel	*	MAL-2022-4145
+npm	keroeltop	99.99.99	MAL-2026-16297
 npm	keroris	*	MAL-2025-24408
 npm	kerry-soluble-pot	*	MAL-2025-104762
 npm	kerry-wallet-store	*	MAL-2025-104763
@@ -143114,6 +143121,7 @@ npm	openkitjs-simple-sample	1.0.1	MAL-2025-4591
 npm	openllmapi	4.0.2	MAL-2026-6364
 npm	openmct-couch-plugin	1.0.0,1.0.1,1.0.2	MAL-2026-4629
 npm	openmct-e2e	10.0.1	MAL-2025-41820
+npm	openmct-heatmap	*	MAL-2026-16287
 npm	openpass-sample-sites-client-js-sdk	2.0.0,2.0.1	MAL-2024-11218
 npm	openpass-sample-sites-piano-io	2.0.1,2.0.5,2.0.7,2.1.0,2.1.3,2.1.4	MAL-2024-11214
 npm	openpom	*	MAL-2025-28329
@@ -172966,6 +172974,7 @@ npm	simulation_service	1.0.2	MAL-2024-11823
 npm	sinatbbs	*	MAL-2025-33287
 npm	sinbad-dev	0.0.2	MAL-2024-10534
 npm	sindra	*	MAL-2025-33288
+npm	sinful	*	MAL-2026-16284
 npm	sing-fest-es-logger	2025.10.20	MAL-2025-191587
 npm	sing-wore-glass	*	MAL-2025-46060
 npm	singhadi1222	*	MAL-2022-6128
@@ -182355,6 +182364,7 @@ npm	tailwindcss-forms-componentes	*	MAL-2026-1212
 npm	tailwindcss-forms-kit	*	MAL-2026-693
 npm	tailwindcss-forms-starter	*	MAL-2026-758
 npm	tailwindcss-forms-style	0.1.2	MAL-2026-15636
+npm	tailwindcss-forms-ui	0.5.2	MAL-2026-16295
 npm	tailwindcss-framer-motion	1.1.3	MAL-2026-6891
 npm	tailwindcss-gustify	*	MAL-2025-49385
 npm	tailwindcss-halley-docusaurus-pegasus	*	MAL-2025-148441
@@ -190356,7 +190366,11 @@ npm	test7458	*	MAL-2022-6501
 npm	test771	1.0.0	MAL-2025-48949
 npm	test881	*	MAL-2025-49289
 npm	test882	*	MAL-2025-49290
+npm	test89-auth	1.0.1	MAL-2026-16288
+npm	test890-auth	1.0.0	MAL-2026-16289
 npm	test89078-auth	99.99.99	MAL-2026-16271
+npm	test899-auth	1.0.1	MAL-2026-16285
+npm	test8999-auth	1.0.1	MAL-2026-16286
 npm	test_1_57	*	MAL-2022-6502
 npm	test_1_58	*	MAL-2022-6503
 npm	test_1_59	*	MAL-2022-6504
@@ -212935,7 +212949,7 @@ npm	x0iliom7ielzziorieyqsnrnkihknzr5	*	MAL-2025-39546
 npm	x3-stock-graphql-demo	*	MAL-2022-7260
 npm	x402-legacy	3.0.0,5.0.0	MAL-2025-191485
 npm	x402_monorepo	339.52.1	MAL-2025-47571
-npm	x509-escaping	0.0.0,0.0.1,0.0.2	MAL-2025-889
+npm	x509-escaping	0.0.0,0.0.1,0.0.2,1.0.1	MAL-2025-889
 npm	x6842179305	1.0.0,1.0.1	MAL-2026-14303
 npm	x91yz	2.4.12	MAL-2024-7777
 npm	x_exchanges	*	MAL-2025-39547
@@ -224611,7 +224625,7 @@ pypi	goldensweatshirtwifi	99.0	MAL-2024-5185
 pypi	goodoldtoulas	0.1.0	MAL-2026-5271
 pypi	goodoltoulas	0.1.0	MAL-2026-5272
 pypi	google-appengine-ext	0.0.1	MAL-2025-6512
-pypi	google-cloud-datacatalog-lineage-producer-client	9999,99999999	MAL-2024-12279
+pypi	google-cloud-datacatalog-lineage-producer-client	0.2.7,9999,99999999	MAL-2024-12279
 pypi	google-cloud-iam-credentials	2.20.0	MAL-2025-191741
 pypi	google-play-store	0.6.0	MAL-2024-12280
 pypi	google-requests	99.3.9	MAL-2024-1144
@@ -228399,6 +228413,7 @@ pypi	py-urlpostosint	*	MAL-2023-5727
 pypi	py-urlpushpong	*	MAL-2023-5728
 pypi	py-urlram	*	MAL-2023-5729
 pypi	py-urlvm	*	MAL-2023-5730
+pypi	py-venv-doctor	0.1.0,0.1.1	MAL-2026-16296
 pypi	py-vercraftget	*	MAL-2023-5731
 pypi	py-vercv	*	MAL-2023-5732
 pypi	py-verhackedvirtual	*	MAL-2023-5733
@@ -232459,6 +232474,7 @@ pypi	upgrade-requestt	0.0.1	MAL-2024-6182
 pypi	upllib	1,1.0	MAL-2024-11736
 pypi	uploder-rubika	1.3.0	MAL-2025-41792
 pypi	uprobe	0.1.3,0.1.4	MAL-2026-5279
+pypi	urc	99.99.99	MAL-2026-16298
 pypi	urelib3	1.27.15	MAL-2024-6183
 pypi	urklib3	1.27.15	MAL-2024-6184
 pypi	url-validatorindx	0.0.7,0.0.8,0.0.9,0.1.0	MAL-2024-10182
