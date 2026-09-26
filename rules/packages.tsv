@@ -890,6 +890,7 @@ npm	@aio-commerce-sdk/config-tsdown	1.0.0	MAL-2025-48955
 npm	@aio-commerce-sdk/config-typedoc	1.0.0	MAL-2025-48956
 npm	@aio-commerce-sdk/config-typescript	1.0.0	MAL-2025-48957
 npm	@aio-commerce-sdk/config-vitest	1.0.0	MAL-2025-48958
+npm	@airbnb-extended/typescript-config	99.9.1	MAL-2026-17184
 npm	@airbytehq/fetlife-assets	*	MAL-2022-65
 npm	@aircall-ecosystem/integrations-msteams-frontend	*	MAL-2026-2573
 npm	@aircanada/components	*	MAL-2026-16018
@@ -3288,6 +3289,7 @@ npm	@didi-pebble/pblint	1.0.0,99.9.0	MAL-2025-5852
 npm	@diendh/n8n-nodes-tiktok-v2	*	MAL-2026-378
 npm	@dier-makr/inversify	*	MAL-2022-203
 npm	@diezyyasha/libsignal-node	*	MAL-2026-13474
+npm	@digift/cli	99.99.100	MAL-2026-17187
 npm	@digital-experience/product	*	MAL-2024-8028
 npm	@digital-experience/test	*	MAL-2024-8029
 npm	@digital-wealth-web/cwp-service-setu	*	MAL-2025-7746
@@ -8879,6 +8881,7 @@ npm	@nsub/nitxe	1.0.0,1.0.1	MAL-2026-10429
 npm	@ntnx/nx-react-components	*	MAL-2026-5660
 npm	@ntnx/passport-wso2	0.0.3	MAL-2025-191035
 npm	@ntnx/t	0.0.101	MAL-2025-191036
+npm	@nubjs/types	0.9.4	MAL-2026-17186
 npm	@nullzero/urlcat	1.4.0,1.4.1,1.4.2,1.4.3,1.4.4,1.4.5	MAL-2026-6309
 npm	@nunes_nunes/loader-base	*	MAL-2025-48470
 npm	@nursefly/tokens	45.45.45,46.46.47	MAL-2023-1093
@@ -172584,6 +172587,7 @@ npm	shopify_transporter	*	MAL-2025-33154
 npm	shopifyql-parser	1.110.1,20.110.1	MAL-2025-48463
 npm	shopifyto-cms	*	MAL-2026-5109
 npm	shopit	*	MAL-2025-33155
+npm	shoplist-app	99.99.99,993.99.99	MAL-2026-17185
 npm	shopmacher-mollie-application	2.1.2,7.7.7	MAL-2025-2895
 npm	shoponline.epiroc.com	1.0.1,1.0.2	MAL-2024-86
 npm	shoppedemo	*	MAL-2022-6108
@@ -230925,6 +230929,7 @@ pypi	sher-server-tool	0.0.1	MAL-2026-2840
 pypi	sherm	0.0.1,1.0	MAL-2024-6002
 pypi	shermed	1.0	MAL-2024-6003
 pypi	sherms	1.0	MAL-2024-6004
+pypi	sherpy	0.1.0,0.1.1	MAL-2026-17188
 pypi	shikitesting	1.0	MAL-2024-6005
 pypi	shimi	1.0	MAL-2024-6006
 pypi	shinchina	1.0.0	MAL-2024-12343
@@ -231387,6 +231392,7 @@ pypi	tcloud-python-test	1.0.0	MAL-2025-3006
 pypi	tdata-grabber	1.0.0	MAL-2026-6560
 pypi	team-bsb-bot	1.0.0	MAL-2025-2622
 pypi	teensorflow	*	MAL-2023-2293
+pypi	tego-managed-agents-test	0.1.0	MAL-2026-17183
 pypi	telco	1.0.1,1.0.2	MAL-2025-192363
 pypi	telcoo	1.0.2,1.0.3,1.0.4	MAL-2025-192386
 pypi	telebot-bot	0.2	MAL-2025-192942
