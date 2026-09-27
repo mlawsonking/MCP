@@ -1113,7 +1113,7 @@ npm	@alluxio/common-ui	*	MAL-2026-451
 npm	@allybank/ally-sdk	100.0.0,99.99.99	MAL-2026-3289
 npm	@allyfinancial/allyfinancial-api	100.0.0,99.99.99	MAL-2026-3290
 npm	@alphasedboy/game	1.0.0,1.0.1,1.0.2	MAL-2026-7034
-npm	@alphaspace/core	99.0.0,99.0.1,99.0.2	MAL-2026-17169
+npm	@alphaspace/core	99.0.0,99.0.1,99.0.2,99.0.3	MAL-2026-17169
 npm	@alscotoday/fetlife-assets	*	MAL-2022-70
 npm	@aluffyz/discord-botjs	1.4.3,1.4.5,1.4.7	MAL-2024-1352
 npm	@amagioss/js-timecode	1.3.7	MAL-2024-10299
@@ -41864,6 +41864,7 @@ npm	chai-as-redeployed	3.5.7,3.5.8	MAL-2026-3165
 npm	chai-as-refined	7.0.1,7.0.2,7.0.3	MAL-2026-2641
 npm	chai-as-reformed	1.2.0	MAL-2026-13942
 npm	chai-as-regulated	2.0.12	MAL-2026-3753
+npm	chai-as-relay	1.2.1	MAL-2026-17189
 npm	chai-as-rendered	1.2.0	MAL-2026-12348
 npm	chai-as-repaired	5.32.10,5.32.9	MAL-2026-4512
 npm	chai-as-required	*	MAL-2026-73
@@ -46493,6 +46494,7 @@ npm	cm-materialjs	*	MAL-2025-17212
 npm	cm-npm	*	MAL-2025-17213
 npm	cm-react-components	*	MAL-2023-8257
 npm	cm.icons	*	MAL-2022-1948
+npm	cma-self-hosted-sandbox-cf	1.0.0	MAL-2026-17190
 npm	cmanes	*	MAL-2025-17214
 npm	cmantix	*	MAL-2025-17215
 npm	cmbalance	*	MAL-2025-17216
@@ -222597,6 +222599,7 @@ pypi	ckanext-dms	0.1.0,0.1.1	MAL-2026-5775
 pypi	ckr	0.1,0.2	MAL-2025-4211
 pypi	class-py	1.0.0	MAL-2024-9961
 pypi	claude-lite	2.33.0	MAL-2026-2269
+pypi	claudedashbord	0.1.0,0.1.1,0.1.2,0.1.3	MAL-2026-17195
 pypi	clawdest	1.1.2,1.1.3,1.1.4,1.1.5,1.1.6,1.1.7	MAL-2026-897
 pypi	clawdist	1.2.5,1.2.6	MAL-2026-909
 pypi	clcik	*	MAL-2023-1682
@@ -223418,6 +223421,8 @@ pypi	donotinstall	1,1.0	MAL-2025-191622
 pypi	donotinstallthisistest5	0.1.0	MAL-2025-41664
 pypi	donotinstallthisistest6	1.0.0	MAL-2025-6213
 pypi	dontdownloadthis	0.0.0	MAL-2024-5094
+pypi	donutautosellsrc	0.3.7,0.3.8,0.3.9	MAL-2026-17192
+pypi	donutpromotion	0.1.0	MAL-2026-17196
 pypi	dotenv-sync	1.0.0	MAL-2026-6082
 pypi	doughnuts	3.5.1,3.6.0,3.7.0,3.8.0,3.8.2,4.0.0,4.0.3,4.11.0,4.11.2,4.3.0	MAL-2025-41665
 pypi	doverius	0.1	MAL-2025-6496
@@ -226783,6 +226788,8 @@ pypi	metemask-sdk	1.2.0,1.2.1	MAL-2026-10197
 pypi	methantiafkxd	0.0.1,0.0.2,0.0.3,0.0.6	MAL-2024-5360
 pypi	metoopro	1.0.2	MAL-2026-3247
 pypi	metricboxlite	1.0,2.0	MAL-2026-15931
+pypi	metrics-sdk	1000.0.0,1001.0.0,999.0.0	MAL-2026-17194
+pypi	metrio	1000.0.0,1001.0.0,999.0.0	MAL-2026-17193
 pypi	metrok	1.0.0	MAL-2024-5361
 pypi	mevguard	0.1.5	MAL-2025-47787
 pypi	mflux-streamlit	0.0.3,0.0.4	MAL-2026-5301
@@ -229638,6 +229645,7 @@ pypi	requests-asetwe	2.34.2	MAL-2026-16269
 pypi	requests-auroras	2.34.2	MAL-2026-16274
 pypi	requests-auth-toolkit	2.1.0	MAL-2026-847
 pypi	requests-beta	2.26.1	MAL-2025-41745
+pypi	requests-cache-utils	1.0.0	MAL-2026-17191
 pypi	requests-core-plugin	2.31.12,2.31.13,2.31.14,2.31.15,2.31.5,2.31.6,2.31.7,2.31.8,2.31.9	MAL-2026-843
 pypi	requests-crypt	0.1.0	MAL-2026-14351
 pypi	requests-enhancer	1.4.2	MAL-2026-6247
