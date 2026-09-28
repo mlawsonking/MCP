@@ -1732,6 +1732,7 @@ npm	@baywa-re-lusy/nsemea-quote-lib-poc	*	MAL-2025-3516
 npm	@baywa-re-lusy/nsemea-salestransaction-lib-poc	*	MAL-2025-3517
 npm	@bazel-example/vue-library	*	MAL-2025-7111
 npm	@bb-ui-utils/memoizer	9.8.1,9.8.3,9.8.6	MAL-2025-5263
+npm	@bb1ptest23/test-paket	1.0.3	MAL-2026-17201
 npm	@bbkkfkk/pre	*	MAL-2025-49355
 npm	@bc-workspace/utils	*	MAL-2026-6603
 npm	@bcryptln/bcryptjs	*	MAL-2026-11021
@@ -2287,6 +2288,7 @@ npm	@concerns/i18n	99.9.1	MAL-2026-6606
 npm	@confluence-classic/confluence-authentication	*	MAL-2025-4056
 npm	@confluence-classic/confluence-frontend-server	*	MAL-2025-4057
 npm	@confluent-cfet-medusa/dataset-designer	1.0.0,10.1.2	MAL-2025-4148
+npm	@consts/links	*	MAL-2026-17202
 npm	@contaazul/n8n-nodes-contaazul	0.3.26	MAL-2026-5195
 npm	@content-editor/common	99.9.1	MAL-2026-6607
 npm	@content-platform/fadam-module	*	MAL-2024-1354
@@ -3289,6 +3291,7 @@ npm	@didi-pebble/pblint	1.0.0,99.9.0	MAL-2025-5852
 npm	@diendh/n8n-nodes-tiktok-v2	*	MAL-2026-378
 npm	@dier-makr/inversify	*	MAL-2022-203
 npm	@diezyyasha/libsignal-node	*	MAL-2026-13474
+npm	@digi-kernel/digi-kernel-constrains	*	MAL-2026-17203
 npm	@digift/cli	99.99.100	MAL-2026-17187
 npm	@digital-experience/product	*	MAL-2024-8028
 npm	@digital-experience/test	*	MAL-2024-8029
@@ -12172,7 +12175,9 @@ npm	@wb-drive/icons	2.4.9	MAL-2025-191951
 npm	@wb-team/uikit-myteam-web	0.0.1,0.0.1-security,99.9.9,99.99.10,99.99.9	MAL-2026-265
 npm	@wbgo/shared	0.0.1,0.0.1-security,99.9.10,99.99.10,99.99.9	MAL-2026-266
 npm	@wbnr/design	99.0.0,99.0.1,99.1.0,99.3.0	MAL-2026-11196
+npm	@wbnr/design-kit	*	MAL-2026-17204
 npm	@wbnr/frontend-shared	99.0.0,99.0.1	MAL-2026-13436
+npm	@wbnr/lottiefiles-loader	*	MAL-2026-17205
 npm	@wdp-gov/catalog-serialization-engine	1.2.53,1.2.531,1.2.9,1.3.9,2.2.5,3.0.161,3.0.195,3.0.421,3.1.4	MAL-2024-1668
 npm	@wdp-gov/lineage-component	1.0.33,1.0.37,1.0.40,1.0.401,1.0.402,1.1.37,1.1.39,1.1.40,1.1.42,2.1.14,5.1.14	MAL-2024-1667
 npm	@wdpx/themes	3.0.2	MAL-2024-1641
@@ -103751,6 +103756,7 @@ npm	kakao-pixel-web	1.8.1,2.1.0	MAL-2025-4748
 npm	kakau-infos	*	MAL-2022-4101
 npm	kakfa-service-interface-sample	*	MAL-2025-24163
 npm	kakurea	*	MAL-2025-24164
+npm	kalasnik-npm-simple-test	*	MAL-2026-17206
 npm	kald0a	*	MAL-2024-9374
 npm	kale-9xedz-4lgzx-unity-project	*	MAL-2025-24165
 npm	kale-albatross-crn680-project	*	MAL-2025-24166
@@ -106653,6 +106659,7 @@ npm	kiwi_vicious	1.999.1	MAL-2023-8029
 npm	kiwmnamnw	*	MAL-2025-24678
 npm	kiwoeslw	*	MAL-2024-7968
 npm	kjadufvkoltqznib	*	MAL-2022-4175
+npm	kjj81	*	MAL-2026-17207
 npm	kjjgjgjkg	*	MAL-2025-24679
 npm	kjjr66	*	MAL-2025-24680
 npm	kjnschqumowlxfze	*	MAL-2025-24681
@@ -164853,6 +164860,7 @@ npm	rintono-poke99	*	MAL-2025-178286
 npm	rio-design-tokens	99.99.100,99.99.99	MAL-2026-6956
 npm	rioarjuna	*	MAL-2025-171783
 npm	riomda-fofiri-agoai	*	MAL-2025-164877
+npm	riot-private	*	MAL-2026-17208
 npm	riotbar-react	*	MAL-2025-32245
 npm	ripe-gray-aardwolf	*	MAL-2025-70393
 npm	ripe-grs	1.0.0	MAL-2025-5001
@@ -183556,6 +183564,7 @@ npm	tanker-branch	0.4.0,0.4.1,0.7.1,0.7.2,1.3.2,1.3.3	MAL-2024-3080
 npm	tanker-fetch	*	MAL-2025-34540
 npm	tanker-kit	*	MAL-2025-34541
 npm	tanker-ts-i18n	*	MAL-2023-829
+npm	tanksync	*	MAL-2026-17209
 npm	tanktop	*	MAL-2025-34542
 npm	tannucolingboys	99.0.0	MAL-2024-8935
 npm	tanr-sa-dafa	*	MAL-2025-178760
@@ -202240,6 +202249,7 @@ npm	uudaao	*	MAL-2025-38013
 npm	uudi	*	MAL-2026-972
 npm	uui-framework	1.0.1	MAL-2024-915
 npm	uui-nextjs-template	55.33.11,55.33.111	MAL-2025-48881
+npm	uuid-date	*	MAL-2026-17210
 npm	uuid-latest	5.1.9	MAL-2024-10873
 npm	uuid-utils	10.10.11	MAL-2024-10492
 npm	uuidvalidatorarabis	4.99.99	MAL-2026-2395
@@ -205822,6 +205832,7 @@ npm	vintage-poc	1.0.0	MAL-2024-12059
 npm	vinyl-content-tostring	*	MAL-2025-38410
 npm	vinyl-sf	*	MAL-2022-6937
 npm	vinzz-wcli	1.0.1	MAL-2026-16058
+npm	vinzzsync-wacli	*	MAL-2026-17211
 npm	vio-atm	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2024-9905
 npm	vio-captcha	*	MAL-2024-7065
 npm	violba	*	MAL-2025-38411
@@ -209027,6 +209038,7 @@ npm	wb888	*	MAL-2025-38941
 npm	wb888new	*	MAL-2025-38942
 npm	wbcm	*	MAL-2025-6780
 npm	wbngclazsekkjmpr	*	MAL-2025-38943
+npm	wbnr-probe-visible-check	*	MAL-2026-17212
 npm	wboiesvkzkyjgxqd	*	MAL-2025-38944
 npm	wbpac-hot-middwleware	*	MAL-2022-7052
 npm	wbtc-address-set-adapter	*	MAL-2022-7053
@@ -221934,6 +221946,7 @@ pypi	asdk-plugin-ai-platform	0.0.1,9999.0.0	MAL-2026-11421
 pypi	asdk-plugin-alphagen	0.0.1,9999.0.0	MAL-2026-11422
 pypi	asdk-plugin-legacy	0.0.1,9999.0.0	MAL-2026-11423
 pypi	ase-jreq	0.0.3	MAL-2025-191684
+pypi	aseity	0.1.0	MAL-2026-17200
 pypi	aslmutetion	98.7,99.7	MAL-2024-11529
 pypi	asmutation	99.7	MAL-2024-10405
 pypi	asn1tool	0.167.0,0.167.1	MAL-2024-11530
@@ -222029,6 +222042,7 @@ pypi	azerty123	0.0.1	MAL-2024-4789
 pypi	azure-ai-agentserver-githubcopilot	0.0.1,0.0.2	MAL-2026-2831
 pypi	azure-eventhub-checkpointstoretable	9.9.9	MAL-2026-1985
 pypi	azure-iothub-service-client	1.3.5	MAL-2025-41622
+pypi	azure-langchain-example	0.1.0	MAL-2026-17213
 pypi	azure-projects	0.1a0	MAL-2024-12211
 pypi	azureml-contrib-daskonbatch	1.0.0	MAL-2023-8563
 pypi	b10connoisseur	0.1.0,0.12.0,0.13.0,0.14.0,0.17.0,0.18.0,0.19.0,0.2.0,0.20.0,0.21.0,0.22.0,0.23.0,0.24.0,0.25.0,0.26.0,0.27.0,0.28.0,0.29.0,0.3.0,0.30.0,0.31.0,0.4.0,0.5.0	MAL-2026-870
@@ -222467,6 +222481,7 @@ pypi	capmostercloudclient	1.0.0	MAL-2024-4880
 pypi	capmostercloudclinet	1.0.0	MAL-2024-4881
 pypi	captcha-py	1.0	MAL-2024-4882
 pypi	captcha-solve-api	0.0.1,8.5.3,8.5.4	MAL-2026-10755
+pypi	caracas4check	1.1.1,1.1.2	MAL-2026-17198
 pypi	carcent	2.1.0	MAL-2026-808
 pypi	carpentry-ci	0.0.1	MAL-2025-6473
 pypi	cas-base	1.5.2,1.5.3,1.5.5,1.5.6,1.5.7,1.5.8,1.5.9,1.6.0,1.6.1,1.6.2,1.6.3,1.6.5,1.6.6,1.6.9,1.7.1	MAL-2025-193014
@@ -222655,6 +222670,7 @@ pypi	coinanalysis	1.0.2	MAL-2025-2946
 pypi	coinanalyze	1.0.7,1.0.8,1.0.9	MAL-2025-2947
 pypi	coingenerator	1.0.1	MAL-2025-2948
 pypi	coinmate-api	1.1.0	MAL-2026-3141
+pypi	coinscan	0.1.0	MAL-2026-17197
 pypi	colarama	1.0	MAL-2024-4905
 pypi	colarama-api	1.0	MAL-2024-4906
 pypi	colarg	0.1,0.2	MAL-2024-4907
@@ -229972,6 +229988,7 @@ pypi	scrambleeeer	0.1.0	MAL-2026-14358
 pypi	scrambleeer	0.1.0,0.1.1	MAL-2026-14350
 pypi	scraper-npm	1.0.4	MAL-2026-1000
 pypi	scraperworldapi	1.0	MAL-2025-41759
+pypi	scrapetools2	0.2.0,0.2.1,1.2.0,1.2.1	MAL-2026-17199
 pypi	scrapyy	*	MAL-2023-2226
 pypi	scray	*	MAL-2023-2227
 pypi	screencaptned	0.1.0	MAL-2024-5970
