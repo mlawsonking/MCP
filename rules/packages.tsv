@@ -10558,6 +10558,7 @@ npm	@smt-front/common	158.1.5	MAL-2025-1697
 npm	@smt-front/inner-landing	158.1.5	MAL-2025-1698
 npm	@smt-front/poster	158.1.5	MAL-2025-1699
 npm	@smt-front/tracker	158.1.5	MAL-2025-1700
+npm	@smwebserver/static	99.9.1	MAL-2026-17456
 npm	@sn4k-s3c/call-home	9999.0.0	MAL-2025-779
 npm	@snapchat-web-calling/app	99.50.55	MAL-2024-9472
 npm	@snapon/design-system-react	1.0.0,131.0.0	MAL-2025-9329
@@ -194485,6 +194486,7 @@ npm	transify-helper-cli	0.0.0,10.4.2	MAL-2024-11111
 npm	transitive-vulnerability-demo	*	MAL-2024-7758
 npm	transitive_lib	*	MAL-2026-2157
 npm	translatables	1.0.0	MAL-2025-6965
+npm	translate-base-font	*	MAL-2026-17458
 npm	translate-readme	0.1.5,0.1.6	MAL-2024-9887
 npm	translation-note	1.0.0,9.0.0,9.0.1	MAL-2026-484
 npm	translation_locale_yml_updater	*	MAL-2025-37161
@@ -197852,6 +197854,7 @@ npm	ui-2	*	MAL-2025-48767
 npm	ui-ace	*	MAL-2022-6746
 npm	ui-ad-marketplace	*	MAL-2025-37590
 npm	ui-advert-manager	*	MAL-2025-37591
+npm	ui-base-colors	*	MAL-2026-17459
 npm	ui-challenge	*	MAL-2022-6747
 npm	ui-cluster-driver-civo	1.0.0	MAL-2024-11477
 npm	ui-cluster-driver-otccce	*	MAL-2025-191555
@@ -197901,6 +197904,7 @@ npm	ui-tooltip	1.1.1,1.1.2	MAL-2024-10282
 npm	ui-utils-udhay-alerts	1.0.0,1.0.1,1.0.2	MAL-2026-2659
 npm	ui-weave	1.0.3	MAL-2026-5406
 npm	ui-zephyr	19.20.0	MAL-2023-8628
+npm	ui.dist.min.js	*	MAL-2026-17460
 npm	ui5-cap-event-app-server	9.9.9	MAL-2026-945
 npm	ui5-mobx-state-tree	*	MAL-2025-37600
 npm	ui_assets	*	MAL-2025-37601
@@ -223455,6 +223459,7 @@ pypi	decapod-common	0.0.0,1.2.dev1,1.2.dev2	MAL-2026-13386
 pypi	decompopt	912.6	MAL-2024-10448
 pypi	decoratoroperations	0.0.3	MAL-2025-41658
 pypi	decoris	0.3.0,0.3.3	MAL-2026-14554
+pypi	dedh-devops-automation	0.0.1,5.0.0,5.6.0,5.6.1,5.6.999,5.8.0,5.8.1,5.9.0	MAL-2026-17455
 pypi	deepface-weight	0.1.4	MAL-2026-14158
 pypi	deepface-weights	0.1.0,0.1.1,0.1.2	MAL-2026-14132
 pypi	deepmountains-rce	0.0.1	MAL-2025-41659
@@ -223725,6 +223730,7 @@ pypi	ebe	8.0.5	MAL-2024-12262
 pypi	ebell	0.1	MAL-2024-12263
 pypi	ebsocket-client	*	MAL-2023-1820
 pypi	ebsockets	*	MAL-2023-1821
+pypi	echogen	1.0.0	MAL-2026-17462
 pypi	edcv	*	MAL-2023-2693
 pypi	edgame	*	MAL-2023-2694
 pypi	edgehttp	1.0	MAL-2024-5104
@@ -233221,6 +233227,9 @@ pypi	vmvm	*	MAL-2023-7898
 pypi	voicemetterr	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5	MAL-2025-191921
 pypi	voipms-service	0.1	MAL-2025-191922
 pypi	voto3	0.1,0.2,0.2.0,0.3,0.3.0,0.7.0,0.9.0	MAL-2024-11746
+pypi	voxcpmtts3	0.1.0,0.1.1,0.1.2	MAL-2026-17463
+pypi	voxel-tts	0.5.0,0.5.1	MAL-2026-17461
+pypi	voxeval	0.4.2,0.4.3,0.4.4,0.4.5	MAL-2026-17457
 pypi	vper	*	MAL-2023-2348
 pypi	vpyer	*	MAL-2023-2349
 pypi	vramx	1.6.2,1.6.3	MAL-2025-6614
