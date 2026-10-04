@@ -222679,6 +222679,7 @@ pypi	candyultra	*	MAL-2023-2536
 pypi	candyurl	*	MAL-2023-2537
 pypi	candyvisa	*	MAL-2023-2538
 pypi	canvas-crawler	0.1	MAL-2025-2943
+pypi	caoxiltts	0.1.0,0.1.1	MAL-2026-17471
 pypi	capmoneercloudclient	1.0.0	MAL-2024-4845
 pypi	capmonsstercloudcliennt	1.0.0	MAL-2024-4846
 pypi	capmonsstercloudclient	1.0.0	MAL-2024-4847
@@ -225623,6 +225624,7 @@ pypi	infotool	*	MAL-2023-3805
 pypi	infourl	*	MAL-2023-3806
 pypi	infovirtual	*	MAL-2023-3807
 pypi	infovm	*	MAL-2023-3808
+pypi	infrabench	0.1.0,0.1.1,0.2.0	MAL-2026-17469
 pypi	init2winit	9.9.9	MAL-2026-1989
 pypi	initer	0.2.1,0.2.2,0.2.5,0.2.6	MAL-2025-6524
 pypi	initializer	0.1.0	MAL-2024-5261
@@ -233227,7 +233229,13 @@ pypi	vmvm	*	MAL-2023-7898
 pypi	voicemetterr	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5	MAL-2025-191921
 pypi	voipms-service	0.1	MAL-2025-191922
 pypi	voto3	0.1,0.2,0.2.0,0.3,0.3.0,0.7.0,0.9.0	MAL-2024-11746
+pypi	voxcpmeval	0.1.0	MAL-2026-17465
+pypi	voxcpmintel	0.1.0	MAL-2026-17468
+pypi	voxcpmkit	0.1.0	MAL-2026-17466
+pypi	voxcpmruntime	0.1.0	MAL-2026-17470
 pypi	voxcpmtts3	0.1.0,0.1.1,0.1.2	MAL-2026-17463
+pypi	voxcpmui3	0.1.0	MAL-2026-17464
+pypi	voxcpmui4	0.2.0	MAL-2026-17467
 pypi	voxel-tts	0.5.0,0.5.1	MAL-2026-17461
 pypi	voxeval	0.4.2,0.4.3,0.4.4,0.4.5	MAL-2026-17457
 pypi	vper	*	MAL-2023-2348
