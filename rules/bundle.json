@@ -1,7 +1,7 @@
 {
  "schema": 1,
- "version": "2026.10.04",
- "generated": "2026-10-04T10:39:29.518Z",
+ "version": "2026.10.05",
+ "generated": "2026-10-05T11:38:45.948Z",
  "notes": "all sources refreshed",
  "rulesets": {
   "injection": [
@@ -604,7 +604,7 @@
  "lists": {
   "ofac_evm": {
    "source": "OFAC SDN sanctioned digital-currency addresses via github.com/0xB10C/ofac-sanctioned-digital-currency-addresses",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "entries": {
     "0x0330070fd38ec3bb94f58fa55d40368271e9e54a": "OFAC SDN (ETH)",
     "0x038989cbb1710c72b9920dc4fa529158f463e72c": "OFAC SDN (ETH)",
@@ -734,7 +734,7 @@
   },
   "scam_addresses": {
    "source": "ethereum-lists-darklist + scamsniffer-blacklist",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "entries": {
     "0x000000002651a7206f8d7a23fe4410edf16dbec3": "scamsniffer-blacklist",
     "0x0000000dc3d9e17e3449e59bb75cb4005ee8aa7f": "scamsniffer-blacklist",
@@ -3922,13 +3922,13 @@
   },
   "malicious_packages": {
    "source": "OSV malicious-package advisories (MAL-) for npm and PyPI, from osv-vulnerabilities.storage.googleapis.com",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "file": "packages.tsv",
-   "sha256": "dab165a98b824de834a8601770242e716a683b44f5af5142f0afa6aa7aa2dc63",
-   "bytes": 10307438,
-   "npm_count": 221861,
-   "pypi_count": 11783,
-   "versioned_count": 29268
+   "sha256": "1a289f40802cb62e4ea5be390591660ed2cf4a2a81fbd756ea774f740be2bdb4",
+   "bytes": 10311877,
+   "npm_count": 221955,
+   "pypi_count": 11784,
+   "versioned_count": 29374
   }
  },
  "sources": [
@@ -3936,7 +3936,7 @@
    "id": "ethereum-lists-darklist",
    "ok": true,
    "url": "https://raw.githubusercontent.com/MyEtherWallet/ethereum-lists/master/src/addresses/addresses-darklist.json",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "age_days": 0,
    "note": ""
   },
@@ -3944,7 +3944,7 @@
    "id": "ofac-evm",
    "ok": true,
    "url": "https://raw.githubusercontent.com/0xB10C/ofac-sanctioned-digital-currency-addresses/lists/sanctioned_addresses_*.txt",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "age_days": 0,
    "note": ""
   },
@@ -3952,7 +3952,7 @@
    "id": "osv-npm",
    "ok": true,
    "url": "https://osv-vulnerabilities.storage.googleapis.com/npm/all.zip",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "age_days": 0,
    "note": ""
   },
@@ -3960,7 +3960,7 @@
    "id": "osv-pypi",
    "ok": true,
    "url": "https://osv-vulnerabilities.storage.googleapis.com/PyPI/all.zip",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "age_days": 0,
    "note": ""
   },
@@ -3968,7 +3968,7 @@
    "id": "scamsniffer-blacklist",
    "ok": true,
    "url": "https://raw.githubusercontent.com/scamsniffer/scam-database/main/blacklist/address.json",
-   "fetched": "2026-10-04",
+   "fetched": "2026-10-05",
    "age_days": 0,
    "note": ""
   }
