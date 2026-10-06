@@ -1726,7 +1726,7 @@ npm	@baanx/domain	9.9.9	MAL-2026-16486
 npm	@baanx/solana-lib	9.9.10,9.9.9	MAL-2026-16300
 npm	@babell/core	8.0.6	MAL-2026-17497
 npm	@badolkhan420/fca-badol	1.5.2	MAL-2023-8280
-npm	@badzz88/baileys	8.5.1,8.5.2,8.5.3,8.5.4,8.5.5,8.5.7,8.5.9	MAL-2026-17341
+npm	@badzz88/baileys	8.4.9,8.5.1,8.5.2,8.5.3,8.5.4,8.5.5,8.5.7,8.5.9,8.6.0	MAL-2026-17341
 npm	@baipiaodajun/mcbot	*	MAL-2026-15639
 npm	@baipiaodajun/mcbots	*	MAL-2026-15640
 npm	@baipiaodajun/npmsshx	*	MAL-2026-15641
@@ -3325,6 +3325,7 @@ npm	@di-sdk/quickselect-wasm	4.1.2	MAL-2025-3564
 npm	@didi-pebble/pblint	1.0.0,99.9.0	MAL-2025-5852
 npm	@diendh/n8n-nodes-tiktok-v2	*	MAL-2026-378
 npm	@dier-makr/inversify	*	MAL-2022-203
+npm	@diezyclutch/baileys	*	MAL-2026-17618
 npm	@diezyyasha/libsignal-node	*	MAL-2026-13474
 npm	@digi-kernel/digi-kernel-constrains	*	MAL-2026-17203
 npm	@digift/cli	99.99.100	MAL-2026-17187
@@ -9561,6 +9562,7 @@ npm	@pimy-b2cweb/apiclient-b2cweb-r2	99.99.99	MAL-2026-10655
 npm	@pimy-b2cweb/apiclient-common	99.99.99	MAL-2026-15683
 npm	@pimy-b2cweb/common	99.99.99	MAL-2026-15684
 npm	@pimy-b2cweb/frontend-lib	99.99.99	MAL-2026-10656
+npm	@pinecone-experience/messages	99.9.1	MAL-2026-17631
 npm	@pingone/net	*	MAL-2022-502
 npm	@pipi596888/ccursor	0.0.16,0.0.17	MAL-2026-15644
 npm	@piplabs/story-contracts	0.1.0-alpha.1	MAL-2025-3029
@@ -10829,6 +10831,7 @@ npm	@su-doughnym/loginui	99.99.99	MAL-2026-6408
 npm	@su-doughnym/metrics-js	99.99.99	MAL-2026-6409
 npm	@su-doughnym/react-dlb	99.99.99	MAL-2026-6410
 npm	@subdashboard/shared	15.0.3	MAL-2025-5649
+npm	@subql/common	5.8.3	MAL-2026-17571
 npm	@subscription-info/bff	*	MAL-2025-9353
 npm	@subsplash/auth	*	MAL-2025-5859
 npm	@sudoughnym/enviro-demo	0.3.3,99.99.99	MAL-2026-6697
@@ -42843,6 +42846,7 @@ npm	checking-ip	*	MAL-2025-43775
 npm	checking-ips	*	MAL-2025-47015
 npm	checkit-backend	*	MAL-2025-16881
 npm	checkmarx-claude-cache	1.0.0,1.0.1	MAL-2026-6576
+npm	checkmate-remediation-assistant	1.0.0	MAL-2026-17572
 npm	checkmkwebapiclient	10.0.0,9.0.0	MAL-2025-702
 npm	checkout-accounts-holder	35.2.3	MAL-2026-12541
 npm	checkout-accounts-logic	35.9.2	MAL-2026-12542
@@ -51244,16 +51248,19 @@ npm	css-dedoupe	0.1.2	MAL-2025-190953
 npm	css-display-reading-polyfill	1.0.0	MAL-2026-17549
 npm	css-dwsawd-polyfill	1.0.0	MAL-2026-17550
 npm	css-env-function-shim	1.0.0	MAL-2026-17477
+npm	css-eqxcdx-polyfill	1.0.0	MAL-2026-17573
 npm	css-field-sizing-polyfill	1.0.0	MAL-2026-17478
 npm	css-framework-test	*	MAL-2025-17790
 npm	css-gap-decorations-polyfill	1.0.0	MAL-2026-17479
 npm	css-gvqmfn-polyfill	1.0.0	MAL-2026-17551
+npm	css-gwqyid-polyfill	1.0.0	MAL-2026-17574
 npm	css-hell	*	MAL-2023-8698
 npm	css-hgwctv-polyfill	1.0.0	MAL-2026-17552
 npm	css-ikomdq-polyfill	1.0.0	MAL-2026-17553
 npm	css-import-order	1.1.0	MAL-2026-14473
 npm	css-interop-observer-polyfill	1.0.0	MAL-2026-17480
 npm	css-keylogger	*	MAL-2025-5683
+npm	css-kfvwax-polyfill	1.0.0	MAL-2026-17575
 npm	css-light-dark-polyfill	1.0.0	MAL-2026-17481
 npm	css-loader-castor-supervisor-elara	*	MAL-2025-186414
 npm	css-loader-cygnus-restart-cluster	*	MAL-2025-141300
@@ -51317,6 +51324,7 @@ npm	css-minimizer-webpack-plugin-winston-jwt-phoebe	*	MAL-2025-141337
 npm	css-minimizer-webpack-plugin-yaml-sails-test	*	MAL-2025-141338
 npm	css-mpmdds-polyfill	1.0.0	MAL-2026-17554
 npm	css-nbanqq-polyfill	1.0.0	MAL-2026-17555
+npm	css-nrmgzn-polyfill	1.0.0	MAL-2026-17576
 npm	css-ogojwh-polyfill	1.0.0	MAL-2026-17556
 npm	css-platform-js	*	MAL-2025-48489
 npm	css-reading-flow-polyfill	1.0.0	MAL-2026-17483
@@ -51331,6 +51339,8 @@ npm	css-svqggc-polyfill	1.0.0	MAL-2026-17557
 npm	css-tittle	*	MAL-2025-17798
 npm	css-tokenizer	213.21.24	MAL-2024-9577
 npm	css-txedrf-polyfill	1.0.0	MAL-2026-17558
+npm	css-vvgsze-polyfill	1.0.0	MAL-2026-17577
+npm	css-yhpodl-polyfill	1.0.0	MAL-2026-17578
 npm	cssearchserv	*	MAL-2025-41961
 npm	cssnapapp	*	MAL-2025-17799
 npm	csstext	*	MAL-2025-17800
@@ -58657,6 +58667,7 @@ npm	docsmate-docsmate-core	35.9.3	MAL-2026-13281
 npm	doctorme	*	MAL-2025-18574
 npm	docu-scripts	0.0.0	MAL-2024-12146
 npm	docued	*	MAL-2025-18575
+npm	documenclient	*	MAL-2026-17624
 npm	document-list-extra-questions	99.0.2	MAL-2025-4334
 npm	document-metadata	100.0.1	MAL-2025-44029
 npm	document-sample	*	MAL-2024-9059
@@ -61321,6 +61332,11 @@ npm	dzsagbkopkwehtvm	*	MAL-2025-19047
 npm	dzsagbkorawrpkwehtvm	*	MAL-2025-19048
 npm	dztools	*	MAL-2025-19049
 npm	dzvchorehui2	1.0.0	MAL-2026-13804
+npm	dzyclutch	*	MAL-2026-17619
+npm	dzyclutch-baileys	*	MAL-2026-17620
+npm	dzyclutch-libsignal-node	*	MAL-2026-17621
+npm	dzyhaxz-baileys	*	MAL-2026-17622
+npm	dzyhaxz-libsignal	*	MAL-2026-17623
 npm	e-finance-tms-analytics	*	MAL-2022-2639
 npm	e-learning-garena	10.6.2	MAL-2025-4337
 npm	e-openflow	*	MAL-2022-2640
@@ -86870,6 +86886,7 @@ npm	hardhat-gas-report	*	MAL-2023-8139
 npm	hardhat-gas-tracer	*	MAL-2023-8140
 npm	hardhat-gas-tracker	1.0.0,1.0.1	MAL-2026-11020
 npm	hardhat-hold	2.0.1,2.21.0	MAL-2026-14246
+npm	hardhat-init	2.21.0	MAL-2026-17636
 npm	hardhat-jsx	2.0.1	MAL-2026-17507
 npm	hardhat-kex	2.0.1	MAL-2026-17559
 npm	hardhat-lock	2.21.0	MAL-2026-17233
@@ -96212,6 +96229,7 @@ npm	internallib_v20	*	MAL-2022-3892
 npm	internallib_v210	*	MAL-2025-5181
 npm	internallib_v216	*	MAL-2022-3893
 npm	internallib_v229	*	MAL-2022-3894
+npm	internallib_v23	1.0.1	MAL-2026-17632
 npm	internallib_v230	*	MAL-2022-3895
 npm	internallib_v234	1.0.3,1.0.4,1.0.5,1.0.6,1.0.7	MAL-2026-6796
 npm	internallib_v243	*	MAL-2022-3896
@@ -96219,6 +96237,7 @@ npm	internallib_v249	*	MAL-2025-47557
 npm	internallib_v268	1.0.3	MAL-2024-10979
 npm	internallib_v275	1.0.3	MAL-2026-17510
 npm	internallib_v284	*	MAL-2025-3101
+npm	internallib_v30	1.0.1	MAL-2026-17633
 npm	internallib_v320	*	MAL-2025-47182
 npm	internallib_v325	*	MAL-2026-390
 npm	internallib_v331	1.0.3	MAL-2025-1249
@@ -96288,8 +96307,10 @@ npm	internallib_v828	*	MAL-2026-534
 npm	internallib_v838	*	MAL-2025-48329
 npm	internallib_v847	*	MAL-2022-3909
 npm	internallib_v856	99.0.0	MAL-2026-5694
+npm	internallib_v86	1.0.2	MAL-2026-17634
 npm	internallib_v866	*	MAL-2025-6169
 npm	internallib_v871	*	MAL-2024-11997
+npm	internallib_v875	1.0.1	MAL-2026-17635
 npm	internallib_v877	*	MAL-2022-3910
 npm	internallib_v881	*	MAL-2025-191548
 npm	internallib_v89	*	MAL-2025-47184
@@ -171833,6 +171854,9 @@ npm	serious_tarsier_z3n	*	MAL-2025-90466
 npm	serious_turkey_z3n	*	MAL-2025-123178
 npm	seriously-simple-podcasting	3.0.0	MAL-2024-3003
 npm	serotonine320	*	MAL-2022-6018
+npm	serpacksven	1.0.0,1.0.1,1.0.2,1.0.4	MAL-2026-17625
+npm	serpacksven1	1.0.6	MAL-2026-17626
+npm	serpacksven2	1.0.0	MAL-2026-17627
 npm	serqet	*	MAL-2025-32998
 npm	serraview.common.styles	*	MAL-2025-32999
 npm	serswef3	*	MAL-2025-33000
@@ -182768,7 +182792,7 @@ npm	tailwind-config-view	*	MAL-2025-48779
 npm	tailwind-configs	*	MAL-2025-42091
 npm	tailwind-configs-viewer	*	MAL-2025-47211
 npm	tailwind-configuration	1.0.1	MAL-2026-2803
-npm	tailwind-contact-forms	0.5.1,0.5.12,0.5.5	MAL-2026-15925
+npm	tailwind-contact-forms	0.5.1,0.5.12,0.5.5,0.5.9	MAL-2026-15925
 npm	tailwind-container-queries	0.1.1	MAL-2026-15903
 npm	tailwind-core	0.0.0,4.3.0,4.3.1,4.3.2	MAL-2026-7026
 npm	tailwind-cup-icon	*	MAL-2025-47501
@@ -206215,6 +206239,7 @@ npm	vip-landing	99.0.0	MAL-2026-2661
 npm	viper_emerald-72-tisubasah	*	MAL-2025-98495
 npm	viper_lime-59	*	MAL-2025-98496
 npm	vipps-stitches	*	MAL-2022-6938
+npm	virgil-cli	0.1.4	MAL-2026-17630
 npm	virgil-spring-boot-starter	20.0.0	MAL-2023-1337
 npm	virgo-airbnb-accretion-backend	*	MAL-2025-190153
 npm	virgo-arcturus-hydra-stream	*	MAL-2025-190154
@@ -211901,6 +211926,7 @@ npm	wispy_wolverine-gooddev	*	MAL-2025-110968
 npm	wistia_namespace	*	MAL-2026-11410
 npm	wistia_namespace.js	*	MAL-2024-8006
 npm	witems	*	MAL-2025-39363
+npm	with-cte	1.0.0	MAL-2026-17579
 npm	with-next	*	MAL-2025-39364
 npm	with-next-intl	55.3.1,55.3.19,55.3.56	MAL-2025-5616
 npm	with-relay-modern	*	MAL-2025-39365
@@ -223905,6 +223931,7 @@ pypi	equest	0.0.1	MAL-2026-6289
 pypi	equests	*	MAL-2022-7433
 pypi	equests-toolbelt	*	MAL-2023-1823
 pypi	erc20-scanner	1.0.0,1.0.1	MAL-2024-5112
+pypi	erc7730-hackathon	99.0.0	MAL-2026-17628
 pypi	erquests	*	MAL-2023-1824
 pypi	erquests-toolbelt	*	MAL-2023-1825
 pypi	erwanncacasurevann	1.0.4	MAL-2024-5113
@@ -233710,6 +233737,7 @@ pypi	zatta	1	MAL-2024-6253
 pypi	zebo	0.1.0	MAL-2024-11751
 pypi	zefkopzekfo	0.0.1	MAL-2024-6254
 pypi	zelixnitro	1.0	MAL-2024-6255
+pypi	zencleaner	1.0.0,1.0.3,1.0.3.1	MAL-2026-17629
 pypi	zenomenallib	2.7.0	MAL-2025-47814
 pypi	zero123	9.6	MAL-2024-11752
 pypi	zeubilamouche	0.1.4	MAL-2024-6256
