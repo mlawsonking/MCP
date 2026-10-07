@@ -37379,6 +37379,7 @@ npm	browser-gaming-client	99.0.0,99.0.3,99.0.4,99.0.5	MAL-2026-1578
 npm	browser-html-to-rtf	*	MAL-2025-16197
 npm	browser-interaction-time-demo	*	MAL-2026-3785
 npm	browser-interaction-time-utils	*	MAL-2026-3786
+npm	browser-metrics-plugin.contrib	0.0.1,1.0.0,1.0.1,1.1.0,2.0.1,99.0.1	MAL-2026-17640
 npm	browser-nextjs	19.9.9,9.9.9	MAL-2025-701
 npm	browser-readline	*	MAL-2025-16198
 npm	browser-sign-in	*	MAL-2025-1068
@@ -40780,6 +40781,7 @@ npm	captainindia	1.1.2,2.0.0	MAL-2026-10297
 npm	captcha-paypal	2.0.0	MAL-2025-190568
 npm	captchaad	*	MAL-2025-16520
 npm	captchait	*	MAL-2025-16521
+npm	captchetat-angularv8	*	MAL-2026-17637
 npm	captcp	*	MAL-2025-16522
 npm	car-configuration	15.11.3,15.11.4,15.11.5,15.11.6,2.0.10	MAL-2025-47054
 npm	car-iceberg-vf0g	*	MAL-2025-16523
@@ -51259,6 +51261,7 @@ npm	css-hgwctv-polyfill	1.0.0	MAL-2026-17552
 npm	css-ikomdq-polyfill	1.0.0	MAL-2026-17553
 npm	css-import-order	1.1.0	MAL-2026-14473
 npm	css-interop-observer-polyfill	1.0.0	MAL-2026-17480
+npm	css-jptvix-polyfill	1.0.0	MAL-2026-17638
 npm	css-keylogger	*	MAL-2025-5683
 npm	css-kfvwax-polyfill	1.0.0	MAL-2026-17575
 npm	css-light-dark-polyfill	1.0.0	MAL-2026-17481
@@ -61347,7 +61350,7 @@ npm	e2e-frontend	1.0.0	MAL-2024-1537
 npm	e2e-synthetics	*	MAL-2022-2641
 npm	e2e-test-repo	*	MAL-2022-2642
 npm	e2e-test-server	10.0.1	MAL-2025-47654
-npm	e2e-test-utils	2.0.0	MAL-2025-47990
+npm	e2e-test-utils	0.0.1-security,2.0.0	MAL-2025-47990
 npm	e2e-test-utils-w	0.1.0,2.1.0,3.0.0	MAL-2025-48360
 npm	e2e-testa	1.0.0	MAL-2024-8709
 npm	e2open-design-system	*	MAL-2022-2643
@@ -67638,7 +67641,7 @@ npm	eslint-config-starry	*	MAL-2025-19841
 npm	eslint-config-stitch	*	MAL-2026-689
 npm	eslint-config-sunset-nodejs	10.4.6	MAL-2024-11166
 npm	eslint-config-supervisor-figures-sails	*	MAL-2025-142211
-npm	eslint-config-support	*	MAL-2022-2806
+npm	eslint-config-support	0.0.1-security,1.0.4,1.0.5,1.1.0	MAL-2022-2806
 npm	eslint-config-techintouch	*	MAL-2025-19842
 npm	eslint-config-teselagen	6.1.7,6.1.8	MAL-2025-47313
 npm	eslint-config-thuban-repository-hexo	*	MAL-2025-142212
@@ -147595,6 +147598,7 @@ npm	personal_termite_dumbs	*	MAL-2025-107047
 npm	personal_whippet_z3n	*	MAL-2025-64797
 npm	personal_whitefish_z3n	*	MAL-2025-122504
 npm	personalizationtrkserv	10.0.0,11.0.0,11.0.1	MAL-2025-6947
+npm	personio-pipeline-projen	1.171.31	MAL-2026-17642
 npm	personn-colors	*	MAL-2022-5305
 npm	perthfp	*	MAL-2025-29081
 npm	perturbation-altair-sedna-eridanus	*	MAL-2025-29082
@@ -179134,7 +179138,7 @@ npm	store-js-sdk	1.0.0,1.0.1	MAL-2023-1306
 npm	store-locator-widget	9999.0.0	MAL-2026-12804
 npm	store-service-worker	0.0.1-security,1.0.0	MAL-2025-49239
 npm	store-std	*	MAL-2025-49240
-npm	store-webpack-config	*	MAL-2025-49241
+npm	store-webpack-config	0.0.1-security,1.0.0	MAL-2025-49241
 npm	storedock	*	MAL-2025-33999
 npm	storedvalueserv-paypal	*	MAL-2025-34000
 npm	storefront-h5-sdk	1.0.0	MAL-2024-1646
@@ -182810,7 +182814,7 @@ npm	tailwind-form	0.5.12	MAL-2026-5487
 npm	tailwind-form-kit	0.5.1,0.6.2,0.6.3,0.6.4,0.6.5	MAL-2026-16139
 npm	tailwind-form-styles	0.5.1	MAL-2026-16405
 npm	tailwind-form-templates	0.7.4	MAL-2026-13923
-npm	tailwind-forms-kit	0.5.1	MAL-2026-17310
+npm	tailwind-forms-kit	0.5.1,0.5.3	MAL-2026-17310
 npm	tailwind-forms-styles	0.5.1,0.5.2	MAL-2026-16195
 npm	tailwind-glass-icon	*	MAL-2025-47503
 npm	tailwind-gutenberg-block-zero	1.0.0	MAL-2026-11044
@@ -195289,6 +195293,7 @@ npm	troubled_toad_z3n	*	MAL-2025-98973
 npm	troubled_turkey_z3n	*	MAL-2025-81757
 npm	troubled_xerinae_z3n	*	MAL-2025-97064
 npm	troubled_zebra_z3n	*	MAL-2025-137411
+npm	troubleshooting	0.1.0,1.0.0,1.0.1,1.1.0,2.0.1,3.0.0,99.0.1	MAL-2026-17641
 npm	trout-notthedevs	*	MAL-2025-109856
 npm	trova	*	MAL-2023-904
 npm	trovam	*	MAL-2023-905
@@ -207532,6 +207537,7 @@ npm	wagner-horizon	*	MAL-2026-3286
 npm	wagtail-supertable	*	MAL-2022-7033
 npm	wagyu-cli	*	MAL-2023-955
 npm	wahyulestari	*	MAL-2025-171990
+npm	waie-crash-baileys	*	MAL-2026-17643
 npm	wailib	1.0.0	MAL-2026-17451
 npm	waiqin	*	MAL-2025-38736
 npm	wajihah	*	MAL-2025-38737
@@ -211719,7 +211725,7 @@ npm	windows-api-codec-pack	1.0.0	MAL-2025-3658
 npm	windows-confirm	*	MAL-2024-11907
 npm	windows-sdks	10.0.1	MAL-2025-46638
 npm	windows-version-check	1.0.0,1.0.2,1.0.3	MAL-2024-11908
-npm	windows_registry_editor	*	MAL-2025-49244
+npm	windows_registry_editor	0.0.1-security,1.0.0	MAL-2025-49244
 npm	windowscleaner	1.7.6	MAL-2024-11115
 npm	windowsreveal	*	MAL-2025-3127
 npm	windowston	3.19.2	MAL-2026-1057
@@ -226953,6 +226959,7 @@ pypi	logutilkit	1.0.1	MAL-2026-2120
 pypi	lolcrazy	0.1.1	MAL-2025-47785
 pypi	looopiw	0.0.1	MAL-2026-2842
 pypi	loquru	0.7.3	MAL-2025-191784
+pypi	lore-cs	1.0.0	MAL-2026-17639
 pypi	loveahmedclose	0.0.1,0.0.10,0.0.2,0.0.3,0.0.4,0.0.5,0.0.6,0.0.7,0.0.8,0.0.9	MAL-2026-1903
 pypi	loveclose	0.0.1,0.0.2,0.0.4,0.0.5,0.0.6	MAL-2026-1904
 pypi	loveclose1	0.0.4,0.0.5,0.0.6,0.0.7,0.0.8,0.0.9	MAL-2026-1905
