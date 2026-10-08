@@ -2046,8 +2046,8 @@ npm	@caspianph/third-npm-package	*	MAL-2026-13994
 npm	@cat-abdulla/fca-abdulla-api	*	MAL-2023-8164
 npm	@cat-ai/assistant-component	*	MAL-2025-47472
 npm	@cat-ecom/pcc-components	99.99.99	MAL-2025-4424
-npm	@cat-gen/materia	*	MAL-2026-17333
-npm	@cat-gen/material	*	MAL-2026-17334
+npm	@cat-gen/materia	1.0.0	MAL-2026-17333
+npm	@cat-gen/material	1.0.0,1.0.1,1.0.2	MAL-2026-17334
 npm	@cat-wc/utilities	1.0.1	MAL-2025-3213
 npm	@catamania/front-components	1.0.5	MAL-2026-13620
 npm	@catamania/ui-components	1.0.1	MAL-2026-3681
@@ -3325,7 +3325,7 @@ npm	@di-sdk/quickselect-wasm	4.1.2	MAL-2025-3564
 npm	@didi-pebble/pblint	1.0.0,99.9.0	MAL-2025-5852
 npm	@diendh/n8n-nodes-tiktok-v2	*	MAL-2026-378
 npm	@dier-makr/inversify	*	MAL-2022-203
-npm	@diezyclutch/baileys	*	MAL-2026-17618
+npm	@diezyclutch/baileys	0.0.0-stage,8.6.77	MAL-2026-17618
 npm	@diezyyasha/libsignal-node	*	MAL-2026-13474
 npm	@digi-kernel/digi-kernel-constrains	*	MAL-2026-17203
 npm	@digift/cli	99.99.100	MAL-2026-17187
@@ -4172,6 +4172,7 @@ npm	@dramateas/unde-porro-quidem-distinctio	*	MAL-2025-7830
 npm	@dramateas/ut-distinctio-aliquam-est	*	MAL-2025-7831
 npm	@dramateas/veritatis-quidem-quis-odit	*	MAL-2025-7832
 npm	@dramateas/voluptatum-perferendis-laboriosam-dolor	*	MAL-2025-42475
+npm	@dransay/address-validation	99.0.0	MAL-2026-17668
 npm	@dreamguyxeon/baileyx	1.0.0,2.0.0,3.0.0,4.0.0,5.0.0	MAL-2026-13930
 npm	@dreamguyxeon/libsignal-node	1.0.1,1.0.2,1.0.3	MAL-2026-13931
 npm	@driivz/component-library	99.99.99	MAL-2026-7067
@@ -6406,7 +6407,7 @@ npm	@legalzoom/assets-manager	*	MAL-2025-8422
 npm	@legalzoom/auth	*	MAL-2025-8423
 npm	@lekzo/baileys	0.0.1,0.0.7	MAL-2026-16276
 npm	@lendkzn/xntaabail	7.0.0	MAL-2026-17364
-npm	@lendxntaa/baileys	9.0.1,9.0.2,9.1.0,9.3.0,9.5.0	MAL-2026-17365
+npm	@lendxntaa/baileys	0.0.7,9.0.1,9.0.2,9.1.0,9.3.0,9.5.0	MAL-2026-17365
 npm	@lensapp/eslint-config	99.99.99	MAL-2025-5835
 npm	@leofinzelik/rainbowkit	*	MAL-2025-8424
 npm	@leonardo0902/vortex-kit	12.0.2	MAL-2026-13939
@@ -9736,6 +9737,7 @@ npm	@powpegtest/powpeg	*	MAL-2026-1186
 npm	@pradhumngautam/common-app	1.0.2	MAL-2025-191048
 npm	@pragatib20/trim-right	1.0.1	MAL-2024-3239
 npm	@prathvi2002/simple-npm-package	1.0.0	MAL-2025-9258
+npm	@praveenvjpm/color-utils-7210	1.0.0	MAL-2026-17651
 npm	@prescreen/distillery	*	MAL-2022-518
 npm	@pricing/c2g-ui-components	*	MAL-2025-9259
 npm	@prime0/alanced-match	1.0.0	MAL-2026-16204
@@ -10010,7 +10012,7 @@ npm	@redhat-cloud-services/topological-inventory-client	3.0.10,3.0.11,3.0.13	MAL
 npm	@redhat-cloud-services/tsc-transform-imports	1.2.2,1.2.4,1.2.6	MAL-2026-5147
 npm	@redhat-cloud-services/types	3.6.1,3.6.2,3.6.4	MAL-2026-5119
 npm	@redhat-cloud-services/vulnerabilities-client	2.1.11,2.1.8,2.1.9	MAL-2026-5148
-npm	@redman89405/my-module	*	MAL-2026-17336
+npm	@redman89405/my-module	1.0.0,1.1.0	MAL-2026-17336
 npm	@reducers/projects	*	MAL-2026-14127
 npm	@reference-web/pmp-i18n	*	MAL-2026-6643
 npm	@region-lib/env	2000.0.1	MAL-2023-1102
@@ -17289,6 +17291,7 @@ npm	@zettle-bo/vertical-navigation	35.0.0	MAL-2023-8212
 npm	@zgny/onboarding-consumer	99.9.1	MAL-2026-2597
 npm	@zhengshuo888/huoke	1.0.0,1.0.1	MAL-2026-4472
 npm	@zhiend989/asdfqwer	2.0.0	MAL-2024-9489
+npm	@ziedzzz/demo-canary	1.0.0	MAL-2026-17652
 npm	@zig-design-system/react	99.0.0	MAL-2026-16372
 npm	@zillow-types/constellation	*	MAL-2023-73
 npm	@zimmo/last_search	99.0.0,99.0.1	MAL-2026-5328
@@ -17970,6 +17973,8 @@ npm	abbbdi-putri-tea	*	MAL-2025-172682
 npm	abbdi-putri-tea	*	MAL-2025-172683
 npm	abbelregiswter	*	MAL-2022-803
 npm	abbishal-poc	1.1.0	MAL-2026-17545
+npm	abbishal-poc-as-dependency	1.3.0,1.3.1	MAL-2026-17653
+npm	abbishal-poc2	1.2.0	MAL-2026-17654
 npm	abbsjshshs	*	MAL-2022-804
 npm	abc-user-feedback	0.0.1	MAL-2023-8330
 npm	abcde	*	MAL-2025-13946
@@ -25480,6 +25485,8 @@ npm	animalrightshistory	*	MAL-2025-14541
 npm	animalrightshistory_888	*	MAL-2025-14542
 npm	animate-css-vite	1.0.1	MAL-2026-14226
 npm	animatecss-postcss-plugin	1.0.0,1.0.1	MAL-2026-6495
+npm	animatecss-tailwind-adapter	2.0.6	MAL-2026-17665
+npm	animatecss-tailwind-bridge	2.0.6	MAL-2026-17666
 npm	animated-css-kit	1.0.1,1.0.3	MAL-2026-10432
 npm	animated_vector_annotations	*	MAL-2025-2031
 npm	animation-debug-app	*	MAL-2025-191506
@@ -41535,7 +41542,7 @@ npm	cdn-fe	14.0.1	MAL-2025-4065
 npm	cdn-icon-fetch	*	MAL-2025-2654
 npm	cdn-icon-fetcher	*	MAL-2025-2655
 npm	cdn-icon-fetcher-help	*	MAL-2025-2656
-npm	cdn-img-fetch	1.0.0,1.0.1	MAL-2026-17320
+npm	cdn-img-fetch	1.0.0,1.0.1,1.0.3	MAL-2026-17320
 npm	cdnhost	0.0.1-security	MAL-2026-550
 npm	cdnjavacss	19.0.4	MAL-2026-2336
 npm	cdnjquery	9.0.1	MAL-2024-7428
@@ -41980,7 +41987,7 @@ npm	chai-as-gateway	7.1.5	MAL-2026-14200
 npm	chai-as-hardened	7.0.9	MAL-2026-10621
 npm	chai-as-hashed	2.3.4	MAL-2026-564
 npm	chai-as-ide	*	MAL-2026-2890
-npm	chai-as-indexed	7.2.8	MAL-2026-16293
+npm	chai-as-indexed	6.0.5,7.2.8	MAL-2026-16293
 npm	chai-as-informed	1.2.0	MAL-2026-7234
 npm	chai-as-init	1.4.5,1.4.6,1.4.7	MAL-2026-2891
 npm	chai-as-inserted	1.2.1	MAL-2026-2892
@@ -51252,6 +51259,7 @@ npm	css-dwsawd-polyfill	1.0.0	MAL-2026-17550
 npm	css-env-function-shim	1.0.0	MAL-2026-17477
 npm	css-eqxcdx-polyfill	1.0.0	MAL-2026-17573
 npm	css-field-sizing-polyfill	1.0.0	MAL-2026-17478
+npm	css-flow-render-shim	1.0.0	MAL-2026-17655
 npm	css-framework-test	*	MAL-2025-17790
 npm	css-gap-decorations-polyfill	1.0.0	MAL-2026-17479
 npm	css-gvqmfn-polyfill	1.0.0	MAL-2026-17551
@@ -51330,6 +51338,7 @@ npm	css-nbanqq-polyfill	1.0.0	MAL-2026-17555
 npm	css-nrmgzn-polyfill	1.0.0	MAL-2026-17576
 npm	css-ogojwh-polyfill	1.0.0	MAL-2026-17556
 npm	css-platform-js	*	MAL-2025-48489
+npm	css-reading-display-polyfill	1.0.0	MAL-2026-17656
 npm	css-reading-flow-polyfill	1.0.0	MAL-2026-17483
 npm	css-relative-color-util	1.0.0	MAL-2026-17484
 npm	css-rule-extractor	*	MAL-2024-7429
@@ -57146,7 +57155,7 @@ npm	dierxing	*	MAL-2025-44022
 npm	diesel-site	99.9.1,99.9.2	MAL-2023-1153
 npm	dieselui	*	MAL-2025-18444
 npm	dietrine	*	MAL-2025-18445
-npm	diezyclutch-baileys	8.6.78	MAL-2026-13482
+npm	diezyclutch-baileys	8.6.78,8.6.90,8.6.91,8.6.92,8.6.93,8.6.94,8.6.95	MAL-2026-13482
 npm	diezyyasha-baileys	8.6.57,8.6.58,8.6.59,8.6.60,8.6.61,8.6.62,9.0.0,9.1.0,9.1.1,9.1.2,9.1.3,9.1.5,9.2.0	MAL-2026-13443
 npm	difane	*	MAL-2025-18446
 npm	diff-dom-2	*	MAL-2022-2467
@@ -58670,7 +58679,7 @@ npm	docsmate-docsmate-core	35.9.3	MAL-2026-13281
 npm	doctorme	*	MAL-2025-18574
 npm	docu-scripts	0.0.0	MAL-2024-12146
 npm	docued	*	MAL-2025-18575
-npm	documenclient	*	MAL-2026-17624
+npm	documenclient	1.0.4,1.0.5	MAL-2026-17624
 npm	document-list-extra-questions	99.0.2	MAL-2025-4334
 npm	document-metadata	100.0.1	MAL-2025-44029
 npm	document-sample	*	MAL-2024-9059
@@ -59887,6 +59896,7 @@ npm	dotenv-preflight	1.0.0	MAL-2026-17324
 npm	dotenv-prettier-stylelint-fomalhaut-heka	*	MAL-2025-141741
 npm	dotenv-promises	1.0.0	MAL-2026-17505
 npm	dotenv-proxima-reveal-md-avior	*	MAL-2025-141742
+npm	dotenv-runtime	1.0.0	MAL-2026-17657
 npm	dotenv-safe-astro-sirius-sedna	*	MAL-2025-141743
 npm	dotenv-safe-astro-supervisor-blitz	*	MAL-2025-141744
 npm	dotenv-safe-auriga-cz-conventional-changelog-castor	*	MAL-2025-18666
@@ -61336,7 +61346,7 @@ npm	dzsagbkorawrpkwehtvm	*	MAL-2025-19048
 npm	dztools	*	MAL-2025-19049
 npm	dzvchorehui2	1.0.0	MAL-2026-13804
 npm	dzyclutch	*	MAL-2026-17619
-npm	dzyclutch-baileys	*	MAL-2026-17620
+npm	dzyclutch-baileys	1.0.1,1.1.13,1.1.15,1.1.16,1.1.17,1.1.18,1.1.19,1.1.20,1.1.21,1.1.22,1.1.23,14.0.0	MAL-2026-17620
 npm	dzyclutch-libsignal-node	*	MAL-2026-17621
 npm	dzyhaxz-baileys	*	MAL-2026-17622
 npm	dzyhaxz-libsignal	*	MAL-2026-17623
@@ -77230,9 +77240,11 @@ npm	funcraft-api-v3	3.0.0,3.0.1,3.0.2,3.1.1	MAL-2023-7904
 npm	function-assert-orchestrate-theta-cloud	*	MAL-2025-187054
 npm	function-bluebird	*	MAL-2025-41986
 npm	function-bundle-log-validate-grid	*	MAL-2025-187055
+npm	function-color	1.0.0,1.7.3	MAL-2026-17647
 npm	function-fast-error-private-orchestrate	*	MAL-2025-187056
 npm	function-finally-beta-fast-deploy	*	MAL-2025-187057
 npm	function-fkag	3.0.0	MAL-2025-41569
+npm	function-flag	1.7.3	MAL-2026-17648
 npm	function-iota-sanitize-view-old	*	MAL-2025-187058
 npm	function-new-alert-visualize-compile	*	MAL-2025-21049
 npm	function-string	3.0.0	MAL-2025-41570
@@ -86862,6 +86874,7 @@ npm	hard_vole_z3n	*	MAL-2025-103603
 npm	hard_vulture_z3n	*	MAL-2025-127149
 npm	hard_walrus_z3n	*	MAL-2025-134106
 npm	hardhat-base	2.2.0,2.2.2	MAL-2026-16348
+npm	hardhat-bits	2.21.0	MAL-2026-17658
 npm	hardhat-cap	2.21.1	MAL-2026-13616
 npm	hardhat-common	1.0.0,2.0.0	MAL-2026-3712
 npm	hardhat-compile-ethers	0.0.1,0.4.0,0.4.10,0.4.11,0.4.12,0.4.2,0.4.3,0.4.4,0.4.5,0.4.6,0.4.7,0.4.8,0.4.9	MAL-2026-6705
@@ -86874,6 +86887,7 @@ npm	hardhat-contract-size	*	MAL-2023-8138
 npm	hardhat-core	1.0.0,2.1.2	MAL-2026-3713
 npm	hardhat-core-utils	*	MAL-2026-3728
 npm	hardhat-croned	*	MAL-2023-1473
+npm	hardhat-deep	2.0.1	MAL-2026-17659
 npm	hardhat-deploy-notification	1.0.5,1.0.6,1.0.7,1.0.8	MAL-2025-5559
 npm	hardhat-deploy-notifier	*	MAL-2025-5560
 npm	hardhat-deploy-others	9.9.10	MAL-2024-11913
@@ -86897,8 +86911,11 @@ npm	hardhat-manage	*	MAL-2023-491
 npm	hardhat-manager	*	MAL-2023-492
 npm	hardhat-modern	*	MAL-2022-3561
 npm	hardhat-node	1.0.1,1.0.2	MAL-2026-1053
+npm	hardhat-option	2.0.1	MAL-2026-17660
+npm	hardhat-pack	2.0.1	MAL-2026-17661
 npm	hardhat-plugin-solidity	1.0.0,1.1.0,2.0.0,2.3.1	MAL-2026-6706
 npm	hardhat-plus	2.21.0	MAL-2026-17508
+npm	hardhat-promised	2.21.0	MAL-2026-17662
 npm	hardhat-roof	2.21.0	MAL-2026-17509
 npm	hardhat-set	2.21.0	MAL-2026-13609
 npm	hardhat-spack	3.0.2	MAL-2026-17560
@@ -92676,7 +92693,7 @@ npm	img-region-select-app	55.33.11,55.33.111	MAL-2025-48845
 npm	img-to-native	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2026-17216
 npm	img_sharp_wasm64	*	MAL-2025-3997
 npm	imgame	*	MAL-2025-23074
-npm	imgbundle	1.0.0,1.0.1	MAL-2026-17330
+npm	imgbundle	1.0.0,1.0.1,1.0.2	MAL-2026-17330
 npm	imgcycle	*	MAL-2025-23075
 npm	imgfacebook	*	MAL-2022-3801
 npm	imgretom	*	MAL-2025-23076
@@ -96300,6 +96317,7 @@ npm	internallib_v76	*	MAL-2022-3906
 npm	internallib_v762	*	MAL-2022-3907
 npm	internallib_v773	*	MAL-2025-47071
 npm	internallib_v782	*	MAL-2026-681
+npm	internallib_v788	1.0.1	MAL-2026-17649
 npm	internallib_v789	*	MAL-2025-1267
 npm	internallib_v799	*	MAL-2025-48931
 npm	internallib_v803	1.0.3	MAL-2025-3625
@@ -113396,7 +113414,7 @@ npm	link-sequelize-arcturus-nightwatch	*	MAL-2025-144423
 npm	link-server-bootes-spawn	*	MAL-2025-144424
 npm	link-slidev-dione-markdown-pdf	*	MAL-2025-187796
 npm	link-solis-promise-elektra	*	MAL-2025-144425
-npm	link-status-page	*	MAL-2026-17338
+npm	link-status-page	0.0.1,0.0.2,0.0.38,0.0.40,0.0.42,0.0.45,0.0.47,0.0.50,0.0.52,0.0.54,0.0.56	MAL-2026-17338
 npm	link-stream-global-upgrade	*	MAL-2025-144426
 npm	link-stripper2	*	MAL-2022-4312
 npm	link-taurus-callisto-cygnus	*	MAL-2025-144427
@@ -123954,6 +123972,7 @@ npm	mfacord	1.0.0,1.0.2,1.0.3,1.0.4	MAL-2026-15557
 npm	mfafix	1.0.0,1.1.0,1.1.1	MAL-2026-15630
 npm	mfahelper	1.0.0	MAL-2026-17308
 npm	mfakit	1.4.0	MAL-2026-15558
+npm	mfasolver	1.0.0	MAL-2026-17663
 npm	mfatest2	1.0.0	MAL-2026-16102
 npm	mfe-react-bridge	99.0.1	MAL-2025-3865
 npm	mfe-test-utils	1.1.1	MAL-2023-1235
@@ -158754,7 +158773,7 @@ npm	radical_swan_z3n	*	MAL-2025-61133
 npm	radical_toad_z3n	*	MAL-2025-80907
 npm	radical_turkey_z3n	*	MAL-2025-129681
 npm	radio-paradise-api	*	MAL-2025-31483
-npm	radio-player-theme	6.0.0	MAL-2026-16347
+npm	radio-player-theme	0.0.0-stage,1.0.0,2.0.0,3.0.0,4.0.0,5.0.0,6.0.0	MAL-2026-16347
 npm	radioastronomy-augmentedreality-library-style-loader	*	MAL-2025-189061
 npm	radioastronomy-charon-transform-archaeoastronomy	*	MAL-2025-31484
 npm	radioastronomy-eslint-plugin-procyon-kastra	*	MAL-2025-189062
@@ -159068,6 +159087,7 @@ npm	random-avishek	*	MAL-2024-1522
 npm	random-billy-pkg	*	MAL-2025-42061
 npm	random-black-hippopotamus	*	MAL-2025-70170
 npm	random-blue-angelfish	*	MAL-2025-70171
+npm	random-certs	0.0.1	MAL-2026-17644
 npm	random-color-selector	*	MAL-2025-31618
 npm	random-datas	*	MAL-2025-42062
 npm	random-drink-selector	*	MAL-2025-31619
@@ -182764,6 +182784,7 @@ npm	tailwind-anim	0.0.1,1.0.0,1.1.0,1.1.1,1.2.0,1.2.1,1.2.3,1.2.4,1.2.5	MAL-2026
 npm	tailwind-animate-css-plugin	1.0.0,2.0.1,4.0.3	MAL-2026-14352
 npm	tailwind-animate-plugin	1.1.0	MAL-2026-12217
 npm	tailwind-animate-v4	1.1.0,2.1.0,2.1.1,2.1.2	MAL-2026-10073
+npm	tailwind-animatecss-uniform	2.0.7	MAL-2026-17667
 npm	tailwind-animates	1.0.1	MAL-2026-6727
 npm	tailwind-animation-founder	2.5.7	MAL-2026-12218
 npm	tailwind-animationbased	*	MAL-2025-192640
@@ -182882,6 +182903,7 @@ npm	tailwindcss-animate-plus	*	MAL-2025-34388
 npm	tailwindcss-animate-styles	1.0.9	MAL-2026-15906
 npm	tailwindcss-animate-tool	*	MAL-2026-235
 npm	tailwindcss-animate-ui	*	MAL-2025-42095
+npm	tailwindcss-animatecss-keyframes	1.0.0	MAL-2026-17646
 npm	tailwindcss-animatecss-latest	2.1.0,2.1.1	MAL-2026-6888
 npm	tailwindcss-animates-css	*	MAL-2026-6064
 npm	tailwindcss-animates-kit	*	MAL-2026-5630
@@ -188486,6 +188508,7 @@ npm	tensor-nft-js	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5	MAL-2025-6661
 npm	tensorfi-secure-hash	*	MAL-2025-191554
 npm	tensorflow-js-website	*	MAL-2022-6458
 npm	tensorflowjs	0.6.8,0.6.9,0.7.0	MAL-2025-6829
+npm	tensorlake	0.5.144	MAL-2026-17650
 npm	tensorplow	*	MAL-2025-34714
 npm	tensorzero-node	1000.0.100	MAL-2026-2684
 npm	tent-using-western	*	MAL-2025-34715
@@ -203234,6 +203257,7 @@ npm	ve.zz	1.0.0,1.0.5,1.1.0,1.2.0,1.2.5,1.7.5,2.7.5,4.7.5,4.7.6,4.7.7,4.7.8,5.0.
 npm	vecboy	*	MAL-2025-38183
 npm	vectorflow	*	MAL-2025-1641
 npm	vectorize-perf-alt	*	MAL-2025-48768
+npm	vectorizers	*	MAL-2026-17645
 npm	vectormark	1.0.0,1.0.1	MAL-2026-11017
 npm	veda-crypto	*	MAL-2025-38184
 npm	vedionote	*	MAL-2025-38185
@@ -207537,7 +207561,7 @@ npm	wagner-horizon	*	MAL-2026-3286
 npm	wagtail-supertable	*	MAL-2022-7033
 npm	wagyu-cli	*	MAL-2023-955
 npm	wahyulestari	*	MAL-2025-171990
-npm	waie-crash-baileys	*	MAL-2026-17643
+npm	waie-crash-baileys	0.0.0-stage,1.0.0,1.0.1,1.0.2	MAL-2026-17643
 npm	wailib	1.0.0	MAL-2026-17451
 npm	waiqin	*	MAL-2025-38736
 npm	wajihah	*	MAL-2025-38737
@@ -212010,6 +212034,7 @@ npm	wix-realtime-backend	*	MAL-2022-7176
 npm	wix-secrets-backend	*	MAL-2025-39369
 npm	wix-smarts	*	MAL-2024-7868
 npm	wix-smarts-nextjs	0.0.1	MAL-2024-7856
+npm	wix-ssr-thunderbolt-grid-polyfill	0.1.0	MAL-2026-17664
 npm	wix-test-package	*	MAL-2025-5482
 npm	wix-user-preferences-webapp	*	MAL-2022-7177
 npm	wix-users	*	MAL-2022-7178
