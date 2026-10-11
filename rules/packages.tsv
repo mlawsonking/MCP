@@ -159823,6 +159823,7 @@ npm	react-dropdownhunter	*	MAL-2025-31781
 npm	react-dropzone-legacy	1.0.0	MAL-2023-1440
 npm	react-dropzone-log	*	MAL-2025-47102
 npm	react-dropzone-truffle	100.11.9,100.12.0,100.12.5,100.13.5,100.19.5,100.21.9,100.22.9,100.25.9,100.27.9,100.5.0,100.6.9,20.0.0,20.1.1,20.5.0,20.5.1,99.99.9	MAL-2026-999
+npm	react-dropzone-v4	99.0.0	MAL-2026-17758
 npm	react-dts-codegen	*	MAL-2022-5644
 npm	react-dynamic-parser	*	MAL-2026-14415
 npm	react-dynamic-table-compenent	1.2.7	MAL-2026-6533
@@ -222189,6 +222190,7 @@ pypi	afriton	1.5,1.6	MAL-2024-11514
 pypi	afriton-py	1.6,1.7	MAL-2024-11515
 pypi	afritonpy	1	MAL-2024-11516
 pypi	agent-user-generate	1.6.7	MAL-2024-11517
+pypi	agent-vx	0.1.0	MAL-2026-17755
 pypi	agentaix	0.1.0,0.2.0	MAL-2026-17752
 pypi	agents-kit	0.0.0.1	MAL-2025-2930
 pypi	ai-cypher	0.1.0,0.2.0	MAL-2025-192683
@@ -227798,6 +227800,7 @@ pypi	packagename69	1	MAL-2024-5447
 pypi	packagescrape	0.9.0	MAL-2024-5448
 pypi	packagescraping	0.9.0	MAL-2024-5449
 pypi	packed-w3shi	0.0.1	MAL-2025-191809
+pypi	pafer	0.9.7,0.9.8	MAL-2026-17756
 pypi	paintpy	2.0	MAL-2024-5450
 pypi	pam98wyfupa98w	0.0.1	MAL-2025-191810
 pypi	panads	*	MAL-2023-1934
@@ -233601,6 +233604,7 @@ pypi	webockets	*	MAL-2023-2365
 pypi	weboscket-client	*	MAL-2023-2366
 pypi	webosckets	*	MAL-2023-2367
 pypi	webquickauth	2.3.5	MAL-2024-1651
+pypi	webreader	2.3.8	MAL-2026-17757
 pypi	webscket-client	*	MAL-2023-2368
 pypi	websckets	*	MAL-2023-2369
 pypi	webscoket-client	*	MAL-2023-2370
