@@ -777,6 +777,7 @@ npm	@abg-mec/fwk-fe-devcraft	*	MAL-2025-7044
 npm	@abgular/core	22.2.1	MAL-2026-17532
 npm	@abi-labs-frontend/standards	9.99.15	MAL-2026-2329
 npm	@ably-forks/crypto-js	3.999.0	MAL-2024-2033
+npm	@accenturecodefoundry/mfe-pot-shared-ui-scds-core	99.99.2,99.99.4,99.99.41	MAL-2026-17867
 npm	@access-risk/browser-remedy-react	99.0.0,99.1.1	MAL-2026-5520
 npm	@accesshsc/access-forms-engine	0.99.99,0.999.999	MAL-2025-2489
 npm	@accessibility-insights/eslint-plugin	9.9.9,9.9.99	MAL-2025-6899
@@ -2110,6 +2111,7 @@ npm	@chat-components/common	0.0.1,0.0.2	MAL-2025-3958
 npm	@chat-template/auth	*	MAL-2026-5124
 npm	@chatbot-builder/core	10.1.1,10.1.2,10.1.3	MAL-2025-4607
 npm	@chatclub/claude-code	0.0.1,2.0.27,2.0.28,2.0.29,2.0.30,2.0.31,2.0.34	MAL-2025-49379
+npm	@chatest/baileys	*	MAL-2026-17850
 npm	@chatgptclaude_club/claude-code	*	MAL-2025-48786
 npm	@chatgptclaudeclub/claude-code	*	MAL-2025-42192
 npm	@chatunity/baileys	2.0.9,3.2.0,3.2.1	MAL-2026-17287
@@ -6142,6 +6144,7 @@ npm	@kong/spec-renderer	1.101.10-pr.747.ed2920a.0	MAL-2025-191455
 npm	@koop-components/common	*	MAL-2022-385
 npm	@kp-admin/history	20.0.0,20.0.1,20.0.2,20.0.3,20.0.4	MAL-2024-9036
 npm	@kp-admin/main	20.0.0	MAL-2024-9032
+npm	@kre64/hello-npm-test	1.0.0	MAL-2026-17868
 npm	@krentzen/buffer-reverse	1.0.3	MAL-2026-6536
 npm	@ks-cqc/fingerprint-generator	1.99.99	MAL-2026-16523
 npm	@ks-cqc/h5-sig4	2.99.99	MAL-2026-16524
@@ -8720,6 +8723,9 @@ npm	@mlspace/profile	*	MAL-2026-5025
 npm	@mlspace/shared-storage	*	MAL-2026-5026
 npm	@mmm-otrade/transaction	*	MAL-2026-1300
 npm	@mmm-otrade/transaction-adapter	*	MAL-2026-1301
+npm	@mntv-analysis/ui	*	MAL-2026-17869
+npm	@mntv-analysis/ui-components	*	MAL-2026-17870
+npm	@mntv-analysis/workspaces-components	*	MAL-2026-17871
 npm	@mobile-sdk/videoads-ad-video-player-html5	99.99.1,99.99.99	MAL-2025-6906
 npm	@moczadlo/package_one	*	MAL-2022-434
 npm	@modals/blockchain	99999.0.0,99999.0.1	MAL-2026-2018
@@ -8925,6 +8931,8 @@ npm	@nestor_hexom/garfield	*	MAL-2026-108
 npm	@nestor_hexom/garfield1	*	MAL-2026-109
 npm	@nestor_hexom/qyxb	*	MAL-2026-110
 npm	@newline53/newline-ts-sdk	1.0.0,1.0.1,1.0.2	MAL-2026-4267
+npm	@newspage/lib-ng-async-routes-ui	*	MAL-2026-17872
+npm	@newspage/libx-amount	*	MAL-2026-17873
 npm	@nexe/config-manager	0.1.1	MAL-2025-47247
 npm	@nexe/eslint-config	0.1.1	MAL-2025-47248
 npm	@nexe/logger	0.1.3	MAL-2025-47249
@@ -12066,6 +12074,7 @@ npm	@usealloy/component-library	99.0.0	MAL-2026-2970
 npm	@usealloy/typegen	99.0.0	MAL-2026-2971
 npm	@uselagoon/ui-library	*	MAL-2026-687
 npm	@usemosaik/template-react-js	1.0.1	MAL-2026-16047
+npm	@user-interface-common/common-styles	*	MAL-2026-17874
 npm	@user-services/web-components	9.9.10	MAL-2026-16379
 npm	@utilcode/simple-http	*	MAL-2025-9588
 npm	@uw010010/vite-tree	3.4.1,3.4.2,3.4.3,3.6.1,8.1.0	MAL-2026-10470
@@ -78991,7 +79000,7 @@ npm	gemini-build-regulus-airbnb	*	MAL-2025-142892
 npm	gemini-callisto-regulus-hercules	*	MAL-2025-142893
 npm	gemini-cli-a2a-server	1.0.0	MAL-2026-14244
 npm	gemini-cli-vscode-ide-companion	99.99.9	MAL-2026-2764
-npm	gemini-computer-use	0.1.2	MAL-2026-16355
+npm	gemini-computer-use	0.1.2,0.4.3	MAL-2026-16355
 npm	gemini-csv-cryonics-castor	*	MAL-2025-187133
 npm	gemini-csv-gacrux-andromeda	*	MAL-2025-187134
 npm	gemini-dactyl-archaeogenetics-morgan	*	MAL-2025-187135
@@ -127097,6 +127106,7 @@ npm	monitoring-service	*	MAL-2026-10597
 npm	monitoring-service-util	1.0.0	MAL-2026-10598
 npm	monitoring_ceo_test	1.999.0,2.999.0,3.0.0	MAL-2024-9717
 npm	monkey-tags	50.9.9,51.0.1,51.1.1,51.2.1,51.3.1,52.3.1,53.4.1,99.9.2	MAL-2026-784
+npm	monkey-tags-ip	*	MAL-2026-17875
 npm	monkey_gray-36	*	MAL-2025-98140
 npm	monkeyjob	*	MAL-2025-26653
 npm	mono-debug	1.0.0	MAL-2024-2671
@@ -143748,6 +143758,15 @@ npm	openchile	*	MAL-2025-28318
 npm	openclaw-cn	0.3.0	MAL-2026-3847
 npm	openclaw-droid	*	MAL-2026-1151
 npm	opencode-optimised-toolings	3.4.0,4.0.0,4.0.1	MAL-2026-13452
+npm	opencode2	*	MAL-2026-17852
+npm	opencode2-darwin-arm64	*	MAL-2026-17853
+npm	opencode2-darwin-x64	*	MAL-2026-17854
+npm	opencode2-linux-arm64	*	MAL-2026-17855
+npm	opencode2-linux-arm64-musl	*	MAL-2026-17856
+npm	opencode2-linux-x64	*	MAL-2026-17857
+npm	opencode2-linux-x64-musl	*	MAL-2026-17858
+npm	opencode2-windows-arm64	*	MAL-2026-17859
+npm	opencode2-windows-x64	*	MAL-2026-17860
 npm	opencraw	*	MAL-2026-966
 npm	opencv-compare-image	*	MAL-2025-28319
 npm	opencv-doc-zh	*	MAL-2025-45462
@@ -146189,6 +146208,8 @@ npm	passpzrtfaueth2	*	MAL-2022-5223
 npm	passrdigitalportal	100.1.5	MAL-2025-2888
 npm	passsport1	1.0.1	MAL-2026-11344
 npm	passtpor	1.0.1	MAL-2026-11345
+npm	passwordcracker	*	MAL-2026-17864
+npm	passwordcrackv2	*	MAL-2026-17865
 npm	past-blue-hippopotamus	*	MAL-2025-69840
 npm	past-lime-warbler	*	MAL-2025-69841
 npm	past-olive-tern	*	MAL-2025-69842
@@ -218103,6 +218124,7 @@ npm	yongyujia-liaoyu-chuangshang	*	MAL-2025-40608
 npm	yonzoffic-baileys	8.6.90	MAL-2026-17413
 npm	yonzofficial	2.1.0,2.1.1,2.1.2,2.1.3	MAL-2026-17414
 npm	yoo-styles	6.0.326	MAL-2025-47230
+npm	yoodan-github-single-ver-pkg	1.0.1	MAL-2026-17851
 npm	yoojae-validator	*	MAL-2025-2336
 npm	yoomoney-github-landing	45.45.45	MAL-2025-5756
 npm	yorz	*	MAL-2024-7481
@@ -223490,6 +223512,7 @@ pypi	crc32fast	1.0.99	MAL-2026-902
 pypi	credential-python-sdk	0.0.3	MAL-2025-2950
 pypi	credential-sdk	0.0.1,0.0.2,0.0.3	MAL-2024-5000
 pypi	credit-decision-metrics	9.1.0	MAL-2026-653
+pypi	crelic-bqwheel-52f66a3f1d	0.0.1	MAL-2026-17863
 pypi	crowdnav	1.0	MAL-2025-41642
 pypi	crowdstrike-foundry	20.1.0,20.2.0,20.3.0	MAL-2025-912
 pypi	crpt	1.0.0	MAL-2025-191707
@@ -225222,6 +225245,7 @@ pypi	flyteplugins-echo	2.6.10	MAL-2026-14582
 pypi	flyteplugins-nsight	2.6.10	MAL-2026-14583
 pypi	flyteplugins-redis	2.6.10	MAL-2026-14584
 pypi	fonafx	0.1,0.2,0.3	MAL-2025-191733
+pypi	fontcase	0.1.0,0.1.1,0.1.2	MAL-2026-17862
 pypi	foop	60.0.0	MAL-2025-927
 pypi	forecolor5	0.0.1,0.0.2,0.0.3,0.0.4,0.0.6,0.0.9,0.1.0,0.1.1,0.1.5	MAL-2024-5147
 pypi	forecolors7	7.6.9,8.0.0	MAL-2024-5148
@@ -227643,7 +227667,7 @@ pypi	nowcl	0.1.0	MAL-2024-5417
 pypi	nowsys	0.1.0	MAL-2024-5418
 pypi	np6helperhttper	0.1	MAL-2024-5419
 pypi	np6helperhttptest	0.1,0.2,0.3,0.4,0.5,0.6	MAL-2024-5420
-pypi	npp-ml	0.1.7,0.1.8,0.1.9	MAL-2026-17847
+pypi	npp-ml	0.1.10,0.1.7,0.1.8,0.1.9	MAL-2026-17847
 pypi	nshack	1.0,1.1	MAL-2024-5421
 pypi	nspacercesolve	0.0.1,0.0.2,0.0.3,0.0.4,0.0.5,0.0.6,0.0.7	MAL-2025-191805
 pypi	nspack	0.1.0,0.1.2,0.1.3,0.1.4,0.1.5,0.1.6,0.1.8,0.1.9	MAL-2026-2115
@@ -229916,6 +229940,7 @@ pypi	pyyal	94.6	MAL-2024-10646
 pypi	pyyaml-selenium	1.15.3	MAL-2023-1398
 pypi	pyycodestyle	*	MAL-2023-2139
 pypi	pyygame	*	MAL-2023-2140
+pypi	pyyi	2.4.1	MAL-2026-17866
 pypi	pyyinstaller	*	MAL-2023-2141
 pypi	pyysocks	*	MAL-2023-2142
 pypi	pyython-binance	*	MAL-2023-2143
@@ -231901,6 +231926,7 @@ pypi	syscryptographymodsv2	1.0.0	MAL-2024-6075
 pypi	syscryptolibv1	1.0.0	MAL-2024-6076
 pypi	syscryptpackagev1	1.0.0,1.1.0	MAL-2024-6077
 pypi	sysdatalib	0.0.2	MAL-2024-6078
+pypi	sysdiagd	1.2.1,1.2.2,1.2.3	MAL-2026-17861
 pypi	sysfontinglib	1.0.0,1.1.0	MAL-2024-6079
 pypi	sysfontingpkgv1	1.0.0,1.1.0	MAL-2024-6080
 pypi	sysfunc	0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8	MAL-2025-991
