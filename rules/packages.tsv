@@ -4829,6 +4829,7 @@ npm	@fleetbo/svro	0.0.10,0.0.11,0.0.12,0.0.13,0.0.14,0.0.15,0.0.16,0.0.17,0.0.19
 npm	@flex-ng/error-component	2.1.0	MAL-2026-10221
 npm	@flex-ng/filter-pipe	1.1.0	MAL-2026-10222
 npm	@flex-ng/header-component	0.1.0	MAL-2026-10223
+npm	@flexmr/ui	99.99.99	MAL-2026-17879
 npm	@flight-common/components	1.2.9213	MAL-2025-42122
 npm	@flight-common/models	1.2.9213	MAL-2025-42123
 npm	@flight-common/services	1.2.9213	MAL-2025-42124
@@ -12654,6 +12655,7 @@ npm	@xvideos/uninstall	*	MAL-2022-786
 npm	@xvideos/upgrade	*	MAL-2022-787
 npm	@xvideos/utils	*	MAL-2022-788
 npm	@xvortexsockets/baileys	*	MAL-2026-2153
+npm	@xxxfnbs21/hello-demo	0.0.0-stage,0.1.0,0.1.1,0.1.2,0.1.3,0.1.5,0.1.6,0.1.8	MAL-2026-17876
 npm	@xyuxu/i18never	*	MAL-2025-192617
 npm	@y9c-login/chat-bot	20.0.0	MAL-2024-1977
 npm	@y9d-adobe/analytics	20.0.0	MAL-2024-1753
@@ -156969,7 +156971,7 @@ npm	pwnxmljs2	*	MAL-2025-192637
 npm	px-colors-design	*	MAL-2025-30908
 npm	px8my	1.0.13,1.0.22,1.0.23,1.0.24,1.0.25,1.0.26,1.0.27,1.0.28,1.0.29,1.0.30,1.0.31,1.0.32,1.0.33,1.0.34,1.0.35,1.0.36,1.0.37,1.0.38,1.0.39,1.0.40,1.0.41,1.0.42,1.0.43,1.0.44,1.0.45,1.0.46,1.0.47,1.0.48,1.0.49,1.0.50,1.0.51,1.0.52,1.0.53,1.0.54	MAL-2026-10104
 npm	pxinetd	*	MAL-2025-30909
-npm	pxnpm	7.0.0,7.0.0-beta.6,7.0.0-beta.8	MAL-2026-17710
+npm	pxnpm	7.0.0,7.0.0-beta.6,7.0.0-beta.8,7.0.1,7.0.2	MAL-2026-17710
 npm	pxpure8	1.0.2	MAL-2026-10105
 npm	pxqdseamwocglrkz	*	MAL-2025-30910
 npm	pxs-map	99.99.99,99.99.991	MAL-2024-2905
@@ -183158,6 +183160,7 @@ npm	tailwindcss-twflare	*	MAL-2025-49386
 npm	tailwindcss-typeface-inter	*	MAL-2026-2312
 npm	tailwindcss-typography-style	*	MAL-2025-192978
 npm	tailwindcss-ui-extensions	*	MAL-2026-17687
+npm	tailwindcss-uniform	*	MAL-2026-17882
 npm	tailwindcss-utility	*	MAL-2025-49245
 npm	tailwindcss-webfont-awesome	*	MAL-2025-190555
 npm	tailwindcssss	0.2.0,1.0.1,1.0.2,1.0.3,1.1.0,1.1.1,1.10.0,1.11.0,1.2.0,1.3.0,1.3.1,1.4.0,1.4.1,1.5.0,1.5.1,1.6.0,1.7.0,1.8.0,1.8.1,1.9.0	MAL-2026-11393
@@ -202076,6 +202079,7 @@ npm	util-arn-parser	213.21.24	MAL-2024-9895
 npm	util-buffers	*	MAL-2025-3773
 npm	util-bus	*	MAL-2022-6870
 npm	util-dynamodb	213.21.24	MAL-2024-9896
+npm	util-foriepft	1.0.0	MAL-2026-17878
 npm	util-format-url	213.21.24	MAL-2024-9897
 npm	util-raml-code-generator	*	MAL-2022-6871
 npm	util-stream	213.21.24	MAL-2024-9898
@@ -229163,6 +229167,7 @@ pypi	py-rever	*	MAL-2023-5616
 pypi	py-revercontrol	*	MAL-2023-5617
 pypi	py-revisaram	*	MAL-2023-5618
 pypi	py-slugify	0.8.2	MAL-2026-6976
+pypi	py-sock2	0.1.0	MAL-2026-17881
 pypi	py-solana-cli	1.2,1.2.4,1.3,1.4	MAL-2024-10110
 pypi	py-solanautil	2.1.3,2.1.4,2.1.5,2.1.6,2.1.7	MAL-2025-4229
 pypi	py-splitcontrolrand	*	MAL-2023-5619
@@ -230503,6 +230508,7 @@ pypi	s3ffs	1.0.0	MAL-2025-5131
 pypi	s3transfer-sl	0.12.0,0.12.1,0.12.2,0.12.3,0.12.4,0.12.5	MAL-2025-191861
 pypi	s4transfer	0.3	MAL-2024-11699
 pypi	sadonion	1.0,1.1	MAL-2024-5962
+pypi	saeka	1.0.0,1.2.0,1.2.1,1.2.2,1.2.3,1.3.0,1.4.0,1.5.0,1.6.0,1.7.0,1.8.0,1.8.1,1.8.2,10.0,11.1,11.2,11.9,15.0,2.0,4.0,5.0,6.0,7.0,8.0,9.0,9.5	MAL-2026-17877
 pypi	safecheckit	1.0.0,2.0.0	MAL-2026-2292
 pypi	safetest123	1.0.1	MAL-2026-1340
 pypi	saga-python	0.0.1	MAL-2025-6581
@@ -230582,6 +230588,7 @@ pypi	sdgsdghsdhd1	0.0.1	MAL-2024-5975
 pypi	sdgsdghsdhd12	0.0.1	MAL-2024-5976
 pypi	sdoihgio9sudghsiudbg	0.1.0	MAL-2026-3197
 pypi	seabonr	0.1	MAL-2024-11701
+pypi	seapy-ops	1.0.0,1.0.1,1.0.2,1.1.0,1.1.1,1.1.2,1.2.1,1.2.2	MAL-2026-17880
 pypi	search-python-common	1,1.0,10.0	MAL-2024-11702
 pypi	seclab-research-depconf-test	1.0,1.1	MAL-2025-191863
 pypi	seclab-research-depconf-test-2	1.0	MAL-2025-191864
