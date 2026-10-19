@@ -1483,6 +1483,8 @@ npm	@apache-netbeans/netbeans-antora-ui	0.3.0	MAL-2025-48960
 npm	@apachesling/slingpackager	1.0.0,99.0.0	MAL-2025-42188
 npm	@apachesling/slingpost	1.0.0,99.0.0	MAL-2025-42189
 npm	@apex-ui/core	*	MAL-2023-7946
+npm	@apexacc/audit	*	MAL-2026-17923
+npm	@apexacc/cli	*	MAL-2026-17924
 npm	@apexcraft/nano-key	1.2.4,1.2.5,1.3.2,1.3.3,1.3.4,1.3.5,1.3.6,1.3.7,1.3.8	MAL-2026-6210
 npm	@apexfdn/apex	1.0.1,1.0.10,1.0.11,1.0.12,1.0.13,1.0.14,1.0.15,1.0.16,1.0.17,1.0.18,1.0.19,1.0.2,1.0.20,1.0.21,1.0.22,1.0.23,1.0.24,1.0.25,1.0.26,1.0.27,1.0.28,1.0.29,1.0.3,1.0.30,1.0.31,1.0.32,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2026-10979
 npm	@apexfnd/apex	1.0.0,1.0.1,1.0.3,1.0.4	MAL-2026-11121
@@ -4774,6 +4776,7 @@ npm	@fbpay/test-container-utils	*	MAL-2022-265
 npm	@fbsystem/figma-graphql	*	MAL-2022-266
 npm	@fbsystem/figma-intern-shell	*	MAL-2022-267
 npm	@fbsystem/figma-messenger	*	MAL-2022-268
+npm	@fcsmc/commercial-analytics	99.9.1	MAL-2026-17928
 npm	@fcss/ui-component-library	*	MAL-2025-2077
 npm	@fdfe/ecf-http-adapter	1.1.1	MAL-2024-2276
 npm	@fdfe/era-build	1.0.15	MAL-2024-2310
@@ -4855,9 +4858,11 @@ npm	@flutterfire/source-versions	1.0.3	MAL-2025-3300
 npm	@flutteruki-gaming/eslint-config-flutteruki-gaming	1.8.0	MAL-2024-11812
 npm	@flutteruki-gaming/gfe-prismic	*	MAL-2025-42509
 npm	@flutteruki-gaming/test-eslint-config-flutteruki-gaming	1.6.0,1.6.1,1.6.2	MAL-2024-11813
+npm	@fluxionii/baileys	*	MAL-2026-17925
 npm	@fm-plugin/dynamic-module-provider	*	MAL-2025-7936
 npm	@fmcc-web-platform/platform-experience-lib	*	MAL-2025-7937
 npm	@fmcc-web-platform/react-components	*	MAL-2025-7938
+npm	@fmr-ap149494/apex-base-component	99.9.1	MAL-2026-17929
 npm	@fmr-pr103625/apex-core	1.999.1,1.999.2	MAL-2025-4427
 npm	@fms-common-biz/basic-react	*	MAL-2025-4540
 npm	@fnt-cmd/core	1.999.0,1.999.1	MAL-2024-7075
@@ -9647,6 +9652,7 @@ npm	@piplabs/story-contracts	0.1.0-alpha.1	MAL-2025-3029
 npm	@pixiv-vroid-hub/vroid-hub-viewer	*	MAL-2022-503
 npm	@pkg-m/m	1.3.9,1.4.0	MAL-2023-8745
 npm	@pkgr/core	0.2.8	MAL-2025-6021
+npm	@pkgship/frpc-linux-arm64	0.71.0	MAL-2026-17922
 npm	@planetlabs/admin-ng	*	MAL-2026-6637
 npm	@plangrid-private/babel-preset-react-app	1.0.0	MAL-2024-1801
 npm	@plangrid-private/demo-components	1.0.0	MAL-2024-2071
@@ -20831,6 +20837,7 @@ npm	aem-react-editable-components	1000000000.0.0,1000000001.0.0,1000000002.0.0,1
 npm	aem-react-spa	1.1.1	MAL-2024-12133
 npm	aem-spa-component-mapping	10000000000.0.0,10000000001.0.0,10000000002.0.0,10000000003.0.0,10000000004.0.0,10000000005.0.0,10000000006.0.0,10000000007.0.0,10000000008.0.0,9999.999.999,99999999.999.999,999999999.999.999,9999999999.9999.999	MAL-2025-270
 npm	aem-spa-page-model-manager	1000000000.0.0,1000000001.0.0,1000000002.0.0,1000000003.0.0,1000000004.0.0,1000000005.0.0,1000000006.0.0,1000000007.0.0,1000000008.0.0,9999.999.999,999999999.9999.999	MAL-2025-271
+npm	aemath-baileys	*	MAL-2026-17930
 npm	aeqbdkzxvsthfuoc	*	MAL-2025-14127
 npm	aer_css-vars	*	MAL-2022-879
 npm	aerisjs	*	MAL-2025-14128
@@ -22811,6 +22818,7 @@ npm	aldebaran-stratigraphy-canopus-module	*	MAL-2025-185423
 npm	aldebaran-thuban-gacrux-apex	*	MAL-2025-185424
 npm	aldebaran-zenobia-package-blaze	*	MAL-2025-139287
 npm	alder_morrgan	*	MAL-2026-6742
+npm	aldi02-baileys	*	MAL-2026-17931
 npm	aldipratama	*	MAL-2025-170780
 npm	aldiputra	*	MAL-2025-170781
 npm	aldorev	*	MAL-2025-170782
@@ -79016,7 +79024,7 @@ npm	gemini-build-regulus-airbnb	*	MAL-2025-142892
 npm	gemini-callisto-regulus-hercules	*	MAL-2025-142893
 npm	gemini-cli-a2a-server	1.0.0	MAL-2026-14244
 npm	gemini-cli-vscode-ide-companion	99.99.9	MAL-2026-2764
-npm	gemini-computer-use	0.1.2,0.4.3	MAL-2026-16355
+npm	gemini-computer-use	0.1.2,0.4.3,0.4.5	MAL-2026-16355
 npm	gemini-csv-cryonics-castor	*	MAL-2025-187133
 npm	gemini-csv-gacrux-andromeda	*	MAL-2025-187134
 npm	gemini-dactyl-archaeogenetics-morgan	*	MAL-2025-187135
@@ -98680,6 +98688,7 @@ npm	item-ifut-duoa	*	MAL-2025-183167
 npm	item-shop-data-client	99.99.100,99.99.99	MAL-2024-2536
 npm	item-sold-count	6.5.8	MAL-2024-11045
 npm	item-ut-duoa	*	MAL-2025-183168
+npm	item-validator	*	MAL-2026-17932
 npm	itembuyer	*	MAL-2025-23462
 npm	items-validator	1.0.4,1.0.5	MAL-2026-17235
 npm	itemsound	*	MAL-2025-23463
@@ -170269,8 +170278,8 @@ npm	sc-chimer	1.0.0	MAL-2024-1349
 npm	sc-chimeraa	1.0.0	MAL-2024-1350
 npm	sc-chimerra	1.0.0	MAL-2024-1351
 npm	sc-cmt	*	MAL-2022-5950
-npm	sc-font-icons	9999.0.0	MAL-2026-12800
-npm	sc-geeksquad-core	9999.0.0	MAL-2026-12435
+npm	sc-font-icons	99.9.1,9999.0.0	MAL-2026-12800
+npm	sc-geeksquad-core	99.9.1,9999.0.0	MAL-2026-12435
 npm	sc-hydrate-sku	*	MAL-2022-5951
 npm	sc-libraries	1.1.9	MAL-2024-10327
 npm	sc-location	*	MAL-2022-5952
@@ -220914,6 +220923,7 @@ npm	zeroth_sturgeon_z3n	*	MAL-2025-82768
 npm	zeroth_warbler_z3n	*	MAL-2025-118476
 npm	zeroth_wren-silentdev	*	MAL-2025-111538
 npm	zeroth_wren_dumbs	*	MAL-2025-111539
+npm	zeroz-baileys	*	MAL-2026-17933
 npm	zest-carrot-sco5	*	MAL-2025-40955
 npm	zest-gorilla-x1gi	*	MAL-2025-40956
 npm	zest-product	99.0.0,99.9.0	MAL-2026-4738
@@ -225139,9 +225149,11 @@ pypi	f2d5cfdc642c3d5	0.1	MAL-2025-3447
 pypi	f5-logger	99.0.0	MAL-2025-192608
 pypi	f5rest	99.0.0	MAL-2025-192609
 pypi	faaladorcli	99.0.1	MAL-2026-1351
+pypi	fabdeploycheck	0.1.1	MAL-2026-17926
 pypi	fabrice	*	MAL-2024-10573
 pypi	fabricee	1.0.0	MAL-2024-11586
 pypi	fabrlce	1.0.0	MAL-2024-11587
+pypi	fabtoolkit	0.1.0,0.1.1,0.1.2	MAL-2026-17927
 pypi	facebook-scrapper	0.0.1.dev0	MAL-2024-5127
 pypi	facebookresearch	99.0.0	MAL-2026-2175
 pypi	fadlearner	912.6	MAL-2024-11588
@@ -226240,7 +226252,7 @@ pypi	layoutspecs	0.1	MAL-2024-11624
 pypi	lazmat	1.0.0	MAL-2025-191779
 pypi	lbank-connector-pythons	2.0,2.1,2.2,2.3	MAL-2025-191644
 pypi	lcick	*	MAL-2023-1891
-pypi	leakdeep	2.5.0,2.5.2,2.6.0,2.6.4,2.6.6	MAL-2026-17921
+pypi	leakdeep	2.4.1,2.4.5,2.5.0,2.5.2,2.6.0,2.6.2,2.6.4,2.6.6,3.0.0	MAL-2026-17921
 pypi	learning-curve-projects	0.0.1,0.0.2	MAL-2026-618
 pypi	learning-pypi-demo-nisimi	0.1.0,0.1.1,0.1.2,0.1.3,0.1.4,0.1.5	MAL-2025-47782
 pypi	leavemealone	0.1.1,0.1.2	MAL-2026-2948
