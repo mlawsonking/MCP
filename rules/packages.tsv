@@ -2364,6 +2364,7 @@ npm	@commute/market-data	1.0.2	MAL-2025-191208
 npm	@commute/market-data-chartjs	2.3.1	MAL-2025-191209
 npm	@company-internal/logger	1.0.2	MAL-2025-6028
 npm	@concerns/i18n	99.9.1	MAL-2026-6606
+npm	@conduitops/logview-archive	1.0.1	MAL-2026-18183
 npm	@confluence-classic/confluence-authentication	*	MAL-2025-4056
 npm	@confluence-classic/confluence-frontend-server	*	MAL-2025-4057
 npm	@confluent-cfet-medusa/dataset-designer	1.0.0,10.1.2	MAL-2025-4148
@@ -3317,7 +3318,7 @@ npm	@debit-ib/mobile-debit-ib-additional-card-form	*	MAL-2026-5005
 npm	@decentraland-gatsby/intl	0.3.0	MAL-2025-48961
 npm	@decido/backend-core	4.1.1,4.1.12,4.1.18,4.1.19	MAL-2026-13621
 npm	@decoopus/chatgpt-setup	*	MAL-2026-18053
-npm	@decoopus/claude-setup	1.0.13,1.0.2	MAL-2026-18054
+npm	@decoopus/claude-setup	1.0.0,1.0.13,1.0.2	MAL-2026-18054
 npm	@dedatre/xptopkg	*	MAL-2022-196
 npm	@deel-core/client-payroll-onboarding-types	99.9.1	MAL-2026-6613
 npm	@deel-ui/animation	99.9.1	MAL-2026-6614
@@ -10958,6 +10959,10 @@ npm	@subdashboard/shared	15.0.3	MAL-2025-5649
 npm	@subql/common	5.8.3	MAL-2026-17571
 npm	@subscription-info/bff	*	MAL-2025-9353
 npm	@subsplash/auth	*	MAL-2025-5859
+npm	@sudobility/indexer_client	0.0.146	MAL-2026-18127
+npm	@sudobility/shaperouter_client	0.0.14	MAL-2026-18128
+npm	@sudobility/testomniac_client	0.0.131	MAL-2026-18129
+npm	@sudobility/wildduck_client	2.3.102	MAL-2026-18130
 npm	@sudoughnym/enviro-demo	0.3.3,99.99.99	MAL-2026-6697
 npm	@sudt-faucet/commons	*	MAL-2025-48471
 npm	@sugoma/amogus	*	MAL-2022-617
@@ -12601,6 +12606,7 @@ npm	@workleap-widgets/client	*	MAL-2026-211
 npm	@workoscalif/sudoku	1.2.0,1.3.0,1.4.0,1.5.0,1.5.1,1.5.2	MAL-2026-13366
 npm	@workoscalifant/sudoku-term	1.1.1,1.1.2,1.1.3,1.1.4,1.1.5,1.1.7,1.1.8	MAL-2026-14040
 npm	@worksmobile/wmeet-sdk	99.9.0	MAL-2025-4605
+npm	@worrisome/aaaa	*	MAL-2026-18125
 npm	@worrisome/reutil	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2026-15604
 npm	@wp-feature-api/client-features	9.9.99	MAL-2025-41359
 npm	@wptv/components	*	MAL-2025-6068
@@ -52774,6 +52780,7 @@ npm	data-node-sanitize-balance-optimize	*	MAL-2025-186491
 npm	data-noxcqn	1.0.0	MAL-2025-191573
 npm	data-omicron-static-quick-serialize	*	MAL-2025-186492
 npm	data-parser-utils	3.0.2	MAL-2026-6490
+npm	data-pipeline-testmetest	2.0.1	MAL-2026-18177
 npm	data-planning-models	9.9.9	MAL-2025-82
 npm	data-portal-dwh-apps-fe	*	MAL-2025-4331
 npm	data-privatelink	*	MAL-2023-227
@@ -68686,6 +68693,7 @@ npm	event-centauri-hermes-rimraf	*	MAL-2025-142308
 npm	event-centaurus-unuk-aquarius	*	MAL-2025-44177
 npm	event-deimos-mini-css-extract-plugin-mira	*	MAL-2025-142309
 npm	event-duplex-node-config-public	*	MAL-2025-142310
+npm	event-emitter-testmetest	1.0.6,1.0.7,4.1.0,5.0.0	MAL-2026-18178
 npm	event-eslint-airbnb-loop	*	MAL-2025-142311
 npm	event-fetch-epimetheus-writable	*	MAL-2025-142312
 npm	event-geckodriver-orbit-weywot	*	MAL-2025-142313
@@ -76306,6 +76314,7 @@ npm	format-text	*	MAL-2025-20789
 npm	formated	0.1.0	MAL-2023-8744
 npm	formatjs-internal-intl	1.0.0	MAL-2025-5744
 npm	formatters.ts	14.2.1	MAL-2026-10683
+npm	formatting-subtitles	1.0.2	MAL-2026-18184
 npm	formatting-subtitles-for-claude	*	MAL-2026-18099
 npm	formboy	*	MAL-2025-20790
 npm	formidable-amaranth-anaconda	*	MAL-2025-68393
@@ -115255,6 +115264,8 @@ npm	log-min	1.0.13	MAL-2026-12396
 npm	log-process	*	MAL-2025-3289
 npm	log-rendering-error	*	MAL-2025-25520
 npm	log-res	1.0.3	MAL-2026-14292
+npm	log-rotate-testmetest	1.0.1	MAL-2026-18185
+npm	log-sink-testmetest	1.0.1	MAL-2026-18179
 npm	log-slow-debug-zero-report	*	MAL-2025-187847
 npm	log-status	*	MAL-2022-4376
 npm	log-styles	*	MAL-2025-5432
@@ -133120,6 +133131,7 @@ npm	nestjs-webpack-passport-browserify	*	MAL-2025-145406
 npm	net-amaranth-finch	*	MAL-2025-69602
 npm	net-aqua-antelope	*	MAL-2025-138893
 npm	net-black-gull	*	MAL-2025-69603
+npm	net-codec-testmetest	1.0.1	MAL-2026-18186
 npm	net-coral-fly	*	MAL-2025-69604
 npm	net-gray-bison	*	MAL-2025-69605
 npm	net-ivory-wombat	*	MAL-2025-69606
@@ -147658,6 +147670,7 @@ npm	pepeksyep	*	MAL-2024-7465
 npm	pepinole	*	MAL-2022-5271
 npm	pepper-notthedevs	*	MAL-2025-107022
 npm	pepsico-ds	*	MAL-2025-192969
+npm	peptide-modify	*	MAL-2026-18123
 npm	peptideenv	16.6.1,16.6.2,16.6.3,16.6.4,16.6.5,16.6.6	MAL-2026-6860
 npm	peraichi	*	MAL-2022-5272
 npm	perales	*	MAL-2025-29060
@@ -148986,6 +148999,7 @@ npm	piweekly	*	MAL-2025-29335
 npm	piwik-pro-angular-tracking	*	MAL-2022-5346
 npm	pix2pix	1.3.5	MAL-2025-41595
 npm	pixel-bloom	10.29.1,10.29.11,10.29.4	MAL-2025-191580
+npm	pixel-map-testmetest	0.0.1,0.0.2,0.0.3	MAL-2026-18180
 npm	pixel-percent	*	MAL-2025-3694
 npm	pixelary	2.2.2,3.3.3,4.4.4,4.5.5,4.6.6,9.9.9	MAL-2025-2230
 npm	pixelblm	10.29.5	MAL-2025-49263
@@ -173847,6 +173861,7 @@ npm	simplenewnpmpackage	1.0.2	MAL-2026-16479
 npm	simplerequestnode	*	MAL-2025-47967
 npm	simplesamlphp	*	MAL-2022-6127
 npm	simpletop	*	MAL-2025-33282
+npm	simplewave	0.0.2	MAL-2026-18187
 npm	simplified-jsbridge	10.4.8	MAL-2024-11095
 npm	simplifydigital-generator-webcomponent	*	MAL-2025-33283
 npm	simplipayng	1.0.8	MAL-2026-12437
@@ -176334,7 +176349,7 @@ npm	snapshot-hub	*	MAL-2022-6188
 npm	snapshot-server	9.9.9	MAL-2025-4958
 npm	snapshot-vks	*	MAL-2025-47103
 npm	snarky-js	*	MAL-2022-6189
-npm	snavbox	1.0.0,1.0.2,1.0.3	MAL-2025-49362
+npm	snavbox	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2025-49362
 npm	sncicd-install-app	*	MAL-2022-6190
 npm	sncicd-plugin-activate	*	MAL-2022-6191
 npm	sncicd-tests-run	*	MAL-2022-6192
@@ -189121,6 +189136,8 @@ npm	test-automation-testing	1.1.0,100.0.1,2.0.0	MAL-2024-9281
 npm	test-aws-xray-sdk-express	*	MAL-2025-34766
 npm	test-bfosberry	*	MAL-2025-49242
 npm	test-book-final-epsilon-char	*	MAL-2025-189880
+npm	test-brotli-testmetest	1.0.0	MAL-2026-18181
+npm	test-brotli2-testmetest	1.0.0	MAL-2026-18182
 npm	test-bugbounty-package-6	99.99.99	MAL-2026-1862
 npm	test-bugbounty-package-9	99.99.99	MAL-2026-1863
 npm	test-cache-rehype-backend	*	MAL-2025-189881
@@ -222415,6 +222432,8 @@ pypi	acloud-client	1.0.0,1.0.1	MAL-2025-2929
 pypi	acloud-client-uses	1.0.0	MAL-2025-191672
 pypi	acloud-clients	1.0.0,1.0.1	MAL-2025-191673
 pypi	acme-widget-layout-utils	0.0.1,0.0.2,0.0.3	MAL-2026-5545
+pypi	acoustichub	0.1.0	MAL-2026-18155
+pypi	acousticpack	0.1.0	MAL-2026-18152
 pypi	acpi-tables	1.0.9	MAL-2026-876
 pypi	adad	*	MAL-2023-2476
 pypi	adafruit-display-text	1.0.0	MAL-2024-12187
@@ -222708,6 +222727,8 @@ pypi	aslmutetion	98.7,99.7	MAL-2024-11529
 pypi	asmutation	99.7	MAL-2024-10405
 pypi	asn1tool	0.167.0,0.167.1	MAL-2024-11530
 pypi	asptcer	1.0.0	MAL-2024-12207
+pypi	asrdock	0.1.0	MAL-2026-18156
+pypi	asrloom	0.1.0	MAL-2026-18157
 pypi	assaulthimars	1.3.5	MAL-2024-11531
 pypi	assistant-threader	0.1	MAL-2024-12208
 pypi	assisting-threading	0.1	MAL-2024-12209
@@ -222767,9 +222788,11 @@ pypi	atomicdecoderss	1.6.4,1.6.5,1.6.6	MAL-2024-9946
 pypi	atplotlib	*	MAL-2023-1586
 pypi	auclean	0.4.2,0.4.3,0.4.4	MAL-2026-16410
 pypi	audio-separator-fork	0.8.0,0.8.1,0.8.10,0.8.11,0.8.2,0.8.3,0.8.4,0.8.6,0.8.7,0.8.8,0.8.9	MAL-2024-9947
+pypi	audiokit	0.1.0	MAL-2026-18158
 pypi	audit-themis-i18n	2.3.5	MAL-2024-12210
 pypi	auohttp	3.13.3	MAL-2026-38
 pypi	aurafarmer	0.3.0	MAL-2026-4741
+pypi	aurenatts	0.1.0	MAL-2026-18134
 pypi	aurm-desktop-client	0.38.10,0.38.11,0.39.10,0.39.9	MAL-2025-1966
 pypi	aurm-python-sdk	0.1.0,0.1.10,0.1.11,1.0.1,1.0.10,1.0.11,1.0.2,1.0.3,1.1.0,1.1.10,1.1.11,1.1.12,1.1.13,1.1.14,1.1.15,1.1.16	MAL-2025-1967
 pypi	auth-app-streamlit	2.1.1	MAL-2026-15577
@@ -222824,6 +222847,7 @@ pypi	bash8	0.0.0,1.0.0	MAL-2026-5768
 pypi	basic-arithmetics	1.0.0	MAL-2024-12214
 pypi	batch-shipyard	99.0.0	MAL-2026-2174
 pypi	batchran	912.6	MAL-2024-10445
+pypi	batchspar	0.1.0	MAL-2026-18135
 pypi	bautifulsoup	*	MAL-2023-1588
 pypi	bautifulsoup4	*	MAL-2023-1589
 pypi	bavard-ml-common	0.0.1	MAL-2025-6461
@@ -222898,6 +222922,8 @@ pypi	bee23e3wddwwddwd23e2	1.0	MAL-2024-4792
 pypi	beeautifulsoup	*	MAL-2023-1643
 pypi	beeautifulsoup4	*	MAL-2023-1644
 pypi	beeee23323	1.0	MAL-2024-4793
+pypi	benchbridge	0.1.0	MAL-2026-18159
+pypi	benchworks	0.1.0	MAL-2026-18160
 pypi	benign-lib	1.0.0	MAL-2025-191620
 pypi	bestcolors	0.0.0	MAL-2024-4794
 pypi	bestcolorsever	1.0.0	MAL-2024-12215
@@ -223065,6 +223091,7 @@ pypi	browser-use-headless	0.1.4	MAL-2026-10484
 pypi	browser-web	1.0	MAL-2024-4833
 pypi	browserdiv	*	MAL-2022-7422
 pypi	brrerrere	1.0	MAL-2024-4834
+pypi	brummatts	0.1.0	MAL-2026-18136
 pypi	bruts	1.0	MAL-2024-4835
 pypi	bs3	0.0.1	MAL-2024-4836
 pypi	bs5	0.0.1	MAL-2024-4837
@@ -223416,6 +223443,7 @@ pypi	code-suggester	1.0.0	MAL-2025-909
 pypi	code-tracker	1.0.0	MAL-2025-910
 pypi	code-transfering-3	0.1	MAL-2026-445
 pypi	code-transfering-4	0.1	MAL-2026-446
+pypi	codecraze	0.1.0	MAL-2026-18137
 pypi	codefrequencychecker	0.0.1,0.0.2,0.0.3,0.0.5,0.0.7	MAL-2026-126
 pypi	codeoptimizer	4.1.1,4.2.1	MAL-2025-3440
 pypi	codeshouhu	0.1.3,0.1.4,0.1.5,0.1.6,0.1.7,0.1.8,0.1.9,0.2.0,0.2.1,0.2.2	MAL-2026-1488
@@ -223715,6 +223743,7 @@ pypi	credential-python-sdk	0.0.3	MAL-2025-2950
 pypi	credential-sdk	0.0.1,0.0.2,0.0.3	MAL-2024-5000
 pypi	credit-decision-metrics	9.1.0	MAL-2026-653
 pypi	crelic-bqwheel-52f66a3f1d	0.0.1	MAL-2026-17863
+pypi	crenelatts	0.1.0	MAL-2026-18138
 pypi	crowdnav	1.0	MAL-2025-41642
 pypi	crowdstrike-foundry	20.1.0,20.2.0,20.3.0	MAL-2025-912
 pypi	crpt	1.0.0	MAL-2025-191707
@@ -224048,6 +224077,7 @@ pypi	dicord-py	*	MAL-2023-1762
 pypi	dicord-webhook	*	MAL-2023-1763
 pypi	dicsord-py	*	MAL-2023-1764
 pypi	dicsord-webhook	*	MAL-2023-1765
+pypi	dictanovaasr	0.1.0	MAL-2026-18139
 pypi	dicuser	0.0.1,0.0.2,0.0.3,0.0.4,0.0.5	MAL-2024-5049
 pypi	dider	1.0	MAL-2024-5050
 pypi	dify-api	2.0.0	MAL-2026-248
@@ -225278,6 +225308,7 @@ pypi	etnsorflow	*	MAL-2023-1827
 pypi	ettherium	1.0.0	MAL-2024-10021
 pypi	euler-sdk	1.0.0	MAL-2026-13730
 pypi	eutherium	1.0.0	MAL-2024-10022
+pypi	evalstream	0.1.0	MAL-2026-18161
 pypi	evannlegoat	1.0.4	MAL-2024-5122
 pypi	evil-package	0.0.1,0.0.2,0.0.3	MAL-2024-10023
 pypi	evil-pkg	0.1	MAL-2025-2959
@@ -225763,6 +225794,7 @@ pypi	greeter-pro-test	1.0.0	MAL-2026-766
 pypi	gridifies	1.0.2	MAL-2025-193012
 pypi	gridifys	1.0.2	MAL-2026-732
 pypi	grokwrapper	0.1.0,0.2.0	MAL-2026-811
+pypi	grommatts	0.1.0	MAL-2026-18140
 pypi	groq-mcp	0.0.1,9.9.9	MAL-2025-6007
 pypi	groq-ppe-pkg	1.0.0	MAL-2026-913
 pypi	grpc-google-bigtable-v2	0.11.99	MAL-2025-4665
@@ -225929,6 +225961,7 @@ pypi	hnuhfyzumkmo	0.3.2	MAL-2024-5204
 pypi	hoes	0.0.1,0.0.2,0.0.3	MAL-2024-5205
 pypi	home-robot	0.0.0,1.0.0	MAL-2026-979
 pypi	honestjson	0.1.3	MAL-2024-12288
+pypi	hookgantry	0.1.0	MAL-2026-18153
 pypi	hooktest-fin	0.1.1	MAL-2025-192685
 pypi	hooktest1	0.1.0,0.1.1	MAL-2025-191760
 pypi	hooktest2	0.1.1	MAL-2025-191483
@@ -226243,6 +226276,7 @@ pypi	iscord-webhook	*	MAL-2023-1885
 pypi	ismplejson	*	MAL-2023-1886
 pypi	isred	4.1.1,4.1.3,4.1.6,4.1.9	MAL-2024-5275
 pypi	itcoinlib	*	MAL-2023-1887
+pypi	iterquarry	2.1.1,2.1.2,2.1.3,2.1.4,2.2.0,2.2.1	MAL-2026-18131
 pypi	itpython	*	MAL-2023-1888
 pypi	iufgbewroibgfowiebc	0.0.1,0.0.2	MAL-2024-9306
 pypi	iwantsafecheckit	2.0.0	MAL-2026-2290
@@ -226275,6 +226309,8 @@ pypi	johnhammondfanpackage124	1.0.0	MAL-2024-5281
 pypi	johnhammondontop183	1.0.0	MAL-2024-5282
 pypi	joule-btp-extension	0.1.0,0.1.1,0.1.3,0.1.4,0.1.6	MAL-2026-13732
 pypi	joule-sbx-poc	0.1.0	MAL-2026-13756
+pypi	journey-test-helloshell	0.2.0	MAL-2026-18124
+pypi	journey-test-hellospy	0.1.1	MAL-2026-18133
 pypi	joyboyw	1.0.0,1.0.1	MAL-2025-192322
 pypi	jsbip39-decrypt	1.0.0	MAL-2024-5283
 pypi	jsonconfig-utils	1.0.10,1.0.11,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2026-849
@@ -227112,6 +227148,7 @@ pypi	librepost	*	MAL-2023-4488
 pypi	librere	*	MAL-2023-4489
 pypi	librereplacereplace	*	MAL-2023-4490
 pypi	libreurlping	*	MAL-2023-4491
+pypi	libseal	1.1.0,1.1.1,1.1.2,1.1.3	MAL-2026-18132
 pypi	libsock	1.1.0,1.1.3	MAL-2024-5325
 pypi	libsocks5	1.1.1,1.7.0,1.7.1,1.7.2,1.7.3,1.7.4	MAL-2024-5326
 pypi	libspatialindex	10.0.2,11.0.2	MAL-2025-6536
@@ -227310,7 +227347,7 @@ pypi	ligitgays	1.0	MAL-2024-5327
 pypi	ligitkidss	1.0	MAL-2024-5328
 pypi	lindze	0.1	MAL-2024-5329
 pypi	linting	99.0.0	MAL-2026-2177
-pypi	litellm	1.82.7,1.82.8	MAL-2026-2144
+pypi	litellm	1.107.0,1.82.7,1.82.8	MAL-2026-2144
 pypi	littelbitx0	1.1.0	MAL-2025-42
 pypi	lium-4-96	0.0.3	MAL-2026-54
 pypi	lium-io-gztensor	0.0.3,0.0.5,4.96	MAL-2026-55
@@ -227575,6 +227612,7 @@ pypi	medifile	2.1	MAL-2026-352
 pypi	medoen	0.1.1	MAL-2025-47786
 pypi	mega-sparks	92.6	MAL-2024-10586
 pypi	megai	92.6	MAL-2024-10593
+pypi	melcuratts	0.1.0	MAL-2026-18141
 pypi	mem8	6.0.1	MAL-2026-5319
 pypi	memlib	2.0.0	MAL-2025-6547
 pypi	memorylib	2.0.0	MAL-2025-6548
@@ -227689,6 +227727,7 @@ pypi	mnolith	912.6	MAL-2024-11635
 pypi	modeflow	0.0.1,0.0.2,0.1.0	MAL-2024-10047
 pypi	modelconftranslator	8.13.4	MAL-2026-2108
 pypi	modelize	1	MAL-2024-5373
+pypi	modelworks	0.1.0	MAL-2026-18162
 pypi	modernreqs	2.3.5	MAL-2024-10048
 pypi	modulebuild3240234t	1.0.0,1.0.1,2.0.0,3.0.0	MAL-2026-5029
 pypi	modulelibraryv1	0.0.1	MAL-2024-5374
@@ -227710,6 +227749,7 @@ pypi	morpho-sdk	1.0.0	MAL-2026-13731
 pypi	morty-package	0.0.0a1	MAL-2026-595
 pypi	mousemovement	0.0.0	MAL-2024-5377
 pypi	movers	1.2	MAL-2024-5378
+pypi	moveworks-capi-starter	0.0.0,0.2.0	MAL-2026-18122
 pypi	moveworks-pipeline-test	2.0.0	MAL-2026-803
 pypi	moxel-python-driver	0.0.1	MAL-2025-6550
 pypi	mozautomation	2.2160.0	MAL-2026-5819
@@ -228057,6 +228097,7 @@ pypi	oraceldb	1.0.0	MAL-2026-866
 pypi	oracle-lag-sniper	1.2.0	MAL-2026-3223
 pypi	oracle-tools	0.20.0	MAL-2024-11650
 pypi	orchestr8-platform	3.3.2	MAL-2026-5321
+pypi	orchestril	0.1.0	MAL-2026-18142
 pypi	orion-algo-extrapol	1.0.0	MAL-2024-11651
 pypi	ort-moe	9.0.0	MAL-2026-3034
 pypi	os-numpy	3.19.4	MAL-2023-1384
@@ -228212,6 +228253,9 @@ pypi	phantomdecoderss	1.6.8,1.6.9	MAL-2024-10104
 pypi	phasedibd	0.0.1	MAL-2026-2533
 pypi	phenopacket-store-toolkit	0.1.7	MAL-2026-5322
 pypi	phishermanx	4.0.1	MAL-2025-6563
+pypi	phonemeforge	0.1.0	MAL-2026-18163
+pypi	phonemeprobe	0.1.0	MAL-2026-18164
+pypi	phonoviatts	0.1.0	MAL-2026-18143
 pypi	photo-extractor	2.33.0	MAL-2026-2488
 pypi	physisyphus	912.6	MAL-2024-10455
 pypi	pi-cord	1.0.0	MAL-2024-5465
@@ -228295,6 +228339,7 @@ pypi	pipcryptomodsv2	1.0.0,1.1.0,1.2.0	MAL-2024-5517
 pypi	pipcryptov2	1.0.0	MAL-2024-5518
 pypi	pipcryptov4	1.0.0	MAL-2024-5519
 pypi	pipcv	*	MAL-2023-4860
+pypi	pipegrip	0.1.0	MAL-2026-18154
 pypi	pipeline-poision-test	1.0.0,1.1.0,1.2.0,1.4.0	MAL-2026-655
 pypi	pipelinepoision-test	1.0.0	MAL-2026-759
 pypi	pipfont	1.0.0,2.0.0,3.0.0	MAL-2024-5520
@@ -228599,6 +228644,7 @@ pypi	propt-toolkit	*	MAL-2023-2015
 pypi	proressbar2	*	MAL-2023-2016
 pypi	prorgessbar2	*	MAL-2023-2017
 pypi	prosocks	1.0.0,1.0.1,1.0.13,1.0.14,1.0.15,1.0.16,1.0.17,1.0.18,1.0.19,1.0.2,1.0.20,1.0.21,1.0.22,1.0.23,1.0.25,1.0.26,1.0.27,1.0.28,1.0.29,1.0.3,1.0.30,1.0.32,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2026-17167
+pypi	prosodinetts	0.1.0	MAL-2026-18144
 pypi	proto-google-cloud-dlp-v2beta1	0.15.99	MAL-2025-4666
 pypi	protoc	0.0.1,0.0.2	MAL-2024-10107
 pypi	protocol-stub-generator	999.0.0,999.0.1	MAL-2026-3237
@@ -230202,6 +230248,7 @@ pypi	quicksort-pro	1.0.0,1.5.0,1.6.0,1.7.0,1.8.0,1.9.0	MAL-2025-191850
 pypi	quicktestybesty	2.3.0	MAL-2026-3045
 pypi	quickwebbasicauth	2.3.2	MAL-2024-1643
 pypi	quicolor	10.0.0,10.0.1,10.0.2,10.0.3,10.0.4,10.0.5,10.0.6,10.0.9,9.7.3,9.8.1	MAL-2025-3462
+pypi	quillonatts	0.1.0	MAL-2026-18145
 pypi	quizdom	0.1.0,0.2.0,0.3.0	MAL-2025-3208
 pypi	qwen-asr-pvt	0.0.6	MAL-2026-10690
 pypi	qwery-core	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7	MAL-2026-1226
@@ -231765,6 +231812,7 @@ pypi	shark-e2e-bnsneo	0.2.10,0.2.9,0.3.1	MAL-2026-10912
 pypi	shelipp	0.0.1	MAL-2026-2844
 pypi	shellexec	1.0.4	MAL-2024-6001
 pypi	shelley	0.1	MAL-2025-983
+pypi	shellgrip	0.1.0	MAL-2026-18146
 pypi	sher-net	0.0.1	MAL-2026-2839
 pypi	sher-server-tool	0.0.1	MAL-2026-2840
 pypi	sherm	0.0.1,1.0	MAL-2024-6002
@@ -231912,6 +231960,7 @@ pypi	solhint-plugin-hyperlane	0.1.0	MAL-2026-547
 pypi	solidity-build-guard	0.1.0	MAL-2026-4262
 pypi	solidity-coverage	2.1.1	MAL-2025-6589
 pypi	solidity-dev	1.3.0	MAL-2026-10194
+pypi	solivoxtts	0.1.0	MAL-2026-18147
 pypi	sollana	*	MAL-2023-2281
 pypi	solna	*	MAL-2023-2282
 pypi	solnaa	*	MAL-2023-2283
@@ -231930,6 +231979,7 @@ pypi	soopsocks	0.1.0,0.1.1,0.1.2,0.1.3,0.2.0,0.2.1,0.2.2,0.2.3,0.2.4,0.2.5,0.2.6
 pypi	sorex	0.3.0,0.4.0,0.5.0,0.6.0,0.7.0,0.8.0,1.0.0,1.1.0,1.1.9	MAL-2025-191873
 pypi	soulnitro	1.0	MAL-2024-6024
 pypi	soultracker	0.1.0	MAL-2025-3565
+pypi	soundsocket	0.1.0	MAL-2026-18165
 pypi	soundsource	0.1.0	MAL-2026-4769
 pypi	soup2	1,2	MAL-2024-6025
 pypi	soupclaw	1.7.1,1.7.2,1.7.3,2.0.0,2.0.1,2.0.2,2.0.3,2.0.4	MAL-2026-251
@@ -231954,6 +232004,9 @@ pypi	spaysdata	0.1.0,0.2.0,0.3.0,0.4.0,0.4.2,0.4.4,0.4.5	MAL-2026-5171
 pypi	spaysdatarbx	0.1.3,0.1.5	MAL-2026-5329
 pypi	spaysrbdata	0.1.0,0.2.0,0.3.0,0.4.0,0.5.0	MAL-2026-5170
 pypi	spaysrbx	0.3.0	MAL-2026-5334
+pypi	speakbench	0.1.0	MAL-2026-18166
+pypi	speaksocket	0.1.0	MAL-2026-18167
+pypi	speechprobe	0.1.0	MAL-2026-18168
 pypi	speed-hashes	0.1.0	MAL-2026-13607
 pypi	speed-testing-nt	0.2	MAL-2025-191874
 pypi	speed-testing-vps	0.2	MAL-2025-191875
@@ -232305,6 +232358,7 @@ pypi	terraform-binary-wheel	0.0.1	MAL-2025-6599
 pypi	terraformness	99.99.99	MAL-2024-11719
 pypi	tesnorflow	*	MAL-2023-2311
 pypi	tesorflow	*	MAL-2023-2312
+pypi	tessivatts	0.1.0	MAL-2026-18148
 pypi	test-23234231	0.1,0.9,10,11,232	MAL-2024-6105
 pypi	test-async	*	MAL-2022-7428
 pypi	test-for-ppe	1.0.0	MAL-2026-739
@@ -233516,6 +233570,10 @@ pypi	ttat-api	1.0.5	MAL-2024-12366
 pypi	ttat-api-test	0.1.0,0.2.0	MAL-2024-12367
 pypi	ttkcalendar	*	MAL-2023-2339
 pypi	ttlo	1.0.0,1.0.1	MAL-2024-6172
+pypi	ttsdock	0.1.0	MAL-2026-18169
+pypi	ttsflow	0.1.0	MAL-2026-18170
+pypi	ttsprobe	0.1.0	MAL-2026-18171
+pypi	ttsweaver	0.1.0	MAL-2026-18172
 pypi	tucan-x	0.0.1,0.0.2	MAL-2023-1421
 pypi	tui-ascii-art	0.1.0,0.1.1	MAL-2026-2117
 pypi	tulipgui-python	0.0.1	MAL-2025-6611
@@ -233683,6 +233741,7 @@ pypi	vantrala	0.1.1	MAL-2026-10867
 pypi	vcdiff-py	2.1.0,2.2.0	MAL-2025-47811
 pypi	vectordb-engine	1.0.0	MAL-2026-4814
 pypi	veilcord-tls	0.0.7.5,0.0.7.6	MAL-2025-47458
+pypi	vellutts	0.1.0	MAL-2026-18149
 pypi	veloxml-cli	0.1.0	MAL-2026-4862
 pypi	venomenallib	0.1.1,0.1.2,0.1.3,2.7.0	MAL-2025-191920
 pypi	venv-utils	1.0.0,1.0.1,1.0.3	MAL-2026-3803
@@ -233804,6 +233863,9 @@ pypi	vmver	*	MAL-2023-7895
 pypi	vmvirtual	*	MAL-2023-7896
 pypi	vmvisa	*	MAL-2023-7897
 pypi	vmvm	*	MAL-2023-7898
+pypi	vocabbench	0.1.0	MAL-2026-18173
+pypi	vocabblend	0.1.0	MAL-2026-18174
+pypi	voicekit	0.1.0	MAL-2026-18175
 pypi	voicemetterr	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5	MAL-2025-191921
 pypi	voipms-service	0.1	MAL-2025-191922
 pypi	voltswannts	0.1.0	MAL-2026-17920
@@ -233817,6 +233879,8 @@ pypi	voxcpmui3	0.1.0	MAL-2026-17464
 pypi	voxcpmui4	0.2.0	MAL-2026-17467
 pypi	voxel-tts	0.5.0,0.5.1	MAL-2026-17461
 pypi	voxeval	0.4.2,0.4.3,0.4.4,0.4.5	MAL-2026-17457
+pypi	voxilaratts	0.1.0	MAL-2026-18150
+pypi	voxweaver	0.1.0	MAL-2026-18176
 pypi	vper	*	MAL-2023-2348
 pypi	vpyer	*	MAL-2023-2349
 pypi	vramx	1.6.2,1.6.3	MAL-2025-6614
@@ -234198,6 +234262,7 @@ pypi	zebo	0.1.0	MAL-2024-11751
 pypi	zefkopzekfo	0.0.1	MAL-2024-6254
 pypi	zelixnitro	1.0	MAL-2024-6255
 pypi	zencleaner	1.0.0,1.0.3,1.0.3.1	MAL-2026-17629
+pypi	zennittts	0.1.0	MAL-2026-18151
 pypi	zenomenallib	2.7.0	MAL-2025-47814
 pypi	zero123	9.6	MAL-2024-11752
 pypi	zeubilamouche	0.1.4	MAL-2024-6256
