@@ -5142,10 +5142,10 @@ npm	@gr-exports/async	1.0.0,99.0.0	MAL-2025-191560
 npm	@gr-exports/body	1.0.0,99.0.0	MAL-2025-191561
 npm	@gr-exports/head	1.0.0,99.0.0	MAL-2025-191562
 npm	@grab-food/order-sdk-web	49.9.9	MAL-2026-15681
-npm	@grabcad/company-server-shared	*	MAL-2026-18214
-npm	@grabcad/grabcad-shop-shared	*	MAL-2026-18215
-npm	@grabcad/preferences-client	*	MAL-2026-18216
-npm	@grabcad/user-license	*	MAL-2026-18217
+npm	@grabcad/company-server-shared	0.0.1,1.0.0,1.1.0,2.0.0,2.0.1,3.0.0,99.0.1	MAL-2026-18214
+npm	@grabcad/grabcad-shop-shared	1.0.0,1.0.1,1.1.0,2.0.0,2.0.1,3.0.0,99.0.1	MAL-2026-18215
+npm	@grabcad/preferences-client	0.0.1,1.1.0,2.0.0,3.0.0	MAL-2026-18216
+npm	@grabcad/user-license	0.0.1,1.0.0,1.0.1,1.1.0,2.0.0,2.0.1,3.0.0	MAL-2026-18217
 npm	@grabdefence/trust-feature-bank-ui	1.0.3-rc.1	MAL-2023-8043
 npm	@grafanacloud/plugins-platform-backend	1.0.0	MAL-2025-6250
 npm	@grafanacloud/test-utils	1.0.0,1.0.2,1.0.3	MAL-2025-6249
@@ -5939,6 +5939,9 @@ npm	@junyoung-kim/reins	0.1.6,0.1.7	MAL-2026-13432
 npm	@jupiter-sdk/trade	*	MAL-2025-47430
 npm	@justauth/fetlife-assets	*	MAL-2022-374
 npm	@justworkshr/alma	99.9.0,99.9.1	MAL-2025-1203
+npm	@k18k/entrypoint-sdk-darwin-arm64	0.2.0,0.2.1	MAL-2026-18243
+npm	@k18k/entrypoint-sdk-darwin-x64	0.2.0,0.2.1	MAL-2026-18244
+npm	@k18k/entrypoint-sdk-linux-x64	0.2.0,0.2.1	MAL-2026-18245
 npm	@k18n/creatormarketplace-admin-language	99.0.0,99.0.1,99.0.2	MAL-2026-6550
 npm	@kahoot-frontend/builder-common	*	MAL-2025-47524
 npm	@kalipto/local	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2026-5922
@@ -6531,6 +6534,7 @@ npm	@lexisnexisrisk/insider-threat-platform	99.9.1	MAL-2026-6629
 npm	@lg-private/mongo-nav	*	MAL-2023-1509
 npm	@li-test/foo	1.0.0	MAL-2024-2387
 npm	@liauto/darwin-x64	0.1.1-b3	MAL-2026-18190
+npm	@liauto/win32-x64	0.1.2-b2	MAL-2026-18247
 npm	@library-dev-team/data-sanitizer	1.3.0	MAL-2026-14160
 npm	@library-wide/library-shell	99.9.1	MAL-2026-17754
 npm	@libtommy/shiny-octo-giggle	*	MAL-2025-8425
@@ -144750,6 +144754,7 @@ npm	orogeny-quark-archaeoastronomy-auth	*	MAL-2025-188480
 npm	orogeny-rollup-heka-miranda	*	MAL-2025-188481
 npm	orogeny-titan-test-xanadu	*	MAL-2025-28495
 npm	orogeny-transform-paleobotany-ursa	*	MAL-2025-28496
+npm	orqiva-runtime-win32-x64	0.1.0	MAL-2026-18246
 npm	orqvwdjkekhultsm	*	MAL-2025-28497
 npm	ort-rn-basic-usage	1.1.1,1.3.5	MAL-2025-28498
 npm	ort-type-test-module-resolution	1.3.5	MAL-2025-41589
@@ -145213,6 +145218,7 @@ npm	overall_swordfish_requirement	*	MAL-2025-95819
 npm	overall_tern_z3n	*	MAL-2025-89343
 npm	overall_vole_0xrequest	*	MAL-2025-106863
 npm	overall_wildcat_z3n	*	MAL-2025-89344
+npm	overarch-windows-x64-yr	1.4.0,1.5.0,2.0.0	MAL-2026-18248
 npm	overflood	*	MAL-2024-7806
 npm	overiq-zh	*	MAL-2025-45496
 npm	overnet	*	MAL-2025-28619
@@ -175483,6 +175489,7 @@ npm	skills-strategy-client	*	MAL-2023-1482
 npm	skills-use	0.1.1,0.1.2	MAL-2025-190783
 npm	skills-validator	*	MAL-2025-3119
 npm	skillsdb	*	MAL-2025-33367
+npm	skillward	0.1.1,0.1.2	MAL-2026-18220
 npm	skimmdit	*	MAL-2025-33368
 npm	skinny-blue-asp	*	MAL-2025-70648
 npm	skinny-jade-sawfish	*	MAL-2025-70649
@@ -222862,6 +222869,7 @@ pypi	backtradingbot	0.1.1,0.1.2,0.1.3,0.1.4,0.1.5	MAL-2025-191689
 pypi	backwwi	0.1.0	MAL-2024-11534
 pypi	backwwii	0.1.0	MAL-2024-12212
 pypi	badgerdoc-storage	0.0.1	MAL-2025-3740
+pypi	badgertask	0.1.0	MAL-2026-18222
 pypi	baeutifulsoup	*	MAL-2023-1587
 pypi	baibitmf	99.7	MAL-2024-10365
 pypi	baidubsrc	0.0.1	MAL-2026-4809
@@ -223105,10 +223113,12 @@ pypi	bprintoor	0.2.10,0.2.11,0.2.2,0.2.3,0.2.4,0.2.5,0.2.6,0.2.7,0.2.8,0.2.9	MAL
 pypi	bpsm	99.0.0	MAL-2026-1296
 pypi	bq-build-probe-vrp-2026	0.2.0	MAL-2026-16098
 pypi	bq-sdist-probe-vrp	0.0.1	MAL-2026-16099
+pypi	brambletask	0.1.0	MAL-2026-18223
 pypi	bramin	0.0.2,0.0.3,0.0.4	MAL-2026-5280
 pypi	breqest	2.32.3	MAL-2025-903
 pypi	broccoli-server	0.0.1	MAL-2025-6468
 pypi	brolool4141412	1.0.0	MAL-2025-192989
+pypi	brookworker	0.1.0	MAL-2026-18224
 pypi	broooxddd1414	1.0.0	MAL-2025-192990
 pypi	brotli-python	1.0.9,1.1.9,1.2.9,1.9.12,100.99.0,99.1.1,99.2.1,99.3.1,99.5.1,99.6.1,99.99.1	MAL-2025-47749
 pypi	browser-cookies1	1.1	MAL-2024-9951
@@ -223463,6 +223473,7 @@ pypi	clowpy	0.1.0	MAL-2024-4901
 pypi	cmd2func	0.2.2,0.2.3	MAL-2026-5290
 pypi	cmdb-worker-pckg	1.0.0	MAL-2024-11558
 pypi	cnnct-eaas-corre	1322.0.0	MAL-2026-1003
+pypi	cobbleload	0.1.0	MAL-2026-18225
 pypi	cobo-custdoy	0.1	MAL-2024-12237
 pypi	cobo-custdy	0.1	MAL-2024-12238
 pypi	cobo-python	0.1	MAL-2024-12239
@@ -225446,6 +225457,7 @@ pypi	fernetpy	0.0.1	MAL-2025-5113
 pypi	fernets	0.0.1	MAL-2025-191728
 pypi	ferns	1.0	MAL-2024-5137
 pypi	ferqtrade	*	MAL-2023-1830
+pypi	ferretqueue	0.1.0	MAL-2026-18226
 pypi	fet	2.0.1	MAL-2025-41671
 pypi	fetch-data-api-syncapi	0.1.0,0.1.1,0.1.2	MAL-2026-3100
 pypi	fetchapi-syncdata-pypi	0.1.0	MAL-2026-3133
@@ -225496,6 +225508,7 @@ pypi	flexiconf	0.0.1	MAL-2025-6507
 pypi	flexitest	2.2160.0	MAL-2026-5702
 pypi	flexponlib	0.0.1	MAL-2024-5145
 pypi	flexssl	2.0.0	MAL-2024-12274
+pypi	flintqueue	0.1.0	MAL-2026-18227
 pypi	floogle	0.7	MAL-2025-41676
 pypi	flophttp	2.3.5	MAL-2024-10028
 pypi	flowfix	0.1.0,0.1.1	MAL-2026-1276
@@ -226334,6 +226347,7 @@ pypi	jinja22	1.1.0	MAL-2025-41693
 pypi	jirawrapped	0.1.0,0.2.0,0.3.1	MAL-2025-6529
 pypi	jksandbox	99.0	MAL-2024-5280
 pypi	jmdrs	1.0.4,1.0.5,1.0.6	MAL-2025-6530
+pypi	jobwharf	0.1.0	MAL-2026-18228
 pypi	johnhammondfanpackage124	1.0.0	MAL-2024-5281
 pypi	johnhammondontop183	1.0.0	MAL-2024-5282
 pypi	joule-btp-extension	0.1.0,0.1.1,0.1.3,0.1.4,0.1.6	MAL-2026-13732
@@ -226354,6 +226368,7 @@ pypi	jsonschemex	0.1.0,0.1.1,0.1.2,0.1.3,0.1.4,0.1.5	MAL-2025-191769
 pypi	judyb-advanced	0.1.0	MAL-2024-5284
 pypi	juk	0.1	MAL-2024-5285
 pypi	jules-test-utils	0.1.0	MAL-2026-5167
+pypi	juniperrun	0.1.0	MAL-2026-18229
 pypi	juphelp	0.1.0	MAL-2024-12293
 pypi	juphelper	0.1.6	MAL-2024-12294
 pypi	jupihelp	0.1.0	MAL-2024-12295
@@ -226400,6 +226415,7 @@ pypi	keras-preprocess	94.6	MAL-2024-10649
 pypi	kerokwis	99	MAL-2026-16421
 pypi	kersa	0.1	MAL-2024-11621
 pypi	kertash	0.1.4,0.1.5	MAL-2025-191774
+pypi	kestreljob	0.1.0	MAL-2026-18221
 pypi	keybard	0.1.0,0.2.0	MAL-2025-4221
 pypi	keystackutilities	99.99.1,99.99.2,99.99.3,99.99.4	MAL-2026-2833
 pypi	kfaction	0.0.2	MAL-2025-41694
@@ -226479,6 +226495,7 @@ pypi	langgrap	0.2.45	MAL-2026-16133
 pypi	langraph	0.0.0,1.0.0	MAL-2024-12375
 pypi	lanm-neo	95.6	MAL-2024-10729
 pypi	lapnet	99.6	MAL-2024-10825
+pypi	larchworker	0.1.0	MAL-2026-18230
 pypi	largebatchctr	94.6	MAL-2024-10635
 pypi	larger-batch-ctr	94.6	MAL-2024-10636
 pypi	larpexodus	0.1	MAL-2024-11622
@@ -227397,6 +227414,7 @@ pypi	loadcoremwassistant	99.99.1,99.99.2,99.99.3,99.99.4	MAL-2026-2834
 pypi	loadcpu	*	MAL-2023-4671
 pypi	loadcraft	*	MAL-2023-4672
 pypi	loadcv	*	MAL-2023-4673
+pypi	loadferry	0.1.0	MAL-2026-18231
 pypi	loadget	*	MAL-2023-4674
 pypi	loadgrand	*	MAL-2023-4675
 pypi	loadhttp	*	MAL-2023-4676
@@ -227530,6 +227548,7 @@ pypi	marshel	0.3	MAL-2026-325
 pypi	marshl	0.3	MAL-2026-623
 pypi	marshmellow	1.0.0,1.1.0	MAL-2026-864
 pypi	marshmellows	1.0.0	MAL-2026-905
+pypi	marshrunner	0.1.0	MAL-2026-18232
 pypi	mashetz	1.0	MAL-2024-5351
 pypi	masirkhan	0.1.9	MAL-2025-944
 pypi	maskad	*	MAL-2023-4700
@@ -228044,6 +228063,7 @@ pypi	omigo-data-analytics	20.1.0	MAL-2024-12318
 pypi	omnigodz-random	0.0.0.1	MAL-2025-2980
 pypi	oncecall	0.1.0	MAL-2026-189
 pypi	onnxruntime-winml	1.0.0	MAL-2025-191806
+pypi	onsokets	0.1.0	MAL-2026-18219
 pypi	onyxproxy	1	MAL-2024-5435
 pypi	oopenpyxl	*	MAL-2023-1919
 pypi	oopensea	1.0.0	MAL-2024-10058
@@ -228155,6 +228175,7 @@ pypi	osopackagepy	10.0.0	MAL-2026-860
 pypi	osystemhtp	1	MAL-2024-5438
 pypi	otc-metadata	0.0.1,0.0.2,0.0.3	MAL-2025-2983
 pypi	otci-openthread	9.9.9	MAL-2024-11652
+pypi	otterload	0.1.0	MAL-2026-18233
 pypi	ouc-api	0.0.1	MAL-2025-6561
 pypi	ovcdtwfcak	0.0.1	MAL-2024-5439
 pypi	oxntime	0.0.1,0.0.1.post1,0.0.2,0.0.3	MAL-2026-6975
@@ -230410,6 +230431,7 @@ pypi	recraft	*	MAL-2023-5902
 pypi	rectutils	1.1	MAL-2024-10151
 pypi	redis-di-processor	0.1.8	MAL-2024-10152
 pypi	redteam-qxz7-utils	1.0.0	MAL-2026-5120
+pypi	reedworker	0.1.0	MAL-2026-18234
 pypi	reencode	*	MAL-2023-5903
 pypi	reequests	*	MAL-2022-7434
 pypi	reequests-toolbelt	*	MAL-2023-2147
@@ -230793,6 +230815,7 @@ pypi	rubyreq	2,3,6,7	MAL-2025-41757
 pypi	ruequest3	2.19.0,2.19.1	MAL-2024-5960
 pypi	rullib3	*	MAL-2023-2195
 pypi	runningwifi	1	MAL-2025-3467
+pypi	runpier	0.1.0	MAL-2026-18235
 pypi	runtime-probe	0.3.0	MAL-2026-3341
 pypi	runtime-readout	0.3.0	MAL-2026-3342
 pypi	runtime-vitals	0.3.0,0.3.1	MAL-2026-3366
@@ -230900,6 +230923,7 @@ pypi	security-alerts-sdk	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2026-6327
 pypi	security-automation-job	99.99.99	MAL-2024-11703
 pypi	security-research-startup-snapshot-810764b303	0.1.0	MAL-2026-18098
 pypi	security-util-py	0.0.5,0.0.6	MAL-2023-10
+pypi	sedgehaul	0.1.0	MAL-2026-18236
 pypi	seelenium	*	MAL-2023-2230
 pypi	seelnium	*	MAL-2023-2231
 pypi	seleenium	*	MAL-2023-2232
@@ -231909,6 +231933,7 @@ pypi	siplejson	*	MAL-2023-2268
 pypi	sipmlejson	*	MAL-2023-2269
 pypi	sisaws	2.1.6	MAL-2025-47453
 pypi	site-messanger	1.2.5	MAL-2024-6015
+pypi	sitecard	0.1.0,0.1.1,0.1.10,0.1.11,0.1.12,0.1.13,0.1.14,0.1.2,0.1.3,0.1.6,0.1.7,0.1.8,0.1.9	MAL-2026-18242
 pypi	sitoogether	0.0.1,0.0.2,0.0.3,0.0.4	MAL-2025-191870
 pypi	sjc	9.6	MAL-2024-11707
 pypi	ska-low-cbf-fpga	0.0.0.1	MAL-2025-2997
@@ -231919,6 +231944,7 @@ pypi	sklern	0.0.10,0.0.11,0.0.6,0.0.7,0.0.8,0.0.9	MAL-2026-4768
 pypi	skydeo	1.0.0	MAL-2026-815
 pypi	sl-pgp	2.2160.0	MAL-2026-5823
 pypi	slana	*	MAL-2023-2270
+pypi	slatejob	0.1.0	MAL-2026-18237
 pypi	sleenium	*	MAL-2023-2271
 pypi	slide-tc	0.0.0.1	MAL-2025-2998
 pypi	slintscreen	0.1.0	MAL-2024-6016
@@ -232309,6 +232335,7 @@ pypi	tarpackage	1.0.0	MAL-2026-4166
 pypi	tarseir	912.6	MAL-2024-10462
 pypi	tarsie	912.6	MAL-2024-10463
 pypi	tarsire	912.6	MAL-2024-10464
+pypi	taskquay	0.1.0	MAL-2026-18238
 pypi	tasksaio	0.0.1	MAL-2024-6097
 pypi	taxi-etl	11.11.3	MAL-2023-1418
 pypi	tcalendar	*	MAL-2023-2291
@@ -232496,6 +232523,8 @@ pypi	thisismytest123	1.0.0,2.0.0	MAL-2026-2255
 pypi	thisismytestnouser	1.0.0,2.0.0	MAL-2026-2293
 pypi	thisisthedaventest	99.99.99	MAL-2025-41780
 pypi	thisisthedaventestz	99.99.99	MAL-2025-41781
+pypi	thistlerun	0.1.0	MAL-2026-18239
+pypi	thornqueue	0.1.0	MAL-2026-18240
 pypi	thoughtspot-rest-api-sdk	0.0.1	MAL-2025-6601
 pypi	thread-pipeline-test	1.0.0	MAL-2026-810
 pypi	threadfluent	0.1	MAL-2025-994
@@ -234135,6 +234164,7 @@ pypi	workalender	17.1.0.dev0	MAL-2026-18096
 pypi	workcalender	17.1.0.dev0	MAL-2026-18093
 pypi	workingitme	1.0.0	MAL-2026-2308
 pypi	workingitmehelpit	1.0.0	MAL-2026-3664
+pypi	workslip	0.1.0	MAL-2026-18241
 pypi	worldhello	1.0.0	MAL-2025-5174
 pypi	worldnex	1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.1.0,2.0.0,2.0.1	MAL-2025-47813
 pypi	wr-test	100.1337,101.1337	MAL-2025-1008
