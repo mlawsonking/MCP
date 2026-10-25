@@ -4303,6 +4303,7 @@ npm	@eda.yandex/web-router	*	MAL-2022-225
 npm	@edgecommons/edgecommons	*	MAL-2026-10762
 npm	@edgecommons/streamlog-node	*	MAL-2026-10763
 npm	@edwardjones/fetlife-assets	*	MAL-2022-226
+npm	@eforms/forms-api	2.0.0-SNAPSHOT	MAL-2026-18252
 npm	@eg-maps/commons	*	MAL-2022-227
 npm	@egds-tools/types	*	MAL-2024-7914
 npm	@egds/lodging	1.0.1,20.2.0,21.2.0,21.3.0	MAL-2024-2636
@@ -135494,6 +135495,7 @@ npm	nodus-quickstart	*	MAL-2025-27700
 npm	nodyn	*	MAL-2025-5511
 npm	nodyne	*	MAL-2025-4649
 npm	noe77e	*	MAL-2026-18033
+npm	noelc-css-blender	*	MAL-2026-18249
 npm	nofyxtwcmpqrikae	*	MAL-2022-4911
 npm	nogaptile	*	MAL-2025-27701
 npm	nohack-erlinglingba-extra-part1	*	MAL-2025-45339
@@ -183176,6 +183178,7 @@ npm	tailwind-anime	0.0.1,1.0.0,1.1.0,1.1.1	MAL-2026-12027
 npm	tailwind-aspect	0.4.2	MAL-2026-15912
 npm	tailwind-aspect-styles	0.4.2	MAL-2026-16056
 npm	tailwind-autoanimation	*	MAL-2026-148
+npm	tailwind-base-buttons	*	MAL-2026-18250
 npm	tailwind-base-theme	*	MAL-2025-5959
 npm	tailwind-book-icon	*	MAL-2025-47498
 npm	tailwind-chart	*	MAL-2025-48778
@@ -183382,6 +183385,7 @@ npm	tailwindcss-superagent-eslint-config-eleventy	*	MAL-2025-148457
 npm	tailwindcss-svg-helper	1.17.9,1.18.0	MAL-2026-6892
 npm	tailwindcss-tailwindcss-dotenv-safe-less-loader	*	MAL-2025-46192
 npm	tailwindcss-theme-custom	*	MAL-2026-4225
+npm	tailwindcss-theme-kit	*	MAL-2026-18251
 npm	tailwindcss-themers	*	MAL-2026-4226
 npm	tailwindcss-twflare	*	MAL-2025-49386
 npm	tailwindcss-typeface-inter	*	MAL-2026-2312
