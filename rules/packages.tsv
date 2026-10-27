@@ -1890,7 +1890,7 @@ npm	@blocks-shared/atom-panel	1.99.100	MAL-2025-5760
 npm	@blocks-shared/desktop-title	*	MAL-2025-6027
 npm	@bluekiri/alexandria	5.0.1	MAL-2024-1740
 npm	@bluekiri/alexandria-logitravel	6.0.1	MAL-2024-1741
-npm	@blueskydataplatform/shared-ui	0.0.1,1.0.0,1.0.1,99.0.2,99.0.3	MAL-2026-18212
+npm	@blueskydataplatform/shared-ui	0.0.1,1.0.0,1.0.1,2.0.0,99.0.2,99.0.3	MAL-2026-18212
 npm	@bluewin/utils	1.0.0	MAL-2026-17437
 npm	@blurrydespair/libsignal-node	2.2.7,2.2.9	MAL-2026-14404
 npm	@bmg-web-features/bmg-user-interaction-tracker	999.9999.99	MAL-2026-2989
@@ -2039,6 +2039,7 @@ npm	@callcenter-frontend/ui	99.0.2025091-3.1,99.0.2025091-3.15	MAL-2025-41829
 npm	@callcenter-frontend/ui-components	99.0.2025091-3.14,99.0.2025091-3.2	MAL-2025-41830
 npm	@calm2026/imux	*	MAL-2026-7027
 npm	@camdenliving/fetlife-assets	*	MAL-2022-164
+npm	@camera.ui/camera-ui-nvr-windows-amd64	1.6.1	MAL-2026-18337
 npm	@cap-js/db-service	2.10.1	MAL-2026-3176
 npm	@cap-js/openapi	1.4.1	MAL-2026-4161
 npm	@cap-js/postgres	2.2.2	MAL-2026-3177
@@ -5716,6 +5717,8 @@ npm	@inter-ikea-gallery/integration	99.9.9	MAL-2026-1624
 npm	@internal-infra/core-sso-bridge	50.50.50	MAL-2026-3256
 npm	@inventashif/workspace-1	1.0.0	MAL-2023-8445
 npm	@investnext/fetlife-assets	*	MAL-2022-363
+npm	@iobandamwer/cache-helper	0.0.0-stage,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9,1.1.0,1.1.1,1.1.2,1.1.3	MAL-2026-18329
+npm	@iobandamwer/native-helper	0.0.1,0.0.2	MAL-2026-18330
 npm	@iobeya/spa-auth	*	MAL-2026-5657
 npm	@iphouse/api	*	MAL-2026-10949
 npm	@iphouse/core	*	MAL-2026-10950
@@ -12654,7 +12657,7 @@ npm	@wongapl/offer-ui-tools	100.0.0	MAL-2025-729
 npm	@wongapl/sliders	100.0.0	MAL-2025-730
 npm	@woodpecker-web-shared/components	1.20.4,2.20.5,4.20.5	MAL-2026-16354
 npm	@woody-mrs-potato/utils-banking	1.0.0,1.0.1,1.0.10,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2024-10227
-npm	@worca/app	1.14.0-rc.2	MAL-2026-18325
+npm	@worca/app	1.14.0-rc.2,1.14.0-rc.4	MAL-2026-18325
 npm	@workbench-stack/core	3.9.8	MAL-2026-11961
 npm	@worki/lib-candidate-common	*	MAL-2022-732
 npm	@worki/lib-web-common	*	MAL-2022-733
@@ -35534,6 +35537,7 @@ npm	biputils	*	MAL-2023-134
 npm	bipy-calculator	*	MAL-2025-66973
 npm	birch-a5vvj-zhve1-ash-project	*	MAL-2025-15723
 npm	birch-c0vrp-j3rv5-quicksilver-project	*	MAL-2025-15724
+npm	birch-css-utils	1.2.2,1.3.0	MAL-2026-18331
 npm	birch-d7hn0-cnz4d-crescent-project	*	MAL-2025-15725
 npm	birch-tpexd-6b3ff-zen-project	*	MAL-2025-15726
 npm	birch-uwob1-e1x97-jungle-project	*	MAL-2025-15727
@@ -51712,6 +51716,7 @@ npm	ctct-theme	*	MAL-2022-2271
 npm	ctech-nizblah-component	*	MAL-2025-17810
 npm	ctech-orders-component	*	MAL-2025-17811
 npm	ctech-shared	*	MAL-2025-17812
+npm	ctf-agent	0.1.0	MAL-2026-18335
 npm	ctf-flare	1.0.0	MAL-2026-3836
 npm	ctf-package-onetimeuseforctf	99.99.99,99.99.999,99.991.999,99.992.999,99.993.999	MAL-2026-2347
 npm	ctf2libxmljs2	0.30.2	MAL-2025-191571
@@ -76386,7 +76391,7 @@ npm	formated	0.1.0	MAL-2023-8744
 npm	formatjs-internal-intl	1.0.0	MAL-2025-5744
 npm	formatters.ts	14.2.1	MAL-2026-10683
 npm	formatting-subtitles	1.0.2	MAL-2026-18184
-npm	formatting-subtitles-for-claude	*	MAL-2026-18099
+npm	formatting-subtitles-for-claude	1.0.0,1.0.1	MAL-2026-18099
 npm	formboy	*	MAL-2025-20790
 npm	formidable-amaranth-anaconda	*	MAL-2025-68393
 npm	formidable-beige-krill	*	MAL-2025-68394
@@ -87431,6 +87436,7 @@ npm	hariyono-poke62	*	MAL-2025-155781
 npm	hariyono-poke7	*	MAL-2025-155782
 npm	hariyono-poke8	*	MAL-2025-155783
 npm	hariyono-poke9	*	MAL-2025-155784
+npm	harlow-css-mixer	*	MAL-2026-18332
 npm	harman	*	MAL-2025-22217
 npm	harman-experience	1.0.1	MAL-2025-3494
 npm	harmlesspackage	*	MAL-2025-22218
@@ -97150,7 +97156,7 @@ npm	ion-lsp-server	*	MAL-2025-23310
 npm	ion-package	2.4.3-Base	MAL-2022-3928
 npm	ion-schema-sandbox	*	MAL-2022-3929
 npm	ionic-icon	4.7.0	MAL-2022-3930
-npm	ionic-insta-api-wrapper	1.1.2,1.1.3	MAL-2026-4588
+npm	ionic-insta-api-wrapper	1.1.2,1.1.3,1.2.1,1.2.2,1.3.1,1.3.4	MAL-2026-4588
 npm	ionic-insta-search	*	MAL-2026-18259
 npm	ionic-sound-cloud-loader-api	*	MAL-2026-18260
 npm	ionic-tiktok-scraper	*	MAL-2026-18261
@@ -103507,7 +103513,7 @@ npm	jsexports-utils	*	MAL-2025-47019
 npm	jsf-utils	0.3.1,1.3.1	MAL-2026-6921
 npm	jshashset	*	MAL-2025-23943
 npm	jshdate	*	MAL-2025-23944
-npm	jshelperdependenceny	99.0.0	MAL-2026-18288
+npm	jshelperdependenceny	0.0.0-stage,1.0.0,99.0.0	MAL-2026-18288
 npm	jshint-groups	*	MAL-2026-656
 npm	jshkrnxbylzdpfqi	*	MAL-2025-23945
 npm	jshydra	*	MAL-2025-23946
@@ -146504,6 +146510,7 @@ npm	path-external	1.0.0,1.0.1,1.0.10,1.0.11,1.0.12,1.0.13,1.0.14,1.0.2,1.0.3,1.0
 npm	path-internal	1.0.0,1.0.1,1.0.10,1.0.11,1.0.12,1.0.13,1.0.14,1.0.15,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2026-2930
 npm	path-internal-util	1.0.0,1.0.1,1.0.2	MAL-2026-3312
 npm	path-match-js	1.0.7,1.0.8	MAL-2026-14005
+npm	path-stream-utils-testmetest	0.0.1,0.0.2,0.0.3,0.0.4	MAL-2026-18333
 npm	path-to-regexp-updated	99.99.1,99.99.2	MAL-2026-1808
 npm	path-to-reugep	*	MAL-2022-5225
 npm	pathfix	3.0.10,3.0.11,3.0.12	MAL-2026-5989
@@ -151496,6 +151503,7 @@ npm	postcss-query-splitter	*	MAL-2025-5201
 npm	postcss-relay-chromedriver-vega	*	MAL-2025-146421
 npm	postcss-sedna-perturbation-cordelia	*	MAL-2025-45578
 npm	postcss-selector-minify	1.0.0,2.0.0	MAL-2026-10614
+npm	postcss-semantic-themes	1.0.0,1.0.1	MAL-2026-18334
 npm	postcss-slides-browserify-less-loader	*	MAL-2025-146422
 npm	postcss-start-hapi-hexo	*	MAL-2025-146423
 npm	postcss-theme-provider	1.0.1,1.0.2,1.0.3,1.0.4	MAL-2026-13518
@@ -225969,6 +225977,7 @@ pypi	gwpythonsectt2	0.1	MAL-2025-5116
 pypi	gxzip	0.1.0	MAL-2025-192467
 pypi	gym-reschdule-combination	93.6	MAL-2024-10592
 pypi	gztensor-cli	0.0.1,0.0.2,0.0.3,0.0.4,0.1.1,0.1.2	MAL-2026-53
+pypi	h13t0ry-hello-demo	0.1.0	MAL-2026-18336
 pypi	h4xupdate	0.0.1	MAL-2026-5093
 pypi	h99ai	0.1.0	MAL-2024-10033
 pypi	haaahhaha	0.1	MAL-2024-11603
@@ -227983,6 +227992,7 @@ pypi	netpackat	1.0.4	MAL-2025-5120
 pypi	netping	0.2.0,1.1.0	MAL-2026-3805
 pypi	netsec-monitor	0.1.5	MAL-2024-12311
 pypi	netspear	1.0.7	MAL-2025-5121
+pypi	netweavex	1.1.0,1.1.1,1.1.2	MAL-2026-18328
 pypi	network-utils-simple	1.0.0,1.1.0,1.2.1,1.2.2,1.2.3,1.2.4,1.2.5,1.2.6,1.2.7,1.2.8,1.2.9,1.3.0,1.3.2,1.3.3,1.3.4,1.3.5,1.3.6,1.3.7,1.3.8	MAL-2025-191803
 pypi	networkdriver	1	MAL-2024-5401
 pypi	networkfix	2	MAL-2024-5402
