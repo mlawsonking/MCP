@@ -1689,6 +1689,7 @@ npm	@aws-sdk-examples/libs	1.0.2,1.0.3	MAL-2024-11257
 npm	@axaclient-socle-front/redux-helpers	*	MAL-2025-41823
 npm	@axaclient-socle-front/webmodule	*	MAL-2025-41824
 npm	@axinom/mosaic-cli	0.52.0-rc.2	MAL-2025-191450
+npm	@axon-web/icons	99.0.0	MAL-2026-18433
 npm	@ayunlove/bails	*	MAL-2026-10596
 npm	@azet/api	1.0.0	MAL-2025-6685
 npm	@azimo/fetlife-assets	*	MAL-2022-92
@@ -7364,6 +7365,7 @@ npm	@malware-test-zeist-guana-clefs-kaama/test-mlw3-zeist-guana-clefs-kaama	*	MA
 npm	@malware-test-zeros-cheep-howes-ciggy/test-mlw3-zeros-cheep-howes-ciggy	*	MAL-2025-9088
 npm	@malware-test-zones-strag-grouf-paged/test-mlw3-zones-strag-grouf-paged	*	MAL-2025-9089
 npm	@malwguy/ecto-corsair-whisper-3d2a7c	1.0.0	MAL-2026-5685
+npm	@mamans2973/maman	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2026-18431
 npm	@manomano-internal/mf-seller-xp-commons-error-handlers	0.0.6,1.0.0,1.0.1	MAL-2023-7964
 npm	@manomano-internal/mf-seller-xp-commons-module-scanner	0.0.6,1.0.0,1.0.1	MAL-2023-7965
 npm	@manomano-internal/mf-seller-xp-commons-objects	0.0.6,1.0.0,1.0.1	MAL-2023-7966
@@ -61197,7 +61199,7 @@ npm	dsh-native	1.4.1	MAL-2026-18315
 npm	dsh-plugin-blender-3d	0.2.1	MAL-2026-18321
 npm	dsh-redteam-mode	0.15.2	MAL-2026-18366
 npm	dsh-vm-tester	0.1.2,0.1.3,0.1.4	MAL-2026-18345
-npm	dsh-volcengine-provider	0.2.5,0.2.8	MAL-2026-18374
+npm	dsh-volcengine-provider	0.2.3,0.2.5,0.2.8	MAL-2026-18374
 npm	dsh-waste-market	0.6.1	MAL-2026-15879
 npm	dshella	*	MAL-2025-18935
 npm	dshellb	*	MAL-2025-18936
@@ -90399,6 +90401,7 @@ npm	hrprce	1.0.0	MAL-2025-47121
 npm	hrprce123	1.0.0	MAL-2025-47122
 npm	hrxtable	1.0.0,1.90.0,100.0.0,91.90.0,92.0.0,93.0.0	MAL-2025-6096
 npm	hs-api-next-gen	*	MAL-2025-22741
+npm	hs-framework	999.9.1,999.9.2	MAL-2026-18434
 npm	hs-inflamable-too	*	MAL-2022-3685
 npm	hs-loadsh	*	MAL-2022-3686
 npm	hs-locale-management	99.99.99,99.99.99-poc2,99.99.99-poc3	MAL-2026-6394
@@ -224429,6 +224432,7 @@ pypi	do-not-install-this-package-002	0.1.0,0.1.1	MAL-2026-163
 pypi	do-not-install-this-package-003	0.1.0	MAL-2026-1018
 pypi	do-not-install-this-package-004	0.1.0	MAL-2026-1436
 pypi	docontrol-mcp	999.0.0	MAL-2026-4811
+pypi	doctreelstm	1.0.0,10.0.0	MAL-2026-18430
 pypi	document-inference	0.0.0,0.0.1,0.0.2	MAL-2025-3742
 pypi	doisomgcxog	0.1.0	MAL-2026-3205
 pypi	donotdownload	0.0.0	MAL-2024-5093
@@ -226475,6 +226479,7 @@ pypi	ipg	0.0	MAL-2024-5274
 pypi	ipllow	*	MAL-2023-1883
 pypi	irasim	99.6	MAL-2024-10824
 pypi	ironic-secureboot-driver	31463.0.0	MAL-2025-41692
+pypi	is-it-ai	0.1.0,0.1.1,0.1.3	MAL-2026-18426
 pypi	is-number-object	1.0.8	MAL-2025-6526
 pypi	isb	1.0.0,1.2.1,1.2.2	MAL-2026-1090
 pypi	iscc-flag	0.0.1	MAL-2025-6527
@@ -227816,6 +227821,7 @@ pypi	mcurl	*	MAL-2023-4750
 pypi	mcvirtual	*	MAL-2023-4751
 pypi	mcvisa	*	MAL-2023-4752
 pypi	mcvm	*	MAL-2023-4753
+pypi	md-to-slides	0.1.0,0.1.1,0.1.2,0.1.3	MAL-2026-18428
 pypi	md5-en	0.1.0,0.2.0	MAL-2025-191649
 pypi	mdkjrkjelz	0.0.1	MAL-2024-5356
 pypi	me-dheeraj-moye-moye	1.0.2,1.0.3,1.0.4,1.0.5,1.0.6	MAL-2024-5357
@@ -227983,6 +227989,7 @@ pypi	mtvqa	912.6	MAL-2024-10454
 pypi	muktesittaban	0.0.13,0.0.16	MAL-2024-5380
 pypi	mulaptested-pakname	1.0.0,1.0.1	MAL-2025-191796
 pypi	mult-flow	1.0.0,1.0.1,1.0.1.1,1.0.2	MAL-2024-5381
+pypi	multi-convert	0.1.0,0.1.1,0.1.2,0.1.3,0.1.4,0.1.5	MAL-2026-18429
 pypi	multicolored	1.0.0	MAL-2023-8765
 pypi	multiconnect	2.33.18,2.33.19,2.34.2,2.34.3,2.34.4,2.34.5	MAL-2024-5382
 pypi	multiconnection	2.34.13,2.34.14,2.34.16,2.34.17,2.34.18,2.34.19,2.34.20,2.34.21,2.34.22	MAL-2024-5383
@@ -228750,6 +228757,7 @@ pypi	prime-math	1.0.0	MAL-2025-952
 pypi	print-django	3.9.10	MAL-2023-1387
 pypi	print-pip	13.9.3	MAL-2023-1388
 pypi	printrables	1.0.1	MAL-2026-951
+pypi	privacypass-py	0.1.100,0.1.101,0.1.99	MAL-2026-18435
 pypi	private-evolution	1.0.0	MAL-2025-191817
 pypi	private-test-1	1.0.0	MAL-2025-953
 pypi	private-test-2	1.0.0	MAL-2025-954
@@ -230193,6 +230201,7 @@ pypi	pystiles	2.9,3.0,3.2,3.5,3.7,3.8,3.9	MAL-2024-5779
 pypi	pystiyle	2.8,2.9	MAL-2024-5780
 pypi	pystlete	2.9	MAL-2024-10125
 pypi	pystob	*	MAL-2023-8586
+pypi	pystr-codec	0.1.0,0.1.1,0.1.2	MAL-2026-18432
 pypi	pystyl	0.8	MAL-2024-5781
 pypi	pystylerio	1.0	MAL-2024-5782
 pypi	pystylish	2.9	MAL-2026-6076
@@ -232108,6 +232117,7 @@ pypi	sitoogether	0.0.1,0.0.2,0.0.3,0.0.4	MAL-2025-191870
 pypi	sjc	9.6	MAL-2024-11707
 pypi	ska-low-cbf-fpga	0.0.0.1	MAL-2025-2997
 pypi	sketchfab-spinner	99.9.10,99.9.11,99.9.9	MAL-2025-192380
+pypi	skills-analyzer	0.1.0,0.1.1,0.1.2	MAL-2026-18427
 pypi	skillspector	0.0.1,0.0.2,0.0.3,0.0.4,2.3.10,2.3.7,2.3.8,2.3.9	MAL-2026-6561
 pypi	sklearns	0.3	MAL-2024-11708
 pypi	sklern	0.0.10,0.0.11,0.0.6,0.0.7,0.0.8,0.0.9	MAL-2026-4768
