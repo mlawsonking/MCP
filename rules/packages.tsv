@@ -4790,6 +4790,8 @@ npm	@evt-cdk/core	7.0.1	MAL-2025-6831
 npm	@ewfewfewf/testhackerrr	*	MAL-2026-5102
 npm	@examplecorptest/hearsay-design-system-test	9.5.0	MAL-2026-10880
 npm	@exarad/verfuegbarkeitspruefung-vue2	1.0.0	MAL-2025-47001
+npm	@exclipz/baileys	*	MAL-2026-18717
+npm	@exclipz/bails	*	MAL-2026-18718
 npm	@exeloncorp/fetlife-assets	*	MAL-2022-256
 npm	@exitman_ctf/steal	*	MAL-2025-5348
 npm	@exness/select-component-ab	*	MAL-2022-257
@@ -5041,6 +5043,7 @@ npm	@gdcorp-digitalcare/ux-common	*	MAL-2025-5875
 npm	@gds-web-ui/core	1.0.0	MAL-2024-7076
 npm	@gds-web-ui/sodalite	0.23.1	MAL-2024-3031
 npm	@gdstudio/web-loader	*	MAL-2025-5876
+npm	@gemshell/win32-x64	1.2.1	MAL-2026-18708
 npm	@gener8/fetlife-assets	*	MAL-2022-286
 npm	@generic-means/ing-feat-scanner-libs	99.9.1	MAL-2026-18281
 npm	@genie-auth/config	*	MAL-2026-10141
@@ -6287,6 +6290,7 @@ npm	@kone-ds/tokens	1.99.99	MAL-2025-1691
 npm	@kone-ds/webcomponents-react	1.99.99	MAL-2025-1692
 npm	@kong/spec-renderer	1.101.10-pr.747.ed2920a.0	MAL-2025-191455
 npm	@koop-components/common	*	MAL-2022-385
+npm	@kora20030101/test-pkg-delete-me	*	MAL-2026-18719
 npm	@kp-admin/history	20.0.0,20.0.1,20.0.2,20.0.3,20.0.4	MAL-2024-9036
 npm	@kp-admin/main	20.0.0	MAL-2024-9032
 npm	@kre64/hello-npm-test	1.0.0	MAL-2026-17868
@@ -9209,6 +9213,7 @@ npm	@ntnx/t	0.0.101	MAL-2025-191036
 npm	@nubjs/types	0.9.4	MAL-2026-17186
 npm	@nullzero/urlcat	1.4.0,1.4.1,1.4.2,1.4.3,1.4.4,1.4.5	MAL-2026-6309
 npm	@nunes_nunes/loader-base	*	MAL-2025-48470
+npm	@nuri.yavuz.tr.2/my-unique-pinger	1.0.2	MAL-2026-18716
 npm	@nursefly/tokens	45.45.45,46.46.47	MAL-2023-1093
 npm	@nuxzofficial/baileys	*	MAL-2026-18467
 npm	@nx-frontend/bonx-microfrontends	2.0.0	MAL-2025-3808
@@ -61318,6 +61323,7 @@ npm	dsh-moss-console	3.3.0	MAL-2026-18522
 npm	dsh-moss-wallpaper	3.4.0	MAL-2026-18523
 npm	dsh-native	1.4.1	MAL-2026-18315
 npm	dsh-plugin-blender-3d	0.2.1	MAL-2026-18321
+npm	dsh-purge	1.2.1	MAL-2026-18707
 npm	dsh-redteam-mode	0.15.2	MAL-2026-18366
 npm	dsh-screenshot-native	1.0.0	MAL-2026-18438
 npm	dsh-vm-tester	0.1.2,0.1.3,0.1.4	MAL-2026-18345
@@ -110326,6 +110332,7 @@ npm	kurniawan-wajit22-sluey	*	MAL-2025-135051
 npm	kurniawan-wajit25-sukiwir	*	MAL-2025-79539
 npm	kurniawan-wajit3-riris	*	MAL-2025-52171
 npm	kurniawan-wajit42-riris	*	MAL-2025-87650
+npm	kurobails	*	MAL-2026-18710
 npm	kuroichi12-complete-themselves	*	MAL-2025-157911
 npm	kuroichi12-dfdhhjf-dffgh	*	MAL-2025-157912
 npm	kuroichi12-dfdhhjf-fhjk	*	MAL-2025-157913
@@ -135027,6 +135034,7 @@ npm	nisaputri	*	MAL-2025-171659
 npm	nishan	*	MAL-2025-27561
 npm	nishant-ok-angularjs	*	MAL-2022-4857
 npm	nishasen	*	MAL-2025-171660
+npm	nishiki-bail	*	MAL-2026-18711
 npm	nistagram	*	MAL-2025-4495
 npm	nit-quotation-service-core-lib	1.0.1-SNAPSHOT.32,1.0.1-SNAPSHOT.33,1.0.1-SNAPSHOT.34,1.0.1-SNAPSHOT.35,1.0.1-SNAPSHOT.36,1.0.1-SNAPSHOT.37,1.0.1-SNAPSHOT.38,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8	MAL-2025-27562
 npm	nit-template-service-core-lib	*	MAL-2025-27563
@@ -143679,6 +143687,7 @@ npm	oktafian-wajit5-breki	*	MAL-2025-122398
 npm	oktafian-wajit81-breki	*	MAL-2025-122399
 npm	oktakit	*	MAL-2025-28198
 npm	oktcpwyrzkhdsgnx	*	MAL-2022-5054
+npm	oktz-baileys	*	MAL-2026-18712
 npm	okusyd-devapp	*	MAL-2025-106713
 npm	okwinclubb	*	MAL-2025-45454
 npm	okx-data	9999.0.1,9999.1.0	MAL-2026-2647
@@ -144260,7 +144269,7 @@ npm	openchile	*	MAL-2025-28318
 npm	openclaw-cn	0.3.0	MAL-2026-3847
 npm	openclaw-droid	*	MAL-2026-1151
 npm	opencode-optimised-toolings	3.4.0,4.0.0,4.0.1	MAL-2026-13452
-npm	opencode-skills-collection	4.0.56,4.0.57,4.0.77,4.1.0,4.1.1,4.1.10,4.1.11,4.1.12,4.1.13,4.1.14,4.1.16,4.1.17,4.1.18,4.1.19,4.1.2,4.1.20,4.1.22,4.1.29,4.1.3,4.1.30,4.1.31,4.1.32,4.1.33,4.1.4,4.1.5,4.1.6,4.1.7,4.1.8,4.1.9	MAL-2026-18193
+npm	opencode-skills-collection	4.0.56,4.0.57,4.0.77,4.1.0,4.1.1,4.1.10,4.1.11,4.1.12,4.1.13,4.1.14,4.1.16,4.1.17,4.1.18,4.1.19,4.1.2,4.1.20,4.1.22,4.1.29,4.1.3,4.1.30,4.1.31,4.1.32,4.1.33,4.1.35,4.1.36,4.1.4,4.1.5,4.1.6,4.1.7,4.1.8,4.1.9	MAL-2026-18193
 npm	opencode2	*	MAL-2026-17852
 npm	opencode2-darwin-arm64	*	MAL-2026-17853
 npm	opencode2-darwin-x64	*	MAL-2026-17854
@@ -149413,6 +149422,7 @@ npm	plain-crypto-js	0.0.1-security,4.2.0,4.2.1	MAL-2026-2306
 npm	plain-function	20.1.1,20.1.2	MAL-2023-1266
 npm	plain-headless-portal	*	MAL-2024-10265
 npm	plain-jade-leopard	*	MAL-2025-69895
+npm	plain-lang	*	MAL-2026-18714
 npm	plain-red-blackbird	*	MAL-2025-69896
 npm	plain-violet-vulture	*	MAL-2025-69897
 npm	plain_aardwolf_z3n	*	MAL-2025-89469
@@ -159497,6 +159507,7 @@ npm	raedpkgup	*	MAL-2022-5575
 npm	raekwonchronicles_2025	*	MAL-2025-45740
 npm	raekwonchroniclesslots	*	MAL-2025-45741
 npm	rafabraga	*	MAL-2025-171745
+npm	rafael-bails	*	MAL-2026-18713
 npm	rafaelgg44	*	MAL-2022-5576
 npm	rafaelrocha	*	MAL-2025-171746
 npm	rafarafa_package	*	MAL-2024-12029
@@ -183191,7 +183202,7 @@ npm	synapse-access-control	*	MAL-2022-6382
 npm	synapse-access-control-1	*	MAL-2022-6383
 npm	synapse-artifacts	*	MAL-2022-6384
 npm	synapse-contracts	100.99.99	MAL-2025-1564
-npm	synapse-hub	3.1.0,3.1.1,3.1.2	MAL-2026-18703
+npm	synapse-hub	3.1.0,3.1.1,3.1.2,3.2.0	MAL-2026-18703
 npm	synapse-managed-private-endpoints	*	MAL-2022-6385
 npm	synapse-monitoring	*	MAL-2022-6386
 npm	synapse-spark	*	MAL-2022-6387
@@ -183777,6 +183788,7 @@ npm	takktile	*	MAL-2025-34400
 npm	talecraft	*	MAL-2025-34401
 npm	talento	*	MAL-2025-34402
 npm	talk-desktop	1.0.0	MAL-2025-687
+npm	talk-lang	*	MAL-2026-18715
 npm	talkingagent	*	MAL-2025-4893
 npm	talksaver	*	MAL-2025-34403
 npm	talkscape	*	MAL-2025-34404
@@ -191702,6 +191714,7 @@ npm	test111121112	1.0.0	MAL-2025-2533
 npm	test12323123	*	MAL-2024-1101
 npm	test12356666	*	MAL-2024-7993
 npm	test12vv36	99.99.99	MAL-2026-16311
+npm	test1817	*	MAL-2026-18709
 npm	test1_l3yx	*	MAL-2022-6495
 npm	test1_lykos	66.6.1	MAL-2024-3110
 npm	test1df23	99.99.99	MAL-2026-16312
@@ -228058,6 +228071,7 @@ pypi	mcp-runcmd-server	1.0,2.0	MAL-2025-191788
 pypi	mcp-runcommand-server	1.0.10,1.0.11,1.0.12,1.0.13,1.0.5,1.0.7,1.0.8,1.0.9	MAL-2025-191647
 pypi	mcp-runcommand-server2	1.0.6	MAL-2025-191648
 pypi	mcp-search-server	1.0.0,2.0.0,2.0.1	MAL-2026-11198
+pypi	mcp-teamviewer	0.0.1	MAL-2026-18706
 pypi	mcp-transport-proto	9.9.9	MAL-2026-1990
 pypi	mcp-weather-full	0.8.0,0.8.1,0.8.2,0.8.3,0.8.4,0.8.5,0.8.6,0.8.7,0.8.8,0.8.9,0.9.0,0.9.1,0.9.2,0.9.3,0.9.4,0.9.5,0.9.6,1.0.0,1.0.1	MAL-2025-191789
 pypi	mcp-xyz	0.1.0	MAL-2025-4223
@@ -232787,6 +232801,7 @@ pypi	tcloud-python-sdks	1.0.0	MAL-2025-191887
 pypi	tcloud-python-test	1.0.0	MAL-2025-3006
 pypi	tdata-grabber	1.0.0	MAL-2026-6560
 pypi	team-bsb-bot	1.0.0	MAL-2025-2622
+pypi	teamviewer-mcp-server	0.0.1	MAL-2026-18705
 pypi	teensorflow	*	MAL-2023-2293
 pypi	tego-managed-agents-test	0.1.0	MAL-2026-17183
 pypi	telco	1.0.1,1.0.2	MAL-2025-192363
