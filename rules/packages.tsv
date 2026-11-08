@@ -5626,6 +5626,7 @@ npm	@hrmony/pladddform-testing	40.14.3	MAL-2026-17280
 npm	@hrmony/valuenet	1.99.0	MAL-2026-17281
 npm	@hrsites/fb-with-city-suggests	*	MAL-2022-338
 npm	@hsbc-mfe/host	99.99.3	MAL-2026-2332
+npm	@htooayelwinict/travis234	3.3.2	MAL-2026-18757
 npm	@httpactions/encode-url	1.0.0,1.0.1	MAL-2026-6139
 npm	@httpactions/strict-uri-encode	1.0.1	MAL-2026-6140
 npm	@httttt/mcp-demo	1.0.0,1.1.0	MAL-2026-14315
@@ -223518,6 +223519,7 @@ pypi	bladebit	99.0.0	MAL-2026-1088
 pypi	blank-lib	0.0.8,0.0.9,0.1.0	MAL-2025-192364
 pypi	blastchamber-python-pypi	0.0.4,0.1.0,0.2.0,0.2.2	MAL-2025-192891
 pypi	blazeted	1.0	MAL-2024-4823
+pypi	blender-headless	9.99.9	MAL-2026-18758
 pypi	blessclient	0.0.1,0.0.2	MAL-2026-11067
 pypi	blobhunter-depconf-poc	999.0.0	MAL-2026-33
 pypi	bloxy-api	3.4.0	MAL-2026-2569
@@ -223863,6 +223865,7 @@ pypi	chimera-sandbox-extensions	0.1.42	MAL-2025-191701
 pypi	chosenrce18	1.0.0	MAL-2025-4210
 pypi	christmasmiraclemaker	1.0.0	MAL-2024-12234
 pypi	chroma-client	0.5.7	MAL-2026-16143
+pypi	chromacli	0.1.0,0.1.1,0.1.2,0.1.3,0.1.4	MAL-2026-18759
 pypi	chrome-stealth	0.1.0	MAL-2026-28
 pypi	chromeselenium	0.1.0,0.1.1,0.1.2	MAL-2024-4889
 pypi	chromifypro	1.0.0,1.0.1	MAL-2025-191702
@@ -225828,6 +225831,7 @@ pypi	exodusdecoders	1.4.1,1.4.2	MAL-2024-10025
 pypi	exodusdecoderss	1.4.3,1.4.4	MAL-2024-10026
 pypi	exodushcate	1.7,1.7.1,1.7.2	MAL-2024-11585
 pypi	exorigsim	0.1.0	MAL-2025-6501
+pypi	expect-tests	99.99.99	MAL-2026-18760
 pypi	expkg-am	0.0.3	MAL-2024-12268
 pypi	exporter-stackdriver	99.0	MAL-2024-5125
 pypi	extera-plugin-runtime	1.0.0,1.0.1	MAL-2026-18625
@@ -225846,7 +225850,7 @@ pypi	fabdeploycheck	0.1.1	MAL-2026-17926
 pypi	fabrice	*	MAL-2024-10573
 pypi	fabricee	1.0.0	MAL-2024-11586
 pypi	fabrlce	1.0.0	MAL-2024-11587
-pypi	fabtoolkit	0.1.0,0.1.1,0.1.2,0.2.1	MAL-2026-17927
+pypi	fabtoolkit	0.1.0,0.1.1,0.1.2,0.2.0,0.2.1	MAL-2026-17927
 pypi	facebook-scrapper	0.0.1.dev0	MAL-2024-5127
 pypi	facebookresearch	99.0.0	MAL-2026-2175
 pypi	facewareretargeter	9.9.9	MAL-2026-18110
@@ -226103,6 +226107,7 @@ pypi	gc-grocery-api	99.0.0	MAL-2026-2521
 pypi	gcdt-bundler	0.0.1	MAL-2025-6509
 pypi	gcli-control	0.11.1,0.12.2,0.12.4,0.5.0	MAL-2026-12502
 pypi	gclient-eval	0.0.1	MAL-2025-191737
+pypi	gcp-log-poc	0.0.1,0.0.2,0.0.3	MAL-2026-18753
 pypi	gcphelpit	0.1.0,0.1.1,0.1.2	MAL-2026-15810
 pypi	gcpipwrap	0.1.2,0.1.3,0.1.5,0.1.6,0.1.7,0.1.8,0.1.9	MAL-2026-2113
 pypi	gd-auth	99.0.0	MAL-2026-2540
@@ -226699,6 +226704,7 @@ pypi	infotool	*	MAL-2023-3805
 pypi	infourl	*	MAL-2023-3806
 pypi	infovirtual	*	MAL-2023-3807
 pypi	infovm	*	MAL-2023-3808
+pypi	infra-libs	99.99.99	MAL-2026-18761
 pypi	infrabench	0.1.0,0.1.1,0.2.0	MAL-2026-17469
 pypi	init2winit	9.9.9	MAL-2026-1989
 pypi	initer	0.2.1,0.2.2,0.2.5,0.2.6	MAL-2025-6524
@@ -230687,6 +230693,8 @@ pypi	pytypier	1.0.2	MAL-2024-10147
 pypi	pytzv	0.1.0,0.2.0,0.3.0,0.4.0	MAL-2025-191847
 pypi	pyultra	*	MAL-2023-5800
 pypi	pyunzip	0.0.1,0.0.2,0.0.4	MAL-2024-10148
+pypi	pyuserfox	0.0.2	MAL-2026-18754
+pypi	pyuserox	0.0.2	MAL-2026-18755
 pypi	pyutils-helper	1.2.3,1.2.4	MAL-2026-1281
 pypi	pyutilsplus	0.5,0.6,0.7	MAL-2024-5835
 pypi	pyutiltool	3.5	MAL-2024-11686
@@ -230784,12 +230792,14 @@ pypi	qwery-core	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7	MAL-2026-1226
 pypi	qyrm-pipinject4	1.0	MAL-2026-2016
 pypi	qzc690382	1.0.0	MAL-2026-18749
 pypi	qzc690383	1.0.0	MAL-2026-18750
-pypi	qzc690385	1.0.0,1.0.1	MAL-2026-18751
+pypi	qzc690384	1.0.0	MAL-2026-18752
+pypi	qzc690385	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9,1.1.0,1.1.1,1.1.2,1.1.3	MAL-2026-18751
 pypi	r-irkernel	1.9.12,2.1.1	MAL-2025-191851
 pypi	radishwxm5	2021.11.9	MAL-2026-510
 pypi	raft-dask	0.0.0,1.1.0	MAL-2025-192382
 pypi	raimbow-colors	0.1	MAL-2024-5848
 pypi	raimbowxyz	0.1	MAL-2024-10150
+pypi	rainbowcolors	0.1.0	MAL-2026-18762
 pypi	rak-lab-yoav-orca-zrktd2cp5hjmo4x7	9.9.9	MAL-2026-16241
 pypi	raknet-testing-package	0.0.1,0.0.2,0.0.3,0.0.4,0.0.5,0.0.6	MAL-2025-41729
 pypi	raknet-testing-package2	0.0.1,0.0.2,0.0.3	MAL-2025-41730
@@ -234131,6 +234141,7 @@ pypi	turbocalcng	0.1.0,0.2.0	MAL-2026-10441
 pypi	turbod	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7	MAL-2026-6979
 pypi	turbom	1.0.0,1.0.1	MAL-2026-7015
 pypi	twilio-rest	0.0.0.1	MAL-2025-3012
+pypi	twitch-stream-py	1.0.2rc0,1.0.3rc0,1.0.4rc0,1.0.4rc2,1.0.5rc2,1.0.6,1.0.7,1.0.8,1.0.9,1.1.0,1.1.1,1.1.2	MAL-2026-18756
 pypi	twitter-request-diagnostics	1.0.0	MAL-2026-18403
 pypi	twittter	1.19.6	MAL-2024-6173
 pypi	twrap-tool	1.0.0	MAL-2026-6711
