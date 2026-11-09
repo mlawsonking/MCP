@@ -4762,6 +4762,7 @@ npm	@ethena/shared-ui	*	MAL-2025-2023
 npm	@ethers-js/contracts	6.9.0	MAL-2026-13937
 npm	@ethers-sdk/ethers	*	MAL-2026-11210
 npm	@ethers-sdk/wallet	5.8.0	MAL-2026-11211
+npm	@ethersphere/bee-js	13.3.0	MAL-2026-18773
 npm	@ethlete/cdk	4.71.2	MAL-2026-5196
 npm	@ethlete/cli	2.0.1	MAL-2026-5197
 npm	@ethlete/components	3.3.1	MAL-2026-5198
@@ -5334,6 +5335,7 @@ npm	@hd-team/app-impkg-test	*	MAL-2026-14576
 npm	@healthbridge-design-system/components	1.0.0	MAL-2023-8120
 npm	@healthbyro/design-tokens	*	MAL-2025-7987
 npm	@heartlandone-private/fontawesome-pro	6.3.2,6.3.3,6.3.6	MAL-2026-11093
+npm	@hello.nrfcloud.com/proto-map	18.0.0,18.1.0	MAL-2026-18779
 npm	@helloflex/widget-next-sdk	0.0.1-security,11.11.11,11.11.12,11.11.13	MAL-2026-760
 npm	@help-forms/application-aff	3.4.3	MAL-2026-6494
 npm	@help_api/config	*	MAL-2025-7988
@@ -104557,6 +104559,7 @@ npm	kaddex-ui	1.0.0,2.0.0	MAL-2025-2768
 npm	kadenaswap-ui	*	MAL-2022-4093
 npm	kadummy	*	MAL-2025-24156
 npm	kaerwzyhlkngvxic	*	MAL-2025-24157
+npm	kafbail	2.0.12,2.0.13,2.0.14	MAL-2026-18774
 npm	kafka-client-ruby	*	MAL-2025-24158
 npm	kafka-shopify	*	MAL-2025-24159
 npm	kagi_browser_ext	2.0.0	MAL-2025-2682
@@ -172451,6 +172454,7 @@ npm	sentrybrowser5	*	MAL-2023-8213
 npm	sentrybrowser7	*	MAL-2023-1038
 npm	sentrykit	30.0.0	MAL-2026-15544
 npm	seo-pwa	*	MAL-2022-6014
+npm	seolibs-package	*	MAL-2026-18775
 npm	seonatmunsetmaouseomauntsmeoatnumeontkmnteumntemoiaoisntmoeunitmoeantum	*	MAL-2025-32955
 npm	seotools	*	MAL-2025-32956
 npm	separadordeinfo	1.0.0	MAL-2026-2800
@@ -197681,6 +197685,7 @@ npm	tzeos-sdk	*	MAL-2025-37469
 npm	tzf-darwin-x64	*	MAL-2025-37470
 npm	tzgxrf-devapptea	*	MAL-2025-109906
 npm	tzpemvkuflnygdso	*	MAL-2025-37471
+npm	u-chan-secrets	5.2.1,5.2.2	MAL-2026-18777
 npm	u-workflow.auth	*	MAL-2024-1187
 npm	u-workflow.components	1.0.0	MAL-2024-3247
 npm	u-workflow.module.common.brand-safety	1.0.1	MAL-2024-1137
@@ -223607,6 +223612,7 @@ pypi	buildoslibuploader	0.0.0	MAL-2024-4839
 pypi	buildpeople	0.1.1	MAL-2025-47751
 pypi	bulktweetbyref	0.1.0	MAL-2025-6470
 pypi	bulktweetplus	0.1.0	MAL-2025-6471
+pypi	bundyfed	1.0.0,1.0.1	MAL-2026-18770
 pypi	bunzbar	0.0.1	MAL-2025-6472
 pypi	bup-utils	1.0.0	MAL-2024-4840
 pypi	bupi-utils	1.0.0	MAL-2024-4841
@@ -225838,6 +225844,7 @@ pypi	extera-plugin-runtime	1.0.0,1.0.1	MAL-2026-18625
 pypi	extera-runtime	1.1.0	MAL-2026-18633
 pypi	extra-huggingface	0.4.0	MAL-2026-6489
 pypi	extracolorsv2	0.0.1,0.0.2	MAL-2024-5126
+pypi	extrahtml	0.1.0,0.1.1,0.1.2	MAL-2026-18771
 pypi	extrazip	0.1.0	MAL-2025-192948
 pypi	ezauto	0.0.1	MAL-2024-10027
 pypi	ezllmgen	2.21	MAL-2026-5769
@@ -227918,6 +227925,7 @@ pypi	log-guru	0.7.8	MAL-2026-10688
 pypi	log-utils-sdk	0.4.1	MAL-2026-18405
 pypi	loganx	0.1.0,0.2.0	MAL-2024-5331
 pypi	logax	1,1.5,2.4,2.5,2.7,2.9,3.1,3.2,3.4,3.5,3.6,3.7,3.8,3.9,4,4.0,4.2,4.3,4.5,4.8,4.9,5,5.0,5.2,5.3,5.4,8.3	MAL-2025-3450
+pypi	logger-libs	0.4.1,0.4.2,0.4.3,0.4.5,0.4.6	MAL-2026-18778
 pypi	loggerex	0.7.4,0.7.5,0.7.6	MAL-2025-191782
 pypi	logghelper	1.0.0	MAL-2025-6538
 pypi	logging-python	0.0.0,0.0.2	MAL-2025-41696
@@ -227927,6 +227935,7 @@ pypi	lognest	0.1.0,0.1.1,0.1.2,0.1.3,0.1.4	MAL-2026-4227
 pypi	loguru-utf8	0.7.3,0.7.4	MAL-2025-192435
 pypi	logutilkit	1.0.1	MAL-2026-2120
 pypi	lolcrazy	0.1.1	MAL-2025-47785
+pypi	lookuptest11	0.0.1	MAL-2026-18769
 pypi	looopiw	0.0.1	MAL-2026-2842
 pypi	loquru	0.7.3	MAL-2025-191784
 pypi	lore-cs	1.0.0	MAL-2026-17639
@@ -228704,6 +228713,7 @@ pypi	para-gen	93.6	MAL-2024-10597
 pypi	paradox-pydevdeps	0.0.1	MAL-2025-191811
 pypi	parser-scrapper	7.2	MAL-2024-5457
 pypi	parseweb	1,2,3	MAL-2024-5458
+pypi	parseyaml	1.2.0	MAL-2026-18772
 pypi	parsimonius	0.10.0,0.11.0,0.11.1,0.11.2,0.11.3,0.11.4,0.11.5,0.11.6,0.12.0	MAL-2026-5151
 pypi	partpyth	0.1	MAL-2024-11654
 pypi	passport-snapchat	99.0	MAL-2024-5459
@@ -232685,8 +232695,10 @@ pypi	sufiagent	1.0.0,1.0.1,1.0.2	MAL-2026-3370
 pypi	suficloud	3.0.0	MAL-2026-1913
 pypi	sumo-py-cli	99.99.99	MAL-2024-11715
 pypi	sunrequests	0.0.1	MAL-2024-11716
+pypi	super-color	0.1.0,0.1.1,0.1.2,0.1.3	MAL-2026-18768
 pypi	superad	*	MAL-2023-6838
 pypi	supercandy	*	MAL-2023-6839
+pypi	supercolor-tui	0.1.0,0.1.1,0.1.2,0.1.4	MAL-2026-18767
 pypi	supercpu	*	MAL-2023-6840
 pypi	supercraft	*	MAL-2023-6841
 pypi	supercv	*	MAL-2023-6842
