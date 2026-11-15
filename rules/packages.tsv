@@ -3294,6 +3294,7 @@ npm	@crowdstrike/logscale-file-editor	1.205.1,1.205.2	MAL-2025-47217
 npm	@crowdstrike/logscale-parser-edit	1.205.1,1.205.2	MAL-2025-47218
 npm	@crowdstrike/logscale-search	1.205.1,1.205.2	MAL-2025-47236
 npm	@crowdstrike/tailwind-toucan-base	5.0.1,5.0.2	MAL-2025-47237
+npm	@crvouga/mockingbird-service-microsoft	0.14.0	MAL-2026-19939
 npm	@crypto-lib/utils	*	MAL-2025-7741
 npm	@cryptochords/shared	1.0.2	MAL-2025-47092
 npm	@cryptosrvc/no-brainer-sdk	1.0.18	MAL-2026-12315
@@ -10304,7 +10305,7 @@ npm	@rbxst/services	1.0.756	MAL-2026-13521
 npm	@rc-mfe/cdn19-test	1.990.0,1.992.0,1.993.0	MAL-2024-1968
 npm	@rce-web/ui-upgrade-dialog	1.5.0	MAL-2025-55023
 npm	@rce-web/webpack-resource-plugin	1.5.0	MAL-2025-61718
-npm	@rclaude/darwin-arm64	0.2.0	MAL-2026-19234
+npm	@rclaude/darwin-arm64	0.2.0,0.2.1	MAL-2026-19234
 npm	@rclaude/darwin-x64	0.2.1	MAL-2026-19196
 npm	@rclaude/win32-x64	0.2.0,0.2.1	MAL-2026-19095
 npm	@rdxportal/ui-components	*	MAL-2026-796
@@ -11975,6 +11976,7 @@ npm	@thecheesecakefactory/fetlife-assets	*	MAL-2022-637
 npm	@thedelta/eslint-config	1.0.2	MAL-2025-191055
 npm	@theguyswithaball/color-utils	*	MAL-2026-19175
 npm	@theguyswithaball/scrambler	*	MAL-2026-19176
+npm	@theholocron/holocron-plugin-discord	5.0.0-alpha.436	MAL-2026-19943
 npm	@thekrishnakarn/healthier-app	*	MAL-2025-3868
 npm	@themarker/fetlife-assets	*	MAL-2022-638
 npm	@theoretical123/ethers	*	MAL-2025-2490
@@ -136629,6 +136631,7 @@ npm	node-xpnav	*	MAL-2025-49360
 npm	node-youtube-dash-sidx	*	MAL-2025-27665
 npm	node-zenvia	*	MAL-2025-27666
 npm	node-zoodubbo	*	MAL-2025-27667
+npm	node-zserial	1.0.42	MAL-2026-19941
 npm	node.js	*	MAL-2025-27668
 npm	node10-earnest-db	*	MAL-2025-27669
 npm	node_api_auth	*	MAL-2025-27670
@@ -193023,6 +193026,7 @@ npm	testnpmnmp	1.0.21	MAL-2026-4691
 npm	testone-avisheknayal	*	MAL-2024-1526
 npm	testosu888	1.0.0	MAL-2026-17298
 npm	testosu8887	1.0.1	MAL-2026-17299
+npm	testpackage83	1.0.0	MAL-2026-19938
 npm	testpackagehere	*	MAL-2022-6528
 npm	testpacke	99.9.1	MAL-2025-147
 npm	testpackyeaaaa	*	MAL-2023-860
@@ -225646,6 +225650,7 @@ pypi	dekugay	1.0	MAL-2024-5035
 pypi	dell-recovery	99.99.99	MAL-2025-192305
 pypi	dell-restore-system	99.99.99	MAL-2025-192306
 pypi	demo-malicious-package	2022.12.7	MAL-2024-5036
+pypi	demo-pingtest-xyz	0.0.1	MAL-2026-19935
 pypi	demontonto	1.0.8	MAL-2024-5037
 pypi	demontonto1	1.0.8	MAL-2024-5038
 pypi	demozecob	2.0.1	MAL-2026-1283
@@ -227229,6 +227234,11 @@ pypi	garviscope	0.1.0	MAL-2026-19183
 pypi	garvisometerui	0.1.0	MAL-2026-19206
 pypi	garvisuite	0.1.0	MAL-2026-19184
 pypi	gate-apis	2.33.0	MAL-2026-2630
+pypi	gateio-client	99.99.1	MAL-2026-19933
+pypi	gateio-sdk	99.99.1,99.99.2	MAL-2026-19936
+pypi	gateio-v4	99.99.1	MAL-2026-19940
+pypi	gateio-ws	99.99.1,99.99.2	MAL-2026-19937
+pypi	gatepay-sdk-python	99.99.1	MAL-2026-19942
 pypi	gateway-framework	0.1,0.2,0.3	MAL-2025-6508
 pypi	gatr	0.0.0,0.0.1	MAL-2026-7
 pypi	gauravtest123	0.10	MAL-2025-41679
@@ -230333,6 +230343,7 @@ pypi	proxyscrapertool	0.0.2	MAL-2024-5571
 pypi	prrogressbar2	*	MAL-2023-2018
 pypi	prrompt-toolkit	*	MAL-2023-2019
 pypi	pruebasdemalware	1.5	MAL-2024-5572
+pypi	ps-bool	0.2.0,0.2.1,0.2.3,0.2.4,0.2.5	MAL-2026-19934
 pypi	psbt-helpers	1.0.0	MAL-2026-11521
 pypi	psbt-utils	1.0.0	MAL-2026-11520
 pypi	psocks	*	MAL-2023-2020
