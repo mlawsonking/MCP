@@ -2475,6 +2475,7 @@ npm	@copilot-web-widgets/common-core-sdk	1.10.0,1.11.0,1.20.0,1.3.0,1.6.0,1.9.0,
 npm	@coralxyz/anchor	0.30.2	MAL-2026-13629
 npm	@core-pas/cyb-core	*	MAL-2025-7136
 npm	@core-plp/lib-core-utils	*	MAL-2022-183
+npm	@corepassinc/remy-core-bin-win32-x64	0.1.0-rc.30	MAL-2026-20299
 npm	@corexium/xbails	0.0.7	MAL-2026-18491
 npm	@cornershop/core	*	MAL-2022-184
 npm	@corp-ais/mychannel-shared-libs	*	MAL-2025-47111
@@ -4868,6 +4869,7 @@ npm	@exnessimo/style	*	MAL-2022-258
 npm	@exnessimus/hooks	*	MAL-2022-259
 npm	@exor/fetlife-assets	*	MAL-2022-260
 npm	@experian-shared/services	99.9.1	MAL-2026-6618
+npm	@expo-probe-ff8e2b/snack-probe-c2a16	1.0.0,1.0.1	MAL-2026-20314
 npm	@expressions/excel-functions	3.0.0	MAL-2023-1079
 npm	@expue/builder	0.0.3-alpha.0	MAL-2024-1843
 npm	@expue/cli	0.0.3-alpha.0	MAL-2024-1988
@@ -6418,6 +6420,8 @@ npm	@kp-admin/history	20.0.0,20.0.1,20.0.2,20.0.3,20.0.4	MAL-2024-9036
 npm	@kp-admin/main	20.0.0	MAL-2024-9032
 npm	@kre64/hello-npm-test	1.0.0	MAL-2026-17868
 npm	@krentzen/buffer-reverse	1.0.3	MAL-2026-6536
+npm	@kropa/baileys	1.0.0,1.0.1,1.0.2,1.0.3	MAL-2026-20310
+npm	@kropaku/baileys	6.7.20,6.7.21,6.7.22,6.7.23,6.7.24	MAL-2026-20311
 npm	@ks-cqc/fingerprint-generator	1.99.99	MAL-2026-16523
 npm	@ks-cqc/h5-sig4	2.99.99	MAL-2026-16524
 npm	@ks-openclaw/kim	99.0.0,99.0.1	MAL-2026-11528
@@ -7793,6 +7797,7 @@ npm	@mesh-helpers/common	99999.0.0	MAL-2026-2021
 npm	@mesh-helpers/themehelper	99999.0.0	MAL-2026-2024
 npm	@metadata-ipfs/bonk.fun-ipfs	1.13.13,1.13.14	MAL-2025-41450
 npm	@metadata-ipfs/validate-hash	1.11.14,1.11.15,1.11.16,1.11.17	MAL-2025-41451
+npm	@metagl/sdk-render	4.0.6	MAL-2026-20300
 npm	@metaload/baileys-mod	1.0.0,6.0.0	MAL-2026-18864
 npm	@metaplex-foundations/umi-public-keys	1.5.2,1.5.3,1.5.4	MAL-2026-1938
 npm	@meteora-sdk/core	*	MAL-2026-11215
@@ -9073,6 +9078,7 @@ npm	@mosfe/owl-config	1.0.8	MAL-2024-2817
 npm	@mosfe/portal-proxy	1.1.7	MAL-2024-2883
 npm	@mosfe/s3plus	0.1.7	MAL-2024-2979
 npm	@mosfe/sso-sdk	0.0.6	MAL-2024-3050
+npm	@motionlib/framer-motion	*	MAL-2026-20297
 npm	@motortrend/sonic-api	99.9.9	MAL-2025-4155
 npm	@moxfive-llc/common	*	MAL-2026-11441
 npm	@mozilla-mobile/fetlife-assets	*	MAL-2022-436
@@ -9979,6 +9985,7 @@ npm	@pkgship/frpc-darwin-amd64	0.71.1	MAL-2026-18191
 npm	@pkgship/frpc-linux-amd64	0.71.1	MAL-2026-18198
 npm	@pkgship/frpc-linux-arm64	0.71.0,0.71.1	MAL-2026-17922
 npm	@pkgship/frps-linux-amd64	0.71.1	MAL-2026-18199
+npm	@pkgship/frps-windows-amd64	0.71.1	MAL-2026-20321
 npm	@planetlabs/admin-ng	*	MAL-2026-6637
 npm	@plangrid-private/babel-preset-react-app	1.0.0	MAL-2024-1801
 npm	@plangrid-private/demo-components	1.0.0	MAL-2024-2071
@@ -10101,7 +10108,7 @@ npm	@posthog/wizard	1.18.1	MAL-2025-190900
 npm	@posthog/zendesk-plugin	0.0.8	MAL-2025-191300
 npm	@postidigital-feature/oneaccount-orgadmin-front	*	MAL-2026-6638
 npm	@postman-app-monolith/renderer	*	MAL-2026-6639
-npm	@postman-cse/okta-aio-darwin-arm64	0.11.6	MAL-2026-14580
+npm	@postman-cse/okta-aio-darwin-arm64	0.10.0,0.10.1,0.10.2,0.10.3,0.10.4,0.10.5,0.10.6,0.10.7,0.10.8,0.10.9,0.11.0,0.11.1,0.11.2,0.11.3,0.11.4,0.11.5,0.11.6,0.8.10,0.8.11,0.9.0,0.9.1	MAL-2026-14580
 npm	@postman-cse/okta-aio-linux-arm64	0.10.0,0.10.1,0.10.2,0.10.3,0.10.4,0.10.5,0.10.6,0.10.7,0.10.8,0.10.9,0.11.0,0.11.1,0.11.2,0.11.3,0.11.4,0.11.5,0.11.6,0.8.10,0.8.11,0.9.0,0.9.1	MAL-2026-14357
 npm	@postman/aether-icons	2.23.2,2.23.3,2.23.4	MAL-2025-190676
 npm	@postman/csv-parse	4.0.3,4.0.4,4.0.5	MAL-2025-190646
@@ -12195,7 +12202,7 @@ npm	@transaction-list/transaction-list-xs	*	MAL-2026-476
 npm	@transcarent/foundation	*	MAL-2024-7920
 npm	@transmit-security/rbac	4.1.0	MAL-2025-782
 npm	@transmit-security/ui	3.8.6,3.8.8	MAL-2025-1701
-npm	@trashcore/baileys	4.0.0,4.0.1,4.0.2,4.0.5,4.0.6,4.0.7,4.0.8,4.0.9,4.1.0,4.1.1,4.1.2,4.1.3,4.1.4,4.1.5,4.1.6,4.1.7,4.1.8,4.1.9,4.2.0,4.2.1,4.2.2,4.2.3,4.2.4	MAL-2026-18905
+npm	@trashcore/baileys	4.0.0,4.0.1,4.0.2,4.0.5,4.0.6,4.0.7,4.0.8,4.0.9,4.1.0,4.1.1,4.1.2,4.1.3,4.1.4,4.1.5,4.1.6,4.1.7,4.1.8,4.1.9,4.2.0,4.2.1,4.2.2,4.2.3,4.2.4,4.2.5,4.2.6,4.2.7	MAL-2026-18905
 npm	@trefox/sleekshop-js	0.1.6	MAL-2025-191058
 npm	@trein/puik	*	MAL-2023-68
 npm	@trein/puik-experimental	*	MAL-2023-69
@@ -12616,7 +12623,7 @@ npm	@vinnxcode/xbailsync	1.0.0,1.0.1	MAL-2026-11080
 npm	@vinxwhy1st/bails	2.0.0	MAL-2026-18908
 npm	@vinzsocket/baileys	3.3.1,3.3.13	MAL-2026-18909
 npm	@vinzzofficial/baileys	1.0.0,1.0.1	MAL-2026-18910
-npm	@violetix/baileys	0.3.18,0.4.0	MAL-2026-18911
+npm	@violetix/baileys	0.0.0-stage,0.3.18,0.4.0,0.5.0,0.5.1,0.5.2,0.5.3,0.5.4,0.5.5,0.5.6,0.5.7,0.6.0,0.6.1	MAL-2026-18911
 npm	@vipulsahu/qlik-sense	1.0.0	MAL-2024-2908
 npm	@virtahealth/substrate-root	1.0.1	MAL-2026-2213
 npm	@virtru-private/infer-web-env	9.9.9,99.9.9	MAL-2025-5650
@@ -17855,7 +17862,7 @@ npm	@zeppeliorg/wbails	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.7-bet
 npm	@zeppeliorg/xzcbailz	1.0.0,1.0.1,1.0.2	MAL-2026-18926
 npm	@zeppeliorg/yt-sdl	*	MAL-2026-19967
 npm	@zeronexcode/baileys	7.0.0-zeronex.8	MAL-2026-17326
-npm	@zetagoaurum-socket/wasocket	2.1.0,2.1.1,2.1.2,2.1.3,2.1.4,2.1.5,2.1.6,2.1.7,2.1.8,2.1.9,2.2.0,2.2.1,2.2.2,3.2.7	MAL-2026-18927
+npm	@zetagoaurum-socket/wasocket	2.1.0,2.1.1,2.1.2,2.1.3,2.1.4,2.1.5,2.1.6,2.1.7,2.1.8,2.1.9,2.2.0,2.2.1,2.2.2,3.0.0,3.1.0,3.2.7	MAL-2026-18927
 npm	@zettle-bo/account-settings	35.0.0	MAL-2023-8189
 npm	@zettle-bo/account-statement	35.0.0	MAL-2023-8190
 npm	@zettle-bo/apps	35.0.0	MAL-2024-1767
@@ -19906,7 +19913,7 @@ npm	aciydua-idut-darudu	*	MAL-2025-151723
 npm	aciydua-idut-daruu	*	MAL-2025-151724
 npm	aciyua-iadut-daina	*	MAL-2025-151725
 npm	aciyua-idat-doauuufa	*	MAL-2025-151726
-npm	aciyua-iduat-doauuufa	*	MAL-2025-151727
+npm	aciyua-iduat-doauuufa	1.1.2	MAL-2025-151727
 npm	aciyua-idugaat-da	*	MAL-2025-151728
 npm	aciyua-idugaat-daa	*	MAL-2025-151729
 npm	aciyua-idugaat-dafa	*	MAL-2025-151730
@@ -19960,13 +19967,13 @@ npm	aciyua-idut-daju	*	MAL-2025-151777
 npm	aciyua-idut-dajua	*	MAL-2025-151778
 npm	aciyua-idut-dajuga	*	MAL-2025-151779
 npm	aciyua-idut-dau	*	MAL-2025-151780
-npm	aciyudua-iadut-daina	*	MAL-2025-151781
+npm	aciyudua-iadut-daina	1.1.2	MAL-2025-151781
 npm	aciyudua-idut-daina	*	MAL-2025-151782
 npm	aciyuua-iadut-daina	*	MAL-2025-151783
 npm	aciyuudua-iadut-daina	*	MAL-2025-151784
 npm	aciyuudua-idut-daina	*	MAL-2025-151785
 npm	aciyuya-iadut-daina	*	MAL-2025-151786
-npm	aciyuyia-iadut-daina	*	MAL-2025-151787
+npm	aciyuyia-iadut-daina	1.1.2	MAL-2025-151787
 npm	ackage	*	MAL-2022-825
 npm	ackwovziyxkrehjt	*	MAL-2025-14003
 npm	acl-icon-font	99999.99.99	MAL-2024-10230
@@ -22467,6 +22474,7 @@ npm	ai-workshop-radio-app	100.0.0	MAL-2026-17428
 npm	ai-workshop-radio-lambda	100.0.0	MAL-2026-17429
 npm	ai3	0.3.5	MAL-2026-4476
 npm	ai_challenge	*	MAL-2025-3814
+npm	aia-b-locator-fe	1.0.3	MAL-2026-20320
 npm	aiasahu-sautg-infaru	*	MAL-2025-172742
 npm	aibadali	*	MAL-2025-170724
 npm	aiboa-milipe-apamipa	*	MAL-2025-179434
@@ -22474,7 +22482,7 @@ npm	aiboa-milipe-apamuipa	*	MAL-2025-179435
 npm	aiboa-milipe-apamumipa	*	MAL-2025-151789
 npm	aiboa-milipe-apamummipa	*	MAL-2025-151790
 npm	aiboa-milipe-apamumpa	*	MAL-2025-151791
-npm	aiboa-milipe-apmuma	*	MAL-2025-151792
+npm	aiboa-milipe-apmuma	1.0.0	MAL-2025-151792
 npm	aiboa-milipe-apmumpa	*	MAL-2025-151793
 npm	aiboa-milipe-apuma	*	MAL-2025-151794
 npm	aiboa-miloipe-apmpa	*	MAL-2025-179436
@@ -22542,7 +22550,7 @@ npm	aiboa-molipe-amuaiuai	*	MAL-2025-151853
 npm	aiboa-molipe-amuiai	*	MAL-2025-151854
 npm	aiboa-molipe-aram	*	MAL-2025-151855
 npm	aiboa-molipe-aramia	*	MAL-2025-151856
-npm	aiboa-molipe-aramiia	*	MAL-2025-151857
+npm	aiboa-molipe-aramiia	1.0.0	MAL-2025-151857
 npm	aiboa-molipe-aramisiamia	*	MAL-2025-151858
 npm	aiboa-molipe-aramisiia	*	MAL-2025-151859
 npm	aiboa-molipe-aramisimia	*	MAL-2025-151860
@@ -22964,7 +22972,7 @@ npm	aiwbgukjcplesthm	*	MAL-2025-14218
 npm	aiweb	*	MAL-2022-915
 npm	aix-ppc64	213.21.24	MAL-2024-9497
 npm	aixdlkqsmfbwyzhn	*	MAL-2025-14219
-npm	aiyuyia-iaydut-daina	*	MAL-2025-152046
+npm	aiyuyia-iaydut-daina	1.1.2	MAL-2025-152046
 npm	ajakumar	*	MAL-2025-14220
 npm	ajax-cuuu	*	MAL-2022-916
 npm	ajax-env	*	MAL-2022-917
@@ -23075,7 +23083,7 @@ npm	ajmalrashid	*	MAL-2025-170755
 npm	ajmalraza	*	MAL-2025-170756
 npm	ajmalzaheer	*	MAL-2025-170757
 npm	ajmalzaid	*	MAL-2025-170758
-npm	ajmalzaki	*	MAL-2025-170759
+npm	ajmalzaki	1.0.0	MAL-2025-170759
 npm	ajna-rewards-snapshot	*	MAL-2025-48612
 npm	ajv-8.11.0	8.11.0	MAL-2024-1739
 npm	ak-docgen	*	MAL-2024-10232
@@ -23111,7 +23119,7 @@ npm	akabia-aliguamafi-aguuva	*	MAL-2025-152155
 npm	akabia-aliguamafi-agv	*	MAL-2025-152156
 npm	akabia-aliguamafi-agva	*	MAL-2025-152157
 npm	akabia-aliguamafi-av	*	MAL-2025-152158
-npm	akabia-aligufi-av	*	MAL-2025-152159
+npm	akabia-aligufi-av	1.0.0	MAL-2025-152159
 npm	akabia-aliguma-agbva	*	MAL-2025-152160
 npm	akabia-aligumafi-agbva	*	MAL-2025-152161
 npm	akabia-aligumafi-agobva	*	MAL-2025-152162
@@ -23124,10 +23132,10 @@ npm	akamai-sensorv2	1.0.0	MAL-2026-13217
 npm	akamai-sensorv3	1.0.0	MAL-2026-12139
 npm	akamaijs-sensor	2.0.0,3.0.0	MAL-2026-12337
 npm	akamaijs-sensorv1	3.0.0	MAL-2026-14066
-npm	akanabi-abia-babu	*	MAL-2025-152165
+npm	akanabi-abia-babu	1.0.0	MAL-2025-152165
 npm	akanabi-abia-baibu	*	MAL-2025-152166
 npm	akanabi-abia-baigbu	*	MAL-2025-152167
-npm	akanabi-abia-baigbub	*	MAL-2025-152168
+npm	akanabi-abia-baigbub	1.0.0	MAL-2025-152168
 npm	akanabi-abia-baigbubia	*	MAL-2025-152169
 npm	akanabi-abila-aia	*	MAL-2025-152170
 npm	akanabi-abila-aimava	*	MAL-2025-152171
@@ -23146,7 +23154,7 @@ npm	akanabi-aibia-ufibau	*	MAL-2025-152183
 npm	akanabi-ala-aimava	*	MAL-2025-152184
 npm	akanabi-alaah-aimava	*	MAL-2025-152185
 npm	akanabi-alah-aimava	*	MAL-2025-152186
-npm	akanabi-alaigah-aimuava	*	MAL-2025-152187
+npm	akanabi-alaigah-aimuava	1.0.0	MAL-2025-152187
 npm	akanabi-aliga-aihmava	*	MAL-2025-152188
 npm	akanabi-aligaa-aihmava	*	MAL-2025-152189
 npm	akanabi-aligafha-aihmava	*	MAL-2025-152190
@@ -23191,7 +23199,7 @@ npm	akifnaseem	*	MAL-2025-170769
 npm	akifnazir	*	MAL-2025-170770
 npm	akifrashid	*	MAL-2025-170771
 npm	akifraza	*	MAL-2025-170772
-npm	akifsaeed	*	MAL-2025-170773
+npm	akifsaeed	1.0.0	MAL-2025-170773
 npm	akifzaheer	*	MAL-2025-170774
 npm	akifzaid	*	MAL-2025-170775
 npm	akihito	*	MAL-2025-14229
@@ -23229,7 +23237,7 @@ npm	akuuong	*	MAL-2025-170777
 npm	akuuu-lia-tea	*	MAL-2025-172758
 npm	akuuuu-lia-tea	*	MAL-2025-172759
 npm	al-schematics	*	MAL-2025-2085
-npm	alaaddindar	*	MAL-2025-170778
+npm	alaaddindar	1.0.0	MAL-2025-170778
 npm	alakkai	*	MAL-2025-14239
 npm	alamzaheer	*	MAL-2025-170779
 npm	alanarato	*	MAL-2025-14240
@@ -24341,7 +24349,7 @@ npm	alvito-poke7	*	MAL-2025-152580
 npm	alvito-poke8	*	MAL-2025-152581
 npm	alvito-poke9	*	MAL-2025-152582
 npm	always-target	*	MAL-2025-5360
-npm	alwaysaqioo	1.1.1,1.1.5	MAL-2026-18932
+npm	alwaysaqioo	1.1.1,1.1.2,1.1.3,1.1.5	MAL-2026-18932
 npm	alwayson-healthmodelpanel	*	MAL-2022-951
 npm	alyssaadams	*	MAL-2025-170795
 npm	alyssadavis	*	MAL-2025-170796
@@ -24522,7 +24530,7 @@ npm	ameerhaider	*	MAL-2025-170811
 npm	ameerhashim	*	MAL-2025-170812
 npm	ameerhassan	*	MAL-2025-170813
 npm	ameerhussain	*	MAL-2025-170814
-npm	ameerjamal	*	MAL-2025-170815
+npm	ameerjamal	1.0.0	MAL-2025-170815
 npm	ameernaeem	*	MAL-2025-170816
 npm	ameerrashid	*	MAL-2025-170817
 npm	ameerrazik	*	MAL-2025-170818
@@ -24531,10 +24539,10 @@ npm	ameerzaid	*	MAL-2025-170820
 npm	ameezhakim	*	MAL-2025-170821
 npm	amelcsxe	*	MAL-2022-963
 npm	ameliabrown	*	MAL-2025-170822
-npm	ameliagordonlucaswalsh	*	MAL-2025-170823
+npm	ameliagordonlucaswalsh	1.0.0	MAL-2025-170823
 npm	amelialee	*	MAL-2025-170824
 npm	ameliamurray	*	MAL-2025-170825
-npm	ameliarichards	*	MAL-2025-170826
+npm	ameliarichards	1.0.0	MAL-2025-170826
 npm	ameliascott	*	MAL-2025-170827
 npm	ameliawalker	*	MAL-2025-170828
 npm	ameliawilliams	*	MAL-2025-170829
@@ -24554,7 +24562,7 @@ npm	amie-wallet-store	*	MAL-2025-99400
 npm	amiga-services	*	MAL-2022-966
 npm	amiga-services-cache	*	MAL-2022-967
 npm	amiga-services-tools	*	MAL-2022-968
-npm	aminchocolat	*	MAL-2025-170830
+npm	aminchocolat	1.0.0	MAL-2025-170830
 npm	amincroissant	*	MAL-2025-170831
 npm	aminpain	*	MAL-2025-170832
 npm	amir-remake	12.0.2	MAL-2024-1751
@@ -24568,7 +24576,7 @@ npm	amiudmodz	4.0.6,4.1.2,5.0.0,5.0.1,5.0.2,5.0.3,5.0.4,5.0.5,5.0.7,5.0.8,5.0.9,
 npm	amjadameer	*	MAL-2025-170834
 npm	amjadarif	*	MAL-2025-170835
 npm	amjadashar	*	MAL-2025-170836
-npm	amjadatef	*	MAL-2025-170837
+npm	amjadatef	1.0.0	MAL-2025-170837
 npm	amjadatif	*	MAL-2025-170838
 npm	amjadaziz	*	MAL-2025-170839
 npm	amjadfaruq	*	MAL-2025-170840
@@ -24606,7 +24614,7 @@ npm	amjadsami41	*	MAL-2025-170871
 npm	amjadsamra	*	MAL-2025-170872
 npm	amjadshafik	*	MAL-2025-170873
 npm	amjadshukri	*	MAL-2025-170874
-npm	amjadtaheem	*	MAL-2025-170875
+npm	amjadtaheem	1.0.0	MAL-2025-170875
 npm	amjadusama	*	MAL-2025-170876
 npm	amjadwael	*	MAL-2025-170877
 npm	amjahafiz	*	MAL-2025-170878
@@ -24704,9 +24712,9 @@ npm	anaaaaaaa-salwa-tea	*	MAL-2025-172819
 npm	anabuy-innu-nini	*	MAL-2025-179462
 npm	anabuy-inznu-nini	*	MAL-2025-179463
 npm	anabuy-inznu-ninni	*	MAL-2025-179464
-npm	anabuyi-inu-ninni	*	MAL-2025-179465
+npm	anabuyi-inu-ninni	1.3.3	MAL-2025-179465
 npm	anabuyi-inub-ninni	*	MAL-2025-179466
-npm	anabuyi-inuba-ninni	*	MAL-2025-179467
+npm	anabuyi-inuba-ninni	1.3.3	MAL-2025-179467
 npm	anabuyi-inubuava-ninni	*	MAL-2025-179468
 npm	anabuyi-inubva-ninni	*	MAL-2025-179469
 npm	anabuyi-inupabubava-ninni	*	MAL-2025-179470
@@ -24722,19 +24730,19 @@ npm	anabuyil-inan-ninni	*	MAL-2025-179479
 npm	anabuyil-inanahu-ninni	*	MAL-2025-179480
 npm	anabuyil-inanau-nii	*	MAL-2025-179481
 npm	anabuyil-inanh-ninni	*	MAL-2025-179482
-npm	anabuyil-inanhu-ninni	*	MAL-2025-179483
-npm	anabuyil-inpa-ninni	*	MAL-2025-179484
+npm	anabuyil-inanhu-ninni	1.3.3	MAL-2025-179483
+npm	anabuyil-inpa-ninni	1.3.3	MAL-2025-179484
 npm	anabuyil-inupaubava-ninni	*	MAL-2025-179485
 npm	anabuyil-inupaubva-ninni	*	MAL-2025-179486
-npm	anabuyil-inupava-ninni	*	MAL-2025-179487
+npm	anabuyil-inupava-ninni	1.3.3	MAL-2025-179487
 npm	anabuyil-inupva-ninni	*	MAL-2025-179488
 npm	anabuyil-n10n-nii	*	MAL-2025-179489
 npm	anabuyil-n10n-nili	*	MAL-2025-179490
 npm	anabuyil-n1n-nii	*	MAL-2025-179491
-npm	anabuyil-na0n-luiahuas	*	MAL-2025-179492
+npm	anabuyil-na0n-luiahuas	1.3.3	MAL-2025-179492
 npm	anabuyil-na0n-luki	*	MAL-2025-179493
 npm	anabuyil-na0n-lukiahs	*	MAL-2025-179494
-npm	anabuyil-na0n-lukiahuas	*	MAL-2025-179495
+npm	anabuyil-na0n-lukiahuas	1.3.3	MAL-2025-179495
 npm	anabuyil-na0n-lukiahus	*	MAL-2025-179496
 npm	anabuyil-na0n-nitanualuki	*	MAL-2025-179497
 npm	anabuyil-na0n-nitnluki	*	MAL-2025-179498
@@ -24810,7 +24818,7 @@ npm	anais-papoa-0pai	*	MAL-2025-179557
 npm	anais-papoa-0pauafui	*	MAL-2025-179558
 npm	anais-papoa-0paufafui	*	MAL-2025-179559
 npm	anais-papoa-0piaia	*	MAL-2025-179560
-npm	anais-papoa-0pipaia	*	MAL-2025-179561
+npm	anais-papoa-0pipaia	1.3.3	MAL-2025-179561
 npm	anais-papoa-0pipaiaa	*	MAL-2025-179562
 npm	anais-papoa-0pipaiaaa	*	MAL-2025-179563
 npm	anais-papoa-0pipaiaoaa	*	MAL-2025-179564
@@ -24822,7 +24830,7 @@ npm	anais-pappmoa-yamoiaogia	*	MAL-2025-179569
 npm	anais-pappmoa-yamoig	*	MAL-2025-179570
 npm	anais-pappmoa-yamoiog	*	MAL-2025-179571
 npm	anaisah-pafai-asuia	*	MAL-2025-152590
-npm	anaisi-pafnolai-asigoga	*	MAL-2025-152591
+npm	anaisi-pafnolai-asigoga	1.3.3	MAL-2025-152591
 npm	anaisia-pafi-asia	*	MAL-2025-152592
 npm	anaisia-pafnolai-asigoga	*	MAL-2025-152593
 npm	anaisila-pafai-asia	*	MAL-2025-152594
@@ -24899,13 +24907,13 @@ npm	anak-jalanan-mdn9	*	MAL-2025-172864
 npm	anakjalanan	*	MAL-2025-179572
 npm	anala-aki-ini	*	MAL-2025-179573
 npm	anala-akiman-inui	*	MAL-2025-179574
-npm	anala-akiman-inuli	*	MAL-2025-179575
+npm	anala-akiman-inuli	1.3.3	MAL-2025-179575
 npm	anala-akimanu-inubuli	*	MAL-2025-179576
 npm	anala-akimn-inubuli	*	MAL-2025-179577
 npm	anala-akimnu-inubuli	*	MAL-2025-179578
 npm	anala-akin-inli	*	MAL-2025-179579
 npm	anala-akin-inuli	*	MAL-2025-179580
-npm	anala-akin-inuuli	*	MAL-2025-179581
+npm	anala-akin-inuuli	1.3.3	MAL-2025-179581
 npm	anala-akin-ni	*	MAL-2025-179582
 npm	anala-akin-nibnuluka	*	MAL-2025-179583
 npm	anala-akin-nil	*	MAL-2025-179584
@@ -24948,7 +24956,7 @@ npm	analusa-aki-iniu	*	MAL-2025-179606
 npm	analusi-pafai-asuia	*	MAL-2025-152632
 npm	analusia-akai-iniu	*	MAL-2025-179607
 npm	analusia-akfai-asuia	*	MAL-2025-152633
-npm	analusia-aki-iniu	*	MAL-2025-179608
+npm	analusia-aki-iniu	1.3.3	MAL-2025-179608
 npm	analusia-akiai-ainiu	*	MAL-2025-179609
 npm	analusia-akiai-auniniu	*	MAL-2025-152634
 npm	analusia-akiai-iniu	*	MAL-2025-179610
@@ -25032,7 +25040,7 @@ npm	anarchy	*	MAL-2025-14478
 npm	anargha-manu2324	1.0.0,1.0.2	MAL-2024-11899
 npm	anarzee-notthedevs	*	MAL-2025-99409
 npm	anastasia	*	MAL-2025-14479
-npm	anastasia-soluble-pot	*	MAL-2025-99410
+npm	anastasia-soluble-pot	1.0.0	MAL-2025-99410
 npm	anastasia-wallet-store	*	MAL-2025-99411
 npm	anatrafa	*	MAL-2025-14480
 npm	anaus-pafai-asuia	*	MAL-2025-152642
@@ -26065,11 +26073,11 @@ npm	anidata-hauli-mul	*	MAL-2025-172938
 npm	anidata-haulid-mav	*	MAL-2025-172939
 npm	anidata-haulid-mua	*	MAL-2025-172940
 npm	anidata-haulid-muba	*	MAL-2025-172941
-npm	anidata-haulid-mubda	*	MAL-2025-172942
+npm	anidata-haulid-mubda	1.0.0	MAL-2025-172942
 npm	anidata-haulid-mubdaf	*	MAL-2025-172943
 npm	anidata-haulid-mubdafl	*	MAL-2025-172944
 npm	anidata-hd-maa	*	MAL-2025-172945
-npm	anidata-hd-madidsa	*	MAL-2025-172946
+npm	anidata-hd-madidsa	1.0.0	MAL-2025-172946
 npm	anidata-hd-mafdidsa	*	MAL-2025-172947
 npm	anidata-hd-maisa	*	MAL-2025-172948
 npm	anidata-hd-masa	*	MAL-2025-172949
@@ -26095,7 +26103,7 @@ npm	anidata-hopanud-mafdidsa	*	MAL-2025-172968
 npm	anidata-hopanud-mafi	*	MAL-2025-172969
 npm	anidata-hopanud-mafidsa	*	MAL-2025-172970
 npm	anidata-hopanud-mafis	*	MAL-2025-172971
-npm	anidata-hopanud-mai	*	MAL-2025-172972
+npm	anidata-hopanud-mai	1.0.0	MAL-2025-172972
 npm	anidata-hopnud-mai	*	MAL-2025-172973
 npm	anidata-hopnud-maia	*	MAL-2025-172974
 npm	anidata-hopnud-mavida	*	MAL-2025-172975
@@ -26128,7 +26136,7 @@ npm	anidta-hauli-mudli	*	MAL-2025-173001
 npm	anidta-hauli-muli	*	MAL-2025-173002
 npm	anieort	3.26.10	MAL-2024-8739
 npm	anikapatel	*	MAL-2025-170884
-npm	animab	*	MAL-2025-170885
+npm	animab	1.0.0	MAL-2025-170885
 npm	animal_farm_by_george_orwell_npad7	*	MAL-2026-19291
 npm	animalrightshistory	*	MAL-2025-14541
 npm	animalrightshistory_888	*	MAL-2025-14542
@@ -26159,7 +26167,7 @@ npm	aniputri	*	MAL-2025-170887
 npm	anisetoilette	*	MAL-2025-170888
 npm	anislateef	*	MAL-2025-170889
 npm	anisnabeel	*	MAL-2025-170890
-npm	anisyafira	*	MAL-2025-170891
+npm	anisyafira	1.0.0	MAL-2025-170891
 npm	anita-buau-mgis	*	MAL-2025-173003
 npm	anita-butaaur-butaysa	*	MAL-2025-173004
 npm	anita-butaaur-butysa	*	MAL-2025-173005
@@ -26172,7 +26180,7 @@ npm	anita-butaur-mgfidsa	*	MAL-2025-173011
 npm	anita-butaur-mgids	*	MAL-2025-173012
 npm	anita-butaur-mgis	*	MAL-2025-173013
 npm	anita-butaur-msdagfidsa	*	MAL-2025-173014
-npm	anita-buy-mag	*	MAL-2025-173015
+npm	anita-buy-mag	1.0.0	MAL-2025-173015
 npm	anita-buyafu-mag	*	MAL-2025-173016
 npm	anita-buyafu-mgi	*	MAL-2025-173017
 npm	anita-buyau-mag	*	MAL-2025-173018
@@ -26525,7 +26533,7 @@ npm	antlr4-graps	*	MAL-2025-14606
 npm	antoinek	*	MAL-2025-14607
 npm	anton-downloader	1.0.0	MAL-2025-803
 npm	anton-uploader	1.0.2,1.0.5	MAL-2025-3378
-npm	antoniosouza	*	MAL-2025-170896
+npm	antoniosouza	1.0.0	MAL-2025-170896
 npm	antora-navigator-extension	99.99.98,99.99.99	MAL-2025-49348
 npm	antorrent	*	MAL-2025-14608
 npm	antraege	*	MAL-2025-14609
@@ -26652,7 +26660,7 @@ npm	apachecn-sec-zh-pt2	*	MAL-2025-43475
 npm	apachecn-socengi-wiki	*	MAL-2025-43476
 npm	apachecn-sys-zh	*	MAL-2025-43477
 npm	apachecn-vuln-wiki	*	MAL-2025-43478
-npm	apakri	*	MAL-2025-170902
+npm	apakri	1.0.0	MAL-2025-170902
 npm	apar	*	MAL-2025-14628
 npm	aparapi	*	MAL-2025-14629
 npm	apas-lepod-manadusiad	*	MAL-2025-172049
@@ -26666,9 +26674,9 @@ npm	apasih-led-pok	*	MAL-2025-172056
 npm	apasih-led-poki	*	MAL-2025-172057
 npm	apasih-led-pokia	*	MAL-2025-172058
 npm	apasih-led-pokiar	*	MAL-2025-172059
-npm	apasih-led-pokiari	*	MAL-2025-172060
+npm	apasih-led-pokiari	1.0.0	MAL-2025-172060
 npm	apasih-led-poldoa	*	MAL-2025-172061
-npm	apasih-leda-pk	*	MAL-2025-172062
+npm	apasih-leda-pk	1.0.0	MAL-2025-172062
 npm	apasih-leda-puakfimasak	*	MAL-2025-172063
 npm	apasih-leda-puakfimsak	*	MAL-2025-172064
 npm	apasih-leda-puakimsak	*	MAL-2025-172065
@@ -26678,7 +26686,7 @@ npm	apasih-leda-pukima	*	MAL-2025-172068
 npm	apasih-leda-pukimak	*	MAL-2025-172069
 npm	apasih-leda-pukimsak	*	MAL-2025-172070
 npm	apasih-ledan-puak	*	MAL-2025-172071
-npm	apasih-ledan-puakfi	*	MAL-2025-172072
+npm	apasih-ledan-puakfi	1.0.0	MAL-2025-172072
 npm	apasih-ledan-puakfima	*	MAL-2025-172073
 npm	apasih-ledan-puakfimas	*	MAL-2025-172074
 npm	apasih-ledan-puakfimasa	*	MAL-2025-172075
@@ -26698,7 +26706,7 @@ npm	apasih-ledog-pokiari	*	MAL-2025-172088
 npm	apasih-ledonf-po	*	MAL-2025-172089
 npm	apasih-ledonf-pold	*	MAL-2025-172090
 npm	apasih-ledonf-poldoa	*	MAL-2025-172091
-npm	apasih-ledong-po	*	MAL-2025-172092
+npm	apasih-ledong-po	1.0.0	MAL-2025-172092
 npm	apasih-ledong-pok	*	MAL-2025-172093
 npm	apasih-ledong-pokia	*	MAL-2025-172094
 npm	apasih-ledong-pokiar	*	MAL-2025-172095
@@ -26713,7 +26721,7 @@ npm	apasih-me-pantekail	*	MAL-2025-172103
 npm	apasih-me-pantekaili	*	MAL-2025-172104
 npm	apasih-me-po	*	MAL-2025-172105
 npm	apasih-me-pol	*	MAL-2025-172106
-npm	apasih-me-polda	*	MAL-2025-172107
+npm	apasih-me-polda	1.0.0	MAL-2025-172107
 npm	apasih-me-poldoa	*	MAL-2025-172108
 npm	apasih-mem-poldoa	*	MAL-2025-172109
 npm	apasih-meme-poldoa	*	MAL-2025-172110
@@ -28366,7 +28374,7 @@ npm	arif-ubi41-miaww	*	MAL-2025-112722
 npm	arif-wajit47-sluey	*	MAL-2025-61953
 npm	arif-wajit69-riris	*	MAL-2025-50874
 npm	arif-wajit9-sukiwir	*	MAL-2025-76913
-npm	arifali	*	MAL-2025-170907
+npm	arifali	1.0.0	MAL-2025-170907
 npm	arifcroissant	*	MAL-2025-170908
 npm	arifnoor	*	MAL-2025-170909
 npm	arifsaeed	*	MAL-2025-170910
@@ -28623,7 +28631,7 @@ npm	arroute	*	MAL-2025-14867
 npm	arsenic-tabasco-cyborg-peanut-butter	*	MAL-2025-14868
 npm	arsgit	*	MAL-2025-14869
 npm	arshadabdul	*	MAL-2025-170912
-npm	arshadahmed	*	MAL-2025-170913
+npm	arshadahmed	1.0.0	MAL-2025-170913
 npm	arshadameen	*	MAL-2025-170914
 npm	arsya-baileys	9.2.0,9.2.1,9.2.2,9.2.3,9.2.4	MAL-2026-17387
 npm	art19-web-player	*	MAL-2025-5221
@@ -62380,6 +62388,7 @@ npm	dsgs-trds-trud	*	MAL-2025-174117
 npm	dsgs-trus-pix	*	MAL-2025-174118
 npm	dsgs-trus-psix	*	MAL-2025-174119
 npm	dsgs-txcui-pix	*	MAL-2025-174120
+npm	dsh-blue-team-mode	3.0.0-beta.17,3.0.0-beta.18,3.0.0-beta.19,3.0.0-beta.20,3.0.0-beta.21	MAL-2026-20315
 npm	dsh-moss-console	3.3.0	MAL-2026-18522
 npm	dsh-moss-wallpaper	3.4.0	MAL-2026-18523
 npm	dsh-native	1.4.1	MAL-2026-18315
@@ -91640,7 +91649,7 @@ npm	hrdebjywvtkmcpga	*	MAL-2022-3683
 npm	hreactjs	1.1.1,1.1.2,1.1.4,8.7.6	MAL-2026-7295
 npm	hreport-preview	*	MAL-2023-1521
 npm	hretokxbpwuilnck	*	MAL-2022-3684
-npm	hridoy-ultimate	8.0.0	MAL-2026-17803
+npm	hridoy-ultimate	8.0.0,8.0.5,9.0.0,9.0.1,9.0.2,9.0.3,9.0.4	MAL-2026-17803
 npm	hrm-absence-frontend-deps	1.0.1	MAL-2025-48029
 npm	hrodei	*	MAL-2025-22740
 npm	hrp987	1.0.0	MAL-2025-47118
@@ -93719,6 +93728,7 @@ npm	identity-frontend-common	*	MAL-2025-22967
 npm	identity-management	*	MAL-2023-514
 npm	identity-module-miniapp	*	MAL-2022-3770
 npm	identity-partners-site	*	MAL-2022-3771
+npm	identity-poc	1.0.3	MAL-2026-20303
 npm	identity-sam-landing	*	MAL-2022-3772
 npm	identity-site	*	MAL-2022-3773
 npm	identity-two-factor	999.0.0	MAL-2026-18367
@@ -119376,6 +119386,7 @@ npm	lyte-dom	*	MAL-2022-4438
 npm	lyu_pkg	*	MAL-2025-25728
 npm	lyu_test_test_test	*	MAL-2025-25729
 npm	lyuyt5	*	MAL-2025-25730
+npm	lyxe-baileys	*	MAL-2026-20301
 npm	lz-evm-protocol-v2	3.1.99	MAL-2025-5787
 npm	lz-evm-sdk-v1	2.9.90	MAL-2025-5788
 npm	lzcfdrkwkxhsjegu	*	MAL-2025-25731
@@ -129042,6 +129053,7 @@ npm	motion-tool	2.3.8	MAL-2026-4615
 npm	motion-ui-tool	*	MAL-2026-4321
 npm	motiondnb	99.9.1	MAL-2026-10145
 npm	motionflow	*	MAL-2025-42027
+npm	motionframe-plugins	*	MAL-2026-20298
 npm	motionless-coffee-centipede	*	MAL-2025-69485
 npm	motionless-lavender-bison	*	MAL-2025-69486
 npm	motionless-purple-limpet	*	MAL-2025-69487
@@ -146283,6 +146295,7 @@ npm	original_wren_z3n	*	MAL-2025-122420
 npm	originaldevelopmentstelemetry	1.2.2,1.2.7	MAL-2026-15586
 npm	orildyn-notthedevs	*	MAL-2025-106801
 npm	orion-all-6.0.2	*	MAL-2024-7980
+npm	orion-overlord	*	MAL-2026-20319
 npm	orion-react-native	*	MAL-2022-5122
 npm	orion-ui	9.1.1,9.1.2,9.2.2,9.2.3	MAL-2025-41254
 npm	orion-web	*	MAL-2022-5123
@@ -160597,6 +160610,7 @@ npm	qylkkc-devapptea	*	MAL-2025-107682
 npm	qyrnjh-devapptea	*	MAL-2025-107683
 npm	qyxb	*	MAL-2026-120
 npm	qzcomabjsvtgrkyx	*	MAL-2022-5568
+npm	qzi2v-tttf1-testmetest	1.0.1	MAL-2026-20304
 npm	r-baileys	1.0.0	MAL-2026-19004
 npm	r00tsid	*	MAL-2025-41402
 npm	r00tsid1	*	MAL-2025-41403
@@ -184158,6 +184172,7 @@ npm	swap-subgraph	2.0.0	MAL-2025-3587
 npm	swap-token-list	*	MAL-2025-4766
 npm	swap-token-list-poc	*	MAL-2025-6314
 npm	swap_middleware	*	MAL-2025-34281
+npm	swaplearn-cli	*	MAL-2026-20318
 npm	swaptrack	*	MAL-2025-34282
 npm	swarmcube	*	MAL-2025-34283
 npm	swaty-color	*	MAL-2022-6374
@@ -196166,6 +196181,7 @@ npm	ton-wallet	*	MAL-2025-1634
 npm	tonegen	*	MAL-2025-37035
 npm	tongguo-shiyong-ue4-goujian-youxi-xuexi-c	*	MAL-2025-46364
 npm	tongxue	*	MAL-2025-37036
+npm	tonty-tech-interviews	*	MAL-2026-20316
 npm	tonya-teadev	*	MAL-2025-109763
 npm	tonypia	*	MAL-2025-37037
 npm	toobit	*	MAL-2025-1445
@@ -209335,6 +209351,7 @@ npm	vre43	*	MAL-2025-38637
 npm	vreactjs	1.1.2,1.1.4,8.7.6	MAL-2026-7431
 npm	vreb3	*	MAL-2025-38638
 npm	vrenv	*	MAL-2025-38639
+npm	vreqtx-b5w3n-testmetest	1.0.1	MAL-2026-20305
 npm	vrfger3	*	MAL-2025-38640
 npm	vrfi-cal-registration	*	MAL-2025-38641
 npm	vrfi-schedules	*	MAL-2025-38642
@@ -217563,6 +217580,7 @@ npm	xss-finder-0xsapra	*	MAL-2022-7300
 npm	xss-payload-7n-ctf	*	MAL-2025-49387
 npm	xss-payload-all	*	MAL-2025-49388
 npm	xss-test-gaurav	*	MAL-2022-7301
+npm	xssdoctor-muse-task448-provider-runtime	1.0.0	MAL-2026-20306
 npm	xssnn20251	1.0.2	MAL-2025-48399
 npm	xsstesting	*	MAL-2026-893
 npm	xsstesttttttttt	*	MAL-2023-978
@@ -225320,6 +225338,7 @@ pypi	cicd-ppe-redteam-test02	1.0.0,1.0.2,1.0.3	MAL-2026-1064
 pypi	cicd-ppe-test	1.0.0	MAL-2026-731
 pypi	cicibot-fix-message-naming	0.0.1	MAL-2026-921
 pypi	cick	*	MAL-2023-1680
+pypi	cijukop	1.0.0	MAL-2026-20312
 pypi	cikit-learn	*	MAL-2023-1681
 pypi	cilorama	1.0.0	MAL-2024-4890
 pypi	cipherbcrypto	1.5	MAL-2024-11557
@@ -225969,6 +225988,7 @@ pypi	defi-tools	0.8.0	MAL-2026-10192
 pypi	dekugay	1.0	MAL-2024-5035
 pypi	dell-recovery	99.99.99	MAL-2025-192305
 pypi	dell-restore-system	99.99.99	MAL-2025-192306
+pypi	delta-nested-filter-tracer	1.0.0,1.0.0.post1	MAL-2026-20307
 pypi	demo-malicious-package	2022.12.7	MAL-2024-5036
 pypi	demo-pingtest-xyz	0.0.1	MAL-2026-19935
 pypi	demontonto	1.0.8	MAL-2024-5037
@@ -228197,6 +228217,7 @@ pypi	installyoura	0.1.0	MAL-2025-191641
 pypi	instalogin1234	0.0.1	MAL-2026-11503
 pypi	instantcolor	0.0.2,0.0.3,0.0.4,0.0.5,0.0.6,0.0.7,0.0.8	MAL-2024-5271
 pypi	instantobfosires	0.1.0	MAL-2024-5272
+pypi	instantscrape	0.1.0,0.1.5,0.1.8	MAL-2026-20322
 pypi	instaread	0.1.0,0.1.1,0.1.2,0.1.3	MAL-2024-12292
 pypi	instarequests	0.1.5	MAL-2024-5273
 pypi	instascan-pro	1.0.0	MAL-2026-498
@@ -230422,6 +230443,7 @@ pypi	pitest117	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9,1.1.1
 pypi	piynstaller	*	MAL-2023-1947
 pypi	pjllow	1.0.0	MAL-2024-5550
 pypi	pkg-fallback	1.1.0	MAL-2026-6557
+pypi	pkgreg-buildprobe-16c409218045	0.0.1,0.0.2	MAL-2026-20308
 pypi	pkproxy	6.9.2	MAL-2025-41718
 pypi	plasticswampbubble	99.0	MAL-2024-5551
 pypi	platform-harness-ecr-configmap	99.99.99	MAL-2024-11659
@@ -232876,6 +232898,7 @@ pypi	scikti-learn	*	MAL-2023-2223
 pypi	sckiit-learn	*	MAL-2023-2224
 pypi	sclighte	1	MAL-2024-5968
 pypi	sclite	1	MAL-2024-5969
+pypi	scope-token-fetch-vector	1.0.0,1.0.0.post1	MAL-2026-20302
 pypi	scraapy	*	MAL-2023-2225
 pypi	scrambleeeer	0.1.0	MAL-2026-14358
 pypi	scrambleeer	0.1.0,0.1.1	MAL-2026-14350
@@ -233879,6 +233902,8 @@ pypi	si-python	0.0.1	MAL-2024-6009
 pypi	siamphishtest	2.1.6,2.1.7,2.1.8	MAL-2024-6010
 pypi	sickit-learn	*	MAL-2023-2244
 pypi	siempyl-sumo	0.0.1	MAL-2026-2534
+pypi	signed-manifest-guard	0.1.7	MAL-2026-20323
+pypi	signed-manifest-updater	0.1.5	MAL-2026-20317
 pypi	siimplejson	*	MAL-2023-2245
 pypi	siitoogether	0.0.5,0.0.6,0.0.7,0.0.8,0.0.9	MAL-2025-191867
 pypi	sikit-learn	*	MAL-2023-2246
@@ -234450,6 +234475,7 @@ pypi	testfiwldsd21233s	0.1	MAL-2024-6113
 pypi	testing1232	0.0.1	MAL-2024-6114
 pypi	testing123kk	10.0.5	MAL-2025-6336
 pypi	testing1345	0.1.0	MAL-2026-19247
+pypi	testing1345py	0.1.3,0.1.4	MAL-2026-20313
 pypi	testingiasdf1	2.31.10,2.31.6,2.31.9	MAL-2024-6115
 pypi	testingiavv	2.31.10	MAL-2024-6116
 pypi	testingpkgja	0.1.0	MAL-2025-191894
@@ -236175,6 +236201,7 @@ pypi	workingitmehelpit	1.0.0	MAL-2026-3664
 pypi	workslip	0.1.0	MAL-2026-18241
 pypi	worldhello	1.0.0	MAL-2025-5174
 pypi	worldnex	1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.1.0,2.0.0,2.0.1	MAL-2025-47813
+pypi	wouki-lipok	1.0.0	MAL-2026-20309
 pypi	wr-test	100.1337,101.1337	MAL-2025-1008
 pypi	wue	1.0	MAL-2024-6215
 pypi	wweb	1.0.0	MAL-2024-10217
