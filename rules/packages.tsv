@@ -2082,6 +2082,11 @@ npm	@bytedanc-ad/mui-wc	89.3.5	MAL-2024-10468
 npm	@bytedanc/mona-client-web	89.3.5	MAL-2024-11258
 npm	@bytedanc/mona-max	9.3.5	MAL-2024-11259
 npm	@bytemend/mfebus	1.4.0,1.4.1,1.4.2,1.4.3,1.4.4,1.4.5	MAL-2026-6213
+npm	@c1-ease/autoloan	1.0.0,1.0.1,1.1.0,2.0.0,2.0.1,3.0.0,99.0.1	MAL-2026-20325
+npm	@c1-ease/bank	0.0.1,1.0.0,1.0.1,2.0.0,2.0.1,3.0.0,99.0.1	MAL-2026-20326
+npm	@c1-ease/card	0.0.1,1.0.0,1.0.1,1.1.0,2.0.1,99.0.1	MAL-2026-20327
+npm	@c1-ease/commerce	1.0.1,1.1.0,2.0.0,2.0.1,3.0.0	MAL-2026-20324
+npm	@c1-ease/core	1.0.0,1.0.1,1.1.0,2.0.0,2.0.1,3.0.0,99.0.1	MAL-2026-20328
 npm	@c11-lib-ts/document-handler	1.0.0	MAL-2025-1557
 npm	@c6bank/diamond	*	MAL-2022-162
 npm	@c8o/nimbus-core	1.0.13	MAL-2026-2314
@@ -6676,6 +6681,7 @@ npm	@lbnqduy2180500/scaling-octo-winner	*	MAL-2025-42686
 npm	@lbnqduy2180500/silver-octo-pancake	*	MAL-2025-8366
 npm	@lbnqduy2180500/special-enigma	*	MAL-2025-42687
 npm	@lbnqduy2180500/turbo-train	*	MAL-2025-42688
+npm	@leadstack/crm-connect	1.0.15,1.0.18,1.0.19,1.0.20,1.0.21,1.0.29,1.0.30	MAL-2026-20330
 npm	@leaffm/automatic-script-test	*	MAL-2025-8367
 npm	@leaffm/automatically-gen-script	*	MAL-2025-8368
 npm	@leaffm/components	*	MAL-2025-8369
@@ -22474,7 +22480,7 @@ npm	ai-workshop-radio-app	100.0.0	MAL-2026-17428
 npm	ai-workshop-radio-lambda	100.0.0	MAL-2026-17429
 npm	ai3	0.3.5	MAL-2026-4476
 npm	ai_challenge	*	MAL-2025-3814
-npm	aia-b-locator-fe	1.0.3	MAL-2026-20320
+npm	aia-b-locator-fe	1.0.1,1.0.2,1.0.3	MAL-2026-20320
 npm	aiasahu-sautg-infaru	*	MAL-2025-172742
 npm	aibadali	*	MAL-2025-170724
 npm	aiboa-milipe-apamipa	*	MAL-2025-179434
@@ -30149,6 +30155,7 @@ npm	autogen_studio	1.0.0,1.0.2	MAL-2024-9514
 npm	autogestion-aprendizaje	1.0.4	MAL-2025-2241
 npm	autoheal-dev-cli	1.0.4,1.0.5,1.0.6,1.0.7,1.0.9,1.2.5,1.2.6,1.2.7,1.2.9	MAL-2026-4492
 npm	autolink-jira-issue	1.0.0	MAL-2024-10553
+npm	autoloan	0.0.1,1.1.0,2.0.0,3.0.0	MAL-2026-20329
 npm	automanga	*	MAL-2025-15117
 npm	automate-loadtest-action	*	MAL-2022-1178
 npm	automated-end-to-end-tests	*	MAL-2022-1179
