@@ -1801,6 +1801,7 @@ npm	@balajih4kr/postcss	*	MAL-2025-4636
 npm	@balea-telefonica/ui	10.10.92,10.10.93,10.10.94,10.10.95	MAL-2023-24
 npm	@balea/ui	*	MAL-2025-7110
 npm	@banana-cake-pop/data	1.9.10	MAL-2023-8391
+npm	@bananacool467/ui-tools	0.1.0-beta,0.1.1-beta,0.1.2-beta,0.1.3-beta,0.1.4-beta,0.1.5-beta,0.1.6-beta,0.1.7-beta,0.1.8-beta	MAL-2026-13416
 npm	@bancolonbia/menu-filter-widget-web	0.0.1	MAL-2026-5344
 npm	@bane-mlb/less-styles	*	MAL-2025-3224
 npm	@bank-widgets/whats-new	99.0.7	MAL-2026-3335
@@ -1873,6 +1874,7 @@ npm	@beloved-lenora/opencode-shared-rpc	*	MAL-2026-17906
 npm	@beloved-lenora/opencode-shell-guard	1.0.3,1.0.4	MAL-2026-17907
 npm	@beloved-lenora/opencode-stats	*	MAL-2026-17908
 npm	@beloved-lenora/opencode-todo	*	MAL-2026-17909
+npm	@bemine/motion-kit	*	MAL-2026-20361
 npm	@benasin_2/frontend-logger	*	MAL-2024-8027
 npm	@beproduct/nestjs-auth	0.1.10,0.1.11,0.1.12,0.1.13,0.1.14,0.1.15,0.1.16,0.1.17,0.1.18,0.1.19,0.1.2,0.1.3,0.1.4,0.1.5,0.1.6,0.1.7,0.1.8,0.1.9	MAL-2026-3433
 npm	@berkshirehathaway/fetlife-assets	*	MAL-2022-117
@@ -2106,6 +2108,7 @@ npm	@callcenter-frontend/services	99.0.2025091-3.12	MAL-2025-41827
 npm	@callcenter-frontend/shared-types	99.0.2025091-3.1,99.0.2025091-3.13	MAL-2025-41828
 npm	@callcenter-frontend/ui	99.0.2025091-3.1,99.0.2025091-3.15	MAL-2025-41829
 npm	@callcenter-frontend/ui-components	99.0.2025091-3.14,99.0.2025091-3.2	MAL-2025-41830
+npm	@callmewanz/bails	1.0.0	MAL-2026-20334
 npm	@calm2026/imux	*	MAL-2026-7027
 npm	@camdenliving/fetlife-assets	*	MAL-2022-164
 npm	@camera.ui/camera-ui-nvr-windows-amd64	1.6.1	MAL-2026-18337
@@ -5677,6 +5680,9 @@ npm	@hopper-b2b/utilities	1.0.0,131.0.0	MAL-2025-8072
 npm	@hopper-b2b/volaris	1.0.0,311.0.0	MAL-2025-8073
 npm	@hornetsecurity/angular-pew-pew	1.0.0,1.0.3,1.0.5,15.0.0	MAL-2025-6890
 npm	@hornetsecurity/angular-search-box	18.0.0	MAL-2025-6903
+npm	@hostk/host-details	*	MAL-2026-20357
+npm	@hostk/host-package-manager	*	MAL-2026-20358
+npm	@hostk/postcss-motion-helpers	*	MAL-2026-20359
 npm	@hotandcold/classic-webview	*	MAL-2025-6687
 npm	@hotcappuccino/nodepull	1.0.0,1.0.1	MAL-2026-6085
 npm	@hotcookies/bar	0.0.0	MAL-2024-1811
@@ -5835,6 +5841,7 @@ npm	@ikeacn/utils	*	MAL-2026-465
 npm	@ikeacnalan/icons	99.9.9	MAL-2026-676
 npm	@ikhsan-project/dizzanzz	1.0.0	MAL-2026-18847
 npm	@iky-erza/baileys	0.1.0	MAL-2026-20284
+npm	@iky-zan/baileys	0.1.0	MAL-2026-20339
 npm	@ikyerza/baileys	1.0.0,1.1.1,1.2.0	MAL-2026-20285
 npm	@ikyybella/baileys	1.0.0	MAL-2026-18848
 npm	@ikyyjee/ikkysingle	0.1.2	MAL-2026-17356
@@ -6212,7 +6219,7 @@ npm	@kindred-feature/deposit-limits	*	MAL-2022-381
 npm	@kindredext/fetlife-assets	*	MAL-2022-382
 npm	@kinggupong/baileys	*	MAL-2026-1366
 npm	@kinggupong/libsignal-node	*	MAL-2026-1367
-npm	@kingorwot/my-baileys	2.0.0	MAL-2026-20292
+npm	@kingorwot/my-baileys	2.0.0,3.0.0	MAL-2026-20292
 npm	@kingsaurus/libsignal-node	*	MAL-2026-19962
 npm	@kite-js-tools/core	1.0.0	MAL-2026-12319
 npm	@kiukicom/sidebar	*	MAL-2026-1023
@@ -10530,6 +10537,8 @@ npm	@riyanofficial/baileys	10.0.0,3.0.0,3.0.1,3.0.2,4.0.0,8.0.0,8.4.12	MAL-2026-
 npm	@riyanofficial/baileys-pro	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7	MAL-2026-18886
 npm	@rizzkezik/baileys	1.1.1	MAL-2026-18887
 npm	@rizzkezik/bails	6.1.0,6.1.1,6.1.2	MAL-2026-18888
+npm	@rizzkezik/bailseys	6.7.10	MAL-2026-20335
+npm	@rizzkezik/bailss	1.2.0	MAL-2026-20336
 npm	@rmlibrary/formatting	*	MAL-2026-6645
 npm	@rnps-ppr/gensen-gotham	*	MAL-2022-563
 npm	@rnps-ppr/ppr-gensenjs	*	MAL-2022-564
@@ -11047,6 +11056,7 @@ npm	@signals-notebook/utils	0.0.1	MAL-2026-2520
 npm	@signify/vue-components	*	MAL-2026-45
 npm	@siigo-arquitectura/button-atom	5.0.2,5.0.3,5.0.5,5.0.7	MAL-2023-8302
 npm	@siigo-arquitectura/mf-helper	5.0.1,5.0.2	MAL-2023-8301
+npm	@silent404/baileys	7.0.0,7.0.1,7.0.2,7.2.1	MAL-2026-20337
 npm	@silgi/better-auth	0.8.1	MAL-2025-191311
 npm	@silgi/drizzle	0.8.4	MAL-2025-191312
 npm	@silgi/ecosystem	0.7.6	MAL-2025-191313
@@ -13143,6 +13153,7 @@ npm	@xvortexsockets/baileys	*	MAL-2026-2153
 npm	@xxxfnbs21/hello-demo	0.0.0-stage,0.1.0,0.1.1,0.1.2,0.1.3,0.1.5,0.1.6,0.1.8	MAL-2026-17876
 npm	@xyrozero/baileys-mod	8.0.14	MAL-2026-18916
 npm	@xyuxu/i18never	*	MAL-2025-192617
+npm	@xz-bails/baileys	6.0.10,6.0.11	MAL-2026-20340
 npm	@xzvbailss/baileys	1.0.0,5.0.0,6.0.0,6.0.6,6.0.8,6.0.9	MAL-2026-19946
 npm	@xzvbailss/xz-protect	*	MAL-2026-19965
 npm	@xzvbailss/xzgateway	*	MAL-2026-19966
@@ -17868,6 +17879,7 @@ npm	@zeppeliorg/wbails	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.7-bet
 npm	@zeppeliorg/xzcbailz	1.0.0,1.0.1,1.0.2	MAL-2026-18926
 npm	@zeppeliorg/yt-sdl	*	MAL-2026-19967
 npm	@zeronexcode/baileys	7.0.0-zeronex.8	MAL-2026-17326
+npm	@zervonex/baileys	*	MAL-2026-20362
 npm	@zetagoaurum-socket/wasocket	2.1.0,2.1.1,2.1.2,2.1.3,2.1.4,2.1.5,2.1.6,2.1.7,2.1.8,2.1.9,2.2.0,2.2.1,2.2.2,3.0.0,3.1.0,3.2.7	MAL-2026-18927
 npm	@zettle-bo/account-settings	35.0.0	MAL-2023-8189
 npm	@zettle-bo/account-statement	35.0.0	MAL-2023-8190
@@ -19018,6 +19030,7 @@ npm	abiogenesis-terraforming-sublimation-supercluster	*	MAL-2025-185359
 npm	abiogenesis-version-magnetosphere-typeorm	*	MAL-2025-185360
 npm	abiogenesis-webpack-innercore-request	*	MAL-2025-13954
 npm	abir-dl	*	MAL-2025-3813
+npm	abir-fca	0.0.25	MAL-2026-20345
 npm	abiua-avungi-agani	*	MAL-2025-151446
 npm	abiua-moban-atayamuma	*	MAL-2025-151447
 npm	abiua-moban-atayauma	*	MAL-2025-151448
@@ -23587,6 +23600,7 @@ npm	algol-weywot-loopback-nodejs	*	MAL-2025-139314
 npm	algolia-analyzer	9.9.9	MAL-2024-9021
 npm	algoliasearch-v5	9.9.9	MAL-2024-9057
 npm	algomath	*	MAL-2025-14305
+npm	ali-ai-coding-trace	1.0.0	MAL-2026-20351
 npm	ali-contributor	*	MAL-2025-14306
 npm	ali-contributors	*	MAL-2025-14307
 npm	ali-in-wlnd-test-1	*	MAL-2024-7440
@@ -26641,6 +26655,10 @@ npm	apa-salwa-tea	*	MAL-2025-173067
 npm	apache-airflow-ui	9.9.9,99.9.9	MAL-2024-11941
 npm	apache-arrow-17	9.9.9	MAL-2026-7206
 npm	apache-httpclient	1.0.0	MAL-2025-3609
+npm	apache-httpclient10	1.0.0	MAL-2026-20353
+npm	apache-httpclient2	1.0.0	MAL-2026-20354
+npm	apache-httpclient6	1.0.0	MAL-2026-20355
+npm	apache-httpclient7	1.0.0	MAL-2026-20356
 npm	apache-iotdb	1.0.0	MAL-2025-4430
 npm	apache-superset-docs	1.2.1	MAL-2025-2360
 npm	apache2	1.1.9	MAL-2023-1114
@@ -28582,6 +28600,7 @@ npm	array-byte-code-reject-promise	*	MAL-2025-14859
 npm	array-compress	*	MAL-2025-14860
 npm	array-empty-validator	*	MAL-2025-2296
 npm	array-eta-sudo-new-cron	*	MAL-2025-185567
+npm	array-flatten-utils	1.0.1,1.0.2,1.0.4,1.0.5	MAL-2026-20346
 npm	array-frames	2.3.2,2.3.3,2.3.4,2.3.5,2.3.6	MAL-2026-15969
 npm	array-hash-view-balance-authenticate	*	MAL-2025-14861
 npm	array-inline	2.0.5	MAL-2026-17942
@@ -33341,7 +33360,7 @@ npm	base65-77x	5.0.2	MAL-2026-13750
 npm	base65-85x	5.0.1	MAL-2026-6704
 npm	base65536gen	*	MAL-2025-15496
 npm	base99-85x	5.0.2	MAL-2026-14304
-npm	base_parts_ai	1.0.50,1.0.52,1.0.66	MAL-2026-6228
+npm	base_parts_ai	1.0.50,1.0.52,1.0.66,1.0.67	MAL-2026-6228
 npm	base_sdk_const	99.2.1	MAL-2025-4722
 npm	basecam	*	MAL-2025-15497
 npm	basecontext	*	MAL-2024-8925
@@ -39532,6 +39551,7 @@ npm	bumpy_xerinae_cyan-6	*	MAL-2025-111709
 npm	bun-plugin-httpfile	0.1.1	MAL-2025-191079
 npm	bundle-alert-runtime-private-bundle	*	MAL-2025-185939
 npm	bundle-cryp	*	MAL-2025-170
+npm	bundle-entry-points	1.0.0	MAL-2026-20350
 npm	bundle-minify-query-void-java	*	MAL-2025-16342
 npm	bundle-shell-hash-spy-import	*	MAL-2025-16343
 npm	bundle-static-pipe-mu-float	*	MAL-2025-185940
@@ -41432,6 +41452,7 @@ npm	canopy-common-fo	*	MAL-2023-157
 npm	canta-baileys	1.1.13	MAL-2026-18632
 npm	cantarel	*	MAL-2026-19968
 npm	cantarella-baileys	1.1.11,1.1.12,1.1.13	MAL-2026-17390
+npm	cantarelllaa	*	MAL-2026-20363
 npm	cantina-senior-frontend-interview-prompt	19.1.12	MAL-2025-3283
 npm	cantynovi	*	MAL-2025-16501
 npm	canusefetchstream	*	MAL-2022-1821
@@ -47671,6 +47692,7 @@ npm	code.jquery.ajax	*	MAL-2024-1576
 npm	codeam-cli	2.61.1,2.61.3	MAL-2026-10730
 npm	codeanalysis-common	1.0.1,1.0.2	MAL-2026-2344
 npm	codebarrel	0.9.9,1.9.9,2.9.9,9.9.9,99.9.9,999.9.9	MAL-2025-2302
+npm	codebase-utilites	*	MAL-2026-20360
 npm	codebird-js	*	MAL-2022-1970
 npm	codebuff-cli	1.0.10,1.0.11,1.0.12,1.0.14,1.0.15,1.0.17,1.0.18,1.0.19,1.0.20,1.0.21,1.0.22,1.0.23,1.0.24,1.0.26,1.0.27,1.0.28,1.0.4,1.1.0,1.1.1,1.1.10,1.1.11,1.1.12,1.1.2,1.1.3,1.1.4,1.1.5,1.1.6,1.1.7,1.1.8	MAL-2026-4533
 npm	codeceptjs-browserstack	*	MAL-2023-197
@@ -52281,6 +52303,7 @@ npm	ctfxmlflgcheck	*	MAL-2025-192612
 npm	cth-poc	1.0.0,1.0.1,1.0.10,1.0.11,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2025-1212
 npm	cthipjznlgrwqysa	*	MAL-2022-2272
 npm	cthwxpoc	*	MAL-2024-11117
+npm	cti-defense	1.0.0	MAL-2026-20332
 npm	ctijdpgxrhqaknso	*	MAL-2022-2273
 npm	ctmjobs	1.0.0	MAL-2025-1777
 npm	ctrlform	*	MAL-2025-17813
@@ -60991,6 +61014,7 @@ npm	dowload_ebok_1917_une_passion_russe_by_max_gallo_d2xeh	*	MAL-2025-47476
 npm	dowload_ebok_1_and_2_thessalonians_by_andy_johnson_7yj6d	*	MAL-2026-19671
 npm	dowload_ebok_21_ways_to_increase_employee_engagement_by_pat_heydlauff_bcp71	*	MAL-2026-19300
 npm	dowload_ebok_5_histoires_de_petit_ours_brun_les_loisirs_by_marie_aubinais_daniele_bour_1ed5t	*	MAL-2026-19301
+npm	dowload_ebok_a_arte_de_ter_razao_by_arthur_schopenhauer_1jdid	*	MAL-2026-20364
 npm	dowload_ebok_a_bela_e_a_fera_by_elizabeth_rudnick_evan_spiliotopoulos_stephen_ch_9ooey	*	MAL-2025-3387
 npm	dowload_ebok_a_concise_history_of_computers_smartphones_and_th_by_ernie_dainow_3at7j	*	MAL-2026-19672
 npm	dowload_ebok_a_dance_with_the_devil_by_michelle_willingham_mnpe8	*	MAL-2026-19302
@@ -61017,6 +61041,8 @@ npm	dowload_ebok_all_the_kremlin_s_men_by_mikhail_zygar_an5i4	*	MAL-2026-19315
 npm	dowload_ebok_alles_inklusive_by_mareice_kaiser_x6x1o	*	MAL-2026-19316
 npm	dowload_ebok_along_came_a_spider_by_james_patterson_9yq87	*	MAL-2026-19679
 npm	dowload_ebok_also_an_octopus_by_maggie_tokuda_hall_ah2ip	*	MAL-2026-3794
+npm	dowload_ebok_america_debilitada_by_donald_trump_posof	*	MAL-2026-20365
+npm	dowload_ebok_amor_e_amizade_by_jane_austen_3etkx	*	MAL-2026-20366
 npm	dowload_ebok_anabolikum_das_rote_buch_by_uwe_ramspeck_eokrj	*	MAL-2026-19317
 npm	dowload_ebok_archangel_s_heart_by_nalini_singh_gy81h	*	MAL-2026-19318
 npm	dowload_ebok_armageddon_by_max_hastings_kv3s4	0.0.0-stage	MAL-2026-18397
@@ -61462,6 +61488,7 @@ npm	dowload_ebok_puppy_love_by_rachel_renee_russell_7ae7c	*	MAL-2026-19825
 npm	dowload_ebok_quand_la_mediumnite_s_impose_le_temoignage_bo_by_florence_hubert_c20y0	*	MAL-2026-19556
 npm	dowload_ebok_quatre_filles_et_un_chateau_by_julia_quinn_eloisa_james_connie_brockway_f74qd	*	MAL-2026-19557
 npm	dowload_ebok_quem_perdoa_liberta_by_wanderley_oliveira_f5dmd	*	MAL-2026-19558
+npm	dowload_ebok_quicken_2017_the_complete_beginners_guide_by_gack_davidson_fxl3y	*	MAL-2026-20367
 npm	dowload_ebok_quien_manda_aqui_by_felipe_gonzalez_gerson_damiani_jose_fernandez_a_63oo3	*	MAL-2026-19826
 npm	dowload_ebok_ragdoll_dein_letzter_tag_by_daniel_cole_hbs5n	*	MAL-2026-19559
 npm	dowload_ebok_ramcharitmanas_by_tulsidas_1ad93	*	MAL-2026-19560
@@ -61558,11 +61585,13 @@ npm	dowload_ebok_the_agent_runner_by_simon_conway_70ch1	*	MAL-2026-19602
 npm	dowload_ebok_the_autoimmune_fix_by_tom_o_bryan_55y9o	*	MAL-2026-19603
 npm	dowload_ebok_the_beginner_s_bible_by_the_beginner_s_bible_ety5v	*	MAL-2026-19604
 npm	dowload_ebok_the_benedict_option_by_rod_dreher_mywhh	*	MAL-2026-19863
+npm	dowload_ebok_the_bhagavad_gita_by_vyasa_feb1l	*	MAL-2026-20368
 npm	dowload_ebok_the_billionaire_daddy_by_emma_lea_43kvs	*	MAL-2026-19605
 npm	dowload_ebok_the_billionaire_shifter_s_secret_baby_by_diana_seere_phlp1	*	MAL-2026-19606
 npm	dowload_ebok_the_cancer_fighting_kitchen_second_edition_by_rebecca_katz_mat_edelson_u96w9	*	MAL-2026-19864
 npm	dowload_ebok_the_complete_rigger_s_apprentice_tools_and_techni_by_brion_toss_1icy5	*	MAL-2026-19607
 npm	dowload_ebok_the_complete_works_of_charles_dickens_illustrated_by_charles_dickens_t406m	*	MAL-2026-19865
+npm	dowload_ebok_the_craft_sequence_by_max_gladstone_igdta	*	MAL-2026-20369
 npm	dowload_ebok_the_daring_duke_by_jess_michaels_d4vth	*	MAL-2026-19866
 npm	dowload_ebok_the_duke_s_secret_heir_by_sarah_mallory_w476t	*	MAL-2026-19867
 npm	dowload_ebok_the_e_hoffmann_price_fantasy_science_fiction_me_by_e_hoffmann_price_q9qbs	*	MAL-2026-19868
@@ -61597,6 +61626,7 @@ npm	dowload_ebok_the_son_of_neptune_the_graphic_novel_heroes_of_o_by_rick_riorda
 npm	dowload_ebok_the_spear_a_novel_by_louis_de_wohl_0dhpo	*	MAL-2026-19880
 npm	dowload_ebok_the_spies_of_winter_by_sinclair_mckay_7pz80	*	MAL-2026-19622
 npm	dowload_ebok_the_story_of_australias_people_vol_ii_by_geoffrey_blainey_05buw	*	MAL-2026-19623
+npm	dowload_ebok_the_supernaturals_by_david_l_golemon_5d1ej	*	MAL-2026-20370
 npm	dowload_ebok_the_testament_of_solomon_by_king_solomon_frederick_cornwallis_conybeare_5201c	*	MAL-2026-3799
 npm	dowload_ebok_the_third_frank_belknap_long_science_fiction_megap_by_frank_belknap_long_2cd23	*	MAL-2026-19881
 npm	dowload_ebok_the_undoing_project_by_michael_lewis_4hde3	*	MAL-2026-19882
@@ -74607,6 +74637,7 @@ npm	fca-kurumi	*	MAL-2023-7954
 npm	fca-manh19fc-remake	*	MAL-2025-20302
 npm	fca-manhdz2004	*	MAL-2023-8235
 npm	fca-mdong-remake	*	MAL-2023-7911
+npm	fca-meta	0.0.1	MAL-2026-20344
 npm	fca-milo-mod	*	MAL-2023-413
 npm	fca-mod-hrz	*	MAL-2023-414
 npm	fca-nayan-api	4.5.5	MAL-2024-2366
@@ -74622,7 +74653,7 @@ npm	fca-priyansh3	*	MAL-2023-8250
 npm	fca-pro	*	MAL-2025-20304
 npm	fca-qlam	*	MAL-2025-20305
 npm	fca-qlamzour	*	MAL-2025-20306
-npm	fca-raihan	37.2.5,37.2.6	MAL-2026-17328
+npm	fca-raihan	37.2.5,37.2.6,37.2.7	MAL-2026-17328
 npm	fca-rbtd	*	MAL-2023-1014
 npm	fca-rebel-api	*	MAL-2023-8273
 npm	fca-reygie-harizon	1.5.2	MAL-2023-8134
@@ -74654,6 +74685,7 @@ npm	fca-trankhuong	*	MAL-2023-427
 npm	fca-tuandz	*	MAL-2025-20313
 npm	fca-tuong	*	MAL-2023-428
 npm	fca-umaru-remake	*	MAL-2023-429
+npm	fca-uzair-dev	1.2.0	MAL-2026-20349
 npm	fca-xyz	*	MAL-2025-20314
 npm	fca-yawa	*	MAL-2025-20315
 npm	fca-yukihira	*	MAL-2023-430
@@ -78120,6 +78152,7 @@ npm	framer-motion-ext	*	MAL-2025-3685
 npm	framer-motion-js	*	MAL-2026-220
 npm	framer-motionanimate	*	MAL-2026-20067
 npm	framerate-interaction-permissions	1.0.0,2.0.0	MAL-2026-6163
+npm	framermotion-plugins	*	MAL-2026-20371
 npm	framework-adonis-pyxis-neptune	*	MAL-2025-20926
 npm	framework-astro-library-wasat	*	MAL-2025-142676
 npm	framework-backend-alphard-slidev	*	MAL-2025-20927
@@ -131301,6 +131334,7 @@ npm	n8n-nodes-rce-poc	1.0.0	MAL-2026-10503
 npm	n8n-nodes-security-test-poc	1.0.1,1.0.2,1.0.3,1.0.4,1.0.5	MAL-2026-6071
 npm	n8n-nodes-simple-alert	*	MAL-2025-5601
 npm	n8n-nodes-social-facebook	0.1.96,0.2.0	MAL-2026-10536
+npm	n8n-nodes-social-tiktok	0.1.0,0.1.1,0.1.10,0.1.11,0.1.12,0.1.13,0.1.15,0.1.16,0.1.17,0.1.18,0.1.19,0.1.2,0.1.20,0.1.21,0.1.22,0.1.3,0.1.4,0.1.5,0.1.7,0.1.8,0.1.9	MAL-2026-20343
 npm	n8n-nodes-sysdiag	1.0.0,1.0.1,1.0.2,1.0.3,1.0.4	MAL-2026-16147
 npm	n8n-nodes-sysdiag2	2.0.0	MAL-2026-16162
 npm	n8n-nodes-task-runner	1.0.0,1.0.1,1.0.10,1.0.11,1.0.12,1.0.13,1.0.14,1.0.15,1.0.16,1.0.2,1.0.3,1.0.4,1.0.5,1.0.6,1.0.7,1.0.8,1.0.9	MAL-2026-10999
@@ -134508,6 +134542,7 @@ npm	neo4j-apoc-procedures	1.0.1	MAL-2025-3195
 npm	neobill	*	MAL-2025-27277
 npm	neodium	*	MAL-2025-4107
 npm	neogov	1.1.1	MAL-2024-2694
+npm	neokex-fca	5.0.4,5.0.5,5.0.6	MAL-2026-20341
 npm	neolang-ui	*	MAL-2025-5937
 npm	neomatch	*	MAL-2025-27278
 npm	neon-poly-utls	1.3.1	MAL-2026-10089
@@ -153215,6 +153250,7 @@ npm	pp-tokens	*	MAL-2025-29567
 npm	pp-vx	*	MAL-2022-5435
 npm	ppaas	*	MAL-2025-29568
 npm	ppb-manticore	9.4.3	MAL-2026-14437
+npm	ppbbll5	0.0.1	MAL-2026-20342
 npm	ppboards	*	MAL-2025-29569
 npm	ppcardmanagementv2serv	19.0.2	MAL-2025-2487
 npm	ppcp-starter-node	*	MAL-2025-1169
@@ -163762,6 +163798,7 @@ npm	remyd	*	MAL-2025-171774
 npm	remyd7fh	*	MAL-2025-138975
 npm	renamev	*	MAL-2025-32072
 npm	renatama	*	MAL-2025-171775
+npm	render-keepalive	1.0.1	MAL-2026-20338
 npm	render-loop	*	MAL-2025-32073
 npm	render-sample-app	*	MAL-2024-7097
 npm	render-stage	*	MAL-2025-191524
@@ -181771,6 +181808,7 @@ npm	string-template-extractor	*	MAL-2025-34097
 npm	string-tethys-eleventy-astroinformatics	*	MAL-2025-34098
 npm	string-tools-be6c	1.0.0	MAL-2026-6100
 npm	string-utility-assistant	1.0.0	MAL-2024-11463
+npm	string-utils-assistant	1.0.0	MAL-2026-20352
 npm	string-version-oauth-epimetheus	*	MAL-2025-189701
 npm	string-width-aliased	*	MAL-2025-1500
 npm	string_decoder-browserify	*	MAL-2022-6325
@@ -184763,7 +184801,9 @@ npm	szsec-infoss-report	1.0.0	MAL-2025-191592
 npm	t-invest-mcp-server	9999.99.99	MAL-2026-5403
 npm	t-naughty-nubliesp	*	MAL-2025-166655
 npm	t-simp8e	*	MAL-2022-6403
+npm	t10-xor-spawn-testmetest	1.0.0	MAL-2026-20347
 npm	t2c-web-admin	*	MAL-2025-34355
+npm	t4-xorspawn-testmetest	1.0.0	MAL-2026-20348
 npm	t43est-hello-user-test-npm-com-test	1.4999.0	MAL-2025-4198
 npm	t4mp0p0	*	MAL-2025-139061
 npm	t4peork3m	*	MAL-2022-6404
@@ -226026,6 +226066,7 @@ pypi	devide04	1	MAL-2024-5045
 pypi	devilcore	1,2	MAL-2025-916
 pypi	devilfree	0.9.0,1.0,6.0	MAL-2025-917
 pypi	devilpy	0.1,0.2,0.3,0.4,0.5,0.6,0.7	MAL-2024-11574
+pypi	devready-doctor	1.0.0	MAL-2026-20333
 pypi	devtools-webhook-cicd-utils	1.4.7,1.5.0,1.5.1,1.6.0	MAL-2026-825
 pypi	dexat2	2	MAL-2025-918
 pypi	dexscreener-charts	1.0.0	MAL-2025-5110
@@ -234031,6 +234072,7 @@ pypi	solanakit	1.0.0,1.0.1	MAL-2026-2837
 pypi	solanautil	2.1.1	MAL-2025-4241
 pypi	solanna	*	MAL-2023-2280
 pypi	solaraund	0.1	MAL-2024-11711
+pypi	solblock	0.2.2,0.2.3	MAL-2026-20331
 pypi	solders-utils	0.1.1,1.98.2	MAL-2025-3000
 pypi	solgpt	0.1,0.2,0.3	MAL-2024-10166
 pypi	solhint-plugin-hyperlane	0.1.0	MAL-2026-547
